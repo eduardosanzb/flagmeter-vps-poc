@@ -13,8 +13,10 @@ services:
       context: .
       args:
         BUILDKIT_INLINE_CACHE: 0
+    # Coolify will map external 80/443 -> container 3000 via its reverse proxy
+    # Configure the public domain in Coolify's UI under "Domains"
     ports:
-      - 3000
+      - "3000:3000"
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
       interval: 30s
