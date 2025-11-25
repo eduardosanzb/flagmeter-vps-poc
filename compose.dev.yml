@@ -46,17 +46,19 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./apps/api:/app/apps/api
-      - ./packages:/app/packages
+      - .:/app
       - /app/node_modules
       - /app/apps/api/node_modules
+      - /app/apps/worker/node_modules
+      - /app/packages/db/node_modules
+      - /app/packages/types/node_modules
     depends_on:
       postgres:
         condition: service_healthy
       valkey:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -75,10 +77,12 @@ services:
       WORKER_CONCURRENCY: 4
       QUEUE_NAME: events
     volumes:
-      - ./apps/worker:/app/apps/worker
-      - ./packages:/app/packages
+      - .:/app
       - /app/node_modules
+      - /app/apps/api/node_modules
       - /app/apps/worker/node_modules
+      - /app/packages/db/node_modules
+      - /app/packages/types/node_modules
     depends_on:
       postgres:
         condition: service_healthy

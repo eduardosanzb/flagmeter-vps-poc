@@ -24,10 +24,13 @@ importers:
         specifier: workspace:*
         version: link:../../packages/types
       '@tanstack/react-router':
-        specifier: ^1.91.11
+        specifier: ^1.120.20
         version: 1.139.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/router-generator':
+        specifier: ^1.120.20
+        version: 1.139.3
       '@tanstack/start':
-        specifier: ^1.91.11
+        specifier: ^1.120.20
         version: 1.120.20(@types/node@20.19.25)(db0@0.3.4(drizzle-orm@0.36.4(@types/react@18.3.27)(postgres@3.4.7)(react@18.3.1)))(drizzle-orm@0.36.4(@types/react@18.3.27)(postgres@3.4.7)(react@18.3.1))(ioredis@5.8.2)(jiti@2.6.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.44.1)(tsx@4.20.6)(vite@6.4.1(@types/node@20.19.25)(jiti@2.6.1)(terser@5.44.1)(tsx@4.20.6))
       '@vinxi/react':
         specifier: ^0.2.5

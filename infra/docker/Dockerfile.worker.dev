@@ -5,15 +5,6 @@ RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
 WORKDIR /app
 
-# Copy workspace files
-COPY pnpm-workspace.yaml package.json pnpm-lock.yaml* ./
-COPY packages ./packages
-COPY apps/worker ./apps/worker
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-WORKDIR /app/apps/worker
-
-# Run in dev mode with watch
-CMD ["pnpm", "dev"]
+# Install dependencies and start dev server
+# pnpm install is fast when lockfile hasn't changed
+CMD ["sh", "-c", "pnpm install && cd apps/worker && pnpm dev"]

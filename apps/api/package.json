@@ -12,8 +12,9 @@
   "dependencies": {
     "@flagmeter/db": "workspace:*",
     "@flagmeter/types": "workspace:*",
-    "@tanstack/react-router": "^1.91.11",
-    "@tanstack/start": "^1.91.11",
+    "@tanstack/react-router": "^1.120.20",
+    "@tanstack/router-generator": "^1.120.20",
+    "@tanstack/start": "^1.120.20",
     "@vinxi/react": "^0.2.5",
     "drizzle-orm": "^0.36.4",
     "ioredis": "^5.4.2",
