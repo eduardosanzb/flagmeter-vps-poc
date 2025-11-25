@@ -1,6 +1,5 @@
 import { db } from './client.js';
 import { tenants, slackWebhooks } from './schema.js';
-import { eq } from 'drizzle-orm';
 
 async function seed() {
   console.log('Seeding database...');
@@ -18,15 +17,15 @@ async function seed() {
       .values(tenant)
       .onConflictDoNothing()
       .returning();
-    
+
     if (created) {
       console.log(`Created tenant: ${created.name} (${created.id})`);
-      
+
       // Add optional slack webhook (can be configured later)
       await db
         .insert(slackWebhooks)
         .values({
-          tenantId: created.id,
+          tenantId: created.id!,
           url: `https://hooks.slack.com/services/EXAMPLE/${created.name}`,
           enabled: false, // Disabled by default in seed
         })

@@ -68,7 +68,7 @@ export default function () {
   // 20% chance to also call GET /usage/:tenant
   if (Math.random() < 0.2) {
     const getResponse = http.get(`${BASE_URL}/api/usage/${tenant}`, params);
-    
+
     const getSuccess = check(getResponse, {
       'GET /usage status is 200': (r) => r.status === 200,
       'GET /usage has valid data': (r) => {
@@ -103,18 +103,18 @@ export function handleSummary(data) {
   console.log(`P99 Latency: ${p99.toFixed(2)}ms`);
   console.log(`Error Rate: ${(errorRate * 100).toFixed(2)}%`);
   console.log('========================================');
-  
+
   // Check targets
   const p99Target = 200;
   const p99Pass = p99 <= p99Target;
-  
+
   console.log(`\nP99 Target: ≤ ${p99Target}ms`);
   console.log(`P99 Result: ${p99Pass ? '✓ PASS' : '✗ FAIL'}`);
-  
+
   if (!p99Pass) {
     console.log(`\nWARNING: P99 latency (${p99.toFixed(2)}ms) exceeds target (${p99Target}ms)`);
   }
-  
+
   console.log('\n');
 
   return {

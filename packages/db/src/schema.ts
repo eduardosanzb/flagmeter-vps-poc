@@ -1,5 +1,4 @@
-import { pgTable, uuid, text, integer, timestamp, boolean, primaryKey } from 'drizzle-orm/pg-core';
-import { sql } from 'drizzle-orm';
+import { pgTable, uuid, text, integer, timestamp, boolean, primaryKey, unique, uniqueIndex } from 'drizzle-orm/pg-core';
 
 // Tenants table
 export const tenants = pgTable('tenants', {
@@ -8,7 +7,9 @@ export const tenants = pgTable('tenants', {
   monthlyQuota: integer('monthly_quota').notNull().default(1_000_000),
   billingDay: integer('billing_day').notNull().default(1),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
-});
+}, (t) => [
+    uniqueIndex('tenants_name_idx').on(t.name)
+  ]);
 
 // Events table
 export const events = pgTable('events', {
