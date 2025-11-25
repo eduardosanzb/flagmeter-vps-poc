@@ -54,3 +54,6 @@ prometheus_data/
 
 # Loki
 loki_data/
+
+# Build outputs
+packages/*/dist

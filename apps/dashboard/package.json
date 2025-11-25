@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite dev --port 3000 --host 0.0.0.0",
     "build": "vite build",
+    "start": "node .output/server/index.mjs",
     "serve": "vite preview",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
