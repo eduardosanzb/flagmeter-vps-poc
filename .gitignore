@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.output/
+.vinxi/
+.vercel/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+pnpm-debug.log*
+
+# Docker
+.dockerignore
+
+# Database
+*.db
+*.db-journal
+pg_data/
+postgres_data/
+
+# Drizzle
+drizzle/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Grafana
+grafana_data/
+
+# Prometheus
+prometheus_data/
+
+# Loki
+loki_data/

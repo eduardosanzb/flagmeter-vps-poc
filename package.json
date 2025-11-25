@@ -1,0 +1,35 @@
+{
+  "name": "flagmeter",
+  "version": "1.0.0",
+  "description": "AI quota monitoring microservice",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "docker compose -f compose.dev.yml up --build",
+    "dev:down": "docker compose -f compose.dev.yml down -v",
+    "prod": "docker compose up --build",
+    "prod:down": "docker compose down -v",
+    "db:push": "pnpm --filter @flagmeter/db db:push",
+    "db:studio": "pnpm --filter @flagmeter/db db:studio",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean && rm -rf node_modules"
+  },
+  "keywords": [
+    "ai",
+    "quota",
+    "monitoring",
+    "microservice",
+    "typescript"
+  ],
+  "author": "Eduardo Sanchez",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.17.9",
+    "typescript": "^5.7.2"
+  }
+}
