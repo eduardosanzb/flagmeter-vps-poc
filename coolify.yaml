@@ -1,6 +1,6 @@
 # Coolify deployment configuration for FlagMeter
 # This file enables auto-detection and configuration in Coolify
-# 
+#
 # Optimized for: Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM)
 # All images are ARM64 compatible
 
@@ -13,10 +13,9 @@ services:
       context: .
       args:
         BUILDKIT_INLINE_CACHE: 0
-    # Coolify will map external 80/443 -> container 3000 via its reverse proxy
-    # Configure the public domain in Coolify's UI under "Domains"
     ports:
       - "3000:3000"
+      - 3000
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
       interval: 30s
