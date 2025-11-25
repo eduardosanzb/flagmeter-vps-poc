@@ -27,8 +27,12 @@ In the container shell, run:
 🗄️  Running FlagMeter database migrations...
 📍 Database: postgresql://flagmeter:***@postgres:5432/flagmeter
 🔄 Creating database schema...
+   (using npx to run drizzle-kit)
+[npx will download drizzle-kit temporarily - takes ~30 seconds first time]
 ✅ Migrations completed successfully!
 ```
+
+**Note**: The script uses `npx drizzle-kit` which downloads drizzle-kit on-the-fly without needing it as a dependency. This keeps the production image lean.
 
 ### Step 3: Verify
 

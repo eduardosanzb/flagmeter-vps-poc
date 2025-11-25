@@ -16,12 +16,12 @@ echo "📍 Database: $DATABASE_URL"
 echo ""
 
 # Navigate to workspace root
-cd /app
+cd /app/packages/db
 
-# Run migrations using pnpm in packages/db
+# Run migrations using npx (downloads drizzle-kit on-the-fly)
 echo "🔄 Creating database schema..."
-cd packages/db
-pnpm db:push:force
+echo "   (using npx to run drizzle-kit)"
+npx drizzle-kit push --force
 
 if [ $? -eq 0 ]; then
   echo ""
