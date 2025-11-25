@@ -5,11 +5,8 @@ import * as schema from './schema.js';
 
 let _connection: ReturnType<typeof postgres> | null = null;
 let _db: PostgresJsDatabase<typeof schema> | null = null;
-let _sql: ReturnType<typeof postgres> | null = null;
 
 export function getConnection() {
-  console.log('Getting database connection...');
-  console.log(process.env.DATABASE_URL);
   if (!_connection) {
     const DATABASE_URL = process.env.DATABASE_URL;
 
@@ -36,29 +33,18 @@ export function getDb() {
 }
 
 export function getSql() {
-  if (!_sql) {
-    _sql = getConnection();
-  }
-
-  return _sql;
+  return getConnection();
 }
 
-// For backwards compatibility
+// Export for backwards compatibility
 export const connection = getConnection;
+
+// Drizzle db instance
 export const db = new Proxy({} as PostgresJsDatabase<typeof schema>, {
   get(target, prop) {
     return getDb()[prop as keyof PostgresJsDatabase<typeof schema>];
   },
 });
 
-// Raw SQL client for hot paths
-export const sql = new Proxy(function() {} as any, {
-  get(target, prop) {
-    const sqlClient = getSql();
-    const value = sqlClient[prop as keyof typeof sqlClient];
-    return typeof value === 'function' ? value.bind(sqlClient) : value;
-  },
-  apply(target, thisArg, argArray) {
-    return getSql()(...argArray);
-  },
-});
+// Raw SQL client - export connection directly for tagged template usage
+export const sql = getConnection();
