@@ -60,7 +60,7 @@ async function processJob(job: EventJob): Promise<void> {
     `;
 
     if (usageResult.length > 0) {
-      const usage = usageResult[0];
+      const usage = usageResult[0]!; // Safe: we checked length > 0
       const totalTokens = Number(usage.total_tokens);
       const monthlyQuota = Number(usage.monthly_quota);
       const quotaPercent = monthlyQuota > 0 ? (totalTokens / monthlyQuota) * 100 : 0;
