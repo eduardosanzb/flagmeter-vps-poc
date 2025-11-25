@@ -11,6 +11,8 @@ services:
     build:
       dockerfile: infra/docker/Dockerfile.dashboard
       context: .
+      args:
+        BUILDKIT_INLINE_CACHE: 0
     ports:
       - 3000
     healthcheck:
