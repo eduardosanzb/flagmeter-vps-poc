@@ -58,37 +58,39 @@ services:
   valkey:
     image: valkey/valkey:7-alpine
 
-  prometheus:
-    image: prom/prometheus:latest
-    ports:
-      - 9090
-    volumes:
-      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
+  # Observability stack - commented out for POC, enable when needed
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   ports:
+  #     - 9090
+  #   volumes:
+  #     - prometheus_data:/prometheus
+  #   command:
+  #     - '--config.file=/etc/prometheus/prometheus.yml'
+  #     - '--storage.tsdb.path=/prometheus'
 
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - 3001
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./infra/grafana/provisioning:/etc/grafana/provisioning
-    environment:
-      GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER}
-      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD}
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   ports:
+  #     - 3001
+  #   volumes:
+  #     - grafana_data:/var/lib/grafana
+  #   environment:
+  #     GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
+  #     GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:-admin}
 
-  loki:
-    image: grafana/loki:latest
-    ports:
-      - 3100
-    volumes:
-      - loki_data:/loki
+  # loki:
+  #   image: grafana/loki:latest
+  #   ports:
+  #     - 3100
+  #   volumes:
+  #     - loki_data:/loki
 
 volumes:
   postgres_data:
-  prometheus_data:
-  grafana_data:
-  loki_data:
+  # prometheus_data:
+  # grafana_data:
+  # loki_data:
 
 # Preview deployments configuration
 previews:
@@ -102,25 +104,26 @@ previews:
 # Resource limits optimized for Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM)
 resources:
   dashboard:
-    memory: 768M      # TanStack Start SSR + API routes
+    memory: 1024M     # TanStack Start SSR + API routes
     cpu: 0.75
   worker:
-    memory: 512M      # Event processing queue
+    memory: 768M      # Event processing queue
     cpu: 0.5
   postgres:
-    memory: 768M      # Main data store
+    memory: 1024M     # Main data store
     cpu: 0.5
   valkey:
-    memory: 256M      # Event queue + cache
+    memory: 384M      # Event queue + cache
     cpu: 0.25
-  prometheus:
-    memory: 384M      # Metrics collection
-    cpu: 0.25
-  grafana:
-    memory: 384M      # Dashboard visualization
-    cpu: 0.25
-  loki:
-    memory: 256M      # Log aggregation
-    cpu: 0.25
-# Total: ~3.3GB RAM allocated, ~1.7GB CPU shares
-# Leaves ~700MB for OS and buffers
+  # Observability services commented out for POC
+  # prometheus:
+  #   memory: 384M
+  #   cpu: 0.25
+  # grafana:
+  #   memory: 384M
+  #   cpu: 0.25
+  # loki:
+  #   memory: 256M
+  #   cpu: 0.25
+# Total with core services only: ~3.2GB RAM allocated, ~2.0GB CPU shares
+# Leaves ~800MB for OS and buffers
