@@ -1,4 +1,4 @@
-# Multi-stage build for production Dashboard
+# Multi-stage build for production Dashboard (Updated: 2025-11-25)
 FROM node:20-alpine AS builder
 
 # Install pnpm
