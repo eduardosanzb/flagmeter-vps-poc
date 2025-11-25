@@ -1,0 +1,124 @@
+# Coolify deployment configuration for FlagMeter
+# This file enables auto-detection and configuration in Coolify
+
+version: '1.0'
+
+services:
+  api:
+    name: flagmeter-api
+    build:
+      dockerfile: infra/docker/Dockerfile.api
+      context: .
+    ports:
+      - 3000
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      - DATABASE_URL
+      - VALKEY_URL
+      - NODE_ENV=production
+      - API_PORT=3000
+    depends_on:
+      - postgres
+      - valkey
+
+  worker:
+    name: flagmeter-worker
+    build:
+      dockerfile: infra/docker/Dockerfile.worker
+      context: .
+    environment:
+      - DATABASE_URL
+      - VALKEY_URL
+      - NODE_ENV=production
+      - WORKER_CONCURRENCY=4
+      - QUEUE_NAME=events
+    depends_on:
+      - postgres
+      - valkey
+
+  postgres:
+    name: flagmeter-postgres
+    image: postgres:18-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+
+  valkey:
+    name: flagmeter-valkey
+    image: valkey/valkey:7-alpine
+
+  prometheus:
+    name: flagmeter-prometheus
+    image: prom/prometheus:latest
+    ports:
+      - 9090
+    volumes:
+      - ./infra/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+
+  grafana:
+    name: flagmeter-grafana
+    image: grafana/grafana:latest
+    ports:
+      - 3001
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER
+      - GF_SECURITY_ADMIN_PASSWORD
+
+  loki:
+    name: flagmeter-loki
+    image: grafana/loki:latest
+    ports:
+      - 3100
+    volumes:
+      - loki_data:/loki
+
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+
+# Preview deployments configuration
+previews:
+  enabled: true
+  pattern: pr-{number}
+  domain: meter.yourdomain.com
+  services:
+    - api
+    - worker
+
+# Resource limits
+resources:
+  api:
+    memory: 512M
+    cpu: 0.5
+  worker:
+    memory: 512M
+    cpu: 0.5
+  postgres:
+    memory: 256M
+    cpu: 0.25
+  valkey:
+    memory: 128M
+    cpu: 0.25
+  prometheus:
+    memory: 256M
+    cpu: 0.25
+  grafana:
+    memory: 256M
+    cpu: 0.25
+  loki:
+    memory: 256M
+    cpu: 0.25
