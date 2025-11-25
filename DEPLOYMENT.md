@@ -20,23 +20,28 @@
 
    Set these in Coolify's environment configuration:
 
-   ```
+   ```bash
    # Database
    POSTGRES_USER=flagmeter
-   POSTGRES_PASSWORD=<secure-password>
+   POSTGRES_PASSWORD=<generate-strong-password>
    POSTGRES_DB=flagmeter
    DATABASE_URL=postgresql://flagmeter:<password>@postgres:5432/flagmeter
    
-   # Valkey
+   # Redis/Valkey
    VALKEY_URL=redis://valkey:6379
+   
+   # Application
+   NODE_ENV=production
+   QUEUE_NAME=events
+   LOG_LEVEL=info
    
    # Grafana
    GF_SECURITY_ADMIN_USER=admin
-   GF_SECURITY_ADMIN_PASSWORD=<secure-password>
+   GF_SECURITY_ADMIN_PASSWORD=<generate-strong-password>
+   GF_SERVER_ROOT_URL=https://grafana.meter.yourdomain.com
    
    # Worker
    WORKER_CONCURRENCY=4
-   QUEUE_NAME=events
    ```
 
 3. **Configure Domain**
@@ -53,9 +58,12 @@
      - Configure HTTPS
 
 5. **Access Services**
-   - Dashboard: `https://meter.yourdomain.com`
-   - API: `https://meter.yourdomain.com/api/events`
-   - Grafana: `https://meter.yourdomain.com:3001` (configure subdomain in Coolify)
+   - Dashboard: `https://meter.yourdomain.com` (main UI)
+   - Health Check: `https://meter.yourdomain.com/api/health`
+   - API Endpoints:
+     - POST `/api/events` - Event ingestion
+     - GET `/api/usage/:tenant` - Tenant usage
+   - Grafana: Configure subdomain in Coolify (e.g., `grafana.meter.yourdomain.com`)
 
 ### Branch Previews
 
@@ -66,12 +74,18 @@ https://pr-{number}.meter.yourdomain.com
 
 ### Database Migrations
 
-Migrations run automatically on container start via the init script.
-
-To manually run migrations:
+**First Deployment** - Run migrations manually:
 ```bash
-# In Coolify terminal for the api service
-pnpm db:push
+# In Coolify terminal for the dashboard service
+cd /app/packages/db
+pnpm db:push:force
+```
+
+**Optional** - Seed test data:
+```bash
+# In Coolify terminal for the dashboard service  
+cd /app/packages/db
+pnpm db:seed
 ```
 
 ### Database Backups
@@ -106,12 +120,30 @@ curl https://meter.yourdomain.com/api/health
 - Ensure postgres service is running
 - Check network connectivity between services
 
-### Cost Optimization
+### Resource Allocation
 
-Current resource allocation targets ≤€45/month:
-- API: 512MB RAM, 0.5 CPU
+Optimized for **Hetzner CAX11** (ARM64, 2 vCPU, 4GB RAM, €3.79/month):
+- Dashboard: 768MB RAM, 0.75 CPU
 - Worker: 512MB RAM, 0.5 CPU
-- Observability: ~768MB RAM total
-- Total: ~2GB RAM on single VPS
+- Postgres: 768MB RAM, 0.5 CPU
+- Valkey: 256MB RAM, 0.25 CPU
+- Prometheus: 384MB RAM, 0.25 CPU
+- Grafana: 384MB RAM, 0.25 CPU
+- Loki: 256MB RAM, 0.25 CPU
+- **Total: ~3.3GB RAM, ~2.75 CPU shares**
+- Leaves ~700MB for OS and buffers
 
-Recommended VPS: Hetzner CPX21 (2 vCPU, 4GB RAM) ~€7/month
+**Current Setup**: Hetzner CAX11 - Perfect fit! 🎯
+- All Docker images are ARM64 compatible
+- Worker concurrency set to 2 (matches CPU count)
+- Can handle ~100 req/s on dashboard
+- Can process ~1000 events/minute
+
+### Manual Deployment (Alternative to Coolify)
+
+See [compose.prod.yml](compose.prod.yml) for standalone Docker Compose deployment.
+
+1. Copy `.env.production.example` to `.env.production`
+2. Fill in your production values
+3. Run: `docker compose -f compose.prod.yml --env-file .env.production up -d`
+4. Run migrations: `docker exec flagmeter-dashboard sh -c "cd /app/packages/db && pnpm db:push:force"`

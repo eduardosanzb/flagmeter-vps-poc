@@ -1,13 +1,16 @@
 # Coolify deployment configuration for FlagMeter
 # This file enables auto-detection and configuration in Coolify
+# 
+# Optimized for: Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM)
+# All images are ARM64 compatible
 
 version: '1.0'
 
 services:
-  api:
-    name: flagmeter-api
+  dashboard:
+    name: flagmeter-dashboard
     build:
-      dockerfile: infra/docker/Dockerfile.api
+      dockerfile: infra/docker/Dockerfile.dashboard
       context: .
     ports:
       - 3000
@@ -21,7 +24,8 @@ services:
       - DATABASE_URL
       - VALKEY_URL
       - NODE_ENV=production
-      - API_PORT=3000
+      - QUEUE_NAME=events
+      - LOG_LEVEL=info
     depends_on:
       - postgres
       - valkey
@@ -35,8 +39,9 @@ services:
       - DATABASE_URL
       - VALKEY_URL
       - NODE_ENV=production
-      - WORKER_CONCURRENCY=4
+      - WORKER_CONCURRENCY=2
       - QUEUE_NAME=events
+      - LOG_LEVEL=info
     depends_on:
       - postgres
       - valkey
@@ -96,29 +101,31 @@ previews:
   pattern: pr-{number}
   domain: meter.yourdomain.com
   services:
-    - api
+    - dashboard
     - worker
 
-# Resource limits
+# Resource limits optimized for Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM)
 resources:
-  api:
-    memory: 512M
-    cpu: 0.5
+  dashboard:
+    memory: 768M      # TanStack Start SSR + API routes
+    cpu: 0.75
   worker:
-    memory: 512M
+    memory: 512M      # Event processing queue
     cpu: 0.5
   postgres:
-    memory: 256M
-    cpu: 0.25
+    memory: 768M      # Main data store
+    cpu: 0.5
   valkey:
-    memory: 128M
+    memory: 256M      # Event queue + cache
     cpu: 0.25
   prometheus:
-    memory: 256M
+    memory: 384M      # Metrics collection
     cpu: 0.25
   grafana:
-    memory: 256M
+    memory: 384M      # Dashboard visualization
     cpu: 0.25
   loki:
-    memory: 256M
+    memory: 256M      # Log aggregation
     cpu: 0.25
+# Total: ~3.3GB RAM allocated, ~1.7GB CPU shares
+# Leaves ~700MB for OS and buffers
