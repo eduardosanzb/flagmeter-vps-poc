@@ -30,14 +30,14 @@ export default function Header() {
         >
           <Menu size={24} />
         </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/tanstack-word-logo-white.svg"
-              alt="TanStack Logo"
-              className="h-10"
-            />
-          </Link>
+        <h1 className="ml-4 text-3xl font-light tracking-wide">
+          <a 
+            href="https://raus.cloud" 
+            className="text-white hover:text-gray-300 transition-colors"
+            style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}
+          >
+            raus.cloud
+          </a>
         </h1>
       </header>
 

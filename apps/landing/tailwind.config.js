@@ -19,12 +19,11 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          'Inter',
+          'Helvetica Neue',
+          'Helvetica',
           '-apple-system',
           'BlinkMacSystemFont',
           'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
           'Arial',
           'sans-serif',
         ],

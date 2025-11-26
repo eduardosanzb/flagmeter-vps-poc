@@ -89,15 +89,17 @@ export default function () {
 }
 
 export function handleSummary(data) {
-  const p95 = data.metrics.http_req_duration.values['p(95)'];
-  const p99 = data.metrics.http_req_duration.values['p(99)'];
-  const avgRps = data.metrics.http_reqs.values.rate;
-  const errorRate = data.metrics.errors ? data.metrics.errors.values.rate : 0;
+  // Safely extract metrics with fallbacks
+  const p95 = data.metrics?.http_req_duration?.values?.['p(95)'] ?? 0;
+  const p99 = data.metrics?.http_req_duration?.values?.['p(99)'] ?? 0;
+  const totalRequests = data.metrics?.http_reqs?.values?.count ?? 0;
+  const avgRps = data.metrics?.http_reqs?.values?.rate ?? 0;
+  const errorRate = data.metrics?.errors?.values?.rate ?? 0;
 
   console.log('\n========================================');
   console.log('FlagMeter Load Test Results');
   console.log('========================================');
-  console.log(`Total Requests: ${data.metrics.http_reqs.values.count}`);
+  console.log(`Total Requests: ${totalRequests}`);
   console.log(`Average RPS: ${avgRps.toFixed(2)}`);
   console.log(`P95 Latency: ${p95.toFixed(2)}ms`);
   console.log(`P99 Latency: ${p99.toFixed(2)}ms`);
@@ -106,12 +108,12 @@ export function handleSummary(data) {
 
   // Check targets
   const p99Target = 200;
-  const p99Pass = p99 <= p99Target;
+  const p99Pass = p99 > 0 && p99 <= p99Target;
 
   console.log(`\nP99 Target: ≤ ${p99Target}ms`);
   console.log(`P99 Result: ${p99Pass ? '✓ PASS' : '✗ FAIL'}`);
 
-  if (!p99Pass) {
+  if (p99 > 0 && !p99Pass) {
     console.log(`\nWARNING: P99 latency (${p99.toFixed(2)}ms) exceeds target (${p99Target}ms)`);
   }
 
