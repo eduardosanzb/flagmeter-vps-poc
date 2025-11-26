@@ -47,7 +47,7 @@ pillars:
   subtitle: "Nicht verhandelbare Standards, die unsere Leistungen definieren"
   items:
     - title: "60% Kostengarantie"
-      description: "Wir senken Ihre Infrastrukturkosten um 60-70% oder Sie zahlen die Pilotgebühr nicht. Ihre AWS-Rechnung wird zu €3k/Monat Hosting."
+      description: "Wir senken Ihre Infrastrukturkosten um 60-70% oder Sie zahlen die Pilotgebühr nicht. Ihre AWS-Rechnung wird zu €3k/Monat Hosting. [Siehe Hetzner CAX11 Load-Test Snapshot](https://notes.eduardosanzb.dev/s/aa17de1b-baac-4784-9142-dca089d298a5)."
     - title: "2-Tage-Ownership"
       description: "Deployment in 2 Befehlen: git push und docker-compose up. Ihr Team betreibt die Produktion ohne uns anzurufen."
     - title: "Tests + Runbooks"

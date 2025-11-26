@@ -47,7 +47,7 @@ pillars:
   subtitle: "Non-negotiables that define our deliverables"
   items:
     - title: "60% Cost Guarantee"
-      description: "We cut your infrastructure costs by 60-70% or you don't pay the pilot fee. Your AWS bill becomes €3k/month hosting."
+      description: "We cut your infrastructure costs by 60-70% or you don't pay the pilot fee. Your AWS bill becomes €3k/month hosting. [See Hetzner CAX11 Load-Test Snapshot](https://notes.eduardosanzb.dev/s/aa17de1b-baac-4784-9142-dca089d298a5)."
     - title: "2-Day Ownership"
       description: "Deploy in 2 commands: git push and docker-compose up. Your team runs production without calling us."
     - title: "Tests + Runbooks"
