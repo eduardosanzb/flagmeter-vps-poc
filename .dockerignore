@@ -1,0 +1,58 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+.output
+.vinxi
+.vercel
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+
+# Logs
+*.log
+logs
+
+# Docker
+docker-compose*.yml
+Dockerfile*
+
+# CI/CD
+.github
+
+# Dev files
+*.md
+LICENSE
+
+# Test
+coverage
+.nyc_output
+**/__tests__
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+
+# Database
+*.db
+*.db-journal
+pg_data
+postgres_data
+drizzle
+
+# Observability
+grafana_data
+prometheus_data
+loki_data
