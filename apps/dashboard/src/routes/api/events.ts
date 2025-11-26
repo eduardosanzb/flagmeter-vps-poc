@@ -40,7 +40,7 @@ export const Route = createFileRoute('/api/events')({
             // return json({ error: `Tenant '${tenantName}' not found` }, { status: 404 });
             const [newTenant] = await db
               .insert(tenants)
-              .values({ name: tenantName })
+              .values({ name: tenantName, monthlyQuota: 1000000000 })
               .returning();
 
             logger.info({ tenantId: newTenant.id, tenantName }, 'Created new tenant');
