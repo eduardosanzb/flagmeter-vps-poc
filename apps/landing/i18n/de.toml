@@ -1,0 +1,45 @@
+[language]
+other = "DE"
+
+[languageSwitch]
+other = "Zu Englisch wechseln"
+
+[navigation]
+[navigation.home]
+other = "Startseite"
+
+[navigation.pricing]
+other = "Preise"
+
+[navigation.faq]
+other = "FAQ"
+
+[cta]
+[cta.bookAudit]
+other = "Kostenlose Prüfung erhalten"
+
+[cta.learnMore]
+other = "Mehr erfahren"
+
+[section]
+[section.howItWorks]
+other = "Wie es funktioniert"
+
+[section.principles]
+other = "Arbeitsprinzipien"
+
+[section.pillars]
+other = "Qualitätssäulen"
+
+[section.pricing]
+other = "Transparente Preise"
+
+[section.faq]
+other = "Häufig gestellte Fragen"
+
+[footer]
+[footer.copyright]
+other = "© 2025 Raus.cloud. Alle Rechte vorbehalten."
+
+[footer.built]
+other = "Infrastruktur ohne DevOps"

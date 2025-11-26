@@ -1,0 +1,45 @@
+[language]
+other = "EN"
+
+[languageSwitch]
+other = "Switch to German"
+
+[navigation]
+[navigation.home]
+other = "Home"
+
+[navigation.pricing]
+other = "Pricing"
+
+[navigation.faq]
+other = "FAQ"
+
+[cta]
+[cta.bookAudit]
+other = "Get Free Audit"
+
+[cta.learnMore]
+other = "Learn More"
+
+[section]
+[section.howItWorks]
+other = "How It Works"
+
+[section.principles]
+other = "Operating Principles"
+
+[section.pillars]
+other = "Quality Pillars"
+
+[section.pricing]
+other = "Transparent Pricing"
+
+[section.faq]
+other = "Frequently Asked Questions"
+
+[footer]
+[footer.copyright]
+other = "© 2025 Raus.cloud. All rights reserved."
+
+[footer.built]
+other = "Infrastructure without DevOps"

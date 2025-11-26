@@ -1,0 +1,38 @@
+baseURL = "https://raus.cloud"
+languageCode = "en"
+title = "Raus.cloud - Infrastructure Without DevOps"
+
+# Enable multilingual mode
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    contentDir = "content"
+    [languages.en.params]
+      locale = "en_US"
+      
+  [languages.de]
+    languageName = "Deutsch"
+    weight = 2
+    contentDir = "content"
+    [languages.de.params]
+      locale = "de_DE"
+
+[params]
+  description = "Cut your cloud costs by 60-70% and free your engineering team. Infrastructure that doesn't require a DevOps hire. Ever."
+  author = "Eduardo Sanchez"
+  calendarLink = "https://cal.com/eduardosanzb/15min"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[outputs]
+  home = ["HTML"]
+
+[build]
+  writeStats = true

@@ -47,6 +47,20 @@ services:
       - postgres
       - valkey
 
+  landing:
+    build:
+      dockerfile: Dockerfile
+      context: apps/landing
+    ports:
+      - "8080:80"
+      - 8080
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
   postgres:
     image: postgres:18-alpine
     volumes:
@@ -116,6 +130,9 @@ resources:
   valkey:
     memory: 384M      # Event queue + cache
     cpu: 0.25
+  landing:
+    memory: 128M      # Static nginx site (minimal resources)
+    cpu: 0.1
   # Observability services commented out for POC
   # prometheus:
   #   memory: 384M
@@ -126,5 +143,5 @@ resources:
   # loki:
   #   memory: 256M
   #   cpu: 0.25
-# Total with core services only: ~3.2GB RAM allocated, ~2.0GB CPU shares
-# Leaves ~800MB for OS and buffers
+# Total with core services only: ~3.3GB RAM allocated, ~2.1GB CPU shares
+# Leaves ~700MB for OS and buffers

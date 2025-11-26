@@ -1,0 +1,27 @@
+{
+  "name": "@flagmeter/landing",
+  "version": "1.0.0",
+  "description": "Raus.cloud landing page - Infrastructure without DevOps",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm run dev:hugo\" \"pnpm run dev:css\"",
+    "dev:hugo": "hugo server --bind 0.0.0.0 --disableFastRender",
+    "dev:css": "tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --watch",
+    "build": "pnpm run build:css && hugo --minify",
+    "build:css": "NODE_ENV=production tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --minify"
+  },
+  "keywords": [
+    "landing-page",
+    "hugo",
+    "tailwindcss"
+  ],
+  "author": "Eduardo Sanchez",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.17"
+  }
+}

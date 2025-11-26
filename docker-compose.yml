@@ -158,6 +158,29 @@ services:
         reservations:
           memory: 128M
 
+  landing:
+    build:
+      context: ./apps/landing
+      dockerfile: Dockerfile
+    container_name: flagmeter-landing
+    ports:
+      - "${LANDING_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - flagmeter
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
 volumes:
   postgres_data:
     driver: local

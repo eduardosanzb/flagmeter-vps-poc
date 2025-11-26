@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ .Site.Params.description }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+  
+  <title>{{ .Site.Title }}</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{ .Site.Title }}">
+  <meta property="og:description" content="{{ .Site.Params.description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ .Site.Title }}">
+  <meta name="twitter:description" content="{{ .Site.Params.description }}">
+</head>
+<body class="bg-white">
+  {{ partial "header.html" . }}
+  
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  
+  {{ partial "footer.html" . }}
+  
+  <!-- Alpine.js for interactive components -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

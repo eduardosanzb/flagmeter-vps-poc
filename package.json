@@ -15,6 +15,8 @@
     "prod:down": "docker compose down -v",
     "db:push": "pnpm --filter @flagmeter/db db:push",
     "db:studio": "pnpm --filter @flagmeter/db db:studio",
+    "landing:dev": "pnpm --filter @flagmeter/landing dev",
+    "landing:build": "pnpm --filter @flagmeter/landing build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean && rm -rf node_modules"
