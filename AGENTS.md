@@ -417,4 +417,376 @@ This creates `.opencode/agent/ts-validator.md` with appropriate configuration.
 - Always use **@reviewer** for security and quality checks
 - Use `/undo` if an agent makes unwanted changes
 
+---
+
+## Project Status & Architecture
+
+### Current Project Structure
+
+FlagMeter is a monorepo with the following apps:
+
+```
+apps/
+├── dashboard/        # TanStack Start SSR app (API + UI)
+├── worker/           # Background event processor
+└── landing/          # Hugo static site (Raus.cloud pitch page) ⭐ NEW
+
+packages/
+├── db/              # Drizzle ORM + PostgreSQL schema
+└── types/           # Shared TypeScript types
+```
+
+### Tech Stack
+
+- **Monorepo**: pnpm workspaces
+- **Dashboard**: TanStack Start, Drizzle ORM, PostgreSQL, Valkey (Redis)
+- **Worker**: Node.js, BullMQ, event processing
+- **Landing**: Hugo (static site generator), Tailwind CSS, nginx
+- **Deployment**: Docker Compose, Coolify (self-hosted PaaS)
+- **Monitoring**: Prometheus, Grafana, Loki (commented out for POC)
+
+### Recent Additions
+
+#### Landing Page (`apps/landing/`)
+- **Purpose**: Raus.cloud infrastructure optimization pitch
+- **Tech**: Hugo + Tailwind CSS + Alpine.js
+- **Features**: English/German i18n, mobile-responsive, interactive FAQ
+- **Deployment**: Docker with nginx, integrated into Coolify
+- **Domain**: https://raus.cloud
+
+---
+
+## Common Pitfalls & Lessons Learned
+
+### Docker & pnpm Workspace Issues
+
+#### ❌ **Pitfall #1: NODE_ENV=production skips devDependencies**
+
+**Problem:**
+```json
+"build:css": "NODE_ENV=production npx tailwindcss ..."
+```
+
+When `NODE_ENV=production` is set during `npm install`, npm skips devDependencies. Since Tailwind CSS is a devDependency, the build fails.
+
+**Solution:**
+```json
+"build:css": "npx tailwindcss ..."  // Don't set NODE_ENV in build script
+```
+
+Or in Dockerfile, install dependencies BEFORE setting NODE_ENV:
+```dockerfile
+RUN npm install
+ENV NODE_ENV production
+```
+
+#### ❌ **Pitfall #2: pnpm in Docker can be complex**
+
+**Problem:**
+pnpm's symlinking and store structure doesn't always work well in Docker, especially for isolated package builds (not full workspace).
+
+**Solution for Landing Page:**
+Use **npm** in Docker for simpler, isolated builds:
+```dockerfile
+# Simple and reliable
+RUN npm install
+RUN npm run build:css
+```
+
+Use **pnpm** for local development:
+```bash
+pnpm landing:dev
+```
+
+#### ❌ **Pitfall #3: Missing .dockerignore**
+
+**Problem:**
+Copying `node_modules` from host into Docker causes conflicts and errors like:
+```
+cannot replace to directory ... with file
+```
+
+**Solution:**
+Always create `.dockerignore`:
+```
+node_modules
+public
+*.log
+.DS_Store
+```
+
+#### ❌ **Pitfall #4: Hugo template errors**
+
+**Problem:**
+```
+can't evaluate field DefaultContentLanguage in type page.Site
+```
+
+Hugo's `site.DefaultContentLanguage` changed in newer versions.
+
+**Solution:**
+Use hardcoded default language:
+```html
+{{ if ne .Lang "en" }}{{ .Lang }}/{{ end }}
+```
+
+#### ❌ **Pitfall #5: Theme requirement**
+
+**Problem:**
+```toml
+theme = ""  # Hugo errors with "module not found"
+```
+
+**Solution:**
+Remove the theme line entirely from `hugo.toml` if using custom layouts.
+
+---
+
+## Docker Best Practices for This Project
+
+### Multi-Stage Builds
+
+All Dockerfiles use multi-stage builds:
+
+```dockerfile
+# Stage 1: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Production
+FROM nginx:alpine
+COPY --from=builder /app/public /usr/share/nginx/html
+```
+
+### Package Manager Choice
+
+| Context | Use | Why |
+|---------|-----|-----|
+| Local dev | **pnpm** | Workspace support, shared deps |
+| Docker (workspace) | **pnpm** | Full monorepo build |
+| Docker (isolated) | **npm** | Simpler, no symlink issues |
+
+### Landing Page Dockerfile Pattern
+
+```dockerfile
+# Use npm for simplicity in isolated builds
+FROM node:20-alpine AS node-builder
+WORKDIR /app
+COPY package.json ./
+RUN npm install              # ✅ Install ALL deps
+COPY . .
+RUN npm run build:css        # ✅ No NODE_ENV here
+
+# Hugo stage
+FROM klakegg/hugo:0.111.3-alpine AS hugo-builder
+COPY --from=node-builder /app /app
+RUN hugo --minify
+
+# Nginx stage
+FROM nginx:1.25-alpine
+COPY --from=hugo-builder /app/public /usr/share/nginx/html
+```
+
+---
+
+## Development Workflows
+
+### Working on Landing Page
+
+```bash
+# Start dev server (from root)
+pnpm landing:dev
+
+# Build for production
+pnpm landing:build
+
+# Test Docker build
+cd apps/landing
+docker build -t landing-test .
+docker run -p 8080:80 landing-test
+
+# Edit content (no code needed!)
+vim apps/landing/content/_index.en.md
+```
+
+### Working on Dashboard/API
+
+```bash
+# Run full stack locally
+pnpm dev
+
+# Run just dashboard
+cd apps/dashboard
+pnpm dev
+
+# Database operations
+pnpm db:push        # Apply schema changes
+pnpm db:studio      # Open Drizzle Studio
+```
+
+### Working on Worker
+
+```bash
+# Run worker locally
+cd apps/worker
+pnpm dev
+
+# Test event processing
+curl -X POST http://localhost:3000/api/events \
+  -H "Content-Type: application/json" \
+  -d '{"tenant":"test","event":"test"}'
+```
+
+---
+
+## Deployment Notes
+
+### Coolify Configuration
+
+The project uses `coolify.yaml` for deployment configuration:
+
+```yaml
+services:
+  dashboard:   # Port 3000, 1GB RAM, 0.75 CPU
+  worker:      # 768MB RAM, 0.5 CPU
+  landing:     # Port 8080, 128MB RAM, 0.1 CPU ⭐
+  postgres:    # 1GB RAM, 0.5 CPU
+  valkey:      # 384MB RAM, 0.25 CPU
+```
+
+**Total resources**: ~3.3GB RAM, ~2.1 CPU (fits Hetzner CAX11)
+
+### Domain Configuration
+
+- **Dashboard/API**: meter.yourdomain.com (from Coolify)
+- **Landing**: raus.cloud (static pitch page)
+
+### Health Checks
+
+All services have health checks:
+
+```bash
+# Dashboard
+curl http://localhost:3000/api/health
+
+# Landing
+curl http://localhost:8080/health
+
+# Worker (via dashboard API)
+curl http://localhost:3000/api/worker/health
+```
+
+---
+
+## Content Editing Guidelines
+
+### Landing Page Content
+
+**All content is in markdown - NO CODE EDITING REQUIRED**
+
+```yaml
+# apps/landing/content/_index.en.md
+---
+hero:
+  title: "Don't hire DevOps. Cut your cloud bill by 60%."
+  subtitle: "Your description here"
+  cta_primary: "Get Free Audit"
+
+pricing:
+  tiers:
+    - name: "Free Audit"
+      price: "€0"
+      features:
+        - "Feature 1"
+---
+```
+
+**To update content:**
+1. Edit markdown file
+2. Commit changes
+3. Push to git
+4. Coolify auto-deploys
+
+**No Hugo/code knowledge needed!**
+
+---
+
+## When to Use Each Agent
+
+### Use `@database` when:
+- Modifying `packages/db/schema.ts`
+- Creating migrations
+- Changing database structure
+- Adding indexes or constraints
+
+### Use `@api-dev` when:
+- Adding new API endpoints
+- Modifying request/response handlers
+- Working on dashboard UI components
+- Authentication/authorization changes
+
+### Use `@worker-dev` when:
+- Modifying event processing logic
+- Queue management
+- Background jobs
+- Webhook delivery logic
+
+### Use `@reviewer` when:
+- Before committing major changes
+- Security review
+- Performance optimization review
+- Code quality checks
+
+### Use `@general` when:
+- Finding where features are implemented
+- Understanding code flow
+- Searching for patterns
+- Exploring unfamiliar parts of codebase
+
+---
+
+## Emergency Contacts & Resources
+
+### If Things Break
+
+1. **Check logs**: `docker logs flagmeter-[service]`
+2. **Health checks**: See "Health Checks" section above
+3. **Restart service**: Coolify dashboard → Redeploy
+4. **Rollback**: `git revert` + push
+
+### Documentation
+
+- **Project Handover**: `PROJECT_HANDOVER.md`
+- **Landing Docs**: `apps/landing/README.md`
+- **Deployment**: `apps/landing/DEPLOYMENT.md`
+- **Coolify Deploy**: `apps/landing/COOLIFY_DEPLOY.md`
+- **Database**: `packages/db/README.md`
+
+### Quick Commands
+
+```bash
+# Install everything
+pnpm install
+
+# Run full stack
+pnpm dev
+
+# Build landing
+pnpm landing:build
+
+# Database studio
+pnpm db:studio
+
+# Type check everything
+pnpm typecheck
+```
+
+---
+
 Happy coding! 🚀
+
+**Remember**: When in doubt, use the `plan` agent first to understand, then `build` to implement!
