@@ -31,6 +31,9 @@ RUN hugo --minify
 # Stage 3: Serve with nginx
 FROM nginx:1.25-alpine
 
+# Install wget for health checks
+RUN apk add --no-cache wget
+
 # Copy built site from hugo builder
 COPY --from=hugo-builder /app/public /usr/share/nginx/html
 
@@ -42,7 +45,7 @@ EXPOSE 80
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+  CMD wget --quiet --tries=1 --spider http://localhost/health || exit 1
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
