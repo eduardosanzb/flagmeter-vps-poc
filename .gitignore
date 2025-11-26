@@ -54,3 +54,4 @@ loki_data/
 
 # Build outputs
 packages/*/dist
+scripts/coolify-pg-tunnel.sh

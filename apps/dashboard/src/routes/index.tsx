@@ -1,7 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 import { getSql } from '@flagmeter/db';
 import type { TenantUsageData } from '@flagmeter/types';
+import { useEffect } from 'react';
 
 // Server function to fetch all tenants usage
 const fetchTenantsUsage = createServerFn({ method: 'GET' }).handler(async () => {
@@ -41,16 +42,29 @@ export const Route = createFileRoute('/')({
     try{
 
     const tenants = await fetchTenantsUsage()
-    return { tenants };
+    return { tenants, lastUpdated: new Date().toISOString() };
     }catch(e){
       console.error("Error fetching tenant usage:", e);
-      return { tenants: [] };
+      return { tenants: [], lastUpdated: new Date().toISOString() };
     }
   },
+  // Enable automatic refetching every 5 seconds using TanStack Router's built-in polling
+  staleTime: 5000,
 });
 
 function Home() {
-  const { tenants } = Route.useLoaderData();
+  const { tenants, lastUpdated } = Route.useLoaderData();
+  const router = useRouter();
+
+  // Auto-refresh data every 5 seconds without full page reload
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Invalidate the route to trigger a refetch of loader data
+      router.invalidate();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [router]);
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
@@ -91,15 +105,9 @@ function Home() {
         ))}
       </div>
 
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            setInterval(() => {
-              window.location.reload();
-            }, 5000);
-          `
-        }}
-      />
+      <div style={{ marginTop: '2rem', textAlign: 'center', color: '#999', fontSize: '0.875rem' }}>
+        Auto-refreshes every 5 seconds • Last updated: {new Date(lastUpdated).toLocaleTimeString()}
+      </div>
     </div>
   );
 }

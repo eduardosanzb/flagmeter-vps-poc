@@ -11,7 +11,8 @@ const config = defineConfig({
       allowedHosts: ['.localdomain', '.local', '.test', '.localhost', 'host.docker.internal' ],
   },
   plugins: [
-    devtools(),
+    // Only enable devtools in development mode
+    ...(process.env.NODE_ENV !== 'production' ? [devtools()] : []),
     nitro(),
     // this is the plugin that enables path aliases
     viteTsConfigPaths({
