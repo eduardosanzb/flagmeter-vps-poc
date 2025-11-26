@@ -8,7 +8,7 @@
     "dev:hugo": "hugo server --bind 0.0.0.0 --disableFastRender",
     "dev:css": "tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --watch",
     "build": "pnpm run build:css && hugo --minify",
-    "build:css": "NODE_ENV=production tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --minify"
+    "build:css": "tailwindcss -i ./assets/css/main.css -o ./static/css/style.css --minify"
   },
   "keywords": [
     "landing-page",

@@ -6,10 +6,10 @@ FROM node:20-alpine AS node-builder
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies with npm (simpler for Docker builds)
+RUN npm install
 
 # Copy source files
 COPY . .

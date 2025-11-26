@@ -30,9 +30,6 @@ Thumbs.db
 logs/
 pnpm-debug.log*
 
-# Docker
-.dockerignore
-
 # Database
 *.db
 *.db-journal
