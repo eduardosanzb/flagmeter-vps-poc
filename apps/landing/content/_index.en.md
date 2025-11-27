@@ -24,8 +24,6 @@ who_we_are:
       description: "We don’t sell tools—we fix problems. Our team has shipped production systems at scale and knows what it means to deploy fast, safely, and independently."
     - title: "Cloud Skeptics"
       description: "We believe infrastructure should serve your product—not own it. The cloud isn’t always the answer. Simpler stacks often deliver better outcomes."
-    - title: "FinOps Practitioners"
-      description: "We apply FinOps principles across all cloud providers: visibility, accountability, and alignment between engineering and finance. No blind spending."
     - title: "Disappearing Act"
       description: "Our goal is to help you build a self-sufficient team. Once you’re running smoothly, we’re no longer needed."
 # How It Works Section
