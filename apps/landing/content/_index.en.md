@@ -108,7 +108,7 @@ faq:
   title: "Frequently Asked Questions"
   subtitle: "Handling the objections, engineer to engineer"
   items:
-   - question: "Why VPS over cloud?"
+    - question: "Why VPS over cloud?"
       answer: "VPS offers predictable costs and simplicity. We pair it with Cloudflare for edge cases (e.g., CDN, DDoS). No lock-in, no YAML hell."
     - question: "What if the VPS dies?"
       answer: "We run two instances with a floating IP. Cheaper than one EC2 with redundancy, and failover is automatic."
