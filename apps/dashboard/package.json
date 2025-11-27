@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000 --host 0.0.0.0",
+    "dev": "NODE_OPTIONS='--import ./telemetry.mjs' vite dev --port 3000 --host 0.0.0.0",
     "build": "vite build",
-    "start": "node .output/server/index.mjs",
+    "start": "NODE_OPTIONS='--import ./telemetry.mjs' node .output/server/index.mjs",
     "serve": "vite preview",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@flagmeter/db": "workspace:*",
+    "@flagmeter/telemetry": "workspace:*",
     "@flagmeter/types": "workspace:*",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.7.0",
