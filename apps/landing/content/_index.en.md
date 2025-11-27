@@ -1,123 +1,106 @@
 ---
 title: "Infrastructure Without DevOps"
-
-# Sections order (can be reordered easily!)
 sections:
   - how_it_works
   - principles
   - pillars
   - pricing
   - faq
-
 # Hero Section
 hero:
-  title: "Don't hire DevOps. Cut your cloud bill by 60%."
-  subtitle: "European B2B SaaS teams spend €8k-15k/month on infrastructure complexity. We migrate you to a sustainable stack your engineers own in 2 days—and fire ourselves in 90."
-  cta_primary: "Get Free 15-Min Audit"
+  title: "Don’t Hire DevOps. Own Your Infrastructure."
+  subtitle: "European B2B SaaS teams waste **significant costs** on cloud complexity. We migrate you to a sustainable VPS/hybrid stack your engineers own in 2 days—and fire ourselves in 90."
+  cta_primary: "Book Initial Workshop"
   cta_secondary: "See How It Works"
-
 # How It Works Section
 how_it_works:
   title: "Three Steps to Freedom"
   subtitle: "From audit to independence in weeks, not quarters"
   items:
     - number: "01"
-      title: "Free 15-Min Audit"
-      description: "Screenshare your AWS console. We identify €2k-4k/month in waste and deliver a 1-page kill-list. No pitch, no obligation."
+      title: "Initial Workshop (1-2 Hours)"
+      description: "Deep-dive analysis of your infrastructure. We identify key areas of waste and deliver a prioritized action plan. No pitch, no obligation."
     - number: "02"
-      title: "€5k Pilot (1 Week)"
-      description: "Migrate one service. Cut costs by 50% or get your money back. You see the proof before committing to the full stack."
+      title: "Pilot Migration"
+      description: "Migrate one service to a hybrid VPS/Cloudflare stack. Prove value before committing to full migration."
     - number: "03"
-      title: "€15k Full Migration"
-      description: "3 weeks. Complete cutover to VPS/Docker Compose. Your team trained. Runbook delivered. We hand over the keys."
-
+      title: "Full Migration"
+      description: "Complete cutover to VPS/Docker Compose + strategic cloud offloading. Your team trained. Runbook delivered. We hand over the keys."
 # Operating Principles Section
 principles:
   title: "How We Work"
   subtitle: "Efficiency by design, not by accident"
   items:
+    - title: "FinOps-Driven Optimization"
+      description: "We apply FinOps principles across all cloud providers to align spending with business outcomes. Data-driven decisions, not guesswork."
+      icon: "chart-bar"
     - title: "No Recurring Meetings"
       description: "All updates in GitHub issues and PRs. Your team stays focused on shipping features."
       icon: "calendar-x"
     - title: "Async by Default"
       description: "Context in issues, reviews in PRs, decisions in comments. Work across timezones without friction."
       icon: "message-circle"
-    - title: "Pause Anytime"
-      description: "Vacation-friendly. Stop billing with a single message. Resume when you're ready."
-      icon: "pause-circle"
     - title: "We Fire Ourselves"
-      description: "Every config goes in your repo. After 90 days, you don't need us. That's success."
+      description: "Every config goes in your repo. After 90 days, you don’t need us. That’s success."
       icon: "check-circle"
-
 # Quality Pillars Section
 pillars:
   title: "What You Get"
   subtitle: "Non-negotiables that define our deliverables"
   items:
-    - title: "60% Cost Guarantee"
-      description: "We cut your infrastructure costs by 60-70% or you don't pay the pilot fee. Your AWS bill becomes €3k/month hosting. [See Hetzner CAX11 Load-Test Snapshot](https://notes.eduardosanzb.dev/s/aa17de1b-baac-4784-9142-dca089d298a5)."
-    - title: "2-Day Ownership"
-      description: "Deploy in 2 commands: git push and docker-compose up. Your team runs production without calling us."
+    - title: "Sustainable Cost Structure"
+      description: "A VPS/hybrid stack that eliminates unnecessary cloud complexity. Deploy in 2 commands: `git push` and `docker-compose up`."
+    - title: "Engineer Empowerment"
+      description: "Your team owns production. No tribal knowledge. No YAML hell."
     - title: "Tests + Runbooks"
-      description: "Every migration includes integration tests, health checks, and a single-page runbook. No tribal knowledge."
-
+      description: "Every migration includes integration tests, health checks, and a single-page runbook."
 # Pricing Section
 pricing:
   title: "Transparent Pricing"
   subtitle: "Bill for outcomes, not hours"
   items:
-    - name: "Free Audit"
+    - name: "Initial Workshop"
       price: "€0"
-      description: "15-minute screenshare"
+      description: "1-2 hour deep-dive"
       features:
-        - "1-page waste report"
-        - "€2k-4k/month savings identified"
+        - "Prioritized action plan"
         - "No obligation, no pitch"
       cta: "Book Now"
       highlighted: false
-    - name: "Pilot"
-      price: "€5k"
-      description: "1-week proof of concept"
+    - name: "Pilot Migration"
+      price: "Custom"
+      description: "Proof of concept tailored to your needs"
       features:
         - "Migrate one service"
-        - "50% cost cut or money back"
-        - "Case study for your board"
+        - "Prove value before scaling"
       cta: "Start Pilot"
       highlighted: true
     - name: "Full Migration"
-      price: "€15k"
-      description: "3-week complete cutover"
+      price: "Custom"
+      description: "End-to-end transformation"
       features:
-        - "Migrate entire stack"
+        - "Hybrid VPS/cloud architecture"
         - "Team training + runbook"
-        - "Optional €500/mo emergency support"
+        - "Optional post-migration support"
       cta: "Let's Talk"
       highlighted: false
-
 # FAQ Section
 faq:
   title: "Frequently Asked Questions"
   subtitle: "Handling the objections, engineer to engineer"
   items:
-    - question: "What if the VPS dies?"
-      answer: "We run two instances with a floating IP. Cheaper than one EC2 with redundancy, and failover is automatic."
-    - question: "How does this scale?"
-      answer: "Vertical scaling gets you to 50k users easily. If you hit that, we add read replicas—not before. Most 'scale' problems are premature optimization."
-    - question: "Won't investors freak out?"
-      answer: "Hetzner is a €1B EU company with better uptime than most startups' AWS setups. This isn't a Pi under your desk—it's enterprise-grade infrastructure without the complexity tax."
-    - question: "What about GDPR compliance?"
-      answer: "All infrastructure stays in EU data centers. Hetzner is GDPR-compliant by default. We can provide data processing agreements if needed."
-    - question: "How do you provide context without meetings?"
-      answer: "Short Loom video + GitHub issue link. That's it. We read your code, ask questions in comments, and ship PRs. Most 'meetings' are just status updates we can async."
-    - question: "What if we need emergency support?"
-      answer: "Optional €500/mo gets you on our PagerDuty rotation for 90 days. After that, you shouldn't need us—but we're a DM away if you do."
+    - question: "Why VPS over cloud?"
+      answer: "VPS offers predictable costs and simplicity. We pair it with Cloudflare for edge cases (e.g., CDN, DDoS). No lock-in, no YAML hell."
+    - question: "What about scaling?"
+      answer: "Vertical scaling gets you to 50k users easily. If you hit that, we discuss read replicas—not before. Most 'scale' problems are premature optimization."
+    - question: "Won’t investors freak out?"
+      answer: "Hetzner is a €1B EU company with better uptime than most startups’ AWS setups. This isn’t a Pi under your desk—it’s enterprise-grade infrastructure."
+    - question: "How do you ensure financial accountability?"
+      answer: "We embed FinOps practices into your workflow, ensuring alignment between engineering decisions and business outcomes."
     - question: "Do we have to use your tools?"
-      answer: "No. We prefer GitHub for visibility, but we adapt to your workflow. The goal is to disappear into your existing process."
-    - question: "What's the catch?"
-      answer: "We're not a fit if you need multi-region failover today or think Kubernetes is 'simple.' This is for teams who want to ship features, not manage infrastructure."
-
-# Social Proof Section (optional for future)
-testimonials:
-  title: "What CTOs Say"
-  items: []
+      answer: "No. We adapt to your workflow. The goal is to disappear into your existing process."
+# Who We Are Section (New)
+about:
+  title: "Who We Are"
+  content: "A team of infrastructure engineers who’ve lived the pain of bloated cloud bills and endless DevOps meetings. We built this service to give teams back their focus—without sacrificing reliability."
 ---
