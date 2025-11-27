@@ -7,14 +7,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Subtle modern palette
+        // Option 1: Electric Emerald - Vibrant green/black
         brand: {
-          dark: '#0f172a',      // slate-900 - deepest text
-          primary: '#1e293b',   // slate-800 - dark backgrounds
-          secondary: '#475569', // slate-600 - muted text
-          accent: '#3b82f6',    // blue-500 - CTAs
-          light: '#f8fafc',     // slate-50 - light backgrounds
-          border: '#e2e8f0',    // slate-200 - subtle borders
+          dark: '#0a0a0a',      // pure black - text
+          primary: '#0f1419',   // rich black - dark sections
+          secondary: '#6b7280', // neutral gray - descriptions
+          accent: '#10b981',    // emerald-500 - PRIMARY CTAs
+          accentDark: '#059669', // emerald-600 - hover states
+          light: '#ecfdf5',     // emerald-50 - light sections (subtle green tint)
+          border: '#d1fae5',    // emerald-200 - borders with green hint
         }
       },
       fontFamily: {
@@ -37,8 +38,9 @@ module.exports = {
         '2xl': '1.5rem',
       },
       boxShadow: {
-        'subtle': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
-        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
+        'subtle': '0 1px 3px 0 rgba(16, 185, 129, 0.1), 0 1px 2px -1px rgba(16, 185, 129, 0.1)',
+        'card': '0 4px 6px -1px rgba(16, 185, 129, 0.08), 0 2px 4px -2px rgba(16, 185, 129, 0.08)',
+        'glow': '0 0 20px rgba(16, 185, 129, 0.3)',
       }
     },
   },

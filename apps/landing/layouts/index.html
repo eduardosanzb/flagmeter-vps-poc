@@ -5,7 +5,7 @@
 
 <!-- Dynamic Sections Loop -->
 {{ range .Params.sections }}
-  {{ partial "section.html" (dict "data" (index $.Params .) "context" $) }}
+  {{ partial "section.html" (dict "data" (index $.Params .) "context" $ "sectionName" .) }}
 {{ end }}
 
 <!-- Final CTA Section -->
