@@ -31,7 +31,7 @@ graph LR
 
 ## Stack
 
-- **Runtime**: Node 20 LTS (TypeScript)
+- **Runtime**: Node LTS (TypeScript)
 - **Database**: PostgreSQL 18 Alpine
 - **Cache/Queue**: Valkey (Redis clone)
 - **ORM**: Drizzle ORM (schema management) + raw SQL (hot paths)
