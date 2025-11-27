@@ -47,15 +47,15 @@ principles:
   title: "How We Work"
   subtitle: "Efficiency by design, not by accident"
   items:
+    - title: "FinOps-Driven Optimization"
+      description: "We apply FinOps principles across all cloud providers to align spending with business outcomes. Data-driven decisions, not guesswork."
+      icon: "chart-bar"
     - title: "No Recurring Meetings"
       description: "All updates in GitHub issues and PRs. Your team stays focused on shipping features."
       icon: "calendar-x"
     - title: "Async by Default"
       description: "Context in issues, reviews in PRs, decisions in comments. Work across timezones without friction."
       icon: "message-circle"
-    - title: "Pause Anytime"
-      description: "Vacation-friendly. Stop billing with a single message. Resume when you're ready."
-      icon: "pause-circle"
     - title: "We Fire Ourselves"
       description: "Every config goes in your repo. After 90 days, you don't need us. That's success."
       icon: "check-circle"
@@ -66,12 +66,11 @@ pillars:
   items:
     - title: "Sustainable Stack"
       description: "A resilient, low-overhead infrastructure built around VPS, Docker Compose, and strategic cloud use. Designed for autonomy, not dependency."
-    - title: "2-Day Ownership"
-      description: "Deploy in two commands: `git push` and `docker-compose up`. Your team runs production without calling us."
+    - title: "Engineer Empowerment"
+      description: "Your team owns production. No tribal knowledge. No YAML hell."
     - title: "Tests + Runbooks"
       description: "Every migration includes integration tests, health checks, and a single-page runbook. No tribal knowledge."
-    - title: "FinOps Integration"
-      description: "We embed financial accountability into your cloud operations. Visibility, control, and alignment across engineering and business teams."
+ 
 # Pricing Section
 pricing:
   title: "Transparent Pricing"
@@ -86,22 +85,22 @@ pricing:
         - "No obligation, no pitch"
       cta: "Book Now"
       highlighted: false
-    - name: "Proof of Concept"
-      price: "€5k"
+    - name: "Pilot Migration"
+      price: "€3k"
       description: "1-week pilot migration"
       features:
         - "Migrate one service"
         - "Operational proof before full cutover"
         - "Case study for your board"
       cta: "Start Pilot"
-      highlighted: true
+      highlighted: false
     - name: "Full Migration"
-      price: "€15k"
-      description: "3-week complete cutover"
+      price: "custom"
+      description: "End-to-end transformation"
       features:
-        - "Migrate entire stack"
+        - "Hybrid VPS/cloud architecture"
         - "Team training + runbook"
-        - "Optional €500/mo emergency support"
+        - "Optional post-migration support"
       cta: "Let's Talk"
       highlighted: false
 # FAQ Section
@@ -109,8 +108,8 @@ faq:
   title: "Frequently Asked Questions"
   subtitle: "Handling the objections, engineer to engineer"
   items:
-    - question: "Can’t I just use VPS?"
-      answer: "Absolutely. Most workloads run better on VPS. We pair it with Cloudflare for edge cases (e.g., CDN, DDoS). No need for Kubernetes or Terraform."
+   - question: "Why VPS over cloud?"
+      answer: "VPS offers predictable costs and simplicity. We pair it with Cloudflare for edge cases (e.g., CDN, DDoS). No lock-in, no YAML hell."
     - question: "What if the VPS dies?"
       answer: "We run two instances with a floating IP. Cheaper than one EC2 with redundancy, and failover is automatic."
     - question: "How does this scale?"
@@ -123,8 +122,10 @@ faq:
       answer: "Short Loom video + GitHub issue link. That’s it. We read your code, ask questions in comments, and ship PRs. Most 'meetings' are just status updates we can async."
     - question: "What if we need emergency support?"
       answer: "Optional €500/mo gets you on our PagerDuty rotation for 90 days. After that, you shouldn’t need us—but we’re a DM away if you do."
+    - question: "How do you ensure financial accountability?"
+      answer: "We embed FinOps practices into your workflow, ensuring alignment between engineering decisions and business outcomes."
     - question: "Do we have to use your tools?"
-      answer: "No. We prefer GitHub for visibility, but we adapt to your workflow. The goal is to disappear into your existing process."
+      answer: "No. We adapt to your workflow. The goal is to disappear into your existing process."
     - question: "What’s the catch?"
       answer: "We’re not a fit if you need multi-region failover today or think Kubernetes is 'simple.' This is for teams who want to ship features, not manage infrastructure."
 # Social Proof Section (optional for future)
