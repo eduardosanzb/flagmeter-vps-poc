@@ -41,7 +41,7 @@
   }
 
   .section-dark {
-    @apply bg-brand-primary text-white;
+    @apply bg-brand-primary text-white py-20;
   }
 
   .section-light {
