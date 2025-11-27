@@ -1,0 +1,10 @@
+<!-- Step cards with numbers (01, 02, 03) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+  {{ range .data.items }}
+  <div class="card text-center hover:scale-105 transition-transform duration-300">
+    <div class="text-6xl font-bold text-brand-accent/10 mb-4">{{ .number }}</div>
+    <h3 class="text-2xl font-semibold text-brand-dark mb-3">{{ .title }}</h3>
+    <p class="text-brand-secondary leading-relaxed">{{ .description }}</p>
+  </div>
+  {{ end }}
+</div>

@@ -1,0 +1,22 @@
+<!-- Final CTA Section -->
+<section class="section-dark">
+  <div class="container-custom text-center">
+    <h2 class="text-display font-bold text-white mb-6">
+      {{ if eq .Lang "de" }}
+        Bereit, die Infrastruktursteuer zu stoppen?
+      {{ else }}
+        Ready to Stop Paying the Infrastructure Tax?
+      {{ end }}
+    </h2>
+    <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
+      {{ if eq .Lang "de" }}
+        Buchen Sie eine kostenlose 15-minütige Prüfung. Wir finden €2k+ monatliche Verschwendung oder Sie löschen unsere Nummer.
+      {{ else }}
+        Book a free 15-minute audit. We'll find €2k+ in monthly waste or you delete our number.
+      {{ end }}
+    </p>
+    <a href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" class="btn btn-primary text-lg px-8 py-4">
+      {{ i18n "cta.bookAudit" }}
+    </a>
+  </div>
+</section>

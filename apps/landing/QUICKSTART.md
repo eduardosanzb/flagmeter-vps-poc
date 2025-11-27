@@ -1,263 +1,194 @@
-# Quick Start Guide - Raus.cloud Landing Page
+# Quick Start Guide - Landing Page Management
 
-## 🚀 Get Running in 3 Minutes
+## 🚀 Managing Your Landing Page
 
-### Step 1: Install Hugo
-
-**macOS:**
-```bash
-brew install hugo
-```
-
-**Linux:**
-```bash
-# Ubuntu/Debian
-sudo apt install hugo
-
-# Or download from https://github.com/gohugoio/hugo/releases
-```
-
-**Windows:**
-```bash
-choco install hugo-extended
-```
-
-### Step 2: Install Dependencies (pnpm workspace)
-
-**From project root:**
-```bash
-pnpm install
-```
-
-### Step 3: Run Development Server
-
-**From project root:**
-```bash
-pnpm landing:dev
-```
-
-**Or from landing directory:**
-```bash
-cd apps/landing
-pnpm run dev
-```
-
-Open **http://localhost:1313** in your browser.
+Your landing page is now fully modular and content-driven. Here's everything you need to know:
 
 ---
 
-## ✏️ Edit Content (No Code Required!)
+## 📝 Reorder Sections (Most Common Task)
 
-### Change Hero Text
-
-Edit: `content/_index.en.md`
+**Edit:** `content/_index.en.md`
 
 ```yaml
-hero:
-  title: "Your new headline"
-  subtitle: "Your new subtitle"
+sections:
+  - how_it_works
+  - principles
+  - pillars
+  - pricing
+  - faq
 ```
 
-Save the file. The browser will **auto-refresh**.
-
-### Change Pricing
-
-Edit: `content/_index.en.md`
+**Want pricing first?** Just move it:
 
 ```yaml
-pricing:
-  tiers:
-    - name: "Free Audit"
-      price: "€0"
-      features:
-        - "Your feature here"
+sections:
+  - pricing          # ← Moved to top!
+  - how_it_works
+  - principles
+  - pillars
+  - faq
 ```
 
-### Add German Translation
-
-Edit: `content/_index.de.md` (same structure as English)
+**That's it!** No code changes needed. 🎉
 
 ---
 
-## 🐋 Docker Deployment
+## 🙈 Hide a Section
 
-### Run with Docker Compose
-
-From **project root**:
-
-```bash
-docker compose up landing
-```
-
-Access at: **http://localhost:8080**
-
-### Run Standalone
-
-```bash
-cd apps/landing
-docker build -t raus-landing .
-docker run -p 8080:80 raus-landing
-```
-
----
-
-## 🎨 Customize Design
-
-### Colors
-
-Edit: `tailwind.config.js`
-
-```javascript
-colors: {
-  brand: {
-    accent: '#3b82f6',  // Change this to your brand color
-  }
-}
-```
-
-### Fonts
-
-Edit: `layouts/_default/baseof.html`
-
-Replace Google Fonts link with your preferred font.
-
----
-
-## 📝 Common Tasks
-
-### Add a New Section
-
-1. Add content to `content/_index.en.md`:
+**Option 1: Comment out**
 
 ```yaml
-new_section:
-  title: "Section Title"
+sections:
+  - how_it_works
+  # - principles    # ← Hidden
+  - pricing
+```
+
+**Option 2: Empty the items** (section auto-skips)
+
+```yaml
+principles:
+  title: "How We Work"
+  subtitle: "Coming soon"
+  items: []         # ← Empty = not rendered
+```
+
+---
+
+## 🔁 Duplicate a Section
+
+```yaml
+sections:
+  - how_it_works
+  - pricing
+  - how_it_works   # ← Shows twice!
+```
+
+Great for A/B testing or emphasizing content!
+
+---
+
+## ➕ Add Content to a Section
+
+Edit the `items` array:
+
+```yaml
+how_it_works:
+  title: "Three Steps to Freedom"
+  subtitle: "..."
   items:
-    - title: "Item 1"
-      description: "Description"
-```
-
-2. Add HTML to `layouts/index.html`:
-
-```html
-<section class="section">
-  <div class="container-custom">
-    <h2>{{ .Params.new_section.title }}</h2>
-    {{ range .Params.new_section.items }}
-      <div class="card">
-        <h3>{{ .title }}</h3>
-        <p>{{ .description }}</p>
-      </div>
-    {{ end }}
-  </div>
-</section>
-```
-
-### Change CTA Link
-
-Edit: `hugo.toml`
-
-```toml
-[params]
-  calendarLink = "https://your-calendar-link.com"
-```
-
-### Add Analytics
-
-Edit: `layouts/_default/baseof.html`
-
-Add tracking code before `</head>`:
-
-```html
-<!-- Plausible Analytics -->
-<script defer data-domain="raus.cloud" src="https://plausible.io/js/script.js"></script>
+    - number: "01"
+      title: "Step 1"
+      description: "..."
+    - number: "02"      # ← Add more items
+      title: "Step 2"
+      description: "..."
 ```
 
 ---
 
-## 🔧 Troubleshooting
+## 🌍 Update Both Languages
 
-### Port already in use?
+Always update both files:
+- `content/_index.en.md` (English)
+- `content/_index.de.md` (German)
 
-```bash
-# Change port in hugo.toml
-hugo server --port 1314
-```
-
-### Tailwind not building?
-
-```bash
-# Kill dev server, rebuild CSS, restart
-npm run build:css
-npm run dev
-```
-
-### Docker build failing?
-
-```bash
-# Test build locally first
-npm run build
-
-# Check if 'public/' folder was created
-ls -la public/
-```
+Keep the `sections` array in sync!
 
 ---
 
-## 📦 Production Deployment
+## 🏗️ Build & Deploy
 
-### Build Static Files
-
-**From project root:**
 ```bash
-pnpm landing:build
-```
-
-**Or from landing directory:**
-```bash
+# From project root
 cd apps/landing
-pnpm run build
+
+# Build CSS
+npm run build:css
+
+# Build site
+hugo --minify
+
+# Preview locally
+hugo server --port 1313
+# Visit: http://localhost:1313
 ```
 
-Output: `apps/landing/public/` directory
+---
 
-### Deploy to Netlify/Vercel
+## 📂 Section Types (Auto-Detected)
 
-1. Connect GitHub repo
-2. Set build command: `cd apps/landing && pnpm run build`
-3. Set publish directory: `apps/landing/public`
+You don't need to specify types—they're auto-detected from data:
 
-### Deploy to VPS with nginx
+| Type | Detected By | Example Use |
+|------|------------|-------------|
+| **step-cards** | `number` field | How it works (01, 02, 03) |
+| **icon-cards** | `icon` field | Principles (with icons) |
+| **pricing-cards** | `price` field | Pricing tiers |
+| **faq-accordion** | `question` field | FAQ section |
+| **simple-cards** | (default) | Basic cards (What You Get) |
+
+---
+
+## ⚠️ Common Mistakes
+
+### ❌ Don't Do This:
+```yaml
+sections:
+  - new_section      # ← Section data doesn't exist below
+```
+
+### ✅ Do This:
+```yaml
+sections:
+  - how_it_works     # ← Make sure this exists below
+
+how_it_works:
+  title: "..."
+  items: [...]
+```
+
+---
+
+## 🆘 Troubleshooting
+
+### Section Not Showing?
+
+**Check:**
+1. Is it in the `sections` array?
+2. Does the section data exist below?
+3. Does `items: []` have content?
+
+### Build Failing?
 
 ```bash
-# Build locally
-npm run build
-
-# Copy to server
-scp -r public/* user@your-server:/var/www/raus.cloud/
-
-# Or use rsync
-rsync -avz public/ user@your-server:/var/www/raus.cloud/
+# Check for YAML syntax errors
+hugo --minify
+# Look for error messages about parsing
 ```
 
----
+### Wrong Order?
 
-## 🎯 Next Steps
-
-1. **Edit content** in `content/_index.en.md`
-2. **Test locally** with `npm run dev`
-3. **Add your logo** to `static/images/`
-4. **Customize colors** in `tailwind.config.js`
-5. **Deploy** with Docker or static hosting
+The `sections` array controls order, not the order of sections in YAML!
 
 ---
 
-## 📞 Need Help?
+## 📚 More Help
 
-- **README**: `apps/landing/README.md` (comprehensive guide)
-- **Hugo Docs**: https://gohugo.io/documentation/
-- **Tailwind Docs**: https://tailwindcss.com/docs
+- **Full guide**: `REFACTORING_DEMO.md`
+- **Empty sections**: `EMPTY_SECTION_PROTECTION.md`
+- **Summary**: `COMMIT_SUMMARY.md`
 
 ---
 
-**You're all set!** 🎉 Edit `content/_index.en.md` and watch the magic happen.
+## 💡 Pro Tips
+
+1. **Test locally first**: Always run `hugo server` before deploying
+2. **Keep sections array in sync**: EN and DE should have same order
+3. **Use comments**: Document why sections are hidden
+4. **Empty for WIP**: Use `items: []` for work-in-progress sections
+
+---
+
+**Happy content editing!** 🎨

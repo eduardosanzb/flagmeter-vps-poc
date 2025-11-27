@@ -13,6 +13,13 @@ This landing page is designed to generate qualified audit bookings for infrastru
 - **Transparent Pricing** - Free audit, pilot, and full migration
 - **FAQ** - Handling objections, engineer to engineer
 
+## 📚 Documentation
+
+- **[Quick Start Guide](QUICKSTART.md)** - Content management basics
+- **[Refactoring Demo](REFACTORING_DEMO.md)** - Complete usage guide
+- **[Empty Section Protection](EMPTY_SECTION_PROTECTION.md)** - How empty sections work
+- **[Commit Summary](COMMIT_SUMMARY.md)** - Technical overview of refactoring
+
 ## 🚀 Quick Start
 
 ### Development

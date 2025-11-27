@@ -1,6 +1,14 @@
 ---
 title: "Infrastruktur ohne DevOps"
 
+# Sections order (can be reordered easily!)
+sections:
+  - how_it_works
+  - principles
+  - pillars
+  - pricing
+  - faq
+
 # Hero Section
 hero:
   title: "Keine DevOps-Stelle nötig. Cloud-Kosten um 60% senken."
@@ -12,7 +20,7 @@ hero:
 how_it_works:
   title: "Drei Schritte zur Freiheit"
   subtitle: "Von der Prüfung zur Unabhängigkeit in Wochen, nicht Quartalen"
-  steps:
+  items:
     - number: "01"
       title: "Kostenlose 15-Min-Prüfung"
       description: "Screenshare Ihrer AWS-Konsole. Wir identifizieren €2k-4k/Monat Verschwendung und liefern eine 1-seitige Kill-List. Kein Pitch, keine Verpflichtung."
@@ -57,7 +65,7 @@ pillars:
 pricing:
   title: "Transparente Preise"
   subtitle: "Abrechnung nach Ergebnissen, nicht nach Stunden"
-  tiers:
+  items:
     - name: "Kostenlose Prüfung"
       price: "€0"
       description: "15-minütiger Screenshare"
@@ -90,7 +98,7 @@ pricing:
 faq:
   title: "Häufig gestellte Fragen"
   subtitle: "Einwände behandeln, Ingenieur zu Ingenieur"
-  questions:
+  items:
     - question: "Was passiert, wenn der VPS ausfällt?"
       answer: "Wir betreiben zwei Instanzen mit einer Floating-IP. Günstiger als ein EC2 mit Redundanz, und Failover ist automatisch."
     - question: "Wie skaliert das?"

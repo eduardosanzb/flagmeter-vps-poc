@@ -1,0 +1,61 @@
+<!-- Smart section dispatcher - auto-detects type from data structure -->
+{{ $data := .data }}
+{{ $context := .context }}
+
+{{ if not $data }}
+  <!-- Skip if no data -->
+  {{ return }}
+{{ end }}
+
+<!-- Get the items array (could be named items, steps, tiers, or questions) -->
+{{ $items := $data.items }}
+
+{{ if not $items }}
+  <!-- No items to render -->
+  {{ return }}
+{{ end }}
+
+<!-- Check if items array has any elements -->
+{{ if eq (len $items) 0 }}
+  <!-- Items array is empty, skip rendering -->
+  {{ return }}
+{{ end }}
+
+<!-- Detect section type from first item structure -->
+{{ $firstItem := index $items 0 }}
+{{ $sectionType := "simple-cards" }}
+
+{{ if $firstItem.number }}
+  {{ $sectionType = "step-cards" }}
+{{ else if $firstItem.icon }}
+  {{ $sectionType = "icon-cards" }}
+{{ else if $firstItem.price }}
+  {{ $sectionType = "pricing-cards" }}
+{{ else if $firstItem.question }}
+  {{ $sectionType = "faq-accordion" }}
+{{ end }}
+
+<!-- Render section wrapper -->
+<section class="section {{ if eq $sectionType "faq-accordion" }}section-light{{ else if eq $sectionType "step-cards" }}section-light{{ else if eq $sectionType "icon-cards" }}bg-white{{ else if eq $sectionType "simple-cards" }}section-light{{ else }}bg-white{{ end }}" {{ if eq $sectionType "how_it_works" }}id="how-it-works"{{ else if eq $sectionType "pricing" }}id="pricing"{{ else if eq $sectionType "faq" }}id="faq"{{ end }}>
+  <div class="container-custom">
+    
+    <!-- Render section header if title and subtitle exist -->
+    {{ if and $data.title $data.subtitle }}
+      {{ partial "components/section-header.html" $data }}
+    {{ end }}
+    
+    <!-- Dispatch to specific section partial -->
+    {{ if eq $sectionType "step-cards" }}
+      {{ partial "sections/step-cards.html" (dict "data" $data "context" $context) }}
+    {{ else if eq $sectionType "icon-cards" }}
+      {{ partial "sections/icon-cards.html" (dict "data" $data "context" $context) }}
+    {{ else if eq $sectionType "simple-cards" }}
+      {{ partial "sections/simple-cards.html" (dict "data" $data "context" $context) }}
+    {{ else if eq $sectionType "pricing-cards" }}
+      {{ partial "sections/pricing-cards.html" (dict "data" $data "context" $context) }}
+    {{ else if eq $sectionType "faq-accordion" }}
+      {{ partial "sections/faq-accordion.html" (dict "data" $data "context" $context) }}
+    {{ end }}
+    
+  </div>
+</section>
