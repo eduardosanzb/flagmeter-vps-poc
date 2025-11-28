@@ -5,6 +5,8 @@ import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic
 // @ts-ignore - resourceFromAttributes exists but TypeScript can't find it in types
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import { metrics } from '@opentelemetry/api';
+import { HostMetrics } from '@opentelemetry/host-metrics';
+import { RuntimeNodeInstrumentation } from '@opentelemetry/instrumentation-runtime-node';
 
 export interface TelemetryConfig {
   serviceName: string;
@@ -77,14 +79,26 @@ export function initializeTelemetry(config: TelemetryConfig): NodeSDK {
           enabled: enableFsInstrumentation,
         },
       }),
+      // Runtime metrics for Node.js (heap, GC, event loop, CPU, etc.)
+      new RuntimeNodeInstrumentation({
+        monitoringPrecision: 5000, // Collect metrics every 5 seconds
+      }),
     ],
   });
 
   // Start the SDK
   sdk.start();
 
+  // Initialize host metrics (CPU, memory, network, disk)
+  const hostMetrics = new HostMetrics({
+    name: `${serviceName}-host-metrics`,
+    meterProvider: metrics.getMeterProvider() as any,
+  });
+  hostMetrics.start();
+
   console.log(`[OpenTelemetry] Initialized for service: ${serviceName}`);
   console.log(`[OpenTelemetry] Metrics server started on :${metricsPort}/metrics`);
+  console.log(`[OpenTelemetry] Host metrics collection enabled`);
   
   // Log the global MeterProvider to verify it's set correctly
   const globalProvider = metrics.getMeterProvider();
