@@ -24,7 +24,7 @@ WORKDIR /app/apps/dashboard
 RUN pnpm build
 
 # Production image
-FROM node:20-alpine AS runner
+FROM node:24-alpine AS runner
 
 RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
 
