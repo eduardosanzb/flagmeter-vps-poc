@@ -24,6 +24,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://flagmeter:flagmeter123@postgres:5432/flagmeter}
       VALKEY_URL: ${VALKEY_URL:-redis://valkey:6379}
+      LOKI_URL: http://loki:3100
       NODE_ENV: production
       QUEUE_NAME: events
       LOG_LEVEL: info
@@ -38,6 +39,7 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL}
       VALKEY_URL: ${VALKEY_URL}
+      LOKI_URL: http://loki:3100
       NODE_ENV: production
       WORKER_CONCURRENCY: 2
       QUEUE_NAME: events
