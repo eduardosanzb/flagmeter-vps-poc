@@ -32,7 +32,9 @@ WORKDIR /app
 
 # Copy workspace files
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml* ./
-COPY packages ./packages
+COPY packages/db/package.json ./packages/db/
+COPY packages/types/package.json ./packages/types/
+COPY packages/telemetry/package.json ./packages/telemetry/
 COPY apps/dashboard/package.json ./apps/dashboard/
 
 # Install production dependencies only

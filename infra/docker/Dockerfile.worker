@@ -17,6 +17,7 @@ RUN pnpm install --frozen-lockfile
 # Build workspace packages first
 RUN pnpm --filter "@flagmeter/types" build
 RUN pnpm --filter "@flagmeter/db" build
+RUN pnpm --filter "@flagmeter/telemetry" build
 
 # Build worker
 WORKDIR /app/apps/worker
@@ -31,7 +32,9 @@ WORKDIR /app
 
 # Copy workspace files
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml* ./
-COPY packages ./packages
+COPY packages/db/package.json ./packages/db/
+COPY packages/types/package.json ./packages/types/
+COPY packages/telemetry/package.json ./packages/telemetry/
 COPY apps/worker/package.json ./apps/worker/
 
 # Install production dependencies only
@@ -40,6 +43,7 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built workspace packages
 COPY --from=builder /app/packages/db/dist ./packages/db/dist
 COPY --from=builder /app/packages/types/dist ./packages/types/dist
+COPY --from=builder /app/packages/telemetry/dist ./packages/telemetry/dist
 
 # Copy built application
 COPY --from=builder /app/apps/worker/dist ./apps/worker/dist
