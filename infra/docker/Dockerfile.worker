@@ -44,6 +44,9 @@ COPY --from=builder /app/packages/types/dist ./packages/types/dist
 # Copy built application
 COPY --from=builder /app/apps/worker/dist ./apps/worker/dist
 
+# Copy telemetry file required for production start
+COPY --from=builder /app/apps/worker/telemetry.mjs ./apps/worker/telemetry.mjs
+
 WORKDIR /app/apps/worker
 
 ENV NODE_ENV=production

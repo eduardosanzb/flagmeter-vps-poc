@@ -46,6 +46,9 @@ COPY --from=builder /app/packages/telemetry/dist ./packages/telemetry/dist
 # Copy built application
 COPY --from=builder /app/apps/dashboard/.output ./apps/dashboard/.output
 
+# Copy telemetry file required for production start
+COPY --from=builder /app/apps/dashboard/telemetry-prod.mjs ./apps/dashboard/telemetry-prod.mjs
+
 # Copy migration script
 COPY migrate-prod.sh /app/migrate-prod.sh
 RUN chmod +x /app/migrate-prod.sh
