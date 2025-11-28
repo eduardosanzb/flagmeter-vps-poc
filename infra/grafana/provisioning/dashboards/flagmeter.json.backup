@@ -27,12 +27,12 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_total[1m]))",
           "legendFormat": "Total RPS",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\"}[1m])) by (http_route)",
+          "expr": "sum(rate(http_server_requests_total[1m])) by (http_route)",
           "legendFormat": "{{http_route}}",
           "refId": "B"
         }
@@ -71,7 +71,7 @@
       },
       "targets": [
         {
-          "expr": "100 * (sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=~\"2..\"}[5m])) / sum(rate(http_server_requests_total{service_name=\"dashboard\"}[5m])))",
+          "expr": "100 * (sum(rate(http_server_requests_total{http_status_code=~\"2..\"}[5m])) / sum(rate(http_server_requests_total[5m])))",
           "legendFormat": "Success Rate %",
           "refId": "A"
         }
@@ -117,7 +117,7 @@
       },
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_bucket[5m])) by (le))",
           "legendFormat": "P95 Latency",
           "refId": "A"
         }
@@ -162,32 +162,32 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"200\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_total{http_status_code=\"200\"}[1m]))",
           "legendFormat": "200 OK",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"201\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_total{http_status_code=\"201\"}[1m]))",
           "legendFormat": "201 Created",
           "refId": "B"
         },
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"400\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_total{http_status_code=\"400\"}[1m]))",
           "legendFormat": "400 Bad Request",
           "refId": "C"
         },
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"404\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_total{http_status_code=\"404\"}[1m]))",
           "legendFormat": "404 Not Found",
           "refId": "D"
         },
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"500\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_total{http_status_code=\"500\"}[1m]))",
           "legendFormat": "500 Internal Error",
           "refId": "E"
         },
         {
-          "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"503\"}[1m]))",
+          "expr": "sum(rate(http_server_requests_total{http_status_code=\"503\"}[1m]))",
           "legendFormat": "503 Service Unavailable",
           "refId": "F"
         }
@@ -226,22 +226,22 @@
       },
       "targets": [
         {
-          "expr": "histogram_quantile(0.50, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.50, sum(rate(http_server_duration_bucket[5m])) by (le))",
           "legendFormat": "P50 (median)",
           "refId": "A"
         },
         {
-          "expr": "histogram_quantile(0.90, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.90, sum(rate(http_server_duration_bucket[5m])) by (le))",
           "legendFormat": "P90",
           "refId": "B"
         },
         {
-          "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_bucket[5m])) by (le))",
           "legendFormat": "P95",
           "refId": "C"
         },
         {
-          "expr": "histogram_quantile(0.99, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
+          "expr": "histogram_quantile(0.99, sum(rate(http_server_duration_bucket[5m])) by (le))",
           "legendFormat": "P99",
           "refId": "D"
         }
@@ -280,7 +280,7 @@
       },
       "targets": [
         {
-          "expr": "rate(http_server_duration_sum{service_name=\"dashboard\"}[5m]) / rate(http_server_duration_count{service_name=\"dashboard\"}[5m])",
+          "expr": "rate(http_server_duration_sum[5m]) / rate(http_server_duration_count[5m])",
           "legendFormat": "{{http_route}} - {{http_method}}",
           "refId": "A"
         }
@@ -301,10 +301,7 @@
         "legend": {
           "displayMode": "table",
           "placement": "right",
-          "calcs": [
-            "lastNotNull",
-            "mean"
-          ]
+          "calcs": ["lastNotNull", "mean"]
         },
         "tooltip": {
           "mode": "multi"
@@ -323,7 +320,7 @@
       },
       "targets": [
         {
-          "expr": "sum(http_server_requests_total{service_name=\"dashboard\"}) by (http_route, http_method)",
+          "expr": "sum(http_server_requests_total) by (http_route, http_method)",
           "legendFormat": "{{http_method}} {{http_route}}",
           "refId": "A",
           "instant": true
@@ -369,7 +366,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 48
+        "y": 0
       },
       "targets": [
         {
@@ -408,7 +405,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 24
+        "y": 0
       },
       "targets": [
         {
@@ -447,7 +444,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 24
+        "y": 0
       },
       "targets": [
         {
@@ -493,7 +490,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 24
+        "y": 0
       },
       "targets": [
         {
@@ -537,7 +534,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 32
+        "y": 8
       },
       "targets": [
         {
@@ -586,7 +583,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 32
+        "y": 8
       },
       "targets": [
         {
@@ -625,7 +622,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 32
+        "y": 8
       },
       "targets": [
         {
@@ -664,7 +661,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 16
       },
       "targets": [
         {
@@ -703,7 +700,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 16
       },
       "targets": [
         {
@@ -747,7 +744,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 48
+        "y": 24
       },
       "targets": [
         {
@@ -791,7 +788,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 48
+        "y": 24
       },
       "targets": [
         {
@@ -835,7 +832,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 48
+        "y": 24
       },
       "targets": [
         {
@@ -874,7 +871,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 48
+        "y": 24
       },
       "targets": [
         {
@@ -920,7 +917,7 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 56
+        "y": 32
       },
       "targets": [
         {
@@ -964,7 +961,7 @@
         "h": 8,
         "w": 8,
         "x": 8,
-        "y": 56
+        "y": 32
       },
       "targets": [
         {
@@ -1008,7 +1005,7 @@
         "h": 8,
         "w": 8,
         "x": 16,
-        "y": 56
+        "y": 32
       },
       "targets": [
         {
@@ -1052,7 +1049,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 64
+        "y": 40
       },
       "targets": [
         {
@@ -1106,7 +1103,7 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 64
+        "y": 40
       },
       "targets": [
         {
@@ -1160,7 +1157,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 68
+        "y": 44
       },
       "targets": [
         {

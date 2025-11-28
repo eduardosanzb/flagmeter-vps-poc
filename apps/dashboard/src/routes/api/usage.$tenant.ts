@@ -2,12 +2,16 @@ import { createFileRoute } from '@tanstack/react-router';
 import { json } from '@tanstack/react-start';
 import { sql } from '@flagmeter/db';
 import { logger } from '~/lib/logger';
+import { recordHttpMetrics } from '~/lib/metrics.server';
 import type { UsageResponse } from '@flagmeter/types';
 
 export const Route = createFileRoute('/api/usage/$tenant')({
   server: {
     handlers: {
       GET: async ({ params }) => {
+        const startTime = Date.now();
+        let statusCode = 200;
+
         try {
           const tenantName = params.tenant;
 
@@ -27,7 +31,9 @@ export const Route = createFileRoute('/api/usage/$tenant')({
           `;
 
           if (result.length === 0) {
-            return json({ error: `Tenant '${tenantName}' not found` }, { status: 404 });
+            statusCode = 404;
+            recordHttpMetrics('GET', '/api/usage/:tenant', statusCode, Date.now() - startTime);
+            return json({ error: `Tenant '${tenantName}' not found` }, { status: statusCode });
           }
 
           const row = result[0];
@@ -52,10 +58,13 @@ export const Route = createFileRoute('/api/usage/$tenant')({
 
           logger.info({ tenant: tenantName, quotaPercent }, 'Usage retrieved');
 
+          recordHttpMetrics('GET', '/api/usage/:tenant', statusCode, Date.now() - startTime);
           return json(response);
         } catch (error) {
           logger.error({ error, tenant: params.tenant }, 'Failed to retrieve usage');
-          return json({ error: 'Internal server error' }, { status: 500 });
+          statusCode = 500;
+          recordHttpMetrics('GET', '/api/usage/:tenant', statusCode, Date.now() - startTime);
+          return json({ error: 'Internal server error' }, { status: statusCode });
         }
       },
     },

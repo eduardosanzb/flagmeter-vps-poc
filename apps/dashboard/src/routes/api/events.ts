@@ -3,6 +3,7 @@ import { json } from '@tanstack/react-start';
 import { db, events, tenants } from '@flagmeter/db';
 import { getRedis, QUEUE_NAME } from '~/lib/redis';
 import { logger } from '~/lib/logger';
+import { recordHttpMetrics } from '~/lib/metrics.server';
 import { z } from 'zod';
 import type { CreateEventRequest, CreateEventResponse, EventJob } from '@flagmeter/types';
 import { eq } from 'drizzle-orm';
@@ -17,13 +18,18 @@ export const Route = createFileRoute('/api/events')({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        const startTime = Date.now();
+        let statusCode = 500; // Default to error status
+
         try {
           const body = await request.json() as CreateEventRequest;
 
           // Validate input
           const validation = createEventSchema.safeParse(body);
           if (!validation.success) {
-            return json({ error: 'Invalid request body', details: validation.error.errors }, { status: 400 });
+            statusCode = 400;
+            recordHttpMetrics('POST', '/api/events', statusCode, Date.now() - startTime);
+            return json({ error: 'Invalid request body', details: validation.error.issues }, { status: statusCode });
           }
 
           const { tenant: tenantName, feature, tokens } = validation.data;
@@ -76,10 +82,14 @@ export const Route = createFileRoute('/api/events')({
             eventId: event.id,
           };
 
-          return json(response, { status: 201 });
+          statusCode = 201;
+          recordHttpMetrics('POST', '/api/events', statusCode, Date.now() - startTime);
+          return json(response, { status: statusCode });
         } catch (error) {
           logger.error({ error }, 'Failed to create event');
-          return json({ error: 'Internal server error' }, { status: 500 });
+          statusCode = 500;
+          recordHttpMetrics('POST', '/api/events', statusCode, Date.now() - startTime);
+          return json({ error: 'Internal server error' }, { status: statusCode });
         }
       },
     },

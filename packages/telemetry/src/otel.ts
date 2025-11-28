@@ -1,8 +1,10 @@
 import { NodeSDK } from '@opentelemetry/sdk-node';
 import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus';
-import { Resource } from '@opentelemetry/resources';
 import { ATTR_SERVICE_NAME, ATTR_SERVICE_VERSION } from '@opentelemetry/semantic-conventions';
+// @ts-ignore - resourceFromAttributes exists but TypeScript can't find it in types
+import { resourceFromAttributes } from '@opentelemetry/resources';
+import { metrics } from '@opentelemetry/api';
 
 export interface TelemetryConfig {
   serviceName: string;
@@ -14,7 +16,17 @@ export interface TelemetryConfig {
   enableFsInstrumentation?: boolean;
 }
 
+// Use globalThis to prevent multiple initializations across module contexts
+declare global {
+  var __OTEL_SDK_INSTANCE__: NodeSDK | undefined;
+}
+
 export function initializeTelemetry(config: TelemetryConfig): NodeSDK {
+  // If already initialized, return the existing instance
+  if (globalThis.__OTEL_SDK_INSTANCE__) {
+    console.log(`[OpenTelemetry] Already initialized, skipping...`);
+    return globalThis.__OTEL_SDK_INSTANCE__;
+  }
   const {
     serviceName,
     serviceVersion = '1.0.0',
@@ -25,18 +37,26 @@ export function initializeTelemetry(config: TelemetryConfig): NodeSDK {
     enableFsInstrumentation = false, // Disable by default (too noisy)
   } = config;
 
+  // Create resource
+  const resource = resourceFromAttributes({
+    [ATTR_SERVICE_NAME]: serviceName,
+    [ATTR_SERVICE_VERSION]: serviceVersion,
+  });
+
   // Prometheus exporter for metrics
   const prometheusExporter = new PrometheusExporter({
     port: metricsPort,
     endpoint: '/metrics',
   });
 
-  // Create OpenTelemetry SDK
+  // DON'T create a separate MeterProvider - let NodeSDK create it
+  // NodeSDK will create a MeterProvider with the metricReader we pass
+  // and register it globally automatically when sdk.start() is called
+  
+  // Create OpenTelemetry SDK with metricReader parameter
+  // NodeSDK will create a MeterProvider with this reader and register it globally
   const sdk = new NodeSDK({
-    resource: new Resource({
-      [ATTR_SERVICE_NAME]: serviceName,
-      [ATTR_SERVICE_VERSION]: serviceVersion,
-    }),
+    resource,
     metricReader: prometheusExporter,
     instrumentations: [
       getNodeAutoInstrumentations({
@@ -65,6 +85,10 @@ export function initializeTelemetry(config: TelemetryConfig): NodeSDK {
 
   console.log(`[OpenTelemetry] Initialized for service: ${serviceName}`);
   console.log(`[OpenTelemetry] Metrics server started on :${metricsPort}/metrics`);
+  
+  // Log the global MeterProvider to verify it's set correctly
+  const globalProvider = metrics.getMeterProvider();
+  console.log(`[OpenTelemetry] Global MeterProvider:`, globalProvider.constructor.name);
 
   // Graceful shutdown
   const shutdown = async () => {
@@ -80,6 +104,9 @@ export function initializeTelemetry(config: TelemetryConfig): NodeSDK {
 
   process.on('SIGTERM', shutdown);
   process.on('SIGINT', shutdown);
+
+  // Store the instance globally to prevent re-initialization
+  globalThis.__OTEL_SDK_INSTANCE__ = sdk;
 
   return sdk;
 }
