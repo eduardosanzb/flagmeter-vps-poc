@@ -1218,7 +1218,7 @@
       },
       "targets": [
         {
-          "expr": "sum(v8js_memory_heap_used{service_name=\"flagmeter-dashboard\"}) by (v8js_heap_space_name)",
+          "expr": "sum(v8js_memory_heap_used{job=\"dashboard\"}) by (v8js_heap_space_name)",
           "legendFormat": "{{v8js_heap_space_name}}",
           "refId": "A"
         }
@@ -1264,7 +1264,7 @@
       },
       "targets": [
         {
-          "expr": "nodejs_eventloop_utilization{service_name=\"flagmeter-dashboard\"}",
+          "expr": "nodejs_eventloop_utilization{job=\"dashboard\"}",
           "legendFormat": "Dashboard Event Loop %",
           "refId": "A"
         }
@@ -1322,7 +1322,7 @@
       },
       "targets": [
         {
-          "expr": "rate(v8js_gc_duration_sum{service_name=\"flagmeter-dashboard\"}[1m]) / rate(v8js_gc_duration_count{service_name=\"flagmeter-dashboard\"}[1m])",
+          "expr": "rate(v8js_gc_duration_sum{job=\"dashboard\"}[1m]) / rate(v8js_gc_duration_count{job=\"dashboard\"}[1m])",
           "legendFormat": "{{v8js_gc_type}} GC",
           "refId": "A"
         }
@@ -1361,17 +1361,17 @@
       },
       "targets": [
         {
-          "expr": "nodejs_eventloop_delay_p50{service_name=\"flagmeter-dashboard\"}",
+          "expr": "nodejs_eventloop_delay_p50{job=\"dashboard\"}",
           "legendFormat": "P50",
           "refId": "A"
         },
         {
-          "expr": "nodejs_eventloop_delay_p90{service_name=\"flagmeter-dashboard\"}",
+          "expr": "nodejs_eventloop_delay_p90{job=\"dashboard\"}",
           "legendFormat": "P90",
           "refId": "B"
         },
         {
-          "expr": "nodejs_eventloop_delay_p99{service_name=\"flagmeter-dashboard\"}",
+          "expr": "nodejs_eventloop_delay_p99{job=\"dashboard\"}",
           "legendFormat": "P99",
           "refId": "C"
         }
@@ -1422,7 +1422,7 @@
       },
       "targets": [
         {
-          "expr": "sum(v8js_memory_heap_used{service_name=\"flagmeter-worker\"}) by (v8js_heap_space_name)",
+          "expr": "sum(v8js_memory_heap_used{job=\"worker\"}) by (v8js_heap_space_name)",
           "legendFormat": "{{v8js_heap_space_name}}",
           "refId": "A"
         }
@@ -1468,7 +1468,7 @@
       },
       "targets": [
         {
-          "expr": "nodejs_eventloop_utilization{service_name=\"flagmeter-worker\"}",
+          "expr": "nodejs_eventloop_utilization{job=\"worker\"}",
           "legendFormat": "Worker Event Loop %",
           "refId": "A"
         }
@@ -1526,7 +1526,7 @@
       },
       "targets": [
         {
-          "expr": "rate(v8js_gc_duration_sum{service_name=\"flagmeter-worker\"}[1m]) / rate(v8js_gc_duration_count{service_name=\"flagmeter-worker\"}[1m])",
+          "expr": "rate(v8js_gc_duration_sum{job=\"worker\"}[1m]) / rate(v8js_gc_duration_count{job=\"worker\"}[1m])",
           "legendFormat": "{{v8js_gc_type}} GC",
           "refId": "A"
         }
@@ -1565,17 +1565,17 @@
       },
       "targets": [
         {
-          "expr": "nodejs_eventloop_delay_p50{service_name=\"flagmeter-worker\"}",
+          "expr": "nodejs_eventloop_delay_p50{job=\"worker\"}",
           "legendFormat": "P50",
           "refId": "A"
         },
         {
-          "expr": "nodejs_eventloop_delay_p90{service_name=\"flagmeter-worker\"}",
+          "expr": "nodejs_eventloop_delay_p90{job=\"worker\"}",
           "legendFormat": "P90",
           "refId": "B"
         },
         {
-          "expr": "nodejs_eventloop_delay_p99{service_name=\"flagmeter-worker\"}",
+          "expr": "nodejs_eventloop_delay_p99{job=\"worker\"}",
           "legendFormat": "P99",
           "refId": "C"
         }
