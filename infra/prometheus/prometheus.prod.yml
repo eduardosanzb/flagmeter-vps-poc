@@ -1,0 +1,33 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # OpenTelemetry metrics from dashboard (production mode)
+  - job_name: 'dashboard'
+    static_configs:
+      - targets: ['dashboard:9464']
+    metrics_path: '/metrics'
+
+  # OpenTelemetry metrics from worker (production mode)
+  - job_name: 'worker'
+    static_configs:
+      - targets: ['worker:9465']
+    metrics_path: '/metrics'
+
+  # PostgreSQL database metrics
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    metrics_path: '/metrics'
+
+  # Valkey/Redis metrics
+  - job_name: 'valkey'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    metrics_path: '/metrics'
+
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
