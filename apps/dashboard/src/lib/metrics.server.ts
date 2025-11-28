@@ -66,8 +66,6 @@ export function recordHttpMetrics(
     http_status_code: statusCode,
   };
 
-  console.log(`[Metrics] Recording: ${method} ${route} ${statusCode} ${durationMs}ms`);
   httpRequestCounter.add(1, attributes);
   httpRequestDuration.record(durationMs, attributes);
-  console.log('[Metrics] Recorded successfully');
 }
