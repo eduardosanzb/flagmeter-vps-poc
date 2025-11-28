@@ -6,6 +6,35 @@ import viteTsConfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
 
+// Custom plugin to prevent OpenTelemetry from being bundled in client builds
+function externalizeForClient() {
+  const externalPackages = [
+    '@opentelemetry/api',
+    '@opentelemetry/sdk-node',
+    '@opentelemetry/sdk-metrics',
+    '@opentelemetry/exporter-prometheus',
+    '@opentelemetry/resources',
+    '@opentelemetry/auto-instrumentations-node',
+    '@opentelemetry/otlp-exporter-base',
+    '@flagmeter/telemetry',
+  ];
+
+  return {
+    name: 'externalize-otel-for-client',
+    enforce: 'pre' as const,
+    resolveId(id: string, _importer: string | undefined, options: any) {
+      // Only apply to client builds (not SSR)
+      if (options?.ssr === false) {
+        if (externalPackages.some(pkg => id === pkg || id.startsWith(pkg + '/'))) {
+          // Return external to prevent bundling
+          return { id, external: true };
+        }
+      }
+      return null;
+    },
+  };
+}
+
 const config = defineConfig({
   server:{
       allowedHosts: ['.localdomain', '.local', '.test', '.localhost', 'host.docker.internal' ],
@@ -41,6 +70,8 @@ const config = defineConfig({
     ],
   },
   plugins: [
+    // Externalize OpenTelemetry for client builds
+    externalizeForClient(),
     // Only enable devtools in development mode
     ...(process.env.NODE_ENV !== 'production' ? [devtools()] : []),
     nitro(),
