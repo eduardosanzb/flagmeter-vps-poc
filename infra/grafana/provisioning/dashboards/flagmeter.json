@@ -83,10 +83,7 @@
         {
           "expr": "up{job=\"dashboard\"}",
           "legendFormat": "Dashboard Status",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "Dashboard Service - Status",
@@ -154,10 +151,7 @@
         {
           "expr": "up{job=\"worker\"}",
           "legendFormat": "Worker Status",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "Worker Service - Status",
@@ -259,18 +253,12 @@
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\"}[1m]))",
           "legendFormat": "Total RPS",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\"}[1m])) by (http_route)",
           "legendFormat": "{{http_route}}",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "HTTP - Request Rate (RPS)",
@@ -330,10 +318,7 @@
         {
           "expr": "100 * (sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=~\"2..\"}[5m])) / sum(rate(http_server_requests_total{service_name=\"dashboard\"}[5m])))",
           "legendFormat": "Success Rate %",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "HTTP - Success Rate",
@@ -392,10 +377,7 @@
         {
           "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
           "legendFormat": "P95 Latency",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "HTTP - P95 Latency",
@@ -484,50 +466,32 @@
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"200\"}[1m]))",
           "legendFormat": "200 OK",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"201\"}[1m]))",
           "legendFormat": "201 Created",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         },
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"400\"}[1m]))",
           "legendFormat": "400 Bad Request",
-          "refId": "C",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "C"
         },
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"404\"}[1m]))",
           "legendFormat": "404 Not Found",
-          "refId": "D",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "D"
         },
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"500\"}[1m]))",
           "legendFormat": "500 Internal Error",
-          "refId": "E",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "E"
         },
         {
           "expr": "sum(rate(http_server_requests_total{service_name=\"dashboard\",http_status_code=\"503\"}[1m]))",
           "legendFormat": "503 Service Unavailable",
-          "refId": "F",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "F"
         }
       ],
       "title": "HTTP - Requests by Status Code",
@@ -616,34 +580,22 @@
         {
           "expr": "histogram_quantile(0.50, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
           "legendFormat": "P50 (median)",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "histogram_quantile(0.90, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
           "legendFormat": "P90",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         },
         {
           "expr": "histogram_quantile(0.95, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
           "legendFormat": "P95",
-          "refId": "C",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "C"
         },
         {
           "expr": "histogram_quantile(0.99, sum(rate(http_server_duration_bucket{service_name=\"dashboard\"}[5m])) by (le))",
           "legendFormat": "P99",
-          "refId": "D",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "D"
         }
       ],
       "title": "HTTP - Latency Percentiles",
@@ -735,10 +687,7 @@
         {
           "expr": "rate(http_server_duration_sum{service_name=\"dashboard\"}[5m]) / rate(http_server_duration_count{service_name=\"dashboard\"}[5m])",
           "legendFormat": "{{http_route}} - {{http_method}}",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "HTTP - Average Latency by Route",
@@ -802,10 +751,7 @@
           "expr": "sum(http_server_requests_total{service_name=\"dashboard\"}) by (http_route, http_method)",
           "instant": true,
           "legendFormat": "{{http_method}} {{http_route}}",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "HTTP - Request Count by Endpoint",
@@ -907,10 +853,7 @@
         {
           "expr": "pg_database_size_bytes{datname=\"flagmeter\"}",
           "legendFormat": "Database Size",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "PostgreSQL - Database Size",
@@ -999,10 +942,7 @@
         {
           "expr": "pg_stat_user_tables_table_size_bytes",
           "legendFormat": "{{schemaname}}.{{relname}}",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "PostgreSQL - Table Sizes",
@@ -1091,18 +1031,12 @@
         {
           "expr": "rate(pg_stat_database_xact_commit{datname=\"flagmeter\"}[5m])",
           "legendFormat": "Commits/sec",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "rate(pg_stat_database_xact_rollback{datname=\"flagmeter\"}[5m])",
           "legendFormat": "Rollbacks/sec",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "PostgreSQL - Transaction Rate",
@@ -1191,26 +1125,17 @@
         {
           "expr": "rate(pg_stat_database_tup_inserted{datname=\"flagmeter\"}[5m])",
           "legendFormat": "Inserts/sec",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "rate(pg_stat_database_tup_updated{datname=\"flagmeter\"}[5m])",
           "legendFormat": "Updates/sec",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         },
         {
           "expr": "rate(pg_stat_database_tup_deleted{datname=\"flagmeter\"}[5m])",
           "legendFormat": "Deletes/sec",
-          "refId": "C",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "C"
         }
       ],
       "title": "PostgreSQL - Tuple Operations (Inserts/Updates/Deletes)",
@@ -1299,10 +1224,7 @@
         {
           "expr": "pg_stat_user_tables_n_dead_tup",
           "legendFormat": "{{schemaname}}.{{relname}}",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "PostgreSQL - Dead Tuples (Vacuum Health)",
@@ -1362,10 +1284,7 @@
         {
           "expr": "100 * (sum(rate(pg_stat_database_blks_hit{datname=\"flagmeter\"}[5m])) / (sum(rate(pg_stat_database_blks_hit{datname=\"flagmeter\"}[5m])) + sum(rate(pg_stat_database_blks_read{datname=\"flagmeter\"}[5m]))))",
           "legendFormat": "Cache Hit %",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "PostgreSQL - Cache Hit Ratio",
@@ -1454,10 +1373,7 @@
         {
           "expr": "pg_locks_count{datname=\"flagmeter\"}",
           "legendFormat": "{{mode}}",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "PostgreSQL - Lock Count by Type",
@@ -1546,18 +1462,12 @@
         {
           "expr": "rate(pg_stat_database_tup_fetched{datname=\"flagmeter\"}[5m])",
           "legendFormat": "Fetched/sec",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "rate(pg_stat_database_tup_returned{datname=\"flagmeter\"}[5m])",
           "legendFormat": "Returned/sec",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "PostgreSQL - Rows Fetched vs Returned",
@@ -1646,10 +1556,7 @@
         {
           "expr": "pg_stat_activity_count{datname=\"flagmeter\"}",
           "legendFormat": "Active Connections",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "PostgreSQL - Active Connections",
@@ -1738,18 +1645,12 @@
         {
           "expr": "redis_connected_clients",
           "legendFormat": "Connected Clients",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "redis_blocked_clients",
           "legendFormat": "Blocked Clients",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "Valkey - Connected Clients",
@@ -1838,10 +1739,7 @@
         {
           "expr": "rate(redis_commands_processed_total[5m])",
           "legendFormat": "Commands/sec",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "Valkey - Commands Processed",
@@ -1901,10 +1799,7 @@
         {
           "expr": "100 * (rate(redis_keyspace_hits_total[5m]) / (rate(redis_keyspace_hits_total[5m]) + rate(redis_keyspace_misses_total[5m])))",
           "legendFormat": "Hit Rate %",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "Valkey - Keyspace Hit Rate",
@@ -1993,18 +1888,12 @@
         {
           "expr": "redis_memory_used_bytes",
           "legendFormat": "Used Memory",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "redis_memory_max_bytes",
           "legendFormat": "Max Memory",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "Valkey - Memory Usage",
@@ -2093,18 +1982,12 @@
         {
           "expr": "rate(redis_keyspace_hits_total[5m])",
           "legendFormat": "Hits/sec",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "rate(redis_keyspace_misses_total[5m])",
           "legendFormat": "Misses/sec",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "Valkey - Keyspace Hits vs Misses",
@@ -2193,18 +2076,12 @@
         {
           "expr": "rate(redis_net_input_bytes_total[5m])",
           "legendFormat": "Input Bytes/sec",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "rate(redis_net_output_bytes_total[5m])",
           "legendFormat": "Output Bytes/sec",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "Valkey - Network I/O",
@@ -2293,18 +2170,12 @@
         {
           "expr": "redis_db_keys",
           "legendFormat": "Total Keys (db{{db}})",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         },
         {
           "expr": "rate(redis_evicted_keys_total[5m])",
           "legendFormat": "Evicted Keys/sec",
-          "refId": "B",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "B"
         }
       ],
       "title": "Valkey - Keys & Evictions",
@@ -2406,10 +2277,7 @@
             {
               "expr": "sum(v8js_memory_heap_used{job=\"dashboard\"}) by (v8js_heap_space_name)",
               "legendFormat": "{{v8js_heap_space_name}}",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             }
           ],
           "title": "V8 Heap Memory Usage",
@@ -2504,10 +2372,7 @@
             {
               "expr": "nodejs_eventloop_utilization{job=\"dashboard\"}",
               "legendFormat": "Dashboard Event Loop %",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             }
           ],
           "title": "Event Loop Utilization",
@@ -2596,10 +2461,7 @@
             {
               "expr": "rate(v8js_gc_duration_sum{job=\"dashboard\"}[1m]) / rate(v8js_gc_duration_count{job=\"dashboard\"}[1m])",
               "legendFormat": "{{v8js_gc_type}} GC",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             }
           ],
           "title": "GC Duration by Type",
@@ -2688,26 +2550,17 @@
             {
               "expr": "nodejs_eventloop_delay_p50{job=\"dashboard\"}",
               "legendFormat": "P50",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             },
             {
               "expr": "nodejs_eventloop_delay_p90{job=\"dashboard\"}",
               "legendFormat": "P90",
-              "refId": "B",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "B"
             },
             {
               "expr": "nodejs_eventloop_delay_p99{job=\"dashboard\"}",
               "legendFormat": "P99",
-              "refId": "C",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "C"
             }
           ],
           "title": "Event Loop Delay (P50, P90, P99)",
@@ -2813,10 +2666,7 @@
             {
               "expr": "sum(v8js_memory_heap_used{job=\"worker\"}) by (v8js_heap_space_name)",
               "legendFormat": "{{v8js_heap_space_name}}",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             }
           ],
           "title": "V8 Heap Memory Usage",
@@ -2911,10 +2761,7 @@
             {
               "expr": "nodejs_eventloop_utilization{job=\"worker\"}",
               "legendFormat": "Worker Event Loop %",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             }
           ],
           "title": "Event Loop Utilization",
@@ -3003,10 +2850,7 @@
             {
               "expr": "rate(v8js_gc_duration_sum{job=\"worker\"}[1m]) / rate(v8js_gc_duration_count{job=\"worker\"}[1m])",
               "legendFormat": "{{v8js_gc_type}} GC",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             }
           ],
           "title": "GC Duration by Type",
@@ -3095,26 +2939,17 @@
             {
               "expr": "nodejs_eventloop_delay_p50{job=\"worker\"}",
               "legendFormat": "P50",
-              "refId": "A",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "A"
             },
             {
               "expr": "nodejs_eventloop_delay_p90{job=\"worker\"}",
               "legendFormat": "P90",
-              "refId": "B",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "B"
             },
             {
               "expr": "nodejs_eventloop_delay_p99{job=\"worker\"}",
               "legendFormat": "P99",
-              "refId": "C",
-              "datasource": {
-                "uid": "prometheus"
-              }
+              "refId": "C"
             }
           ],
           "title": "Event Loop Delay (P50, P90, P99)",
@@ -3172,10 +3007,7 @@
           "format": "table",
           "instant": true,
           "legendFormat": "",
-          "refId": "A",
-          "datasource": {
-            "uid": "prometheus"
-          }
+          "refId": "A"
         }
       ],
       "title": "Service Info",
