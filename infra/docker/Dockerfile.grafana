@@ -1,0 +1,7 @@
+# Custom Grafana image with pre-provisioned dashboards and datasources
+FROM grafana/grafana:latest
+
+# Copy provisioning configuration
+COPY infra/grafana/provisioning /etc/grafana/provisioning
+
+USER grafana
