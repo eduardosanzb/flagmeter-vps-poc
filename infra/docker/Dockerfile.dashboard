@@ -17,6 +17,7 @@ RUN pnpm install --frozen-lockfile
 # Build workspace packages first
 RUN pnpm --filter "@flagmeter/types" build
 RUN pnpm --filter "@flagmeter/db" build
+RUN pnpm --filter "@flagmeter/telemetry" build
 
 # Build Dashboard
 WORKDIR /app/apps/dashboard
@@ -40,6 +41,7 @@ RUN pnpm install --prod --frozen-lockfile
 # Copy built workspace packages
 COPY --from=builder /app/packages/db/dist ./packages/db/dist
 COPY --from=builder /app/packages/types/dist ./packages/types/dist
+COPY --from=builder /app/packages/telemetry/dist/telemetry.mjs ./apps/dashboard/telemetry.mjs
 
 # Copy built application
 COPY --from=builder /app/apps/dashboard/.output ./apps/dashboard/.output
