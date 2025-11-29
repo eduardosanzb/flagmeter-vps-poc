@@ -1,0 +1,104 @@
+# Coolify deployment configuration for FlagMeter - Core Application
+# This file contains only the core application services
+# 
+# Optimized for: Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM)
+# All images are ARM64 compatible
+
+version: '1.0'
+
+services:
+  dashboard:
+    build:
+      dockerfile: infra/docker/Dockerfile.dashboard
+      context: .
+      args:
+        BUILDKIT_INLINE_CACHE: 0
+    ports:
+      - 3000
+    healthcheck:
+      test: ["CMD-SHELL", "node -e 'http.get(\"http://localhost:3000/api/health\",(r)=>{process.exit(r.statusCode===200?0:1)})'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://flagmeter:flagmeter123@postgres:5432/flagmeter}
+      VALKEY_URL: ${VALKEY_URL:-redis://valkey:6379}
+      NODE_ENV: production
+      QUEUE_NAME: events
+      LOG_LEVEL: info
+    depends_on:
+      - postgres
+      - valkey
+
+  worker:
+    build:
+      dockerfile: infra/docker/Dockerfile.worker
+      context: .
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      VALKEY_URL: ${VALKEY_URL}
+      NODE_ENV: production
+      WORKER_CONCURRENCY: 2
+      QUEUE_NAME: events
+      LOG_LEVEL: info
+    depends_on:
+      - postgres
+      - valkey
+
+  landing:
+    build:
+      dockerfile: Dockerfile
+      context: apps/landing
+    ports:
+      - 80
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  postgres:
+    image: postgres:18-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-flagmeter}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-flagmeter123}
+      POSTGRES_DB: ${POSTGRES_DB:-flagmeter}
+
+  valkey:
+    image: valkey/valkey:7-alpine
+
+volumes:
+  postgres_data:
+
+# Preview deployments configuration
+previews:
+  enabled: true
+  pattern: pr-{number}
+  domain: meter.yourdomain.com
+  services:
+    - dashboard
+    - worker
+
+# Resource limits optimized for Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM)
+resources:
+  dashboard:
+    memory: 1024M     # TanStack Start SSR + API routes
+    cpu: 0.75
+  worker:
+    memory: 768M      # Event processing queue
+    cpu: 0.5
+  postgres:
+    memory: 1024M     # Main data store
+    cpu: 0.5
+  valkey:
+    memory: 384M      # Event queue + cache
+    cpu: 0.25
+  landing:
+    memory: 128M      # Static nginx site (minimal resources)
+    cpu: 0.1
+# Total: ~3.3GB RAM allocated, ~2.1GB CPU shares
+# Leaves ~700MB RAM headroom for spikes
