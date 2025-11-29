@@ -41,7 +41,7 @@ services:
       VALKEY_URL: ${VALKEY_URL}
       LOKI_URL: ${LOKI_URL:-http://loki:3100}
       NODE_ENV: production
-      WORKER_CONCURRENCY: 2
+      WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-4}  # Increased for load testing (was 2)
       QUEUE_NAME: events
       LOG_LEVEL: info
     depends_on:
@@ -143,22 +143,23 @@ previews:
     - worker
 
 # Resource limits optimized for Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM)
+# Based on actual load testing metrics
 resources:
   dashboard:
     memory: 1024M     # TanStack Start SSR + API routes
-    cpu: 0.75
+    cpu: 0.7          # Primary ingestion endpoint
   worker:
-    memory: 768M      # Event processing queue
-    cpu: 0.5
+    memory: 768M      # I/O bound async processing with 4 workers
+    cpu: 0.3          # Not CPU intensive (BRPOP + async DB queries)
   postgres:
-    memory: 1024M     # Main data store
-    cpu: 0.5
+    memory: 1024M     # Main data store + 4 worker connections
+    cpu: 0.5          # Query planning/execution
   valkey:
-    memory: 384M      # Event queue + cache
-    cpu: 0.25
+    memory: 128M      # Actual usage: ~6MB in prod, 128M = 20x headroom
+    cpu: 0.05         # Minimal CPU for queue ops
   landing:
-    memory: 128M      # Static nginx site (minimal resources)
-    cpu: 0.1
+    memory: 64M       # Static nginx site
+    cpu: 0.05         # Minimal resources
   prometheus:
     memory: 256M      # Metrics storage and queries
     cpu: 0.2
@@ -174,5 +175,5 @@ resources:
   redis-exporter:
     memory: 64M       # Valkey/Redis metrics exporter
     cpu: 0.05
-# Total with observability: ~3.95GB RAM allocated, ~2.8GB CPU shares
-# Tight fit on CAX11 (4GB RAM, 2 vCPU) - monitor resource usage
+# Total with observability: ~3.7GB RAM allocated, ~2.25 CPU shares
+# Valkey optimized based on prod metrics (6MB actual usage)
