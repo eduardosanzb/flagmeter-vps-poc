@@ -22,6 +22,14 @@ const features = ['gpt-4-turbo', 'gpt-4o', 'claude-3-opus', 'claude-3-sonnet'];
 
 // Scenario configurations
 const scenarioConfigs = {
+  long: {
+    executor: 'ramping-vus',
+    startVUs: 0,
+    stages: [
+      { duration: '10h', target: 500 },
+    ],
+    exec: 'baselineTraffic',
+  },
   baseline: {
     executor: 'ramping-vus',
     startVUs: 0,
@@ -35,14 +43,12 @@ const scenarioConfigs = {
     ],
     exec: 'baselineTraffic',
   },
-
   spike: {
     executor: 'ramping-vus',
     startVUs: 0,
     stages: [
       { duration: '10s', target: 1000 },
       { duration: '30s', target: 3000 },
-      { duration: '30s', target: 5000 },
       { duration: '1m', target: 3000 },
       { duration: '10s', target: 0 },
     ],
