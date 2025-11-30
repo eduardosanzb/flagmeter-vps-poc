@@ -1,0 +1,22 @@
+
+version: '1.0'
+
+services:
+  landing:
+    build:
+      dockerfile: Dockerfile
+      context: apps/landing
+    ports:
+      - 80
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+
+resources:
+  landing:
+    memory: 64M       # Static nginx site
+    cpu: 0.05         # Minimal resources
