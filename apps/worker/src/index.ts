@@ -1,9 +1,8 @@
 import Redis from 'ioredis';
-import { db, rollups, sql as pgSql } from '@flagmeter/db';
+import { sql as pgSql } from '@flagmeter/db';
 import { logger } from './logger.js';
 import { checkQuotaAndNotify } from './webhook.js';
 import type { EventJob } from '@flagmeter/types';
-import { eq, and } from 'drizzle-orm';
 
 const VALKEY_URL = process.env.VALKEY_URL;
 const QUEUE_NAME = process.env.QUEUE_NAME || 'events';
@@ -28,16 +27,25 @@ redis.on('connect', () => {
 
 // Process a single job from the queue
 async function processJob(job: EventJob): Promise<void> {
+  const startTime = Date.now();
   const { eventId, tenantId, feature, tokens, createdAt } = job;
 
   // Truncate to minute
   const minute = new Date(createdAt);
   minute.setSeconds(0, 0);
 
-  logger.info({ eventId, tenantId, feature, tokens, minute: minute.toISOString() }, 'Processing event');
+  logger.info({ 
+    eventId, 
+    tenantId, 
+    feature, 
+    tokens, 
+    minute: minute.toISOString(),
+    jobAge: Date.now() - new Date(createdAt).getTime()
+  }, 'Processing event');
 
   try {
     // Upsert rollup using raw SQL for performance
+    const rollupStart = Date.now();
     await pgSql`
       INSERT INTO rollups (tenant_id, feature, minute, total_tokens, updated_at)
       VALUES (${tenantId}, ${feature}, ${minute.toISOString()}, ${tokens}, NOW())
@@ -46,18 +54,28 @@ async function processJob(job: EventJob): Promise<void> {
         total_tokens = rollups.total_tokens + ${tokens},
         updated_at = NOW()
     `;
+    const rollupDuration = Date.now() - rollupStart;
+    
+    logger.debug({ 
+      eventId, 
+      tenantId, 
+      feature, 
+      rollupDuration 
+    }, 'Rollup upserted');
 
     // Cache quota percentage in Valkey (10s TTL)
+    const usageStart = Date.now();
     const usageResult = await pgSql`
       SELECT 
         t.monthly_quota,
-        COALESCE(SUM(r.total_tokens), 0)::int AS total_tokens
+        COALESCE(SUM(r.total_tokens), 0)::bigint AS total_tokens
       FROM tenants t
       LEFT JOIN rollups r ON r.tenant_id = t.id 
         AND r.minute >= date_trunc('month', now())
       WHERE t.id = ${tenantId}
       GROUP BY t.id, t.monthly_quota
     `;
+    const usageDuration = Date.now() - usageStart;
 
     if (usageResult.length > 0) {
       const usage = usageResult[0]!; // Safe: we checked length > 0
@@ -68,15 +86,43 @@ async function processJob(job: EventJob): Promise<void> {
       // Cache in Valkey with 10s TTL
       await redis.setex(`quota:${tenantId}`, 10, quotaPercent.toString());
 
-      logger.info({ tenantId, quotaPercent: quotaPercent.toFixed(2) }, 'Quota updated');
+      const processDuration = Date.now() - startTime;
+      logger.info({ 
+        eventId,
+        tenantId, 
+        feature,
+        tokens,
+        totalTokens,
+        monthlyQuota,
+        quotaPercent: quotaPercent.toFixed(2),
+        processDuration,
+        rollupDuration,
+        usageDuration
+      }, 'Event processed successfully');
 
       // Check if we need to notify (≥80%)
       if (quotaPercent >= 80) {
+        logger.warn({ 
+          tenantId, 
+          quotaPercent: quotaPercent.toFixed(2),
+          totalTokens,
+          monthlyQuota
+        }, 'Quota threshold exceeded, checking notification');
         await checkQuotaAndNotify(tenantId, totalTokens, monthlyQuota, quotaPercent);
       }
+    } else {
+      logger.warn({ tenantId, eventId }, 'No usage data found for tenant');
     }
   } catch (error) {
-    logger.error({ error, eventId }, 'Failed to process job');
+    const processDuration = Date.now() - startTime;
+    logger.error({ 
+      error, 
+      eventId, 
+      tenantId, 
+      feature, 
+      tokens,
+      processDuration 
+    }, 'Failed to process job');
     throw error; // Re-throw to be caught by worker
   }
 }

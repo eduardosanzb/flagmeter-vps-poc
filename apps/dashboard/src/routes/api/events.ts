@@ -28,6 +28,10 @@ export const Route = createFileRoute('/api/events')({
           const validation = createEventSchema.safeParse(body);
           if (!validation.success) {
             statusCode = 400;
+            logger.warn({ 
+              validationErrors: validation.error.issues,
+              body 
+            }, 'Invalid event request');
             recordHttpMetrics('POST', '/api/events', statusCode, Date.now() - startTime);
             return json({ error: 'Invalid request body', details: validation.error.issues }, { status: statusCode });
           }
@@ -35,25 +39,35 @@ export const Route = createFileRoute('/api/events')({
           const { tenant: tenantName, feature, tokens } = validation.data;
 
           // Find tenant by name
+          const tenantLookupStart = Date.now();
           let [tenant] = await db
             .select()
             .from(tenants)
             .where(eq(tenants.name, tenantName))
             .limit(1);
+          const tenantLookupDuration = Date.now() - tenantLookupStart;
 
           if (!tenant) {
             // lets create the tenant
             // return json({ error: `Tenant '${tenantName}' not found` }, { status: 404 });
+            const tenantCreateStart = Date.now();
             const [newTenant] = await db
               .insert(tenants)
               .values({ name: tenantName, monthlyQuota: 1000000000 })
               .returning();
+            const tenantCreateDuration = Date.now() - tenantCreateStart;
 
-            logger.info({ tenantId: newTenant.id, tenantName }, 'Created new tenant');
+            logger.info({ 
+              tenantId: newTenant.id, 
+              tenantName,
+              tenantCreateDuration,
+              monthlyQuota: 1000000000
+            }, 'Created new tenant');
             tenant = newTenant;
           }
 
           // Insert event via Drizzle
+          const eventInsertStart = Date.now();
           const [event] = await db
             .insert(events)
             .values({
@@ -62,6 +76,7 @@ export const Route = createFileRoute('/api/events')({
               tokens,
             })
             .returning();
+          const eventInsertDuration = Date.now() - eventInsertStart;
 
           // Push job to Valkey queue
           const redis = getRedis();
@@ -73,9 +88,22 @@ export const Route = createFileRoute('/api/events')({
             createdAt: event.createdAt.toISOString(),
           };
 
+          const queuePushStart = Date.now();
           await redis.lpush(QUEUE_NAME, JSON.stringify(job));
+          const queuePushDuration = Date.now() - queuePushStart;
 
-          logger.info({ eventId: event.id, tenant: tenantName, feature, tokens }, 'Event created');
+          const totalDuration = Date.now() - startTime;
+          logger.info({ 
+            eventId: event.id, 
+            tenantId: tenant.id,
+            tenant: tenantName, 
+            feature, 
+            tokens,
+            tenantLookupDuration,
+            eventInsertDuration,
+            queuePushDuration,
+            totalDuration
+          }, 'Event created and queued');
 
           const response: CreateEventResponse = {
             success: true,
@@ -86,7 +114,12 @@ export const Route = createFileRoute('/api/events')({
           recordHttpMetrics('POST', '/api/events', statusCode, Date.now() - startTime);
           return json(response, { status: statusCode });
         } catch (error) {
-          logger.error({ error }, 'Failed to create event');
+          const totalDuration = Date.now() - startTime;
+          logger.error({ 
+            error, 
+            totalDuration,
+            requestPath: '/api/events'
+          }, 'Failed to create event');
           statusCode = 500;
           recordHttpMetrics('POST', '/api/events', statusCode, Date.now() - startTime);
           return json({ error: 'Internal server error' }, { status: statusCode });

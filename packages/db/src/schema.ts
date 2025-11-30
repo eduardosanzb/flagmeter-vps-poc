@@ -1,10 +1,10 @@
-import { pgTable, uuid, text, integer, timestamp, boolean, primaryKey, unique, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, integer, bigint, timestamp, boolean, primaryKey, uniqueIndex } from 'drizzle-orm/pg-core';
 
 // Tenants table
 export const tenants = pgTable('tenants', {
   id: uuid('id').defaultRandom().primaryKey(),
   name: text('name').notNull(),
-  monthlyQuota: integer('monthly_quota').notNull().default(1_000_000),
+  monthlyQuota: bigint('monthly_quota', { mode: 'number' }).notNull().default(1_000_000),
   billingDay: integer('billing_day').notNull().default(1),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 }, (t) => [
@@ -16,7 +16,7 @@ export const events = pgTable('events', {
   id: uuid('id').defaultRandom().primaryKey(),
   tenantId: uuid('tenant_id').notNull().references(() => tenants.id, { onDelete: 'cascade' }),
   feature: text('feature').notNull(),
-  tokens: integer('tokens').notNull(),
+  tokens: bigint('tokens', { mode: 'number' }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
@@ -25,7 +25,7 @@ export const rollups = pgTable('rollups', {
   tenantId: uuid('tenant_id').notNull().references(() => tenants.id, { onDelete: 'cascade' }),
   feature: text('feature').notNull(),
   minute: timestamp('minute', { withTimezone: true }).notNull(),
-  totalTokens: integer('total_tokens').notNull().default(0),
+  totalTokens: bigint('total_tokens', { mode: 'number' }).notNull().default(0),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 }, (table) => ({
   pk: primaryKey({ columns: [table.tenantId, table.feature, table.minute] }),

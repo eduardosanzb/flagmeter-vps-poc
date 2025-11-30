@@ -19,19 +19,36 @@ echo ""
 cd /app/packages/db
 
 # Run migrations using npx (downloads drizzle-kit on-the-fly)
-echo "🔄 Creating database schema..."
-echo "   (using npx to run drizzle-kit)"
+echo "🔄 Applying schema changes..."
+echo "   Converting integer columns to bigint:"
+echo "   - tenants.monthly_quota: integer → bigint"
+echo "   - events.tokens: integer → bigint"
+echo "   - rollups.total_tokens: integer → bigint"
+echo ""
+echo "   This fixes PostgreSQL error 22003 (numeric_value_out_of_range)"
+echo "   when token counts exceed 2.1 billion"
+echo ""
 npx drizzle-kit push --force
 
 if [ $? -eq 0 ]; then
   echo ""
   echo "✅ Migrations completed successfully!"
   echo ""
+  echo "🔍 Schema changes applied:"
+  echo "   - All token counters now support values up to 9 quintillion"
+  echo "   - Existing data preserved during conversion"
+  echo ""
   echo "💡 Next steps:"
-  echo "   - Your database schema is ready"
+  echo "   - Restart worker service to clear cached connections"
   echo "   - Test the API: curl http://localhost:3000/api/health"
+  echo "   - Monitor worker logs for successful event processing"
 else
   echo ""
   echo "❌ Migration failed"
+  echo ""
+  echo "💡 Troubleshooting:"
+  echo "   - Verify DATABASE_URL is correct"
+  echo "   - Check postgres service is running"
+  echo "   - Ensure database user has ALTER TABLE permissions"
   exit 1
 fi

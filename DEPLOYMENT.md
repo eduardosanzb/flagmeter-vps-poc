@@ -88,6 +88,70 @@ cd /app/packages/db
 pnpm db:seed
 ```
 
+### Applying Schema Changes
+
+When deploying schema updates (e.g., integer → bigint conversions), use the automated migration scripts:
+
+#### Option 1: Automated Migration from Local Machine
+
+**For Docker Compose deployments:**
+```bash
+./deploy-migrate.sh docker
+```
+
+**For Coolify deployments:**
+```bash
+export COOLIFY_SSH_HOST=user@your-server.com
+./deploy-migrate.sh coolify
+```
+
+**For local development:**
+```bash
+./deploy-migrate.sh local
+```
+
+#### Option 2: Manual Migration in Container
+
+**Docker Compose:**
+```bash
+# Apply migration
+docker exec flagmeter-dashboard sh -c "cd /app/packages/db && npx drizzle-kit push --force"
+
+# Restart worker
+docker restart flagmeter-worker
+```
+
+**Coolify:**
+```bash
+# SSH into your server
+ssh user@your-server.com
+
+# Find dashboard container
+docker ps | grep dashboard
+
+# Apply migration (replace <container-id> with actual ID)
+docker exec <container-id> sh -c "cd /app/packages/db && npx drizzle-kit push --force"
+
+# Restart worker from Coolify UI or:
+docker ps | grep worker
+docker restart <worker-container-id>
+```
+
+#### Migration Safety Notes
+
+- **Zero Data Loss**: PostgreSQL safely converts integer → bigint without data loss
+- **Downtime**: ~5 seconds during column type change (connections remain open)
+- **Automatic Reconnect**: Worker and dashboard automatically reconnect after schema changes
+- **Rollback**: Not recommended - if needed, manually ALTER TABLE columns back to integer (only if values are within int32 range)
+
+#### What Gets Updated
+
+Recent migrations include:
+- **BigInt Conversion** (fixes error `PostgresError 22003`):
+  - `tenants.monthly_quota`: integer → bigint (supports quotas > 2.1B tokens)
+  - `events.tokens`: integer → bigint (supports large token counts)
+  - `rollups.total_tokens`: integer → bigint (prevents overflow during aggregation)
+
 ### Database Backups
 
 Coolify handles daily PostgreSQL backups to S3-compatible storage. Configure this in Coolify's backup settings.
