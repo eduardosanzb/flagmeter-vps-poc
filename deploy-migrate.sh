@@ -50,7 +50,7 @@ case "$MODE" in
     echo ""
     
     # Execute migration inside dashboard container
-    docker exec flagmeter-dashboard sh -c "cd /app/packages/db && npx drizzle-kit push --force"
+    docker exec flagmeter-dashboard sh -c "cd /app/packages/db && npx drizzle-kit push --config=drizzle.config.js --force"
     
     if [ $? -eq 0 ]; then
       echo ""
@@ -114,7 +114,7 @@ case "$MODE" in
     echo ""
     
     # Execute migration on remote server
-    ssh "$COOLIFY_SSH_HOST" "docker exec $COOLIFY_DASHBOARD_CONTAINER sh -c 'cd /app/packages/db && npx drizzle-kit push --force'"
+    ssh "$COOLIFY_SSH_HOST" "docker exec $COOLIFY_DASHBOARD_CONTAINER sh -c 'cd /app/packages/db && npx drizzle-kit push --config=drizzle.config.js --force'"
     
     if [ $? -eq 0 ]; then
       echo ""

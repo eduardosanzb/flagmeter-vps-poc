@@ -28,7 +28,7 @@ echo ""
 echo "   This fixes PostgreSQL error 22003 (numeric_value_out_of_range)"
 echo "   when token counts exceed 2.1 billion"
 echo ""
-npx drizzle-kit push --force
+npx drizzle-kit push --config=drizzle.config.js --force
 
 if [ $? -eq 0 ]; then
   echo ""
