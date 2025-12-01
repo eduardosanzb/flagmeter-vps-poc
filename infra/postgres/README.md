@@ -4,16 +4,34 @@ Optimized configuration for heavy write workload handling 500+ RPS sustained loa
 
 ## Quick Start
 
+### Configuration Method
+
+Due to Coolify's volume mounting limitations, PostgreSQL settings are configured via **inline command arguments** in `coolify.yaml` instead of a separate config file.
+
 ### 1. Select Your Server Size
 
-Edit `postgresql.conf` and uncomment the appropriate section:
+Edit `coolify.yaml` postgres service command section:
 
-- **CAX21** (4 vCPU, 8GB RAM): Default, uncommented
-- **CAX11** (2 vCPU, 4GB RAM): Comment out CAX21, uncomment CAX11 section
+**Current: CAX21 (4 vCPU, 8GB RAM)** - Already configured
+- `shared_buffers=1GB`
+- `effective_cache_size=4GB`
+- `max_worker_processes=4`
+
+**To switch to CAX11 (2 vCPU, 4GB RAM)** - Edit these lines:
+- `shared_buffers=512MB` (change from 1GB)
+- `effective_cache_size=2GB` (change from 4GB)
+- `max_connections=50` (change from 100)
+- `max_worker_processes=2` (change from 4)
+- `max_parallel_workers_per_gather=1` (change from 2)
+- `max_parallel_workers=2` (change from 4)
+- `autovacuum_max_workers=2` (change from 3)
+
+**Also update** `coolify.yaml`:
+- `WORKER_CONCURRENCY: 2` (change from 4)
 
 ### 2. Deploy
 
-The configuration is automatically mounted in your deployment (see coolify.yaml).
+Commit and push to `main` branch - Coolify auto-deploys.
 
 ### 3. Verify Settings Applied
 

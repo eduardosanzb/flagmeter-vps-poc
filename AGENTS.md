@@ -41,7 +41,22 @@
 - **Coolify**: Push to `main` → auto-deploy with zero downtime, auto-HTTPS via Let's Encrypt, branch previews at `pr-{n}.meter.yourdomain.com`
 - **Environment**: Set `DATABASE_URL`, `VALKEY_URL`, `NODE_ENV=production`, `WORKER_CONCURRENCY=4`, `GF_SECURITY_ADMIN_PASSWORD` in Coolify UI
 - **Migrations**: First deploy: `cd /app/packages/db && pnpm db:push:force` in Coolify terminal
-- **Target VPS**: Hetzner CAX11 (ARM64, 2 vCPU, 4GB RAM, €3.79/mo) - handles ~300 rps, 7k active users
+- **Target VPS Options**:
+  - **CAX21** (ARM64, 4 vCPU, 8GB RAM, €7.59/mo): Current production, handles 500+ RPS sustained, ~1000 RPS peak with optimized PostgreSQL config
+  - **CAX11** (ARM64, 2 vCPU, 4GB RAM, €3.79/mo): Target for cost optimization, handles 250-350 RPS sustained, requires tuned PostgreSQL config
+
+## PostgreSQL Configuration
+- **Location**: Inline command arguments in `coolify.yaml` postgres service
+- **Optimization**: Tuned for heavy write workload (INSERT ... ON CONFLICT upserts), 500+ RPS sustained
+- **Critical Settings**:
+  - `synchronous_commit=off`: 2-3x write throughput, reduces CPU by 40-60% (acceptable for metrics data)
+  - `max_wal_size=3GB`: Reduces checkpoint frequency from every 2-3min to every 10-15min
+  - `shared_buffers=1GB` (CAX21) or `512MB` (CAX11)
+  - `checkpoint_timeout=900`: Spreads checkpoint I/O over longer periods
+- **Server Selection**: Edit `coolify.yaml` postgres command section to switch between CAX21/CAX11 settings
+- **Performance Impact**: Before tuning: 103% CPU @ 500 RPS → After tuning: 50-60% CPU @ 500 RPS
+- **Documentation**: See `infra/postgres/README.md` for monitoring queries, troubleshooting, and CAX21↔CAX11 migration guide
+- **Validation**: After deploy, connect to postgres and run `SHOW synchronous_commit;` to verify settings applied
 
 ## API Endpoints
 - `POST /api/events` - Ingest event: `{ "tenant": "acme-corp", "feature": "gpt-4-turbo", "tokens": 1500 }`
