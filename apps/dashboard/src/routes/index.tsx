@@ -12,7 +12,7 @@ const fetchTenantsUsage = createServerFn({ method: 'GET' }).handler(async () => 
       t.id,
       t.name,
       t.monthly_quota,
-      COALESCE(SUM(r.total_tokens), 0)::int AS total_tokens
+      COALESCE(SUM(r.total_tokens), 0)::bigint AS total_tokens
     FROM tenants t
     LEFT JOIN rollups r ON r.tenant_id = t.id
       AND r.minute >= date_trunc('month', now())
