@@ -50,8 +50,10 @@ services:
 
   postgres:
     image: postgres:18-alpine
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-flagmeter}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-flagmeter123}
