@@ -82,6 +82,8 @@ services:
 networks:
   coolify-overlay:
     external: true
+  coolify: null
+  p8wcogcc4gc4ogoo8osos0s4: null
 
 # Coolify storage definitions
 x-coolify:
@@ -90,7 +92,7 @@ x-coolify:
       name: prometheus_data
       driver: local
     grafana_data:
-      name: grafana_data  
+      name: grafana_data
       driver: local
     loki_data:
       name: loki_data
