@@ -28,10 +28,25 @@ log_warning() {
 # Compose file to use (can be overridden with -f flag)
 COMPOSE_FILE="${COMPOSE_FILE:-coolify.app.swarm.yaml}"
 
+# Registry credentials
+REGISTRY_URL="${REGISTRY_URL:-registry.raus.cloud}"
+REGISTRY_USER="${REGISTRY_USER:-coolify}"
+REGISTRY_PASSWORD="${REGISTRY_PASSWORD:-test}"
+
 # Start build process
 log_info "Starting Docker Compose build and push workflow..."
 log_info "Using compose file: $COMPOSE_FILE"
 echo ""
+
+# Login to registry
+log_info "Logging into registry: $REGISTRY_URL"
+if echo "$REGISTRY_PASSWORD" | docker login "$REGISTRY_URL" -u "$REGISTRY_USER" --password-stdin; then
+    log_success "Registry login successful"
+    echo ""
+else
+    log_error "Registry login failed"
+    exit 1
+fi
 
 # Build images
 log_info "Building images..."
@@ -50,7 +65,6 @@ if docker compose -f "$COMPOSE_FILE" push; then
     echo ""
 else
     log_error "Push failed"
-    log_warning "Make sure you're logged into the registry: docker login registry.raus.cloud"
     exit 1
 fi
 
