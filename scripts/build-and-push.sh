@@ -60,6 +60,10 @@ fi
 
 # Push images to registry
 log_info "Pushing images to registry..."
+# Create empty .env if it doesn't exist to avoid docker compose errors
+if [ ! -f .env ]; then
+    touch .env
+fi
 if docker compose -f "$COMPOSE_FILE" push; then
     log_success "Push successful"
     echo ""
