@@ -2,7 +2,7 @@
 # Deploy to: Swarm Manager node
 # Network: flagmeter-net (overlay)
 #
-# Uses native Docker images (no custom builds needed)
+# Uses native Docker images with Coolify storage labels
 
 version: '3.8'
 
@@ -28,6 +28,9 @@ services:
         limits:
           memory: 256M
           cpus: '0.2'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
   grafana:
     image: grafana/grafana:latest
@@ -52,6 +55,9 @@ services:
         limits:
           memory: 256M
           cpus: '0.2'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
   loki:
     image: grafana/loki:latest
@@ -70,6 +76,22 @@ services:
         limits:
           memory: 128M
           cpus: '0.1'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
+
+# Coolify storage definitions
+x-coolify:
+  volumes:
+    prometheus_data:
+      name: prometheus_data
+      driver: local
+    grafana_data:
+      name: grafana_data  
+      driver: local
+    loki_data:
+      name: loki_data
+      driver: local
 
 networks:
   flagmeter-net:
@@ -78,5 +100,8 @@ networks:
 
 volumes:
   prometheus_data:
+    driver: local
   grafana_data:
+    driver: local
   loki_data:
+    driver: local
