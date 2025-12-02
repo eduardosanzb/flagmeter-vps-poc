@@ -16,6 +16,8 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
+    networks:
+      - coolify-overlay
     deploy:
       placement:
         constraints:
@@ -41,6 +43,8 @@ services:
       GF_SERVER_ROOT_URL: ${GF_SERVER_ROOT_URL:-https://grafana.raus.cloud}
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
       GF_ALLOW_EMBEDDING: "true"
+    networks:
+      - coolify-overlay
     deploy:
       placement:
         constraints:
@@ -60,6 +64,8 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - loki_data:/loki
+    networks:
+      - coolify-overlay
     deploy:
       placement:
         constraints:
@@ -72,6 +78,10 @@ services:
         - coolify.managed=true
         - coolify.type=service
 
+# Use Coolify's existing overlay network
+networks:
+  coolify-overlay:
+    external: true
 
 # Coolify storage definitions
 x-coolify:
@@ -80,7 +90,7 @@ x-coolify:
       name: prometheus_data
       driver: local
     grafana_data:
-      name: grafana_data
+      name: grafana_data  
       driver: local
     loki_data:
       name: loki_data
