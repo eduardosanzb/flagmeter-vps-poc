@@ -7,6 +7,11 @@ version: '3.8'
 services:
   dashboard:
     image: registry.raus.cloud/flagmeter/dashboard:latest
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.dashboard
+      args:
+        NODE_ENV: production
     ports:
       - 3000:3000
       - 9464:9464  # Prometheus metrics port
@@ -34,6 +39,11 @@ services:
 
   worker:
     image: registry.raus.cloud/flagmeter/worker:latest
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.worker
+      args:
+        NODE_ENV: production
     ports:
       - 9465:9465  # Prometheus metrics port
     environment:
