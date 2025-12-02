@@ -25,13 +25,17 @@ log_warning() {
     echo -e "${YELLOW}⚠${NC} $1"
 }
 
+# Compose file to use (can be overridden with -f flag)
+COMPOSE_FILE="${COMPOSE_FILE:-coolify.app.swarm.yaml}"
+
 # Start build process
 log_info "Starting Docker Compose build and push workflow..."
+log_info "Using compose file: $COMPOSE_FILE"
 echo ""
 
 # Build images
 log_info "Building images..."
-if docker compose build; then
+if docker compose -f "$COMPOSE_FILE" build; then
     log_success "Build successful"
     echo ""
 else
@@ -41,7 +45,7 @@ fi
 
 # Push images to registry
 log_info "Pushing images to registry..."
-if docker compose push; then
+if docker compose -f "$COMPOSE_FILE" push; then
     log_success "Push successful"
     echo ""
 else
