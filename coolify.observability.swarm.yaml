@@ -2,17 +2,25 @@
 # Deploy to: Swarm Manager node
 # Network: flagmeter-net (overlay)
 #
-# Build images first: ./scripts/build-and-deploy-swarm.sh
+# Uses native Docker images (no custom builds needed)
 
 version: '3.8'
 
 services:
   prometheus:
-    image: flagmeter-prometheus:latest
+    image: prom/prometheus:latest
     ports:
       - 9090:9090
     volumes:
       - prometheus_data:/prometheus
+    configs:
+      - source: prometheus_config
+        target: /etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
     networks:
       - flagmeter-net
     deploy:
@@ -25,11 +33,18 @@ services:
           cpus: '0.2'
 
   grafana:
-    image: flagmeter-grafana:latest
+    image: grafana/grafana:latest
     ports:
-      - 3001:3001
+      - 3001:3000
     volumes:
       - grafana_data:/var/lib/grafana
+    configs:
+      - source: grafana_datasources
+        target: /etc/grafana/provisioning/datasources/datasource.yml
+      - source: grafana_dashboards_config
+        target: /etc/grafana/provisioning/dashboards/dashboard.yml
+      - source: grafana_dashboard_json
+        target: /var/lib/grafana/dashboards/flagmeter.json
     environment:
       GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
       GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:-admin}
@@ -65,6 +80,19 @@ services:
         limits:
           memory: 128M
           cpus: '0.1'
+
+configs:
+  prometheus_config:
+    file: ./infra/prometheus/prometheus.prod.yml
+  
+  grafana_datasources:
+    file: ./infra/grafana/provisioning/datasources/datasource.yml
+  
+  grafana_dashboards_config:
+    file: ./infra/grafana/provisioning/dashboards/dashboard.yml
+  
+  grafana_dashboard_json:
+    file: ./infra/grafana/provisioning/dashboards/flagmeter.json
 
 networks:
   flagmeter-net:

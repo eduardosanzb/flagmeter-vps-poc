@@ -1,0 +1,35 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - curl
+  - wget
+  - git
+  - vim
+  - htop
+  - jq
+  - net-tools
+
+write_files:
+  - path: /etc/docker/daemon.json
+    content: |
+      {
+        "default-network-opts": {
+          "overlay": {
+            "com.docker.network.driver.mtu": "1450"
+          }
+        },
+        "mtu": 1450
+      }
+    permissions: '0644'
+
+runcmd:
+  - curl -fsSL https://get.docker.com -o /tmp/get-docker.sh
+  - sh /tmp/get-docker.sh
+  - systemctl enable docker
+  - systemctl start docker
+  - hostnamectl set-hostname ${hostname}
+  - swapoff -a
+  - sed -i '/ swap / s/^/#/' /etc/fstab
+  - echo "Docker installed successfully at $(date)" > /root/docker-ready.txt

@@ -1,0 +1,49 @@
+# ============================================
+# Hetzner Cloud Configuration
+# ============================================
+
+# Get your API token from: https://console.hetzner.cloud → Security → API Tokens
+# Create a new token with Read & Write permissions
+hcloud_token = "YOUR_HETZNER_API_TOKEN_HERE"
+
+# ============================================
+# SSH Configuration
+# ============================================
+
+# Path to your SSH public key
+# Generate a new key pair if needed:
+#   ssh-keygen -t ed25519 -C "flagmeter-deploy" -f ~/.ssh/flagmeter_deploy
+ssh_public_key_path = "~/.ssh/id_rsa.pub"
+
+# ============================================
+# Docker Registry Credentials
+# ============================================
+
+# Your existing registry.raus.cloud credentials
+docker_registry_url      = "registry.raus.cloud"
+docker_registry_username = "YOUR_REGISTRY_USERNAME"
+docker_registry_password = "YOUR_REGISTRY_PASSWORD"
+
+# ============================================
+# Application Secrets
+# ============================================
+
+# Generate strong passwords:
+#   openssl rand -base64 32
+#
+# Or use a password manager to generate 32+ character passwords
+
+postgres_password       = "GENERATE_STRONG_PASSWORD_HERE"
+grafana_admin_password  = "GENERATE_STRONG_PASSWORD_HERE"
+
+# ============================================
+# Optional: Customize Server Types
+# ============================================
+
+# Uncomment to upgrade server specs:
+# manager_server_type = "cax21"  # 4 vCPU, 8GB RAM, €7.59/mo
+# worker_server_type  = "cax21"  # 4 vCPU, 8GB RAM, €7.59/mo
+
+# Uncomment to change datacenter location:
+# server_location = "nbg1"  # Nuremberg, Germany
+# server_location = "hel1"  # Helsinki, Finland
