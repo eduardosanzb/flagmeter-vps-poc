@@ -1,8 +1,6 @@
 # Swarm deployment configuration for FlagMeter - Observability Stack
 # Deploy to: Swarm Manager node
-# Network: flagmeter-net (overlay)
-#
-# Uses native Docker images with Coolify storage labels
+# Uses Coolify's managed overlay network
 
 version: '3.8'
 
@@ -19,7 +17,7 @@ services:
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
     networks:
-      - flagmeter-net
+      - coolify-overlay
     deploy:
       placement:
         constraints:
@@ -46,7 +44,7 @@ services:
       GF_FEATURE_TOGGLES_ENABLE: publicDashboards
       GF_ALLOW_EMBEDDING: "true"
     networks:
-      - flagmeter-net
+      - coolify-overlay
     deploy:
       placement:
         constraints:
@@ -67,7 +65,7 @@ services:
     volumes:
       - loki_data:/loki
     networks:
-      - flagmeter-net
+      - coolify-overlay
     deploy:
       placement:
         constraints:
@@ -79,6 +77,11 @@ services:
       labels:
         - coolify.managed=true
         - coolify.type=service
+
+# Use Coolify's existing overlay network
+networks:
+  coolify-overlay:
+    external: true
 
 # Coolify storage definitions
 x-coolify:
@@ -92,11 +95,6 @@ x-coolify:
     loki_data:
       name: loki_data
       driver: local
-
-networks:
-  flagmeter-net:
-    driver: overlay
-    attachable: true
 
 volumes:
   prometheus_data:
