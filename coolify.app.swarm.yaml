@@ -24,7 +24,6 @@ services:
       LOG_LEVEL: info
     networks:
       - coolify-overlay
-      - coolify
     deploy:
       placement:
         constraints:
@@ -56,7 +55,6 @@ services:
       LOG_LEVEL: info
     networks:
       - coolify-overlay
-      - coolify
     deploy:
       placement:
         constraints:
@@ -114,7 +112,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-flagmeter}
     networks:
       - coolify-overlay
-      - coolify
     deploy:
       placement:
         constraints:
@@ -131,7 +128,6 @@ services:
     image: valkey/valkey:7-alpine
     networks:
       - coolify-overlay
-      - coolify
     deploy:
       placement:
         constraints:
@@ -150,7 +146,6 @@ services:
       DATA_SOURCE_NAME: postgresql://${POSTGRES_USER:-flagmeter}:${POSTGRES_PASSWORD:-flagmeter123}@postgres:5432/${POSTGRES_DB:-flagmeter}?sslmode=disable
     networks:
       - coolify-overlay
-      - coolify
     deploy:
       placement:
         constraints:
@@ -169,7 +164,6 @@ services:
       REDIS_ADDR: valkey:6379
     networks:
       - coolify-overlay
-      - coolify
     deploy:
       placement:
         constraints:
@@ -185,7 +179,6 @@ services:
 networks:
   coolify-overlay:
     external: true
-  coolify: null
 
 # Coolify storage definitions
 x-coolify:
