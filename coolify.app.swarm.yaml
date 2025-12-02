@@ -9,6 +9,7 @@ services:
     image: registry.raus.cloud/flagmeter/dashboard:latest
     ports:
       - 3000:3000
+      - 9464:9464  # Prometheus metrics port
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://flagmeter:flagmeter123@postgres:5432/flagmeter}
       VALKEY_URL: ${VALKEY_URL:-redis://valkey:6379}
@@ -18,6 +19,7 @@ services:
       LOG_LEVEL: info
     networks:
       - coolify-overlay
+      - coolify
     deploy:
       placement:
         constraints:
@@ -26,9 +28,14 @@ services:
         limits:
           memory: 1536M
           cpus: '1.0'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
   worker:
     image: registry.raus.cloud/flagmeter/worker:latest
+    ports:
+      - 9465:9465  # Prometheus metrics port
     environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql://flagmeter:flagmeter123@postgres:5432/flagmeter}
       VALKEY_URL: ${VALKEY_URL:-redis://valkey:6379}
@@ -39,6 +46,7 @@ services:
       LOG_LEVEL: info
     networks:
       - coolify-overlay
+      - coolify
     deploy:
       placement:
         constraints:
@@ -47,6 +55,9 @@ services:
         limits:
           memory: 1024M
           cpus: '0.3'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
   postgres:
     image: postgres:18-alpine
@@ -93,6 +104,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-flagmeter}
     networks:
       - coolify-overlay
+      - coolify
     deploy:
       placement:
         constraints:
@@ -101,11 +113,15 @@ services:
         limits:
           memory: 1280M
           cpus: '0.6'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
   valkey:
     image: valkey/valkey:7-alpine
     networks:
       - coolify-overlay
+      - coolify
     deploy:
       placement:
         constraints:
@@ -114,6 +130,9 @@ services:
         limits:
           memory: 128M
           cpus: '0.05'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
   postgres-exporter:
     image: prometheuscommunity/postgres-exporter:latest
@@ -121,6 +140,7 @@ services:
       DATA_SOURCE_NAME: postgresql://${POSTGRES_USER:-flagmeter}:${POSTGRES_PASSWORD:-flagmeter123}@postgres:5432/${POSTGRES_DB:-flagmeter}?sslmode=disable
     networks:
       - coolify-overlay
+      - coolify
     deploy:
       placement:
         constraints:
@@ -129,6 +149,9 @@ services:
         limits:
           memory: 64M
           cpus: '0.05'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
   redis-exporter:
     image: oliver006/redis_exporter:latest
@@ -136,6 +159,7 @@ services:
       REDIS_ADDR: valkey:6379
     networks:
       - coolify-overlay
+      - coolify
     deploy:
       placement:
         constraints:
@@ -144,10 +168,22 @@ services:
         limits:
           memory: 64M
           cpus: '0.05'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
 
 networks:
   coolify-overlay:
     external: true
+  coolify: null
+
+# Coolify storage definitions
+x-coolify:
+  volumes:
+    postgres_data:
+      name: postgres_data
+      driver: local
 
 volumes:
   postgres_data:
+    driver: local
