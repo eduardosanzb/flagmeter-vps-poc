@@ -11,48 +11,14 @@ services:
       - 9090:9090
     volumes:
       - prometheus_data:/prometheus
-      - type: bind
-        source: prometheus-config
-        target: /etc/prometheus/prometheus.yml
-        content: |
-          global:
-            scrape_interval: 15s
-            evaluation_interval: 15s
-
-          scrape_configs:
-            # OpenTelemetry metrics from dashboard (production mode)
-            - job_name: 'dashboard'
-              static_configs:
-                - targets: ['dashboard:9464']
-              metrics_path: '/metrics'
-
-            # OpenTelemetry metrics from worker (production mode)
-            - job_name: 'worker'
-              static_configs:
-                - targets: ['worker:9465']
-              metrics_path: '/metrics'
-
-            # PostgreSQL database metrics
-            - job_name: 'postgres'
-              static_configs:
-                - targets: ['postgres-exporter:9187']
-              metrics_path: '/metrics'
-
-            # Valkey/Redis metrics
-            - job_name: 'valkey'
-              static_configs:
-                - targets: ['redis-exporter:9121']
-              metrics_path: '/metrics'
-
-            # Prometheus self-monitoring
-            - job_name: 'prometheus'
-              static_configs:
-                - targets: ['localhost:9090']
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
+    configs:
+      - source: prometheus_config
+        target: /etc/prometheus/prometheus.yml
     networks:
       - coolify-overlay
       - coolify
@@ -75,41 +41,11 @@ services:
       - 3001:3000
     volumes:
       - grafana_data:/var/lib/grafana
-      - type: bind
-        source: grafana-datasources
+    configs:
+      - source: grafana_datasources
         target: /etc/grafana/provisioning/datasources/datasource.yml
-        content: |
-          apiVersion: 1
-
-          datasources:
-            - name: Prometheus
-              type: prometheus
-              access: proxy
-              url: http://prometheus:9090
-              isDefault: true
-              editable: true
-
-            - name: Loki
-              type: loki
-              access: proxy
-              url: http://loki:3100
-              editable: true
-      - type: bind
-        source: grafana-dashboards
+      - source: grafana_dashboards
         target: /etc/grafana/provisioning/dashboards/dashboard.yml
-        content: |
-          apiVersion: 1
-
-          providers:
-            - name: 'FlagMeter'
-              orgId: 1
-              folder: ''
-              type: file
-              disableDeletion: false
-              updateIntervalSeconds: 10
-              allowUiUpdates: true
-              options:
-                path: /etc/grafana/provisioning/dashboards
     environment:
       GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
       GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:-admin}
@@ -156,6 +92,15 @@ services:
       labels:
         - coolify.managed=true
         - coolify.type=service
+
+# Docker Swarm configs for configuration files
+configs:
+  prometheus_config:
+    file: ./infra/prometheus/prometheus.prod.yml
+  grafana_datasources:
+    file: ./infra/grafana/provisioning/datasources/datasource.yml
+  grafana_dashboards:
+    file: ./infra/grafana/provisioning/dashboards/dashboard.yml
 
 # Use Coolify's existing overlay network
 networks:
