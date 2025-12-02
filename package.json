@@ -17,6 +17,9 @@
     "db:studio": "pnpm --filter @flagmeter/db db:studio",
     "landing:dev": "pnpm --filter @flagmeter/landing dev",
     "landing:build": "pnpm --filter @flagmeter/landing build",
+    "migrate:build": "docker build -f infra/docker/Dockerfile.migrations -t flagmeter-migrations:latest .",
+    "migrate:run": "docker run --rm --network=${NETWORK_NAME:-obs_flagmeter-net} -e DATABASE_URL=${DATABASE_URL:-postgresql://flagmeter:flagmeter123@postgres:5432/flagmeter} flagmeter-migrations:latest",
+    "migrate": "pnpm migrate:build && pnpm migrate:run",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean && rm -rf node_modules"

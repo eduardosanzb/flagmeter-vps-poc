@@ -38,6 +38,53 @@
   - **Test Logs**: `cd apps/dashboard && node test-logs.mjs` (generates sample logs for testing)
 
 ## Deployment
+
+### Docker Swarm Architecture (2-Server Setup)
+
+**Deployment Configs:**
+- `coolify.yaml` - All-in-one single-server config (backup/reference)
+- `coolify.observability.yaml` - Observability stack (deploys to manager node)
+- `coolify.app.yaml` - Application stack (deploys to worker node)
+
+**Server Topology:**
+
+**Manager Node (CAX21 recommended):**
+- Role: Swarm manager + observability
+- Services: Prometheus, Grafana, Loki
+- Resources: ~1GB RAM, 0.6 CPU
+- Scrapes metrics from worker via overlay network
+
+**Worker Node (CAX11 for testing, CAX21 for production):**
+- Role: Swarm worker + application + databases
+- Services: Dashboard, Worker, PostgreSQL, Valkey, Exporters
+- Resources: ~4GB RAM, 2.0 CPU (maxed for load testing)
+- Exposes: :3000 (dashboard app) to internet
+- Metrics ports (9464, 9465) only accessible via overlay network
+
+**Network Architecture:**
+- Overlay network: `flagmeter-net` (private communication between nodes)
+- Prometheus scrapes `dashboard:9464` and `worker:9465` via overlay
+- No metrics ports exposed to internet (security)
+- Only dashboard :3000 and Grafana :3001 publicly accessible
+
+**Setup Steps:**
+1. Init Swarm on manager: `docker swarm init --advertise-addr <MANAGER_IP>`
+2. Join worker: `docker swarm join --token <TOKEN> <MANAGER_IP>:2377`
+3. Create overlay network: `docker network create --driver overlay --attachable flagmeter-net`
+4. Deploy observability: `docker stack deploy -c coolify.observability.yaml obs`
+5. Deploy app: `docker stack deploy -c coolify.app.yaml app`
+
+**Hetzner Configuration:**
+- Setup private network (10.0.0.0/16) between servers
+- Attach manager + worker to private network
+- Swarm traffic goes over private network (faster, free bandwidth)
+
+**Load Testing Goal:**
+- Isolate observability on manager node
+- Pure app performance testing on worker node
+- Find max RPS @ P90 <250ms on CAX11 without observability overhead
+
+### Single-Server Deployment (Coolify)
 - **Coolify**: Push to `main` → auto-deploy with zero downtime, auto-HTTPS via Let's Encrypt, branch previews at `pr-{n}.meter.yourdomain.com`
 - **Environment**: Set `DATABASE_URL`, `VALKEY_URL`, `NODE_ENV=production`, `WORKER_CONCURRENCY=4`, `GF_SECURITY_ADMIN_PASSWORD` in Coolify UI
 - **Migrations**: First deploy: `cd /app/packages/db && pnpm db:push:force` in Coolify terminal

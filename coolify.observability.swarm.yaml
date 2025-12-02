@@ -1,0 +1,77 @@
+# Swarm deployment configuration for FlagMeter - Observability Stack
+# Deploy to: Swarm Manager node
+# Network: flagmeter-net (overlay)
+#
+# Build images first: ./scripts/build-and-deploy-swarm.sh
+
+version: '3.8'
+
+services:
+  prometheus:
+    image: flagmeter-prometheus:latest
+    ports:
+      - 9090:9090
+    volumes:
+      - prometheus_data:/prometheus
+    networks:
+      - flagmeter-net
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.2'
+
+  grafana:
+    image: flagmeter-grafana:latest
+    ports:
+      - 3001:3001
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_ROOT_URL: ${GF_SERVER_ROOT_URL:-https://grafana.raus.cloud}
+      GF_FEATURE_TOGGLES_ENABLE: publicDashboards
+      GF_ALLOW_EMBEDDING: "true"
+    networks:
+      - flagmeter-net
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.2'
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - 3100:3100
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - loki_data:/loki
+    networks:
+      - flagmeter-net
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.1'
+
+networks:
+  flagmeter-net:
+    driver: overlay
+    attachable: true
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  loki_data:

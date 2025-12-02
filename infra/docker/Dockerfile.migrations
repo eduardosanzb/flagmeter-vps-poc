@@ -1,0 +1,20 @@
+# Migration runner with drizzle-kit and all devDependencies
+FROM node:24-alpine
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@9.15.0 --activate
+
+WORKDIR /app
+
+# Copy workspace files
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml* ./
+COPY packages/db ./packages/db
+
+# Install dependencies (including devDependencies for drizzle-kit)
+RUN pnpm install --filter "@flagmeter/db"
+
+# Set working directory to db package
+WORKDIR /app/packages/db
+
+# Run migrations
+CMD ["pnpm", "exec", "drizzle-kit", "push", "--config=drizzle.config.js", "--force"]

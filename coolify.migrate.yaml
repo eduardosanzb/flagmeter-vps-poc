@@ -1,0 +1,27 @@
+# Swarm deployment for FlagMeter - Migration Stack
+# Run database migrations as a one-shot service
+# Usage:
+#   docker stack deploy -c coolify.migrate.yaml migrate
+#   docker stack rm migrate  # Clean up after
+
+version: '3.8'
+
+services:
+  migrate:
+    image: flagmeter-migrations:latest
+    networks:
+      - flagmeter-net
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://flagmeter:flagmeter123@postgres:5432/flagmeter}
+    deploy:
+      restart_policy:
+        condition: none  # Run once, don't restart on exit
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.2'
+
+networks:
+  flagmeter-net:
+    external: true
+    name: obs_flagmeter-net  # Connect to existing flagmeter overlay network

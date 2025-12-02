@@ -149,6 +149,83 @@ Grafana dashboards include:
 - Worker concurrency
 - Memory & CPU usage
 
+## Recent Updates
+
+### Database Migration System (Dec 2, 2025)
+
+**Problem:** Database migrations were difficult to run in production containers due to:
+- Missing devDependencies (`drizzle-kit`) in production images
+- Manual execution required inside containers
+- No version control or rollback capability
+
+**Solution:** Created a dedicated migration system with:
+
+1. **Separate Migration Image** (`infra/docker/Dockerfile.migrations`)
+   - Isolated from runtime services
+   - Includes all devDependencies (drizzle-kit)
+   - Lightweight and focused
+
+2. **NPM Scripts for Easy Workflow**
+   ```bash
+   pnpm migrate        # Build image and run migrations
+   pnpm migrate:build  # Build migration image
+   pnpm migrate:run    # Run migrations
+   ```
+
+3. **Docker Stack Configuration** (`coolify.migrate.yaml`)
+   - Deploy as separate stack when needed
+   - Runs once and exits
+   - Supports git-tagged versioning for rollbacks
+
+4. **Environment Variable Support**
+   ```bash
+   # Custom network
+   NETWORK_NAME=my_network pnpm migrate:run
+   
+   # Custom database
+   DATABASE_URL=postgresql://user:pass@host:5432/db pnpm migrate:run
+   ```
+
+**Architecture Benefits:**
+- ✅ Explicit control over when migrations run
+- ✅ Git-tagged versions for production deployments
+- ✅ Easy rollback by deploying previous version
+- ✅ No devDependencies in production runtime images
+- ✅ Works seamlessly with Docker Swarm 2-server setup
+
+**Documentation:** See `MIGRATION_GUIDE.md` for complete usage instructions.
+
+### Docker Swarm 2-Server Architecture (Dec 2, 2025)
+
+**Goal:** Isolate observability overhead from application performance testing.
+
+**Setup:**
+- **Manager Node:** Observability stack (Prometheus, Grafana, Loki)
+- **Worker Node:** Application stack (Dashboard, Worker, PostgreSQL, Valkey)
+- **Overlay Network:** Private communication between stacks (`obs_flagmeter-net`)
+
+**Deployment Configs:**
+- `coolify.observability.local.yaml` - Observability for single-node testing
+- `coolify.app.local.yaml` - Application for single-node testing
+- `coolify.observability.swarm.yaml` - Observability with placement constraints
+- `coolify.app.swarm.yaml` - Application with placement constraints
+
+**Key Features:**
+- All services running and healthy (9/9 replicas: 1/1)
+- Prometheus scrapes metrics via overlay network
+- No metrics ports exposed to internet (security)
+- Load testing isolated on worker node
+
+**Verified Working:**
+- ✅ Dashboard homepage (React SSR fixed)
+- ✅ API endpoints (/api/health, /api/events, /api/usage)
+- ✅ Event ingestion → Valkey → Worker → PostgreSQL
+- ✅ Prometheus metrics collection
+- ✅ Grafana dashboards (http://localhost:3001)
+- ✅ Database migrations via separate image
+
+**Fix Applied:** Added `NODE_ENV=production` during Docker build to resolve React SSR `jsxDEV is not a function` error.
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
