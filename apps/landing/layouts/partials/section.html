@@ -37,7 +37,7 @@
 {{ end }}
 
 <!-- Render section wrapper -->
-<section class="section {{ if eq $sectionType "faq-accordion" }}section-light{{ else if eq $sectionType "step-cards" }}section-light{{ else if eq $sectionType "icon-cards" }}bg-white{{ else if eq $sectionType "simple-cards" }}section-light{{ else }}bg-white{{ end }}"{{ if $sectionName }} id="{{ replace $sectionName "_" "-" }}"{{ end }}>
+<section class="section {{ if eq $sectionType "faq-accordion" }}section-light{{ else if eq $sectionType "step-cards" }}section-light{{ else if eq $sectionType "icon-cards" }}bg-white dark:bg-gray-900{{ else if eq $sectionType "simple-cards" }}section-light{{ else }}bg-white dark:bg-gray-900{{ end }}"{{ if $sectionName }} id="{{ replace $sectionName "_" "-" }}"{{ end }}>
   <div class="container-custom">
     
     <!-- Render section header if title and subtitle exist -->

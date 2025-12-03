@@ -8,11 +8,11 @@
   }
 
   body {
-    @apply font-sans text-brand-dark antialiased;
+    @apply font-sans text-brand-dark antialiased bg-white dark:bg-gray-900 dark:text-gray-100;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold;
+    @apply font-semibold dark:text-white;
   }
 }
 
@@ -23,16 +23,16 @@
   }
 
   .btn-primary {
-    @apply bg-brand-accent text-white hover:bg-blue-600 hover:shadow-lg;
+    @apply bg-brand-accent text-white hover:bg-blue-600 hover:shadow-lg dark:bg-brand-accent dark:hover:bg-emerald-600;
   }
 
   .btn-secondary {
-    @apply bg-transparent text-brand-dark border-2 border-brand-border hover:border-brand-accent hover:text-brand-accent;
+    @apply bg-transparent text-brand-dark border-2 border-brand-border hover:border-brand-accent hover:text-brand-accent dark:text-gray-200 dark:border-gray-600 dark:hover:border-brand-accent dark:hover:text-brand-accent;
   }
 
   /* Card styles */
   .card {
-    @apply bg-white rounded-2xl p-8 shadow-card border border-brand-border hover:shadow-lg transition-shadow duration-300;
+    @apply bg-white rounded-2xl p-8 shadow-card border border-brand-border hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 dark:border-gray-700;
   }
 
   /* Section styles */
@@ -41,11 +41,11 @@
   }
 
   .section-dark {
-    @apply bg-brand-primary text-white py-20;
+    @apply bg-brand-primary text-white py-20 dark:bg-gray-950;
   }
 
   .section-light {
-    @apply bg-brand-light;
+    @apply bg-brand-light dark:bg-gray-800;
   }
 
   /* Container */

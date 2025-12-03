@@ -3,6 +3,7 @@ languageCode = "en"
 title = "Raus.cloud - Infrastructure Without DevOps"
 
 # Enable multilingual mode
+# Default language is English, but browser detection in baseof.html will redirect German users to /de/
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 

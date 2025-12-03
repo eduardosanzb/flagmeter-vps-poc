@@ -4,6 +4,7 @@ module.exports = {
     './layouts/**/*.html',
     './content/**/*.{html,md}',
   ],
+  darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {
       colors: {

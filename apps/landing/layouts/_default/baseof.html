@@ -24,8 +24,38 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ .Site.Title }}">
   <meta name="twitter:description" content="{{ .Site.Params.description }}">
+
+  <!-- Dark mode script - must run before body renders to avoid flash -->
+  <script>
+    // Initialize theme from localStorage or system preference
+    (function() {
+      const theme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+
+    // Detect browser language and redirect if needed
+    (function() {
+      const currentLang = document.documentElement.lang;
+      const browserLang = navigator.language || navigator.userLanguage;
+      const isGerman = browserLang.toLowerCase().startsWith('de');
+      const isOnRoot = window.location.pathname === '/' || window.location.pathname === '';
+      
+      // Only redirect if on root path and browser language doesn't match
+      if (isOnRoot) {
+        if (isGerman && currentLang !== 'de') {
+          window.location.href = '/de/';
+        } else if (!isGerman && currentLang === 'de') {
+          window.location.href = '/';
+        }
+      }
+    })();
+  </script>
 </head>
-<body class="bg-white">
+<body>
   {{ partial "header.html" . }}
   
   <main>
@@ -36,5 +66,37 @@
   
   <!-- Alpine.js for interactive components -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <!-- Theme toggle functionality -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      if (newTheme === 'dark') {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+      }
+      
+      localStorage.setItem('theme', newTheme);
+      
+      // Dispatch custom event for other components
+      window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
+    }
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      // Only auto-switch if user hasn't manually set a preference
+      if (!localStorage.getItem('theme')) {
+        if (e.matches) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    });
+  </script>
 </body>
 </html>
