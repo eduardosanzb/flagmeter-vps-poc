@@ -35,7 +35,7 @@
         <div class="flex items-center gap-2 border-l border-brand-border dark:border-gray-700 pl-6">
           {{ range .Site.Languages }}
             {{ if not (eq .Lang $.Site.Language.Lang) }}
-              <a href="{{ $.Site.BaseURL }}{{ if ne .Lang "en" }}{{ .Lang }}/{{ end }}"
+              <a href="{{ if ne .Lang "en" }}{{ $.Site.BaseURL }}/{{ .Lang }}/{{ else }}{{ $.Site.BaseURL }}/{{ end }}"
                  class="text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase"
                  title="{{ i18n "languageSwitch" }}">
                 {{ .LanguageName }}
@@ -97,7 +97,7 @@
       <div class="border-t border-brand-border dark:border-gray-700 pt-4">
         {{ range .Site.Languages }}
           {{ if not (eq .Lang $.Site.Language.Lang) }}
-            <a href="{{ $.Site.BaseURL }}{{ if ne .Lang "en" }}{{ .Lang }}/{{ end }}"
+            <a href="{{ if ne .Lang "en" }}{{ $.Site.BaseURL }}/{{ .Lang }}/{{ else }}{{ $.Site.BaseURL }}/{{ end }}"
                class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
               Switch to {{ .LanguageName }}
             </a>
