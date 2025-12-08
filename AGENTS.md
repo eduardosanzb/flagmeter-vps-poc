@@ -112,3 +112,109 @@
 
 ## Shadcn Components
 - Install via: `pnpx shadcn@latest add <component>` (configured at `apps/dashboard/components.json`)
+
+## Hugo Landing Site (`apps/landing`)
+
+### Quick Start
+- **Framework**: Hugo v0.145+ (extended version required for PostCSS/Tailwind)
+- **Dev**: `cd apps/landing && hugo server -D` (runs on http://localhost:1313)
+- **Build**: `hugo` (outputs to `public/`)
+- **Languages**: English (default) + German (`/de/`)
+
+### Structure
+- `content/` - Markdown content (pages, blog posts)
+  - `_index.en.md` / `_index.de.md` - Homepage content with sections
+  - `blog/` - Blog posts (case studies)
+  - `impressum.en.md` / `impressum.de.md` - Legal notice pages
+- `layouts/` - HTML templates
+  - `_default/baseof.html` - Base template (header, footer, scripts)
+  - `partials/` - Reusable components (header, footer)
+  - `blog/` - Blog-specific templates (list, single)
+- `i18n/` - Translations (en.toml, de.toml)
+- `assets/css/main.css` - Tailwind CSS + custom styles
+- `static/` - Static files (images, favicon)
+
+### Blog Post Workflow
+1. **Create English post**: `content/blog/my-post.en.md`
+2. **Add frontmatter**:
+   ```yaml
+   ---
+   title: "Post Title"
+   date: 2025-12-08
+   description: "Short description"
+   author: "Eduardo Sanchez"
+   categories: ["Case Studies"]
+   tags: ["tag1", "tag2"]
+   draft: false
+   mermaid: true  # If using Mermaid diagrams
+   ---
+   ```
+3. **Create German translation**: `content/blog/my-post.de.md` (same filename with `.de`)
+4. **Add images**: Place in `static/images/blog/`, reference as `/images/blog/filename.png`
+5. **External links**: Use HTML for target="_blank": `<a href="url" target="_blank" rel="noopener">text</a>`
+
+### Mermaid Diagrams
+- Enable with `mermaid: true` in frontmatter
+- Uses custom emerald green theme matching brand colors
+- Auto-switches between light/dark mode
+- Syntax: Standard mermaid in code fence:
+  ````markdown
+  ```mermaid
+  graph TB
+      A[Node] --> B[Another Node]
+  ```
+  ````
+
+### Brand Colors (Tailwind)
+- `brand-dark`: `#0a0a0a` (pure black)
+- `brand-primary`: `#0f1419` (rich black)
+- `brand-secondary`: `#6b7280` (gray)
+- `brand-accent`: `#10b981` (emerald-500) - PRIMARY CTA color
+- `brand-accentDark`: `#059669` (emerald-600) - hover states
+
+### i18n (Internationalization)
+- Add translations to `i18n/en.toml` and `i18n/de.toml`
+- Use in templates: `{{ i18n "key.name" }}`
+- Language switcher automatically detects translated pages
+- Falls back to homepage switch if page not translated
+
+### CSS/Styling
+- Uses Tailwind CSS v3 with custom brand colors
+- Custom prose styling for blog content (`.prose-brand`)
+- Dark mode support via `dark:` variants
+- Tables auto-styled with emerald headers and hover effects
+
+### Key Features
+- ✅ Bilingual (EN/DE) with smart language switcher
+- ✅ Blog with categories, tags, and pagination
+- ✅ Mermaid diagrams with brand theming
+- ✅ Dark mode with localStorage persistence
+- ✅ SEO-friendly (Open Graph, Twitter Cards)
+- ✅ Mobile-responsive navigation
+- ✅ Fast (Hugo static site generation)
+
+### Hugo Modules
+- Uses Hugo modules for Mermaid support
+- Vendored in `_vendor/` directory for reproducible builds
+- Commands:
+  - `hugo mod get github.com/hugomods/mermaid` - Install module
+  - `hugo mod vendor` - Vendor dependencies locally
+  - `hugo mod tidy` - Clean up unused modules
+
+### Common Tasks
+- **Add blog post**: Create `.en.md` and `.de.md` in `content/blog/`
+- **Update translations**: Edit `i18n/en.toml` or `i18n/de.toml`
+- **Add CTA button**: Use brand-accent gradient with hover effects (see Philosophy section example)
+- **Add screenshot**: Copy to `static/images/blog/`, reference with `/images/blog/filename.png`
+- **Link Hetzner servers**: Use `<a href="https://www.hetzner.com/cloud/arm" target="_blank" rel="noopener">Hetzner CAX21</a>`
+
+### Blog Series: Infrastructure Repatriation
+- **Article 1**: "We Spent €11/month Testing Docker Swarm" (published EN + DE)
+  - Comparison table with Cost per 100 RPS column
+  - Mermaid architecture diagram
+  - FlagMeter dashboard screenshot
+  - Hetzner + GitHub + HPE external links
+  - Free audit CTA button in Philosophy section
+- **Article 2** (planned): "PostgreSQL Tuning That Unlocked 500 RPS"
+- **Article 3** (planned): "The €8 to €800 Scaling Roadmap"
+- **Article 4** (planned): "FlagMeter: Complete Infrastructure Repatriation Guide"
