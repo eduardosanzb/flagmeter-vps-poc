@@ -232,11 +232,7 @@
 - Cost comparison: €1.50-1.90 per 100 RPS (VPS) vs €50-80 per 100 RPS (AWS)
 
 ### Marketing Strategy
-See `apps/landing/MARKETING_STRATEGY.md` for complete distribution plan:
-- **Phase 1:** Warm network (LinkedIn, Twitter, direct outreach)
-- **Phase 2:** Founder communities (Indie Hackers, Reddit, Hacker News)
-- **Phase 3:** Accelerator outreach (YC, Techstars, AngelList)
-- **Phase 4:** Content syndication (Dev.to, Medium, Hashnode)
-- **Core message:** "Stop burning runway on AWS, spend it on customers"
-- **Target ICP:** Bootstrapped B2B SaaS founders burning €3k-10k/mo on AWS
-- **Success metrics:** 5,000+ views, 20+ calendar bookings, HN frontpage (Month 1)
+See Outline: "Marketing Strategy: Infrastructure Repatriation Blog Series"
+- Located under: Fuck.Cloud → FlagMeter 2.0
+- Complete distribution plan, LinkedIn templates, success metrics
+- Launch week checklist with specific dates/times
