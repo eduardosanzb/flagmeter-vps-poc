@@ -31,3 +31,9 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
+
+  # Traefik proxy metrics
+  - job_name: 'traefik'
+    static_configs:
+      - targets: ['coolify-proxy_traefik:8082']
+    metrics_path: '/metrics'
