@@ -41,6 +41,10 @@ services:
       labels:
         - coolify.managed=true
         - coolify.type=service
+        - traefik.enable=true
+        - traefik.http.routers.dashboard.rule=Host(`uc8gcg8gswo4kkk8cg4scgck.46.224.97.58.sslip.io`)
+        - traefik.http.routers.dashboard.entrypoints=http
+        - traefik.http.services.dashboard.loadbalancer.server.port=3000
 
   worker:
     image: registry.raus.cloud/flagmeter/worker:latest
@@ -178,6 +182,25 @@ services:
         limits:
           memory: 64M
           cpus: '0.05'
+      labels:
+        - coolify.managed=true
+        - coolify.type=service
+
+  migrations:
+    image: registry.raus.cloud/flagmeter/migrations:latest
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.migrations
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://flagmeter:flagmeter123@postgres:5432/flagmeter}
+    networks:
+      - coolify-overlay
+    deploy:
+      restart_policy:
+        condition: none
+      placement:
+        constraints:
+          - node.role == worker
       labels:
         - coolify.managed=true
         - coolify.type=service
