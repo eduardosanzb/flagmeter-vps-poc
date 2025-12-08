@@ -209,12 +209,24 @@
 - **Link Hetzner servers**: Use `<a href="https://www.hetzner.com/cloud/arm" target="_blank" rel="noopener">Hetzner CAX21</a>`
 
 ### Blog Series: Infrastructure Repatriation
-- **Article 1**: "We Spent €11/month Testing Docker Swarm" (published EN + DE)
-  - Comparison table with Cost per 100 RPS column
-  - Mermaid architecture diagram
-  - FlagMeter dashboard screenshot
-  - Hetzner + GitHub + HPE external links
-  - Free audit CTA button in Philosophy section
-- **Article 2** (planned): "PostgreSQL Tuning That Unlocked 500 RPS"
-- **Article 3** (planned): "The €8 to €800 Scaling Roadmap"
-- **Article 4** (planned): "FlagMeter: Complete Infrastructure Repatriation Guide"
+
+**Article 1: "We Spent €11/month Testing Docker Swarm So You Don't Have To"** ✅ Published (EN + DE)
+- Target: Bootstrapped B2B SaaS founders burning runway on AWS
+- Core message: Stop spending runway on AWS, spend it on customers instead
+- Proof: Single VPS (€7.59/mo) beats Docker Swarm, handles 484 RPS
+- AWS reality: Lambda deployment = €10,560/mo vs €7.59/mo VPS
+- Key data: Cost per 100 RPS comparison, month-by-month AWS escalation (€200 → €8,000)
+
+**Article 2: "Zero DevOps: Deploy Production Infrastructure with Coolify"** 🔜 Coming Soon
+- Target: Founders who want to ship features, not debug Kubernetes
+- Core message: Production-grade infrastructure without DevOps expertise
+- Tools covered: Coolify (PaaS), Docker Compose (simple orchestration), basic Terraform (optional IaC)
+- Focus: Developer experience over operational complexity
+- Proof: Deploy FlagMeter with auto-HTTPS, zero-downtime deployments, branch previews in <30 min
+
+**Article 3: "The €8 to €800 Scaling Roadmap"** 🔜 Coming Soon
+- Target: Founders planning growth from launch to scale
+- Core message: Predictable vertical scaling path that preserves runway
+- Roadmap: CAX11 (€3.79) → CAX21 (€7.59) → CAX31 (€14.90) → CAX41 (€28.49)
+- When to distribute: Only after maxing out largest VPS (~1,500-2,000 RPS)
+- Cost comparison: €1.50-1.90 per 100 RPS (VPS) vs €50-80 per 100 RPS (AWS)

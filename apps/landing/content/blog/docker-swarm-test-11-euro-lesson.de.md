@@ -400,8 +400,8 @@ Wenn Sie ein Bootstrap-Startup sind, das 5.000+ €/Monat bei AWS ausgibt, währ
 ---
 
 **Nächster in der Serie:**
-- Teil 3: „PostgreSQL-Tuning, das 500 RPS freischaltete"
-- Teil 4: „Die 8 €-bis-800 €-Skalierungs-Roadmap"
+- Teil 2: „Zero DevOps: Produktions-Infrastruktur mit Coolify deployen" *(demnächst)*
+- Teil 3: „Die 8 €-bis-800 €-Skalierungs-Roadmap" *(demnächst)*
 
 ---
 

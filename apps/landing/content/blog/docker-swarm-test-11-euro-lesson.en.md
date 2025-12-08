@@ -397,8 +397,8 @@ If you're a bootstrapped startup spending €5,000+/month on AWS while debugging
 ---
 
 **Next in series:**
-- Part 3: "PostgreSQL Tuning That Unlocked 500 RPS"
-- Part 4: "The €8 to €800 Scaling Roadmap"
+- Part 2: "Zero DevOps: Deploy Production Infrastructure with Coolify" *(coming soon)*
+- Part 3: "The €8 to €800 Scaling Roadmap" *(coming soon)*
 
 ---
 
