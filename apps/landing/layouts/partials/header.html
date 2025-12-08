@@ -11,6 +11,9 @@
         <a href="#how-it-works" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "section.howItWorks" }}
         </a>
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+          {{ i18n "navigation.blog" }}
+        </a>
         <a href="#pricing" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "section.pricing" }}
         </a>
@@ -33,13 +36,23 @@
 
         <!-- Language Switcher -->
         <div class="flex items-center gap-2 border-l border-brand-border dark:border-gray-700 pl-6">
-          {{ range .Site.Languages }}
-            {{ if not (eq .Lang $.Site.Language.Lang) }}
-              <a href="{{ if ne .Lang "en" }}{{ $.Site.BaseURL }}/{{ .Lang }}/{{ else }}{{ $.Site.BaseURL }}/{{ end }}"
+          {{ if .IsTranslated }}
+            {{ range .Translations }}
+              <a href="{{ .Permalink }}"
                  class="text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase"
                  title="{{ i18n "languageSwitch" }}">
-                {{ .LanguageName }}
+                {{ .Language.LanguageName }}
               </a>
+            {{ end }}
+          {{ else }}
+            {{ range .Site.Languages }}
+              {{ if not (eq .Lang $.Site.Language.Lang) }}
+                <a href="{{ if eq .Lang "en" }}/{{ else }}/{{ .Lang }}/{{ end }}"
+                   class="text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase"
+                   title="{{ i18n "languageSwitch" }}">
+                  {{ .LanguageName }}
+                </a>
+              {{ end }}
             {{ end }}
           {{ end }}
         </div>
@@ -65,9 +78,12 @@
        x-show="open"
        x-transition
        class="md:hidden bg-white dark:bg-gray-900 border-t border-brand-border dark:border-gray-700">
-    <div class="container-custom py-6 space-y-4">
+     <div class="container-custom py-6 space-y-4">
       <a href="#how-it-works" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.howItWorks" }}
+      </a>
+      <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+        {{ i18n "navigation.blog" }}
       </a>
       <a href="#pricing" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.pricing" }}
@@ -95,12 +111,21 @@
 
       <!-- Language Switcher Mobile -->
       <div class="border-t border-brand-border dark:border-gray-700 pt-4">
-        {{ range .Site.Languages }}
-          {{ if not (eq .Lang $.Site.Language.Lang) }}
-            <a href="{{ if ne .Lang "en" }}{{ $.Site.BaseURL }}/{{ .Lang }}/{{ else }}{{ $.Site.BaseURL }}/{{ end }}"
+        {{ if .IsTranslated }}
+          {{ range .Translations }}
+            <a href="{{ .Permalink }}"
                class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
-              Switch to {{ .LanguageName }}
+              {{ i18n "languageSwitch" }}
             </a>
+          {{ end }}
+        {{ else }}
+          {{ range .Site.Languages }}
+            {{ if not (eq .Lang $.Site.Language.Lang) }}
+              <a href="{{ if eq .Lang "en" }}/{{ else }}/{{ .Lang }}/{{ end }}"
+                 class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+                {{ i18n "languageSwitch" }}
+              </a>
+            {{ end }}
           {{ end }}
         {{ end }}
       </div>

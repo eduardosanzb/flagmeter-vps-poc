@@ -67,6 +67,156 @@
   <!-- Alpine.js for interactive components -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   
+  <!-- Mermaid.js for diagrams -->
+  {{ if .Params.mermaid }}
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    
+    const isDark = document.documentElement.classList.contains('dark');
+    
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: isDark ? {
+        // Dark mode theme - white text on dark nodes
+        primaryColor: '#0f1419',      // dark node background
+        primaryTextColor: '#ffffff',   // WHITE text
+        primaryBorderColor: '#10b981', // emerald border
+        lineColor: '#10b981',          // emerald lines
+        secondaryColor: '#1f2937',     // secondary nodes
+        tertiaryColor: '#1f2937',      // tertiary
+        background: '#0a0a0a',         // diagram background
+        mainBkg: '#0f1419',           // main node background
+        secondBkg: '#1f2937',         // secondary node background
+        border1: '#10b981',           // emerald
+        border2: '#059669',           // darker emerald
+        note: '#0f1419',              
+        noteBkgColor: '#0f1419',      
+        noteTextColor: '#ffffff',     // WHITE
+        noteBorderColor: '#10b981',   
+        clusterBkg: '#0f1419',        
+        clusterBorder: '#10b981',     
+        defaultLinkColor: '#10b981',  
+        titleColor: '#ffffff',        // WHITE
+        edgeLabelBackground: '#0a0a0a',
+        edgeLabelColor: '#ffffff',    // WHITE edge labels
+        actorBorder: '#10b981',
+        actorBkg: '#0f1419',
+        actorTextColor: '#ffffff',    // WHITE
+        actorLineColor: '#10b981',
+        signalColor: '#ffffff',       // WHITE
+        signalTextColor: '#ffffff',   // WHITE
+        labelBoxBkgColor: '#0f1419',
+        labelBoxBorderColor: '#10b981',
+        labelTextColor: '#ffffff',    // WHITE
+        loopTextColor: '#ffffff',     // WHITE
+        activationBorderColor: '#10b981',
+        activationBkgColor: '#0f1419',
+        sequenceNumberColor: '#ffffff' // WHITE
+      } : {
+        // Light mode theme - dark text on light nodes
+        primaryColor: '#ffffff',      // white node background
+        primaryTextColor: '#0a0a0a',   // DARK text
+        primaryBorderColor: '#10b981', // emerald border
+        lineColor: '#10b981',          // emerald lines
+        secondaryColor: '#f3f4f6',     // light gray nodes
+        tertiaryColor: '#ecfdf5',      // light emerald tint
+        background: '#ffffff',         // white background
+        mainBkg: '#ffffff',           // white node background
+        secondBkg: '#f3f4f6',         // light gray
+        border1: '#10b981',           // emerald
+        border2: '#059669',           // darker emerald
+        note: '#ffffff',              
+        noteBkgColor: '#ffffff',      
+        noteTextColor: '#0a0a0a',     // DARK
+        noteBorderColor: '#10b981',   
+        clusterBkg: '#f9fafb',        // very light gray for clusters
+        clusterBorder: '#10b981',     
+        defaultLinkColor: '#10b981',  
+        titleColor: '#0a0a0a',        // DARK
+        edgeLabelBackground: '#ffffff',
+        edgeLabelColor: '#0a0a0a',    // DARK edge labels
+        actorBorder: '#10b981',
+        actorBkg: '#ffffff',
+        actorTextColor: '#0a0a0a',    // DARK
+        actorLineColor: '#10b981',
+        signalColor: '#0a0a0a',       // DARK
+        signalTextColor: '#0a0a0a',   // DARK
+        labelBoxBkgColor: '#ffffff',
+        labelBoxBorderColor: '#10b981',
+        labelTextColor: '#0a0a0a',    // DARK
+        loopTextColor: '#0a0a0a',     // DARK
+        activationBorderColor: '#10b981',
+        activationBkgColor: '#ffffff',
+        sequenceNumberColor: '#0a0a0a' // DARK
+      },
+      flowchart: {
+        curve: 'basis',
+        padding: 20,
+        nodeSpacing: 50,
+        rankSpacing: 50,
+        diagramPadding: 20,
+        htmlLabels: true
+      },
+      fontSize: 16,
+      fontFamily: 'ui-sans-serif, system-ui, sans-serif'
+    });
+    
+    // Re-render on theme change
+    window.addEventListener('theme-changed', (e) => {
+      const isDark = e.detail.theme === 'dark';
+      mermaid.initialize({ 
+        theme: 'base',
+        themeVariables: isDark ? {
+          primaryColor: '#0f1419',
+          primaryTextColor: '#ffffff',
+          primaryBorderColor: '#10b981',
+          lineColor: '#10b981',
+          secondaryColor: '#1f2937',
+          tertiaryColor: '#1f2937',
+          background: '#0a0a0a',
+          mainBkg: '#0f1419',
+          secondBkg: '#1f2937',
+          border1: '#10b981',
+          border2: '#059669',
+          clusterBkg: '#0f1419',
+          clusterBorder: '#10b981',
+          defaultLinkColor: '#10b981',
+          titleColor: '#ffffff',
+          edgeLabelBackground: '#0a0a0a',
+          edgeLabelColor: '#ffffff'
+        } : {
+          primaryColor: '#ffffff',
+          primaryTextColor: '#0a0a0a',
+          primaryBorderColor: '#10b981',
+          lineColor: '#10b981',
+          secondaryColor: '#f3f4f6',
+          tertiaryColor: '#ecfdf5',
+          background: '#ffffff',
+          mainBkg: '#ffffff',
+          secondBkg: '#f3f4f6',
+          border1: '#10b981',
+          border2: '#059669',
+          clusterBkg: '#f9fafb',
+          clusterBorder: '#10b981',
+          defaultLinkColor: '#10b981',
+          titleColor: '#0a0a0a',
+          edgeLabelBackground: '#ffffff',
+          edgeLabelColor: '#0a0a0a'
+        }
+      });
+      
+      document.querySelectorAll('.mermaid').forEach(el => {
+        const originalContent = el.getAttribute('data-original-content') || el.textContent;
+        el.setAttribute('data-original-content', originalContent);
+        mermaid.render('mermaid-' + Math.random(), originalContent).then(result => {
+          el.innerHTML = result.svg;
+        });
+      });
+    });
+  </script>
+  {{ end }}
+  
   <!-- Theme toggle functionality -->
   <script>
     function toggleTheme() {
