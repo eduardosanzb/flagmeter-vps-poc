@@ -18,7 +18,14 @@ Wir haben **vier Architekturen** mit identischem Code, identischen Lastmustern (
 | **1** | Einzelner CAX11 | 2 | 3,79 € | 228 | 1,66 € | 5.303 ms | 0,80 % | ❌ Fehlgeschlagen |
 | **2** | 2×CAX11 Swarm<br/>(ausgelastet) | 4 | 7,58 € | 354 | 2,14 € | 3.524 ms | 0,00 % | ✅ Bestanden |
 | **3** | **Einzelner CAX21** | **4** | **7,59 €** | **484** | **1,57 €** | **2.462 ms** | **0,00 %** | **🏆 Gewinner** |
-| **4** | CAX21+CAX11 Swarm<br/>(asymmetrisch) | 6 | 11,38 € | 343 | 3,32 € | 3.557 ms | 0,00 % | ❌ Schlechter als Test 2 |
+| **4** | CAX21+CAX11 Swarm<br/>(asymmetrisch) | 6 | 11,38 € | 343 | 3,32 € | 3.557 ms | 0,00 % | ❌ Schlechter als Test 2 |
+
+
+**Single-Server-Architektur:** Alles läuft in Docker Compose auf einem einzigen Hetzner CAX21 (4 vCPU, 8 GB RAM, ARM64).
+
+**Gesamtkosten pro Monat:** 7,59 €
+
+**AWS-Äquivalent (Vergleich 1:1):** 100–120 €/Monat (einzelne t4g.xlarge Graviton-Instanz, selbst verwaltet)
 
 ### Wichtigste Erkenntnisse:
 
@@ -34,9 +41,11 @@ Wir haben **vier Architekturen** mit identischem Code, identischen Lastmustern (
 - Mehr Server ≠ mehr Performance (Test 4 bewies dies)
 
 **💡 Die Lektion der Infrastruktur-Rückführung:**
-Im kleinen bis mittleren Maßstab (unter 500 RPS) **schlägt Einfachheit Verteilung**. Docker Compose auf einem einzelnen Server übertraf Docker Swarm um 37 % bei gleichen Kosten.
+Im kleinen bis mittleren Maßstab (unter 500 RPS) **schlägt Einfachheit Verteilung**. Docker Compose auf einem einzelnen Server übertraf Docker Swarm um 37 % bei gleichen Kosten.
 
----
+Hier ist, was uns die Infrastruktur-Rückführung im Detail lehrte.
+
+
 
 ## Der Aufbau
 
@@ -95,11 +104,6 @@ graph TB
     WORKER -.->|pino-Logs| LOKI
 ```
 
-**Single-Server-Architektur:** Alles läuft in Docker Compose auf einem einzigen Hetzner CAX21 (4 vCPU, 8 GB RAM, ARM64).
-
-**Gesamtkosten pro Monat:** 7,59 €
-
-**AWS-Äquivalent (Vergleich 1:1):** 100–120 €/Monat (einzelne t4g.xlarge Graviton-Instanz, selbst verwaltet)
 
 **Was Startups tatsächlich bauen:**
 - Lambda-Funktionen (1GB Speicher, 1,5s durchschnittliche Ausführungszeit)
@@ -347,9 +351,9 @@ Deshalb existiert **Infrastruktur-Rückführung**. Die Cloud-Industrie profitier
 
 Sie starten auf AWS mit Lambda + RDS, weil „es ist serverless und skaliert automatisch."
 
-**Monat 1:** 200 € (leichter Traffic, Testen)  
-**Monat 3:** 2.000 € (einige echte Nutzer, CloudWatch-Kosten steigen)  
-**Monat 6:** 5.000 € (moderates Wachstum, ElastiCache hinzugefügt, weil „Redis ist kritisch")  
+**Monat 1:** 200 € (leichter Traffic, Testen)
+**Monat 3:** 2.000 € (einige echte Nutzer, CloudWatch-Kosten steigen)
+**Monat 6:** 5.000 € (moderates Wachstum, ElastiCache hinzugefügt, weil „Redis ist kritisch")
 **Monat 12:** 8.000 € (Investoren fragen nach Unit Economics, Sie haben keine Antwort)
 
 Währenddessen betreibt Ihr Konkurrent die gleiche Workload auf einem 15 €/Monat VPS.
@@ -396,17 +400,14 @@ Wenn Sie ein Bootstrap-Startup sind, das 5.000+ €/Monat bei AWS ausgibt, währ
 ---
 
 **Nächster in der Serie:**
-- Teil 3: „PostgreSQL-Tuning, das 500 RPS freischaltete“
-- Teil 4: „Die 8 €-bis-800 €-Skalierungs-Roadmap“
+- Teil 3: „PostgreSQL-Tuning, das 500 RPS freischaltete"
+- Teil 4: „Die 8 €-bis-800 €-Skalierungs-Roadmap"
 
 ---
+
 
 **Bereit zur Rückführung?** [Kostenlosen Workshop buchen →](https://cal.com/eduardosanzb/15min)
 
 ---
 
 *Dieser Artikel ist Teil unserer Fallstudien zur Infrastruktur-Rückführung. Echte Tests, echte Kosten, echte Lektionen beim Bauen nachhaltiger Alternativen zur Cloud-Komplexität.*
-
----
-
-Let me know if you want a **shortened version**, **summary**, or **specific sections** translated instead.
