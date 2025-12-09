@@ -11,8 +11,9 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/css/style.css">
+  <!-- CSS (fingerprinted for long-term caching) -->
+  {{ $css := resources.Get "css/style.css" | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
   <!-- Open Graph -->
   <meta property="og:title" content="{{ .Site.Title }}">
