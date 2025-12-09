@@ -162,8 +162,55 @@
       fontFamily: 'ui-sans-serif, system-ui, sans-serif'
     });
     
-    // Re-render on theme change
-    window.addEventListener('theme-changed', (e) => {
+    // Cache for diagram content
+    const diagramCache = new Map();
+    let diagramCounter = 0;
+    
+    // Store original content on page load
+    document.querySelectorAll('.mermaid').forEach(el => {
+      const originalContent = el.textContent;
+      const diagramId = ++diagramCounter;
+      el.setAttribute('data-diagram-id', diagramId);
+      diagramCache.set(diagramId, originalContent);
+    });
+    
+    // Debounce helper
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+    
+    // Intersection Observer for visible diagrams only
+    const visibleDiagrams = new Set();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const diagramIdAttr = entry.target.getAttribute('data-diagram-id');
+        if (diagramIdAttr) {
+          const diagramId = parseInt(diagramIdAttr, 10);
+          if (!isNaN(diagramId)) {
+            if (entry.isIntersecting) {
+              visibleDiagrams.add(diagramId);
+            } else {
+              visibleDiagrams.delete(diagramId);
+            }
+          }
+        }
+      });
+    }, { rootMargin: '50px' });
+    
+    document.querySelectorAll('.mermaid').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Re-render on theme change (debounced)
+    const handleThemeChange = debounce((e) => {
       const isDark = e.detail.theme === 'dark';
       mermaid.initialize({ 
         theme: 'base',
@@ -206,14 +253,26 @@
         }
       });
       
+      // Only re-render visible diagrams
       document.querySelectorAll('.mermaid').forEach(el => {
-        const originalContent = el.getAttribute('data-original-content') || el.textContent;
-        el.setAttribute('data-original-content', originalContent);
-        mermaid.render('mermaid-' + Math.random(), originalContent).then(result => {
-          el.innerHTML = result.svg;
-        });
+        const diagramIdAttr = el.getAttribute('data-diagram-id');
+        if (diagramIdAttr) {
+          const diagramId = parseInt(diagramIdAttr, 10);
+          if (!isNaN(diagramId) && visibleDiagrams.has(diagramId)) {
+            const originalContent = diagramCache.get(diagramId);
+            if (originalContent) {
+              mermaid.render('mermaid-' + diagramId, originalContent).then(result => {
+                el.innerHTML = result.svg;
+              }).catch(err => {
+                console.error('Failed to render diagram ' + diagramId + ':', err);
+              });
+            }
+          }
+        }
       });
-    });
+    }, 250);
+    
+    window.addEventListener('theme-changed', handleThemeChange);
   </script>
   {{ end }}
   
