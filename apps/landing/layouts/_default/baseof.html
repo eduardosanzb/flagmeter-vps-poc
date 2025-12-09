@@ -168,7 +168,7 @@
     
     // Store original content on page load
     document.querySelectorAll('.mermaid').forEach(el => {
-      const originalContent = el.getAttribute('data-original-content') || el.textContent;
+      const originalContent = el.textContent;
       const diagramId = ++diagramCounter;
       el.setAttribute('data-diagram-id', diagramId);
       diagramCache.set(diagramId, originalContent);
@@ -191,11 +191,16 @@
     const visibleDiagrams = new Set();
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        const diagramId = parseInt(entry.target.getAttribute('data-diagram-id'));
-        if (entry.isIntersecting) {
-          visibleDiagrams.add(diagramId);
-        } else {
-          visibleDiagrams.delete(diagramId);
+        const diagramIdAttr = entry.target.getAttribute('data-diagram-id');
+        if (diagramIdAttr) {
+          const diagramId = parseInt(diagramIdAttr, 10);
+          if (!isNaN(diagramId)) {
+            if (entry.isIntersecting) {
+              visibleDiagrams.add(diagramId);
+            } else {
+              visibleDiagrams.delete(diagramId);
+            }
+          }
         }
       });
     }, { rootMargin: '50px' });
@@ -250,13 +255,18 @@
       
       // Only re-render visible diagrams
       document.querySelectorAll('.mermaid').forEach(el => {
-        const diagramId = parseInt(el.getAttribute('data-diagram-id'));
-        if (visibleDiagrams.has(diagramId)) {
-          const originalContent = diagramCache.get(diagramId);
-          if (originalContent) {
-            mermaid.render('mermaid-' + diagramId, originalContent).then(result => {
-              el.innerHTML = result.svg;
-            });
+        const diagramIdAttr = el.getAttribute('data-diagram-id');
+        if (diagramIdAttr) {
+          const diagramId = parseInt(diagramIdAttr, 10);
+          if (!isNaN(diagramId) && visibleDiagrams.has(diagramId)) {
+            const originalContent = diagramCache.get(diagramId);
+            if (originalContent) {
+              mermaid.render('mermaid-' + diagramId, originalContent).then(result => {
+                el.innerHTML = result.svg;
+              }).catch(err => {
+                console.error('Failed to render diagram ' + diagramId + ':', err);
+              });
+            }
           }
         }
       });
