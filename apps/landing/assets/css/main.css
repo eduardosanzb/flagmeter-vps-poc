@@ -59,3 +59,152 @@
     text-wrap: balance;
   }
 }
+
+/* Blog post prose styling */
+@layer components {
+  .prose-brand {
+    @apply text-lg leading-relaxed;
+  }
+
+  .prose-brand h2 {
+    @apply text-3xl font-bold mt-12 mb-6 text-brand-dark dark:text-white border-b border-gray-200 dark:border-gray-700 pb-3;
+  }
+
+  .prose-brand h3 {
+    @apply text-2xl font-semibold mt-10 mb-4 text-brand-dark dark:text-white;
+  }
+
+  .prose-brand h4 {
+    @apply text-xl font-semibold mt-8 mb-3 text-brand-dark dark:text-white;
+  }
+
+  .prose-brand p {
+    @apply mb-6 text-gray-700 dark:text-gray-300 leading-relaxed;
+  }
+
+  .prose-brand strong {
+    @apply font-semibold text-brand-dark dark:text-white;
+  }
+
+  .prose-brand code {
+    @apply px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono text-brand-accent dark:text-emerald-400 border border-gray-200 dark:border-gray-700;
+  }
+
+  .prose-brand pre {
+    @apply my-8 p-6 bg-gray-900 dark:bg-gray-950 rounded-lg overflow-x-auto border border-gray-700;
+  }
+
+  .prose-brand pre code {
+    @apply bg-transparent border-0 text-gray-100 p-0;
+  }
+
+  .prose-brand ul, .prose-brand ol {
+    @apply mb-6 pl-6 space-y-2;
+  }
+
+  .prose-brand ul {
+    @apply list-disc;
+  }
+
+  .prose-brand ol {
+    @apply list-decimal;
+  }
+
+  .prose-brand li {
+    @apply text-gray-700 dark:text-gray-300 leading-relaxed;
+  }
+
+  .prose-brand blockquote {
+    @apply border-l-4 border-brand-accent pl-6 my-8 italic text-gray-600 dark:text-gray-400;
+  }
+
+  .prose-brand table {
+    @apply w-full my-8 border-collapse rounded-lg overflow-hidden shadow-lg;
+  }
+
+  /* Mobile: Make tables horizontally scrollable */
+  @media (max-width: 768px) {
+    .prose-brand {
+      @apply overflow-x-visible; /* Allow overflow */
+    }
+
+    /* Wrap table in scrollable container */
+    .prose-brand table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .prose-brand table thead,
+    .prose-brand table tbody {
+      display: table;
+      width: 100%;
+    }
+
+    .prose-brand table th,
+    .prose-brand table td {
+      white-space: nowrap; /* Prevent text wrapping in cells */
+    }
+  }
+
+  .prose-brand th {
+    @apply bg-brand-accent dark:bg-emerald-700 px-4 py-3 text-left font-bold text-white border border-emerald-600 dark:border-emerald-800;
+  }
+
+  .prose-brand td {
+    @apply px-4 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300;
+  }
+
+  .prose-brand tbody tr {
+    @apply hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors;
+  }
+
+  /* Highlight winner row (Test 3) */
+  .prose-brand tbody tr:nth-child(3) {
+    @apply bg-emerald-50 dark:bg-emerald-900/20 font-semibold;
+  }
+
+  .prose-brand tbody tr:nth-child(3) td {
+    @apply border-emerald-200 dark:border-emerald-800;
+  }
+
+  .prose-brand a {
+    @apply text-brand-accent dark:text-emerald-400 hover:underline font-medium;
+  }
+
+  .prose-brand img {
+    @apply my-8 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700;
+  }
+
+  .prose-brand hr {
+    @apply my-12 border-gray-300 dark:border-gray-700;
+  }
+
+  /* Special styling for results/verdict sections */
+  .prose-brand .result-box {
+    @apply my-6 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-brand-accent;
+  }
+
+  /* Mermaid diagram styling */
+  .prose-brand .mermaid {
+    @apply my-12 p-8 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+  }
+
+  .prose-brand .mermaid svg {
+    @apply max-w-full h-auto;
+    filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.1));
+  }
+
+  /* Make mermaid diagram responsive */
+  @media (max-width: 768px) {
+    .prose-brand .mermaid {
+      @apply p-4;
+    }
+  }
+}

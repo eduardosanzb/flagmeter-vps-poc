@@ -1,0 +1,5 @@
+{{- if .Store.Get "hasMermaid" }}
+  <script type="module">
+    import "{{ .Site.Params.mermaid.js_url }}";
+  </script>
+{{- end -}}

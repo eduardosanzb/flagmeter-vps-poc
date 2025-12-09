@@ -1,0 +1,29 @@
+{{ define "main" }}
+<article class="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+  <!-- Page Header -->
+  <header class="py-20 bg-brand-dark dark:bg-gray-900">
+    <div class="container-custom max-w-4xl">
+      <h1 class="text-5xl font-bold text-white mb-6">{{ .Title }}</h1>
+      {{ if .Params.description }}
+      <p class="text-xl text-gray-300">{{ .Params.description }}</p>
+      {{ end }}
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <div class="py-20 bg-white dark:bg-gray-800">
+    <div class="container-custom max-w-4xl">
+      <div class="prose prose-lg prose-brand max-w-none">
+        {{ .Content }}
+      </div>
+
+      <!-- Back to Home -->
+      <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/{{ else }}/{{ end }}" class="inline-flex items-center text-brand-accent hover:text-brand-dark dark:hover:text-white transition-colors font-medium">
+          ← {{ if eq .Site.Language.Lang "de" }}Zurück zur Startseite{{ else }}Back to Home{{ end }}
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+{{ end }}

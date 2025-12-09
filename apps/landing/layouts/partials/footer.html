@@ -11,9 +11,11 @@
       <div>
         <h4 class="font-semibold mb-4 text-white">Quick Links</h4>
         <ul class="space-y-2 text-slate-300 dark:text-gray-400">
-          <li><a href="#how-it-works" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.howItWorks" }}</a></li>
-          <li><a href="#pricing" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.pricing" }}</a></li>
-          <li><a href="#faq" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.faq" }}</a></li>
+          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/#how-it-works{{ else }}/#how-it-works{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.howItWorks" }}</a></li>
+          <li><a href="{{ partial "components/blog-url.html" . }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "navigation.blog" }}</a></li>
+          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/#pricing{{ else }}/#pricing{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.pricing" }}</a></li>
+          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/#faq{{ else }}/#faq{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.faq" }}</a></li>
+          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/impressum{{ else }}/impressum{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "footer.impressum" }}</a></li>
         </ul>
       </div>
       

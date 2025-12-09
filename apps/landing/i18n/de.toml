@@ -14,6 +14,9 @@ other = "Preise"
 [navigation.faq]
 other = "FAQ"
 
+[navigation.blog]
+other = "Fallstudien"
+
 [cta]
 [cta.bookAudit]
 other = "Kostenlose Prüfung erhalten"
@@ -43,3 +46,10 @@ other = "© 2025 Raus.cloud. Alle Rechte vorbehalten."
 
 [footer.built]
 other = "Infrastruktur ohne DevOps"
+
+[footer.impressum]
+other = "Impressum"
+
+[blog]
+[blog.readMore]
+other = "Weiterlesen →"

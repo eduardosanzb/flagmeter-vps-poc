@@ -112,3 +112,127 @@
 
 ## Shadcn Components
 - Install via: `pnpx shadcn@latest add <component>` (configured at `apps/dashboard/components.json`)
+
+## Hugo Landing Site (`apps/landing`)
+
+### Quick Start
+- **Framework**: Hugo v0.145+ (extended version required for PostCSS/Tailwind)
+- **Dev**: `cd apps/landing && hugo server -D` (runs on http://localhost:1313)
+- **Build**: `hugo` (outputs to `public/`)
+- **Languages**: English (default) + German (`/de/`)
+
+### Structure
+- `content/` - Markdown content (pages, blog posts)
+  - `_index.en.md` / `_index.de.md` - Homepage content with sections
+  - `blog/` - Blog posts (case studies)
+  - `impressum.en.md` / `impressum.de.md` - Legal notice pages
+- `layouts/` - HTML templates
+  - `_default/baseof.html` - Base template (header, footer, scripts)
+  - `partials/` - Reusable components (header, footer)
+  - `blog/` - Blog-specific templates (list, single)
+- `i18n/` - Translations (en.toml, de.toml)
+- `assets/css/main.css` - Tailwind CSS + custom styles
+- `static/` - Static files (images, favicon)
+
+### Blog Post Workflow
+1. **Create English post**: `content/blog/my-post.en.md`
+2. **Add frontmatter**:
+   ```yaml
+   ---
+   title: "Post Title"
+   date: 2025-12-08
+   description: "Short description"
+   author: "Eduardo Sanchez"
+   categories: ["Case Studies"]
+   tags: ["tag1", "tag2"]
+   draft: false
+   mermaid: true  # If using Mermaid diagrams
+   ---
+   ```
+3. **Create German translation**: `content/blog/my-post.de.md` (same filename with `.de`)
+4. **Add images**: Place in `static/images/blog/`, reference as `/images/blog/filename.png`
+5. **External links**: Use HTML for target="_blank": `<a href="url" target="_blank" rel="noopener">text</a>`
+
+### Mermaid Diagrams
+- Enable with `mermaid: true` in frontmatter
+- Uses custom emerald green theme matching brand colors
+- Auto-switches between light/dark mode
+- Syntax: Standard mermaid in code fence:
+  ````markdown
+  ```mermaid
+  graph TB
+      A[Node] --> B[Another Node]
+  ```
+  ````
+
+### Brand Colors (Tailwind)
+- `brand-dark`: `#0a0a0a` (pure black)
+- `brand-primary`: `#0f1419` (rich black)
+- `brand-secondary`: `#6b7280` (gray)
+- `brand-accent`: `#10b981` (emerald-500) - PRIMARY CTA color
+- `brand-accentDark`: `#059669` (emerald-600) - hover states
+
+### i18n (Internationalization)
+- Add translations to `i18n/en.toml` and `i18n/de.toml`
+- Use in templates: `{{ i18n "key.name" }}`
+- Language switcher automatically detects translated pages
+- Falls back to homepage switch if page not translated
+
+### CSS/Styling
+- Uses Tailwind CSS v3 with custom brand colors
+- Custom prose styling for blog content (`.prose-brand`)
+- Dark mode support via `dark:` variants
+- Tables auto-styled with emerald headers and hover effects
+
+### Key Features
+- ✅ Bilingual (EN/DE) with smart language switcher
+- ✅ Blog with categories, tags, and pagination
+- ✅ Mermaid diagrams with brand theming
+- ✅ Dark mode with localStorage persistence
+- ✅ SEO-friendly (Open Graph, Twitter Cards)
+- ✅ Mobile-responsive navigation
+- ✅ Fast (Hugo static site generation)
+
+### Hugo Modules
+- Uses Hugo modules for Mermaid support
+- Vendored in `_vendor/` directory for reproducible builds
+- Commands:
+  - `hugo mod get github.com/hugomods/mermaid` - Install module
+  - `hugo mod vendor` - Vendor dependencies locally
+  - `hugo mod tidy` - Clean up unused modules
+
+### Common Tasks
+- **Add blog post**: Create `.en.md` and `.de.md` in `content/blog/`
+- **Update translations**: Edit `i18n/en.toml` or `i18n/de.toml`
+- **Add CTA button**: Use brand-accent gradient with hover effects (see Philosophy section example)
+- **Add screenshot**: Copy to `static/images/blog/`, reference with `/images/blog/filename.png`
+- **Link Hetzner servers**: Use `<a href="https://www.hetzner.com/cloud/arm" target="_blank" rel="noopener">Hetzner CAX21</a>`
+
+### Blog Series: Infrastructure Repatriation
+
+**Article 1: "We Spent €11/month Testing Docker Swarm So You Don't Have To"** ✅ Published (EN + DE)
+- Target: Bootstrapped B2B SaaS founders burning runway on AWS
+- Core message: Stop spending runway on AWS, spend it on customers instead
+- Proof: Single VPS (€7.59/mo) beats Docker Swarm, handles 484 RPS
+- AWS reality: Lambda deployment = €10,560/mo vs €7.59/mo VPS
+- Key data: Cost per 100 RPS comparison, month-by-month AWS escalation (€200 → €8,000)
+
+**Article 2: "Zero DevOps: Deploy Production Infrastructure with Coolify"** 🔜 Coming Soon
+- Target: Founders who want to ship features, not debug Kubernetes
+- Core message: Production-grade infrastructure without DevOps expertise
+- Tools covered: Coolify (PaaS), Docker Compose (simple orchestration), basic Terraform (optional IaC)
+- Focus: Developer experience over operational complexity
+- Proof: Deploy FlagMeter with auto-HTTPS, zero-downtime deployments, branch previews in <30 min
+
+**Article 3: "The €8 to €800 Scaling Roadmap"** 🔜 Coming Soon
+- Target: Founders planning growth from launch to scale
+- Core message: Predictable vertical scaling path that preserves runway
+- Roadmap: CAX11 (€3.79) → CAX21 (€7.59) → CAX31 (€14.90) → CAX41 (€28.49)
+- When to distribute: Only after maxing out largest VPS (~1,500-2,000 RPS)
+- Cost comparison: €1.50-1.90 per 100 RPS (VPS) vs €50-80 per 100 RPS (AWS)
+
+### Marketing Strategy
+See Outline: "Marketing Strategy: Infrastructure Repatriation Blog Series"
+- Located under: Fuck.Cloud → FlagMeter 2.0
+- Complete distribution plan, LinkedIn templates, success metrics
+- Launch week checklist with specific dates/times
