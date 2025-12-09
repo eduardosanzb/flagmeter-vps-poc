@@ -1,0 +1,44 @@
+name: Landing Page CI
+
+on:
+  pull_request:
+    paths:
+      - 'apps/landing/**'
+      - '.github/workflows/landing-ci.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      # 1. Build the Dockerfile
+      - name: Build Docker image
+        run: docker build -t flagmeter-landing apps/landing
+
+      # 2. Extract and check built site
+      - name: Extract public directory
+        run: docker run --rm -v $PWD/public:/public flagmeter-landing cp -r /usr/share/nginx/html/. /public
+
+      # 3. Check for broken links in static site
+      - name: Check links
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --offline public
+
+      # 4. Check for missing translations
+      - name: Validate translations
+        run: |
+          cd apps/landing
+          for file in content/blog/*.en.md content/*.en.md; do
+            if [ -f "$file" ]; then
+              de_file="${file%.en.md}.de.md"
+              if [ ! -f "$de_file" ]; then
+                echo "❌ Missing German translation: $de_file"
+                exit 1
+              fi
+            fi
+          done
+          echo "✅ All pages have English + German versions"
