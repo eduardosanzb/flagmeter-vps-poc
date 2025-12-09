@@ -84,21 +84,27 @@
     }, { passive: true });
 
     /**
-     * Track reading time on page exit
+     * Track reading time on page exit using sendBeacon
      * Only tracks if user spent more than 10 seconds
+     * 
+     * Uses visibilitychange event (more reliable than beforeunload)
+     * and umami.track() which internally uses sendBeacon when available
      */
-    window.addEventListener('beforeunload', function() {
-      const timeSpent = Math.round((Date.now() - readingStartTime) / 1000);
-      
-      // Only track meaningful engagement (>10 seconds)
-      if (timeSpent > 10) {
-        umami.track('reading-time', { 
-          seconds: timeSpent,
-          type: pageType,
-          path: pagePath
-        });
+    window.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') {
+        const timeSpent = Math.round((Date.now() - readingStartTime) / 1000);
         
-        console.log(`[Analytics] Reading time: ${timeSpent}s on ${pageType}`);
+        // Only track meaningful engagement (>10 seconds)
+        if (timeSpent > 10) {
+          // umami.track() uses navigator.sendBeacon internally for reliable delivery
+          umami.track('reading-time', { 
+            seconds: timeSpent,
+            type: pageType,
+            path: pagePath
+          });
+          
+          console.log(`[Analytics] Reading time: ${timeSpent}s on ${pageType}`);
+        }
       }
     });
 
