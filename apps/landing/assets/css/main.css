@@ -122,6 +122,33 @@
     @apply w-full my-8 border-collapse rounded-lg overflow-hidden shadow-lg;
   }
 
+  /* Mobile: Make tables horizontally scrollable */
+  @media (max-width: 768px) {
+    .prose-brand {
+      @apply overflow-x-visible; /* Allow overflow */
+    }
+
+    /* Wrap table in scrollable container */
+    .prose-brand table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .prose-brand table thead,
+    .prose-brand table tbody {
+      display: table;
+      width: 100%;
+    }
+
+    .prose-brand table th,
+    .prose-brand table td {
+      white-space: nowrap; /* Prevent text wrapping in cells */
+    }
+  }
+
   .prose-brand th {
     @apply bg-brand-accent dark:bg-emerald-700 px-4 py-3 text-left font-bold text-white border border-emerald-600 dark:border-emerald-800;
   }
