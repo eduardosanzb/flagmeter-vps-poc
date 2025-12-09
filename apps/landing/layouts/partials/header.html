@@ -11,7 +11,7 @@
         <a href="#how-it-works" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "section.howItWorks" }}
         </a>
-        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+        <a href="{{ partial "components/blog-url.html" . }}" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "navigation.blog" }}
         </a>
         <a href="#pricing" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
@@ -82,7 +82,7 @@
       <a href="#how-it-works" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.howItWorks" }}
       </a>
-      <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+      <a href="{{ partial "components/blog-url.html" . }}" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "navigation.blog" }}
       </a>
       <a href="#pricing" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
