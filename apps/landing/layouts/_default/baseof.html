@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{{ .Site.Params.description }}">
   <meta name="author" content="{{ .Site.Params.author }}">
-  
+
   <title>{{ .Site.Title }}</title>
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  
+
   <!-- CSS -->
   <link rel="stylesheet" href="/css/style.css">
-  
+
   <!-- Open Graph -->
   <meta property="og:title" content="{{ .Site.Title }}">
   <meta property="og:description" content="{{ .Site.Params.description }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ .Permalink }}">
-  
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ .Site.Title }}">
@@ -29,9 +29,9 @@
   <script>
     // Initialize theme from localStorage or system preference
     (function() {
-      const theme = localStorage.getItem('theme') || 
+      const theme = localStorage.getItem('theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      
+
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
       }
@@ -43,7 +43,7 @@
       const browserLang = navigator.language || navigator.userLanguage;
       const isGerman = browserLang.toLowerCase().startsWith('de');
       const isOnRoot = window.location.pathname === '/' || window.location.pathname === '';
-      
+
       // Only redirect if on root path and browser language doesn't match
       if (isOnRoot) {
         if (isGerman && currentLang !== 'de') {
@@ -55,26 +55,38 @@
     })();
   </script>
 </head>
-<body>
+<body{{ if eq .Type "blog" }} class="blog-post"{{ end }}>
   {{ partial "header.html" . }}
-  
+
   <main>
     {{ block "main" . }}{{ end }}
   </main>
-  
+
   {{ partial "footer.html" . }}
-  
+
+  {{ if .Site.Params.enableAnalytics }}
+  <!-- Umami Analytics (Privacy-first, self-hosted) -->
+  <!-- Only loaded in production (HUGO_ENV=production) or when enableAnalytics=true -->
+  <script defer src="{{ .Site.Params.analyticsUrl }}"
+          data-website-id="{{ .Site.Params.analyticsWebsiteId }}"
+          data-auto-track="true"
+          data-do-not-track="true"></script>
+
+  <!-- Custom analytics tracking (scroll, CTA, reading time) -->
+  <script defer src="/js/analytics.js"></script>
+  {{ end }}
+
   <!-- Alpine.js for interactive components -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
+
   <!-- Mermaid.js for diagrams -->
   {{ if .Params.mermaid }}
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    
+
     const isDark = document.documentElement.classList.contains('dark');
-    
-    mermaid.initialize({ 
+
+    mermaid.initialize({
       startOnLoad: true,
       theme: 'base',
       themeVariables: isDark ? {
@@ -90,13 +102,13 @@
         secondBkg: '#1f2937',         // secondary node background
         border1: '#10b981',           // emerald
         border2: '#059669',           // darker emerald
-        note: '#0f1419',              
-        noteBkgColor: '#0f1419',      
+        note: '#0f1419',
+        noteBkgColor: '#0f1419',
         noteTextColor: '#ffffff',     // WHITE
-        noteBorderColor: '#10b981',   
-        clusterBkg: '#0f1419',        
-        clusterBorder: '#10b981',     
-        defaultLinkColor: '#10b981',  
+        noteBorderColor: '#10b981',
+        clusterBkg: '#0f1419',
+        clusterBorder: '#10b981',
+        defaultLinkColor: '#10b981',
         titleColor: '#ffffff',        // WHITE
         edgeLabelBackground: '#0a0a0a',
         edgeLabelColor: '#ffffff',    // WHITE edge labels
@@ -126,13 +138,13 @@
         secondBkg: '#f3f4f6',         // light gray
         border1: '#10b981',           // emerald
         border2: '#059669',           // darker emerald
-        note: '#ffffff',              
-        noteBkgColor: '#ffffff',      
+        note: '#ffffff',
+        noteBkgColor: '#ffffff',
         noteTextColor: '#0a0a0a',     // DARK
-        noteBorderColor: '#10b981',   
+        noteBorderColor: '#10b981',
         clusterBkg: '#f9fafb',        // very light gray for clusters
-        clusterBorder: '#10b981',     
-        defaultLinkColor: '#10b981',  
+        clusterBorder: '#10b981',
+        defaultLinkColor: '#10b981',
         titleColor: '#0a0a0a',        // DARK
         edgeLabelBackground: '#ffffff',
         edgeLabelColor: '#0a0a0a',    // DARK edge labels
@@ -161,11 +173,11 @@
       fontSize: 16,
       fontFamily: 'ui-sans-serif, system-ui, sans-serif'
     });
-    
+
     // Re-render on theme change
     window.addEventListener('theme-changed', (e) => {
       const isDark = e.detail.theme === 'dark';
-      mermaid.initialize({ 
+      mermaid.initialize({
         theme: 'base',
         themeVariables: isDark ? {
           primaryColor: '#0f1419',
@@ -205,7 +217,7 @@
           edgeLabelColor: '#0a0a0a'
         }
       });
-      
+
       document.querySelectorAll('.mermaid').forEach(el => {
         const originalContent = el.getAttribute('data-original-content') || el.textContent;
         el.setAttribute('data-original-content', originalContent);
@@ -216,22 +228,22 @@
     });
   </script>
   {{ end }}
-  
+
   <!-- Theme toggle functionality -->
   <script>
     function toggleTheme() {
       const html = document.documentElement;
       const currentTheme = html.classList.contains('dark') ? 'dark' : 'light';
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
+
       if (newTheme === 'dark') {
         html.classList.add('dark');
       } else {
         html.classList.remove('dark');
       }
-      
+
       localStorage.setItem('theme', newTheme);
-      
+
       // Dispatch custom event for other components
       window.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
     }

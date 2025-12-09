@@ -23,7 +23,8 @@
       {{ end }}
     </ul>
     <a href="{{ $.context.Site.Params.calendarLink }}" target="_blank" rel="noopener" 
-       class="btn {{ if .highlighted }}btn-primary{{ else }}btn-secondary{{ end }} w-full">
+       class="btn {{ if .highlighted }}btn-primary{{ else }}btn-secondary{{ end }} w-full"
+       data-cta="pricing-{{ .name | lower | replaceRE `[^a-z]+` `-` }}">
       {{ .cta }}
     </a>
   </div>

@@ -25,7 +25,8 @@ WORKDIR /app
 # Copy everything from node builder
 COPY --from=node-builder /app /app
 
-# Build Hugo site
+# Build Hugo site with production environment (enables analytics)
+ENV HUGO_ENV=production
 RUN hugo --minify
 
 # Stage 3: Serve with nginx
