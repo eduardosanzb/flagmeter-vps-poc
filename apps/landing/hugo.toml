@@ -14,7 +14,7 @@ defaultContentLanguageInSubdir = false
     contentDir = "content"
     [languages.en.params]
       locale = "en_US"
-      
+
   [languages.de]
     languageName = "Deutsch"
     weight = 2
@@ -26,6 +26,13 @@ defaultContentLanguageInSubdir = false
   description = "Cut your cloud costs by 60-70% and free your engineering team. Infrastructure that doesn't require a DevOps hire. Ever."
   author = "Eduardo Sanchez"
   calendarLink = "https://cal.com/eduardosanzb/15min"
+
+  # Analytics configuration
+  # Only enabled in production (HUGO_ENV=production)
+  # To test locally: create config/_default/params.toml with enableAnalytics = true
+  enableAnalytics = false
+  analyticsUrl = "https://analytics.raus.cloud/script.js"
+  analyticsWebsiteId = "268a904e-a27e-49ac-943e-9012ef9f0875"
 
 [module]
   [[module.imports]]

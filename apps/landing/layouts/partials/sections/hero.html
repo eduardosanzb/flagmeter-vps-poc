@@ -9,10 +9,10 @@
         {{ .Params.hero.subtitle }}
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" class="btn btn-primary text-lg px-8 py-4">
+        <a href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" class="btn btn-primary text-lg px-8 py-4" data-cta="book-workshop-hero">
           {{ .Params.hero.cta_primary }}
         </a>
-        <a href="#how-it-works" class="btn btn-secondary text-lg px-8 py-4 !text-white !border-white/30 hover:!border-white dark:!border-gray-600 dark:hover:!border-brand-accent">
+        <a href="#how-it-works" class="btn btn-secondary text-lg px-8 py-4 !text-white !border-white/30 hover:!border-white dark:!border-gray-600 dark:hover:!border-brand-accent" data-cta="see-how-it-works">
           {{ .Params.hero.cta_secondary }}
         </a>
       </div>
