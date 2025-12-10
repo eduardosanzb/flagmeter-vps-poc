@@ -39,6 +39,7 @@
           {{ if .IsTranslated }}
             {{ range .Translations }}
               <a href="{{ .Permalink }}"
+                 onclick="localStorage.setItem('userLangPreference', '{{ .Language.Lang }}')"
                  class="text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase"
                  title="{{ i18n "languageSwitch" }}">
                 {{ .Language.LanguageName }}
@@ -48,6 +49,7 @@
             {{ range .Site.Languages }}
               {{ if not (eq .Lang $.Site.Language.Lang) }}
                 <a href="{{ if eq .Lang "en" }}/{{ else }}/{{ .Lang }}/{{ end }}"
+                   onclick="localStorage.setItem('userLangPreference', '{{ .Lang }}')"
                    class="text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase"
                    title="{{ i18n "languageSwitch" }}">
                   {{ .LanguageName }}
@@ -114,6 +116,7 @@
         {{ if .IsTranslated }}
           {{ range .Translations }}
             <a href="{{ .Permalink }}"
+               onclick="localStorage.setItem('userLangPreference', '{{ .Language.Lang }}')"
                class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
               {{ i18n "languageSwitch" }}
             </a>
@@ -122,6 +125,7 @@
           {{ range .Site.Languages }}
             {{ if not (eq .Lang $.Site.Language.Lang) }}
               <a href="{{ if eq .Lang "en" }}/{{ else }}/{{ .Lang }}/{{ end }}"
+                 onclick="localStorage.setItem('userLangPreference', '{{ .Lang }}')"
                  class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
                 {{ i18n "languageSwitch" }}
               </a>

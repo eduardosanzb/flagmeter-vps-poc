@@ -20,11 +20,15 @@
   <meta property="og:description" content="{{ .Site.Params.description }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:image" content="{{ .Site.BaseURL }}/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ .Site.Title }}">
   <meta name="twitter:description" content="{{ .Site.Params.description }}">
+  <meta name="twitter:image" content="{{ .Site.BaseURL }}/images/og-image.png">
 
   <!-- Dark mode script - must run before body renders to avoid flash -->
   <script>
@@ -38,8 +42,16 @@
       }
     })();
 
-    // Detect browser language and redirect if needed
+    // Detect browser language and redirect if needed (respects user preference)
     (function() {
+      // Check if user has manually selected a language
+      const userLangPreference = localStorage.getItem('userLangPreference');
+      
+      // If user has a preference, don't auto-redirect
+      if (userLangPreference) {
+        return;
+      }
+
       const currentLang = document.documentElement.lang;
       const browserLang = navigator.language || navigator.userLanguage;
       const isGerman = browserLang.toLowerCase().startsWith('de');

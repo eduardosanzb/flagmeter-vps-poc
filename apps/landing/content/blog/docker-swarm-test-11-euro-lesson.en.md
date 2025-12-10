@@ -19,12 +19,8 @@ We tested **four architectures** with identical code, identical load patterns (u
 | **3** | **Single CAX21** | **4** | **€7.59** | **484** | **€1.57** | **2,462ms** | **0.00%** | **🏆 Winner** |
 | **4** | CAX21+CAX11 Swarm<br/>(asymmetric) | 6 | €11.38 | 343 | €3.32 | 3,557ms | 0.00% | ❌ Worse than Test 2 |
 
+**Single-server architecture:** Everything runs in Docker Compose.
 
-**Single-server architecture:** Everything runs in Docker Compose on one Hetzner CAX21 (4 vCPU, 8GB RAM, ARM64).
-
-**Total monthly cost:** €7.59/month
-
-**AWS equivalent (apples-to-apples):** €100-120/month (single t4g.xlarge Graviton instance, self-managed)
 
 ### Key Findings:
 
@@ -39,8 +35,9 @@ We tested **four architectures** with identical code, identical load patterns (u
 - Overlay network overhead killed performance
 - More servers ≠ more performance (Test 4 proved this)
 
-**💡 The repatriation lesson:**
-At small-to-medium scale (sub-500 RPS), **simple beats distributed**. Docker Compose on a single server outperformed Docker Swarm by 37% at the same cost.
+At small-to-medium scale (sub-500 RPS), **simple beats distributed**. Docker Compose on a single server outperformed Docker Swarm by 37% at the same cost. All of this with the **total monthly cost of €7.59**
+
+The **AWS equivalent (apples-to-apples)** would be €100-120/month _(single t4g.xlarge Graviton instance, self-managed)_
 
 Here's what infrastructure repatriation taught us in detail.
 
@@ -75,8 +72,8 @@ graph TB
         TRAEFIK[Traefik<br/>reverse proxy<br/>HTTPS termination]
 
         subgraph "Application Stack"
-            DASH[Dashboard<br/>TanStack Start<br/>Node.js 20]
-            WORKER[Worker<br/>queue consumer<br/>Node.js 20]
+            DASH[Dashboard<br/>TanStack Start<br/>Node.js ]
+            WORKER[Worker<br/>queue consumer<br/>Node.js ]
             VALKEY[(Valkey 7<br/>Redis fork<br/>queue + cache)]
             PG[(PostgreSQL 18<br/>tuned for writes)]
         end
@@ -120,13 +117,11 @@ graph TB
 
 Or with lighter usage (1 hour/day): Still €1,500-2,000/month.
 
-**Performance:** 484 RPS @ P95 latency 2.5s, zero errors
 
 ![FlagMeter Dashboard - Real-time AI quota monitoring showing tenant usage with progress bars and webhook alerts at 80% quota](/images/blog/flagmeter-dashboard-demo.png)
 
 *The FlagMeter dashboard: Real-time quota tracking for B2B SaaS products. Running on €7.59/month infrastructure.*
 
----
 
 
 ## Test 1: Single CAX11 (The Baseline)
@@ -151,7 +146,6 @@ Load Average: 10.64 on 2 cores
 
 **Key insight:** When Prometheus scrapes metrics → CPU spike → dashboard slows → queue builds → timeouts cascade. No isolation = cascading failures.
 
----
 
 ## Test 2: 2x CAX11 Docker Swarm (The "Industry Best Practice")
 
@@ -176,7 +170,6 @@ Worker CPU: Comfortable, plenty of headroom
 
 **Key observation:** Traefik consumed 180% CPU on manager (90% per core). Why? We didn't know yet. But isolation worked—observability couldn't crash the application.
 
----
 
 ## Test 3: Single CAX21 (The Repatriation Champion)
 
@@ -201,9 +194,8 @@ PostgreSQL: 110% CPU (the actual bottleneck)
 
 **Verdict:** 🏆 **Winner**. Best performance at identical cost.
 
-**The repatriation lesson:** Traefik used **5x less CPU** (36% vs 180%) for **37% more throughput**. Localhost communication eliminated the distributed systems tax. The overlay network wasn't free—it was expensive.
+**The lesson:** Traefik used **5x less CPU** (36% vs 180%) for **37% more throughput**. Localhost communication eliminated the distributed systems tax. The overlay network wasn't free—it was expensive.
 
----
 
 ## Test 4: "Let's Fix the Swarm!" (The €11 Mistake)
 
@@ -235,6 +227,20 @@ Cost: 50% more than balanced Swarm
 
 ---
 
+1. **Left peak (16:40-16:50):** 2x CAX11 Swarm test - 354 RPS, struggling
+2. **Right peak (17:00-17:10):** Single CAX21 test - 484 RPS, smooth
+
+![CAX11 Swarm vs CAX21 Single Node Performance Comparison](/images/blog/cax11-vs-cax21-comparison.png)
+
+**Key observations:**
+- Single CAX21 peak is **37% higher** (484 vs 354 RPS)
+- CAX21 spike is **cleaner** (less variance, more stable)
+- Same total cost (€7.59 vs €7.58/month)
+- Simpler architecture = better performance
+
+This graph captures the essence of infrastructure repatriation: **simplicity wins**.
+
+
 ## The Distributed Systems Tax
 
 Why did Traefik use **5x more CPU** in Swarm vs single-node?
@@ -264,13 +270,13 @@ Internet → Traefik (manager) →
 
 
 
-## What Infrastructure Repatriation Taught Us
+## What This Taught Us
 
 ### 1. **Simplicity is sustainable**
 
 The single CAX21 outperformed every distributed configuration. No overlay networks, no service discovery, no operational complexity. One server, doing its job well.
 
-For 90% of B2B SaaS products: a single VPS handles your first 50,000 users. By then, you have revenue to justify complexity.
+**For 90% of B2B SaaS products**: a single VPS handles your first 50,000 users. By then, you have revenue to justify complexity.
 
 ### 2. **The distributed systems tax is real**
 
@@ -280,9 +286,7 @@ Docker Swarm's overlay network costs:
 - Service discovery lookups
 - TCP connection management
 
-Result: ~1,000ms latency penalty + 5x CPU for routing.
-
-**Can't be fixed with better hardware. It's architectural.**
+The result was ~1,000ms latency penalty + 5x CPU for routing. **Can't be fixed with better hardware. It's architectural.**
 
 ### 3. **Asymmetric scaling fails spectacularly**
 
@@ -292,10 +296,6 @@ Upgrading one node in a distributed system creates bottlenecks you didn't have b
 
 ### 4. **Vertical scaling continues to work**
 
-- 2 vCPU: Failed (228 RPS with errors)
-- 4 vCPU: Success! (484 RPS, zero errors)
-- Next step: CAX31 (8 vCPU) or CAX41 (16 vCPU) would likely reach 800-1200+ RPS
-
 **The data suggests:** Single-server vertical scaling remains cost-effective well beyond 500 RPS. At €1.57 per 100 RPS, a CAX31 (€14.90/month, 8 vCPU) could handle ~950 RPS before hitting PostgreSQL limits.
 
 **When to distribute:** Only when you've maxed out the largest single server (CAX41: 16 vCPU, €28.49/month, estimated ~1,500-2,000 RPS) or need geographic redundancy.
@@ -304,24 +304,6 @@ Upgrading one node in a distributed system creates bottlenecks you didn't have b
 
 Every test showed Postgres at 108-111% CPU. Tuning PostgreSQL (separate article) unlocked more capacity than adding servers.
 
----
-
-## The Performance Proof
-
-Here's the real-world performance data from our load tests. The two peaks show:
-
-1. **Left peak (16:40-16:50):** 2x CAX11 Swarm test - 354 RPS, struggling
-2. **Right peak (17:00-17:10):** Single CAX21 test - 484 RPS, smooth
-
-![CAX11 Swarm vs CAX21 Single Node Performance Comparison](/images/blog/cax11-vs-cax21-comparison.png)
-
-**Key observations:**
-- Single CAX21 peak is **37% higher** (484 vs 354 RPS)
-- CAX21 spike is **cleaner** (less variance, more stable)
-- Same total cost (€7.59 vs €7.58/month)
-- Simpler architecture = better performance
-
-This graph captures the essence of infrastructure repatriation: **simplicity wins**.
 
 
 ## When Distributed Systems Make Sense
@@ -348,14 +330,18 @@ This is why **infrastructure repatriation** exists. The cloud industry profits f
 
 You launch on AWS with Lambda + RDS because "it's serverless and scales automatically."
 
-**Month 1:** €200 (light traffic, testing)
-**Month 3:** €2,000 (some real users, CloudWatch costs climbing)
-**Month 6:** €5,000 (moderate growth, added ElastiCache because "Redis is critical")
-**Month 12:** €8,000 (investors ask about unit economics, you have no answer)
+```
+Month 1 €200 (light traffic, testing)
+↓
+Month 3 €2,000 (some real users, CloudWatch costs climbing)
+↓
+Month 6 €5,000 (moderate growth, added ElastiCache because "Redis is critical")
+↓
+Month 12 €8,000 (investors ask about unit economics, you have no answer)
+```
 
 Meanwhile, your competitor runs the same workload on a €15/month VPS.
 
-**They're spending their runway on customer acquisition. You're spending yours on AWS.**
 
 **Our repatriation approach for startups:**
 1. **Start simple** (single VPS, Docker Compose) - Save 95% of infrastructure budget
@@ -363,27 +349,6 @@ Meanwhile, your competitor runs the same workload on a €15/month VPS.
 3. **Scale vertically first** (CAX21 → CAX31 → CAX41) - Linear cost scaling, no architecture rewrites
 4. **Distribute only when proven necessary** (>1,000 RPS sustained, or regulatory HA requirements)
 
-**The vertical scaling path that preserves your runway:**
-- CAX21 (4 vCPU, €7.59): 484 RPS ← *Start here*
-- CAX31 (8 vCPU, €14.90): ~950 RPS (when you outgrow CAX21)
-- CAX41 (16 vCPU, €28.49): ~1,500-2,000 RPS (when you're actually scaling)
-
-Cost remains **€1.50-1.90 per 100 RPS** through CAX41.
-
-**Contrast with AWS Lambda:**
-- Light usage (1hr/day): €1,500/month
-- Business hours (8hr/day): €10,500/month
-- 24/7: €30,000+/month
-
-**The difference?** €10,000/month = 2 senior engineers, or 6 months of runway, or your entire first marketing budget.
-
-**The FlagMeter proof this works:**
-- 484 RPS on €7.59/month
-- 0% error rate
-- 2.5 second P95 latency
-- No DevOps team required
-- No vendor lock-in
-- **Infrastructure costs <1% of revenue from day one**
 
 If you're a bootstrapped startup spending €5,000+/month on AWS while debugging Lambda cold starts instead of talking to customers, **repatriation is your path to profitability**.
 
