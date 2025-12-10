@@ -9,9 +9,9 @@ draft: false
 mermaid: true
 ---
 
-## TL;DR: Was die Lasttests gebracht haben
+## Zusammenfassung: Ergebnisse der Lasttests
 
-Wir haben **vier Architekturen** getestet. Gleicher Code, gleiche Last (bis zu 1200 User gleichzeitig, 4,5 Minuten), gleiche Hetzner-Infrastruktur. Das Ergebnis:
+Wir haben **vier Architekturen** getestet. Gleicher Code, gleiche Last (bis zu 1200 gleichzeitige Nutzer, 4,5 Minuten), gleiche Hetzner-Infrastruktur. Das Ergebnis:
 
 | Test | Architektur | vCPU | Kosten/Monat | RPS | Kosten pro<br/>100 RPS | P95-Latenz | Errors | Ergebnis |
 |------|-------------|------|--------------|-----|------------------------|------------|--------|----------|
@@ -21,29 +21,26 @@ Wir haben **vier Architekturen** getestet. Gleicher Code, gleiche Last (bis zu 1
 | **4** | CAX21+CAX11 Swarm<br/>(asymmetric) | 6 | 11,38 € | 343 | 3,32 € | 3.557 ms | 0,00 % | ❌ Schlechter als Test 2 |
 
 
-**Single-Server-Architektur:** Alles läuft in Docker Compose auf einem Hetzner CAX21 (4 vCPU, 8 GB RAM, ARM64).
+**Single-Server-Architektur:** Alles läuft in Docker Compose.
 
-**Kosten pro Monat:** 7,59 €
+### Wichtigste Erkenntnisse:
 
-**AWS-Equivalent (1:1 Vergleich):** 100–120 €/Monat (single t4g.xlarge Graviton Instance, self-managed)
-
-### Die Key Findings:
-
-**🏆 Ein einzelner CAX21 schlägt alles:**
-- **37 % mehr Throughput** als der Swarm (484 vs. 354 RPS)
-- **30 % weniger Latency** als der Swarm (2,5s vs. 3,5s P95)
-- **nur 0,01 € teurer** als der Swarm (7,59 € vs. 7,58 €)
-- **zero operative Komplexität** (keine Overlay Networks, kein Orchestrator-Overhead)
+**🏆 Ein einzelner CAX21 übertrifft alles:**
+- **37 % mehr Durchsatz** als Swarm (484 vs. 354 RPS)
+- **30 % geringere Latenz** als Swarm (2,5s vs. 3,5s P95)
+- **nur 0,01 € teurer** als Swarm (7,59 € vs. 7,58 €)
+- **Null operative Komplexität** (keine Overlay Networks, kein Orchestrator-Overhead)
 
 **📉 Die "Distributed Systems Tax" ist real:**
-- Traefik hat **5× mehr CPU** auf Swarm gefressen (180 % vs. 36 %) bei **weniger Throughput**
-- Overlay Network Overhead killt die Performance
-- Mehr Server ≠ mehr Performance (Test 4 hat's bewiesen)
+- Traefik verbrauchte **5× mehr CPU** auf Swarm (180 % vs. 36 %) bei **weniger Durchsatz**
+- Overlay Network Overhead vernichtet die Performance
+- Mehr Server ≠ mehr Performance (Test 4 hat es bewiesen)
 
-**💡 Die Infrastructure Repatriation Lesson:**
-Bei kleinem bis mittlerem Scale (unter 500 RPS) **gewinnt Einfachheit**. Docker Compose auf einem Server hat Docker Swarm um 37 % geschlagen – bei gleichen Kosten.
+Bei kleinem bis mittlerem Umfang (unter 500 RPS) **gewinnt Einfachheit**. Docker Compose auf einem Server übertraf Docker Swarm um 37 % – bei gleichen Kosten. Die monatlichen Gesamtkosten: **€7,59**
 
-Hier ist, was wir im Detail gelernt haben.
+Das **AWS-Äquivalent (Vergleich unter gleichen Bedingungen)** wäre €100-120/Monat _(einzelne t4g.xlarge Graviton-Instanz, selbst verwaltet)_
+
+Hier ist, was uns Infrastructure Repatriation im Detail gelehrt hat.
 
 
 
@@ -55,13 +52,13 @@ Wir testen **<a href="https://www.hpe.com/emea_europe/en/what-is/cloud-repatriat
 
 Unser Testcase: **<a href="https://github.com/eduardosanzb/flagmeter-vps-poc" target="_blank" rel="noopener">FlagMeter</a>** – ein Usage Quota Tracker für B2B-SaaS-Produkte. Simpler Stack: TypeScript, PostgreSQL, Valkey (Redis-Fork), deployed via Docker Compose. Genau die Art von App, bei der AWS-Kosten explodieren.
 
-**Der Startup-Constraint:** Kosten unter 10 €/Monat halten und trotzdem beweisen, dass man echte Last handlen kann. Infrastruktur-Budget für Customer Acquisition sparen, nicht für Cloud-Markup.
+**Die Startup-Herausforderung:** Kosten unter 10 €/Monat halten und trotzdem beweisen, dass man echte Last bewältigen kann. Infrastruktur-Budget für Kundenakquise einsetzen, nicht für Cloud-Aufschläge.
 
 **Die Frage:** Was ist die einfachste Architektur, die 500 Requests pro Sekunde schafft und dabei sustainable bleibt?
 
 Jeder Accelerator, jeder Tech-Advisor sagt: "Distributed ist besser. Docker Swarm für kleinen Scale, Kubernetes für serious work." Das Playbook ist Gospel: Concerns trennen, Workloads isolieren, horizontal skalieren.
 
-Wir haben **vier identische Lasttests** durchgeführt, um dieses Dogma zu challengen. Gleicher Code, gleiches Lastmuster (1200 concurrent Users hämmern `/api/events` für 4,5 Minuten), gleiche <a href="https://www.hetzner.com/cloud" target="_blank" rel="noopener">Hetzner Cloud</a> Server. Echtes Geld, echte Infrastruktur, echte Failures.
+Wir haben **vier identische Lasttests** durchgeführt, um dieses Dogma zu hinterfragen. Gleicher Code, gleiches Lastmuster (1200 gleichzeitige Nutzer bombardieren `/api/events` für 4,5 Minuten), gleiche <a href="https://www.hetzner.com/cloud" target="_blank" rel="noopener">Hetzner Cloud</a> Server. Echtes Geld, echte Infrastruktur, echte Ausfälle.
 
 ### Die FlagMeter-Architektur
 
@@ -122,13 +119,13 @@ graph TB
 
 Oder bei lighter usage (1h/Tag): Immer noch 1.500–2.000 €/Monat.
 
-**Performance:** 484 RPS @ P95 latency 2,5s, zero errors
 
 ![FlagMeter Dashboard - Real-time AI Quota Monitoring zeigt Tenant Usage mit Progress Bars und Webhook Alerts bei 80 % Quota](/images/blog/flagmeter-dashboard-demo.png)
 
 *Das FlagMeter Dashboard: Real-time Quota Tracking für B2B SaaS Products. Läuft auf 7,59 €/Monat Infrastruktur.*
 
----
+
+
 
 ## Test 1: Single CAX11 (Die Baseline)
 
@@ -148,9 +145,9 @@ CPU: 100 % durchgehend (0 % idle)
 Load Average: 10,64 auf 2 cores
 ```
 
-**Verdict:** ❌ **Failed**. Die 2-vCPU-Grenze ist real. Services haben um CPU gekämpft, was zu cascading failures geführt hat.
+**Urteil:** ❌ **Gescheitert**. Die 2-vCPU-Grenze ist real. Services konkurrierten um CPU-Zeit, was zu Kettenausfällen führte.
 
-**Key Insight:** Wenn Prometheus Metrics scraped → CPU spike → Dashboard wird langsam → Queue wächst → Timeouts cascaden. Keine Isolation = cascading failures.
+**Wichtige Erkenntnis:** Wenn Prometheus Metriken sammelt → CPU-Spitze → Dashboard wird langsam → Warteschlange wächst → Timeouts häufen sich. Keine Isolation = Kettenausfälle.
 
 ---
 
@@ -173,9 +170,9 @@ Manager CPU: Traefik bei 180 % (bottleneck!)
 Worker CPU: Comfortable, viel headroom
 ```
 
-**Verdict:** ✅ **Passed** (zero errors), aber unerwartet langsam.
+**Urteil:** ✅ **Bestanden** (null Fehler), aber unerwartet langsam.
 
-**Key Observation:** Traefik hat 180 % CPU auf dem Manager gefressen (90 % pro Core). Warum? Wussten wir noch nicht. Aber Isolation hat funktioniert – Observability konnte die App nicht crashen.
+**Wichtige Beobachtung:** Traefik verbrauchte 180 % CPU auf dem Manager (90 % pro Core). Warum? Das wussten wir zu dem Zeitpunkt noch nicht. Aber die Isolation funktionierte – Observability konnte die Anwendung nicht zum Absturz bringen.
 
 ---
 
@@ -200,9 +197,9 @@ Traefik: Nur 36 % CPU (vs. 180 % auf Swarm!)
 PostgreSQL: 110 % CPU (der tatsächliche bottleneck)
 ```
 
-**Verdict:** 🏆 **Winner**. Beste Performance bei identischen Kosten.
+**Urteil:** 🏆 **Gewinner**. Beste Performance bei identischen Kosten.
 
-**Die Repatriation Lesson:** Traefik hat **5× weniger CPU** verbraucht (36 % vs. 180 %) bei **37 % mehr Throughput**. Localhost Communication hat die distributed systems tax eliminiert. Das Overlay Network war nicht free – es war expensive.
+**Die Lektion zur Rückführung:** Traefik verbrauchte **5× weniger CPU** (36 % vs. 180 %) bei **37 % mehr Durchsatz**. Die Localhost-Kommunikation eliminierte die Steuer verteilter Systeme. Das Overlay Network war nicht kostenlos – es war teuer.
 
 ---
 
@@ -230,9 +227,9 @@ Worker: Load 5,90 (295 % of capacity!), 10 tasks auf 2 cores
 Cost: 50 % mehr als balanced Swarm
 ```
 
-**Verdict:** ❌ **Disaster**. 50 % mehr bezahlt für 3 % schlechtere Performance.
+**Urteil:** ❌ **Katastrophe**. 50 % mehr bezahlt für 3 % schlechtere Performance.
 
-**Der asymmetric failure:** Der stronger Manager hat MEHR Traffic gepusht, als der Worker handlen konnte. Requests haben sich beim Worker gequeued, nicht beim Manager. Wir haben einen Traefik bottleneck in einen Worker bottleneck verwandelt – und es schlimmer gemacht.
+**Der asymmetrische Ausfall:** Der stärkere Manager schob MEHR Traffic, als der Worker bewältigen konnte. Anfragen stauten sich beim Worker, nicht beim Manager. Wir verwandelten einen Traefik-Engpass in einen Worker-Engpass – und machten es schlimmer.
 
 ---
 
@@ -261,132 +258,131 @@ Internet → Traefik (manager) →
 - Service discovery per request
 - Traefik: 73–180 % CPU für 343–354 RPS
 
-**Die Penalty:** ~1.000 ms added latency + 5× CPU overhead. Architectural, nicht fixable mit Hardware.
+**Die Strafe:** ~1.000 ms zusätzliche Latenz + 5× CPU-Overhead. Architekturbedingt, nicht mit Hardware behebbar.
 
 
 
 ## Was uns Infrastructure Repatriation gelehrt hat
 
-### 1. **Simplicity ist sustainable**
+### 1. **Einfachheit ist nachhaltig**
 
-Der single CAX21 hat jede distributed Config outperformed. Keine Overlay Networks, kein Service Discovery, keine operative Complexity. Ein Server, der seinen Job gut macht.
+Der einzelne CAX21 übertraf jede verteilte Konfiguration. Keine Overlay Networks, kein Service Discovery, keine operative Komplexität. Ein Server, der seine Aufgabe gut erfüllt.
 
-Für 90 % der B2B-SaaS-Produkte: Ein single VPS handled deine ersten 50.000 Users. Dann hast du Revenue, um Complexity zu justifyen.
+Für 90 % der B2B-SaaS-Produkte gilt: Ein einzelner VPS bewältigt deine ersten 50.000 Nutzer. Dann hast du Einnahmen, um Komplexität zu rechtfertigen.
 
-### 2. **Die distributed systems tax ist real**
+### 2. **Die Steuer verteilter Systeme ist real**
 
-Docker Swarms Overlay Network kostet:
-- 2× additional network hops
-- VXLAN encapsulation overhead
-- Service discovery lookups
-- TCP connection management
+Docker Swarms Overlay Network verursacht Kosten:
+- 2× zusätzliche Netzwerk-Hops
+- VXLAN-Kapselungs-Overhead
+- Service-Discovery-Lookups
+- TCP-Verbindungsverwaltung
 
-Result: ~1.000 ms latency penalty + 5× CPU für Routing.
+Ergebnis: ~1.000 ms Latenzstrafe + 5× CPU für Routing.
 
-**Kann nicht mit better Hardware gefixt werden. Es ist architectural.**
+**Nicht mit besserer Hardware behebbar. Es ist architekturbedingt.**
 
-### 3. **Asymmetric scaling failed spektakulär**
+### 3. **Asymmetrische Skalierung scheiterte spektakulär**
 
-Einen Node in einem distributed system zu upgraden kreiert bottlenecks, die du vorher nicht hattest. Der stronger Node overwhelmt den weaker.
+Ein Upgrade eines Knotens in einem verteilten System erzeugt Engpässe, die vorher nicht existierten. Der stärkere Knoten überfordert den schwächeren.
 
-**Rule:** In distributed systems müssen Nodes identisch sized sein, oder Performance degradiert unpredictably.
+**Regel:** In verteilten Systemen müssen Knoten identisch dimensioniert sein, sonst verschlechtert sich die Performance unvorhersehbar.
 
-### 4. **Vertical scaling funktioniert weiterhin**
+### 4. **Vertikale Skalierung funktioniert weiterhin**
 
-- 2 vCPU: Failed (228 RPS mit errors)
-- 4 vCPU: Success! (484 RPS, zero errors)
-- Next step: CAX31 (8 vCPU) oder CAX41 (16 vCPU) würden likely 800–1.200+ RPS reachen
+**Die Daten zeigen:** Vertikale Skalierung mit einem Server bleibt kosteneffektiv weit über 500 RPS hinaus. Bei 1,57 € pro 100 RPS könnte ein CAX31 (14,90 €/Monat, 8 vCPU) ~950 RPS bewältigen, bevor PostgreSQL an seine Grenzen stößt.
 
-**Die Data suggestet:** Single-server vertical scaling bleibt cost-effective well beyond 500 RPS. Bei 1,57 € per 100 RPS könnte ein CAX31 (14,90 €/Monat, 8 vCPU) ~950 RPS handlen bevor PostgreSQL limits hit.
+**Wann auf verteilte Systeme umsteigen:** Nur wenn der größte Einzelserver ausgelastet ist (CAX41: 16 vCPU, 28,49 €/Monat, geschätzt ~1.500–2.000 RPS) oder geografische Redundanz erforderlich ist.
 
-**Wann distributed werden:** Nur wenn du den largest single server maxed hast (CAX41: 16 vCPU, 28,49 €/Monat, estimated ~1.500–2.000 RPS) oder geographic redundancy brauchst.
+### 5. **Datenbank-Tuning > Infrastruktur-Skalierung**
 
-### 5. **Database tuning > infrastructure scaling**
+Jeder Test zeigte Postgres bei 108–111 % CPU. PostgreSQL zu optimieren (separater Artikel) hat mehr Kapazität freigesetzt als das Hinzufügen von Servern.
 
-Jeder Test hat Postgres bei 108–111 % CPU gezeigt. PostgreSQL tunen (separater Article) hat mehr Capacity unlocked als Server hinzuzufügen.
+
+
+## Der Performance-Beweis
 
 ---
-
-## Der Performance Proof
-
-Hier ist die real-world Performance-Data von unseren Lasttests. Die zwei Peaks zeigen:
 
 1. **Linker Peak (16:40–16:50):** 2× CAX11 Swarm Test – 354 RPS, struggling
 2. **Rechter Peak (17:00–17:10):** Single CAX21 Test – 484 RPS, smooth
 
 ![CAX11 Swarm vs CAX21 Single Node Performance Comparison](/images/blog/cax11-vs-cax21-comparison.png)
 
-**Key Observations:**
-- Single CAX21 peak ist **37 % höher** (484 vs. 354 RPS)
-- CAX21 spike ist **cleaner** (weniger variance, more stable)
-- Same total cost (7,59 € vs. 7,58 €/Monat)
-- Simplere Architecture = better Performance
+**Wichtige Beobachtungen:**
+- Single CAX21-Spitze ist **37 % höher** (484 vs. 354 RPS)
+- CAX21-Spike ist **sauberer** (weniger Varianz, stabiler)
+- Gleiche Gesamtkosten (7,59 € vs. 7,58 €/Monat)
+- Einfachere Architektur = bessere Performance
 
-Diese Grafik captured die Essence von Infrastructure Repatriation: **Simplicity wins**.
+Diese Grafik fasst die Essenz von Infrastructure Repatriation zusammen: **Einfachheit gewinnt**.
 
 
 ## Wann Distributed Systems Sinn machen
 
 Wir sind nicht anti-distributed. Wir sind anti-premature-distribution.
 
-**Use Swarm/K8s wenn:**
-- True high availability required ist (multi-node failover)
-- RPS > 1.000 sustained
-- Geographic distribution mandated ist
-- Regulatory compliance redundancy demands
+**Nutze Swarm/K8s wenn:**
+- Echte Hochverfügbarkeit erforderlich ist (Multi-Node-Failover)
+- RPS > 1.000 dauerhaft
+- Geografische Verteilung vorgeschrieben ist
+- Compliance-Anforderungen Redundanz erfordern
 
-**Don't use distributed systems wenn:**
-- "Best practices sagen..." (question das Dogma)
-- "Wir might scale someday" (premature optimization)
-- "Distributed ist more robust" (it's more complex = more failure modes)
+**Nutze keine verteilten Systeme wenn:**
+- "Best Practices sagen..." (hinterfrage das Dogma)
+- "Wir könnten irgendwann skalieren" (vorzeitige Optimierung)
+- "Verteilt ist robuster" (es ist komplexer = mehr Fehlermodi)
 
 
-## Die Raus.cloud Philosophy: Infrastruktur für Bootstrapped Startups
+## Die Raus.cloud-Philosophie: Infrastruktur für bootstrapped Startups
 
-Deshalb existiert **Infrastructure Repatriation**. Die Cloud-Industry profitiert von Complexity – Kubernetes, Microservices, Multi-Cloud – als default answers. Für early-stage Startups kreiert das operational debt, die Runway burned bevor du product-market fit findest.
+Deshalb gibt es **Infrastructure Repatriation**. Die Cloud-Industrie profitiert von Komplexität – Kubernetes, Microservices, Multi-Cloud – als Standardantworten. Für Early-Stage-Startups erzeugt dies operative Schulden, die die Runway verbrennen, bevor du Product-Market-Fit findest.
 
-**Die Reality, der die meisten Founders facen:**
+**Die Realität, der die meisten Gründer gegenüberstehen:**
 
-Du launchst auf AWS mit Lambda + RDS weil "it's serverless und scales automatically."
+Du startest auf AWS mit Lambda + RDS, weil "es ist serverless und skaliert automatisch."
 
-**Monat 1:** 200 € (light traffic, testing)
-**Monat 3:** 2.000 € (some real users, CloudWatch costs climbing)
-**Monat 6:** 5.000 € (moderate growth, added ElastiCache weil "Redis ist critical")
-**Monat 12:** 8.000 € (investors fragen nach unit economics, du hast no answer)
+```
+Monat 1   €200 (wenig Traffic, Testing)
+↓
+Monat 3   €2.000 (erste echte Nutzer, CloudWatch-Kosten steigen)
+↓
+Monat 6   €5.000 (moderates Wachstum, ElastiCache hinzugefügt weil "Redis ist kritisch")
+↓
+Monat 12  €8.000 (Investoren fragen nach Unit Economics, du hast keine Antwort)
+```
 
-Meanwhile betreibt dein Competitor die same workload auf einem 15 €/Monat VPS.
+Währenddessen betreibt dein Konkurrent die gleiche Workload auf einem 15 €/Monat VPS.
 
-**Sie spenden ihre Runway für customer acquisition. Du spendest deine für AWS.**
+**Unser Repatriation-Ansatz für Startups:**
+1. **Beginne einfach** (einzelner VPS, Docker Compose) - Spare 95 % des Infrastrukturbudgets
+2. **Optimiere was du hast** (PostgreSQL-Konfiguration, Query-Optimierung) - Kostenlose Performance-Gewinne
+3. **Skaliere zuerst vertikal** (CAX21 → CAX31 → CAX41) - Lineare Kostenskalierung, keine Architektur-Umschreibungen
+4. **Verteile nur wenn nachweislich nötig** (>1.000 RPS dauerhaft oder regulatorische HA-Anforderungen)
 
-**Unser Repatriation Approach für Startups:**
-1. **Start simple** (single VPS, Docker Compose) - Save 95 % des infrastructure budgets
-2. **Tune what you have** (PostgreSQL config, query optimization) - Free performance gains
-3. **Scale vertically first** (CAX21 → CAX31 → CAX41) - Linear cost scaling, keine architecture rewrites
-4. **Distribute only wenn proven necessary** (>1.000 RPS sustained, oder regulatory HA requirements)
+**Der vertikale Skalierungspfad, der deine Runway erhält:**
+- CAX21 (4 vCPU, 7,59 €): 484 RPS ← *Beginne hier*
+- CAX31 (8 vCPU, 14,90 €): ~950 RPS (wenn CAX21 ausgelastet ist)
+- CAX41 (16 vCPU, 28,49 €): ~1.500–2.000 RPS (wenn du tatsächlich skalierst)
 
-**Der vertical scaling path, der deine runway preserved:**
-- CAX21 (4 vCPU, 7,59 €): 484 RPS ← *Start hier*
-- CAX31 (8 vCPU, 14,90 €): ~950 RPS (wenn du CAX21 outgrowst)
-- CAX41 (16 vCPU, 28,49 €): ~1.500–2.000 RPS (wenn du actually scalst)
+Die Kosten bleiben bei **1,50–1,90 € pro 100 RPS** bis zum CAX41.
 
-Cost bleibt bei **1,50–1,90 € per 100 RPS** through CAX41.
-
-**Contrast mit AWS Lambda:**
-- Light usage (1h/day): 1.500 €/Monat
-- Business hours (8h/day): 10.500 €/Monat
+**Vergleich mit AWS Lambda:**
+- Geringe Nutzung (1h/Tag): 1.500 €/Monat
+- Geschäftszeiten (8h/Tag): 10.500 €/Monat
 - 24/7: 30.000+ €/Monat
 
-**Der Unterschied?** 10.000 €/Monat = 2 Senior Engineers, oder 6 Monate runway, oder dein entire erstes Marketing-Budget.
+**Der Unterschied?** 10.000 €/Monat = 2 Senior Engineers, oder 6 Monate Runway, oder dein gesamtes erstes Marketing-Budget.
 
-**Der FlagMeter Proof, dass das works:**
+**Der FlagMeter-Beweis, dass es funktioniert:**
 - 484 RPS auf 7,59 €/Monat
-- 0 % error rate
-- 2,5 second P95 latency
-- Kein DevOps team required
-- Kein vendor lock-in
-- **Infrastructure costs <1 % of revenue from day one**
+- 0 % Fehlerrate
+- 2,5 Sekunden P95-Latenz
+- Kein DevOps-Team erforderlich
+- Kein Vendor Lock-in
+- **Infrastrukturkosten <1 % der Einnahmen vom ersten Tag an**
 
-Wenn du ein bootstrapped Startup bist, das 5.000+ €/Monat auf AWS spendest während du Lambda cold starts debuggst instead of mit customers zu talken, ist **Repatriation dein path to profitability**.
+Wenn du ein bootstrapped Startup bist, das 5.000+ €/Monat auf AWS ausgibt, während du Lambda Cold Starts debuggst, anstatt mit Kunden zu sprechen, ist **Repatriation dein Weg zur Profitabilität**.
 
 <div style="text-align: center; margin: 3rem 0;">
   <a href="https://cal.com/eduardosanzb/15min" target="_blank" rel="noopener" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1rem 2.5rem; border-radius: 0.5rem; font-weight: 600; font-size: 1.125rem; text-decoration: none; box-shadow: 0 4px 6px rgba(16, 185, 129, 0.25); transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px rgba(16, 185, 129, 0.35)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(16, 185, 129, 0.25)';">
@@ -404,8 +400,8 @@ Wenn du ein bootstrapped Startup bist, das 5.000+ €/Monat auf AWS spendest wä
 ---
 
 
-**Ready to repatriate?** [Book einen free Workshop →](https://cal.com/eduardosanzb/15min)
+**Bereit zur Rückführung?** [Buche ein kostenloses Audit →](https://cal.com/eduardosanzb/15min)
 
 ---
 
-*Dieser Article ist part unserer Infrastructure Repatriation Case Studies. Real tests, real costs, real lessons learned while building sustainable alternatives zu cloud complexity.*
+*Dieser Artikel ist Teil unserer Infrastructure-Repatriation-Fallstudien. Echte Tests, echte Kosten, echte Lektionen beim Aufbau nachhaltiger Alternativen zur Cloud-Komplexität.*
