@@ -3,10 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Dynamic meta description -->
+  {{ if .Description }}
+  <meta name="description" content="{{ .Description }}">
+  {{ else }}
   <meta name="description" content="{{ .Site.Params.description }}">
-  <meta name="author" content="{{ .Site.Params.author }}">
+  {{ end }}
+  
+  <meta name="author" content="{{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}">
 
+  <!-- Dynamic title -->
+  {{ if .IsHome }}
   <title>{{ .Site.Title }}</title>
+  {{ else }}
+  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  {{ end }}
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ .Permalink }}">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -15,20 +30,98 @@
   {{ $css := resources.Get "css/style.css" | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="{{ .Site.Title }}">
-  <meta property="og:description" content="{{ .Site.Params.description }}">
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+  <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  {{ if eq .Type "blog" }}
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+  <meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
+  <meta property="article:author" content="{{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}">
+  {{ range .Params.tags }}
+  <meta property="article:tag" content="{{ . }}">
+  {{ end }}
+  {{ else }}
   <meta property="og:type" content="website">
+  {{ end }}
   <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  {{ if .Params.image }}
+  <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">
+  {{ else }}
   <meta property="og:image" content="{{ .Site.BaseURL }}/images/og-image.png">
+  {{ end }}
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="{{ if eq .Site.Language.Lang "de" }}de_DE{{ else }}en_US{{ end }}">
 
-  <!-- Twitter Card -->
+  <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ .Site.Title }}">
-  <meta name="twitter:description" content="{{ .Site.Params.description }}">
+  <meta name="twitter:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
+  <meta name="twitter:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  {{ if .Params.image }}
+  <meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Params.image }}">
+  {{ else }}
   <meta name="twitter:image" content="{{ .Site.BaseURL }}/images/og-image.png">
+  {{ end }}
+  <meta name="twitter:site" content="@raus_cloud">
+  <meta name="twitter:creator" content="@eduardosanzb">
+
+  <!-- JSON-LD Structured Data -->
+  {{ if eq .Type "blog" }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ .Title }}",
+    "description": "{{ .Description }}",
+    "image": "{{ if .Params.image }}{{ .Site.BaseURL }}{{ .Params.image }}{{ else }}{{ .Site.BaseURL }}/images/og-image.png{{ end }}",
+    "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+    "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ if .Params.author }}{{ .Params.author }}{{ else }}{{ .Site.Params.author }}{{ end }}",
+      "url": "https://twitter.com/eduardosanzb"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Raus.cloud",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ .Site.BaseURL }}/favicon.svg"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ .Permalink }}"
+    },
+    {{ if .Params.tags }}
+    "keywords": "{{ delimit .Params.tags ", " }}",
+    {{ end }}
+    "articleSection": "{{ if .Params.categories }}{{ index .Params.categories 0 }}{{ end }}",
+    "wordCount": {{ .WordCount }},
+    "inLanguage": "{{ .Site.Language.Lang }}"
+  }
+  </script>
+  {{ else }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ .Site.BaseURL }}",
+    "description": "{{ .Site.Params.description }}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Raus.cloud",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ .Site.BaseURL }}/favicon.svg"
+      }
+    }
+  }
+  </script>
+  {{ end }}
 
   <!-- Dark mode script - must run before body renders to avoid flash -->
   <script>

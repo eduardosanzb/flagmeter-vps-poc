@@ -1,5 +1,44 @@
 {{ define "main" }}
+<!-- Reading Progress Bar -->
+<div id="reading-progress" class="fixed top-0 left-0 right-0 h-1 bg-transparent z-50">
+  <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-accent to-brand-accentDark transition-all duration-150 ease-out" style="width: 0%"></div>
+</div>
+
 <article class="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+  <!-- Breadcrumb -->
+  <nav class="py-4 bg-gray-100 dark:bg-gray-800" aria-label="Breadcrumb">
+    <div class="container-custom max-w-4xl">
+      <ol class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ if eq .Site.Language.Lang "de" }}/de/{{ else }}/{{ end }}" itemprop="item" class="hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+            <span itemprop="name">Home</span>
+          </a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <li>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}" itemprop="item" class="hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+            <span itemprop="name">Case Studies</span>
+          </a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <li>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </li>
+        <li class="truncate max-w-xs" title="{{ .Title }}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">{{ .Title }}</span>
+          <meta itemprop="position" content="3" />
+        </li>
+      </ol>
+    </div>
+  </nav>
+
   <!-- Article Header -->
   <header class="py-20 bg-brand-dark dark:bg-gray-900">
     <div class="container-custom max-w-4xl">
@@ -31,6 +70,14 @@
           </svg>
           {{ .Date.Format "January 2, 2006" }}
         </time>
+        {{ if .ReadingTime }}
+        <span class="flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          {{ .ReadingTime }} min read
+        </span>
+        {{ end }}
       </div>
     </div>
   </header>
@@ -88,4 +135,63 @@
     </div>
   </div>
 </article>
+
+<!-- Reading Progress Bar Script -->
+<script>
+  (function() {
+    const progressBar = document.getElementById('progress-bar');
+    const article = document.querySelector('article');
+    
+    if (!progressBar || !article) return;
+    
+    function updateProgressBar() {
+      // Get the article's position and dimensions
+      const articleRect = article.getBoundingClientRect();
+      const articleTop = articleRect.top + window.scrollY;
+      const articleHeight = articleRect.height;
+      
+      // Calculate how far the user has scrolled within the article
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      // Start progress when article header comes into view
+      // Complete when user reaches the end of the article
+      const scrollStart = articleTop - windowHeight * 0.3;
+      const scrollEnd = articleTop + articleHeight - windowHeight;
+      const scrollDistance = scrollEnd - scrollStart;
+      
+      // Calculate progress percentage
+      let progress = 0;
+      if (scrollPosition > scrollStart) {
+        progress = ((scrollPosition - scrollStart) / scrollDistance) * 100;
+        progress = Math.min(Math.max(progress, 0), 100);
+      }
+      
+      // Update progress bar width
+      progressBar.style.width = progress + '%';
+    }
+    
+    // Throttle function to limit scroll event frequency
+    let ticking = false;
+    function requestTick() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateProgressBar();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    
+    // Update on scroll
+    window.addEventListener('scroll', requestTick, { passive: true });
+    
+    // Update on resize
+    window.addEventListener('resize', updateProgressBar);
+    
+    // Initial update
+    updateProgressBar();
+  })();
+</script>
+
 {{ end }}

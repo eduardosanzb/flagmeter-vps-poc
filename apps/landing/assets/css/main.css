@@ -124,15 +124,10 @@
 
   /* Mobile: Make tables horizontally scrollable */
   @media (max-width: 768px) {
-    .prose-brand {
-      @apply overflow-x-visible; /* Allow overflow */
-    }
-
-    /* Wrap table in scrollable container */
     .prose-brand table {
       display: block;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+      -webkit-overflow-scrolling: touch;
       white-space: nowrap;
       max-width: 100%;
     }
@@ -141,11 +136,14 @@
     .prose-brand table tbody {
       display: table;
       width: 100%;
+      min-width: 600px;
     }
 
     .prose-brand table th,
     .prose-brand table td {
-      white-space: nowrap; /* Prevent text wrapping in cells */
+      white-space: nowrap;
+      padding: 12px 16px;
+      font-size: 14px;
     }
   }
 
