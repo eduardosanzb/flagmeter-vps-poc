@@ -3,16 +3,35 @@ import { json } from '@tanstack/react-start';
 import { sql } from '@flagmeter/db';
 import { logger } from '~/lib/logger';
 import { recordHttpMetrics } from '~/lib/metrics.server';
+import { rateLimit, getClientIp, getAllSecurityHeaders } from '~/lib/security.server';
 import type { UsageResponse } from '@flagmeter/types';
 
 export const Route = createFileRoute('/api/usage/$tenant')({
   server: {
     handlers: {
-      GET: async ({ params }) => {
+      GET: async ({ params, request }) => {
         const startTime = Date.now();
         let statusCode = 200;
+        const securityHeaders = getAllSecurityHeaders(request);
 
         try {
+          // Rate limiting: 60 requests per minute per IP
+          const clientIp = getClientIp(request);
+          const rateLimitResult = await rateLimit(`usage:${clientIp}`, 60, 60);
+          
+          if (!rateLimitResult.allowed) {
+            statusCode = 429;
+            const headers = {
+              ...securityHeaders,
+              'X-RateLimit-Limit': '60',
+              'X-RateLimit-Remaining': '0',
+              'X-RateLimit-Reset': rateLimitResult.resetAt.toString(),
+              'Retry-After': Math.ceil((rateLimitResult.resetAt * 1000 - Date.now()) / 1000).toString(),
+            };
+            recordHttpMetrics('GET', '/api/usage/:tenant', statusCode, Date.now() - startTime);
+            return json({ error: 'Rate limit exceeded' }, { status: statusCode, headers });
+          }
+
           const tenantName = params.tenant;
 
           // Use raw SQL for hot path performance
@@ -33,7 +52,7 @@ export const Route = createFileRoute('/api/usage/$tenant')({
           if (result.length === 0) {
             statusCode = 404;
             recordHttpMetrics('GET', '/api/usage/:tenant', statusCode, Date.now() - startTime);
-            return json({ error: `Tenant '${tenantName}' not found` }, { status: statusCode });
+            return json({ error: `Tenant '${tenantName}' not found` }, { status: statusCode, headers: securityHeaders });
           }
 
           const row = result[0];
@@ -58,13 +77,19 @@ export const Route = createFileRoute('/api/usage/$tenant')({
 
           logger.info({ tenant: tenantName, quotaPercent }, 'Usage retrieved');
 
+          const responseHeaders = {
+            ...securityHeaders,
+            'X-RateLimit-Limit': '60',
+            'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+            'X-RateLimit-Reset': rateLimitResult.resetAt.toString(),
+          };
           recordHttpMetrics('GET', '/api/usage/:tenant', statusCode, Date.now() - startTime);
-          return json(response);
+          return json(response, { headers: responseHeaders });
         } catch (error) {
           logger.error({ error, tenant: params.tenant }, 'Failed to retrieve usage');
           statusCode = 500;
           recordHttpMetrics('GET', '/api/usage/:tenant', statusCode, Date.now() - startTime);
-          return json({ error: 'Internal server error' }, { status: statusCode });
+          return json({ error: 'Internal server error' }, { status: statusCode, headers: securityHeaders });
         }
       },
     },

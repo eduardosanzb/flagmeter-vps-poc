@@ -21,8 +21,6 @@ try {
 }
 
 async function seed() {
-  console.log('Getting database connection...');
-  console.log(process.env.DATABASE_URL);
   const sql = getConnection();
 
   console.log('🌱 Seeding database...');

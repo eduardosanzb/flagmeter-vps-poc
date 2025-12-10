@@ -1,4 +1,5 @@
 import Redis from 'ioredis';
+import { logger } from './logger';
 
 let _redis: Redis | null = null;
 
@@ -17,11 +18,11 @@ export function getRedis(): Redis {
     });
 
     _redis.on('error', (err) => {
-      console.error('Redis connection error:', err);
+      logger.error({ error: err }, 'Redis connection error');
     });
 
     _redis.on('connect', () => {
-      console.log('Connected to Valkey');
+      logger.info('Connected to Valkey');
     });
   }
 

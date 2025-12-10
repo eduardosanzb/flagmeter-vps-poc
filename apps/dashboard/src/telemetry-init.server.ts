@@ -2,10 +2,12 @@
 // In production, telemetry is initialized via NODE_OPTIONS --import ./telemetry-prod.mjs
 // This approach avoids bundling issues while maintaining good DX in dev mode
 
+import { logger } from './lib/logger';
+
 // Use dynamic import to prevent Vite from bundling OpenTelemetry in production
 // Only initialize on server-side in development mode
 if (typeof window === 'undefined' && process.env.NODE_ENV !== 'production') {
-  console.log('[Telemetry] Initializing for development mode...');
+  logger.info('Initializing telemetry for development mode');
 
   // Dynamic import prevents Vite from trying to bundle this module
   import('@flagmeter/telemetry').then(({ initializeTelemetry }) => {
@@ -17,12 +19,12 @@ if (typeof window === 'undefined' && process.env.NODE_ENV !== 'production') {
       enablePgInstrumentation: true,
       enableIoredisInstrumentation: true,
     });
-    console.log('[Telemetry] Development initialization complete');
+    logger.info('Development telemetry initialization complete');
   }).catch((err) => {
-    console.error('[Telemetry] Failed to initialize:', err);
+    logger.error({ error: err }, 'Failed to initialize telemetry');
   });
 } else if (typeof window === 'undefined') {
-  console.log('[Telemetry] Production mode - telemetry initialized via NODE_OPTIONS');
+  logger.info('Production mode - telemetry initialized via NODE_OPTIONS');
 }
 
 // Export empty object so this can be imported

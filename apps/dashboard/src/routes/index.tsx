@@ -44,7 +44,7 @@ export const Route = createFileRoute('/')({
     const tenants = await fetchTenantsUsage()
     return { tenants, lastUpdated: new Date().toISOString() };
     }catch(e){
-      console.error("Error fetching tenant usage:", e);
+      // Error is logged server-side by fetchTenantsUsage
       return { tenants: [], lastUpdated: new Date().toISOString() };
     }
   },

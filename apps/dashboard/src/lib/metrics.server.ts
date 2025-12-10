@@ -4,6 +4,7 @@
 // This file is server-only (.server.ts) and will not be bundled for the client
 
 import { getMeter } from '@flagmeter/telemetry';
+import { logger } from './logger';
 import type { Counter, Histogram } from '@opentelemetry/api';
 
 // Lazy initialization to ensure SDK is ready
@@ -31,9 +32,10 @@ function ensureMetricsInitialized() {
      unit: 'ms',
    });
 
-   console.log('[Metrics] HTTP metrics instruments created');
-   console.log('[Metrics] Counter:', httpRequestCounter.constructor.name);
-   console.log('[Metrics] Histogram:', httpRequestDuration.constructor.name);
+   logger.debug({
+     counterType: httpRequestCounter.constructor.name,
+     histogramType: httpRequestDuration.constructor.name
+   }, 'HTTP metrics instruments created');
 }
 
 /**
@@ -54,7 +56,7 @@ export function recordHttpMetrics(
   ensureMetricsInitialized();
 
   if (!httpRequestCounter || !httpRequestDuration) {
-    console.warn('[Metrics] Instruments not initialized, skipping recording');
+    logger.warn('Metrics instruments not initialized, skipping recording');
     return;
   }
 
