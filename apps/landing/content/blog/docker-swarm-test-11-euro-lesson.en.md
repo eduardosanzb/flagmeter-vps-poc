@@ -118,7 +118,7 @@ graph TB
 Or with lighter usage (1 hour/day): Still €1,500-2,000/month.
 
 
-![FlagMeter Dashboard - Real-time AI quota monitoring showing tenant usage with progress bars and webhook alerts at 80% quota](/images/blog/flagmeter-dashboard-demo.png)
+![FlagMeter Dashboard - Real-time AI quota monitoring showing tenant usage with progress bars and webhook alerts at 80% quota](/images/blog/flagmeter-dashboard-demo.png "FlagMeter Dashboard - Real-time AI quota monitoring showing tenant usage with progress bars and webhook alerts at 80% quota")
 
 *The FlagMeter dashboard: Real-time quota tracking for B2B SaaS products. Running on €7.59/month infrastructure.*
 
@@ -230,7 +230,7 @@ Cost: 50% more than balanced Swarm
 1. **Left peak (16:40-16:50):** 2x CAX11 Swarm test - 354 RPS, struggling
 2. **Right peak (17:00-17:10):** Single CAX21 test - 484 RPS, smooth
 
-![CAX11 Swarm vs CAX21 Single Node Performance Comparison](/images/blog/cax11-vs-cax21-comparison.png)
+![CAX11 Swarm vs CAX21 Single Node Performance Comparison - Graph showing 37% higher RPS with single CAX21 vs Docker Swarm](/images/blog/cax11-vs-cax21-comparison.png "CAX11 Swarm vs CAX21 Single Node Performance Comparison - Graph showing 37% higher RPS with single CAX21 vs Docker Swarm")
 
 **Key observations:**
 - Single CAX21 peak is **37% higher** (484 vs 354 RPS)

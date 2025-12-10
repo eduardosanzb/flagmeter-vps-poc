@@ -1,0 +1,14 @@
+# robots.txt for raus.cloud
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://raus.cloud/sitemap.xml
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
+
+# Disallow admin/private paths (if any)
+# Disallow: /admin/
+# Disallow: /_/

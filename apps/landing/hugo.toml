@@ -48,7 +48,13 @@ defaultContentLanguageInSubdir = false
         title = true
 
 [outputs]
-  home = ["HTML"]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
 
 [build]
   writeStats = true
