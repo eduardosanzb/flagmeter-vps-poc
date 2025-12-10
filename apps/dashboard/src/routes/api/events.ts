@@ -56,7 +56,7 @@ export const Route = createFileRoute('/api/events')({
           if (!validation.success) {
             statusCode = 400;
             logger.warn({ 
-              validationErrors: validation.error.issues
+              errorCount: validation.error.issues.length
             }, 'Invalid event request');
             recordHttpMetrics('POST', '/api/events', statusCode, Date.now() - startTime);
             return json({ error: 'Invalid request body', details: validation.error.issues }, { status: statusCode, headers: securityHeaders });

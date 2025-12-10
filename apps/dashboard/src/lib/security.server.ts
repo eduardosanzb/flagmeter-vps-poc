@@ -26,7 +26,8 @@ export async function rateLimit(
     if (count >= limit) {
       // Get the oldest entry to calculate reset time
       const oldest = await redis.zrange(key, 0, 0, 'WITHSCORES');
-      const resetAt = oldest.length > 1 ? parseInt(oldest[1]) + windowMs : now + windowMs;
+      const oldestTimestamp = oldest.length > 1 ? parseInt(oldest[1]) : now;
+      const resetAt = oldestTimestamp + windowMs;
       
       logger.warn({ identifier, count, limit }, 'Rate limit exceeded');
       
