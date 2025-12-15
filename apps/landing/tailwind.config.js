@@ -4,6 +4,11 @@ module.exports = {
     './layouts/**/*.html',
     './content/**/*.{html,md}',
   ],
+  safelist: [
+    'md:hidden',
+    'md:flex',
+    'md:block',
+  ],
   darkMode: 'class', // Enable dark mode with class strategy
   theme: {
     extend: {

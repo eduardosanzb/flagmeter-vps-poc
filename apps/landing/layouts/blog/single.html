@@ -4,11 +4,11 @@
   <div id="progress-bar" class="h-full bg-gradient-to-r from-brand-accent to-brand-accentDark transition-all duration-150 ease-out" style="width: 0%"></div>
 </div>
 
-<article class="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-  <!-- Breadcrumb -->
-  <nav class="py-4 bg-gray-100 dark:bg-gray-800" aria-label="Breadcrumb">
+<article class="min-h-screen">
+  <!-- Breadcrumb (mobile only) -->
+  <nav class="md:hidden py-4 bg-brand-dark dark:bg-gray-900" aria-label="Breadcrumb">
     <div class="container-custom max-w-4xl">
-      <ol class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <ol class="flex items-center space-x-2 text-sm text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
           <a href="{{ if eq .Site.Language.Lang "de" }}/de/{{ else }}/{{ end }}" itemprop="item" class="hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
             <span itemprop="name">Home</span>
