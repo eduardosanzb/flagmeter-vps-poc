@@ -20,7 +20,7 @@
   <title>{{ .Title }} | {{ .Site.Title }}</title>
   {{ end }}
 
-  <!-- Canonical URL -->
+  <!-- Canonical URL - uses baseURL which can be overridden with HUGO_BASEURL env var -->
   <link rel="canonical" href="{{ .Permalink }}">
 
   <!-- Favicon -->

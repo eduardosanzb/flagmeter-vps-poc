@@ -2,22 +2,22 @@
   <nav class="container-custom py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="{{ .Site.BaseURL }}" class="text-3xl font-light tracking-wide text-brand-dark dark:text-white hover:text-brand-accent dark:hover:text-brand-accent transition-colors flex-shrink-0 mr-8">
+      <a href="{{ if eq .Site.Language.Lang "de" }}/de/{{ else }}/{{ end }}" class="text-3xl font-light tracking-wide text-brand-dark dark:text-white hover:text-brand-accent dark:hover:text-brand-accent transition-colors flex-shrink-0 mr-8">
         raus.cloud
       </a>
 
       <!-- Navigation -->
       <div class="hidden md:flex items-center gap-8">
-        <a href="#how-it-works" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/#how-it-works{{ else }}/#how-it-works{{ end }}" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "section.howItWorks" }}
         </a>
         <a href="{{ partial "components/blog-url.html" . }}" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "navigation.blog" }}
         </a>
-        <a href="#pricing" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/#pricing{{ else }}/#pricing{{ end }}" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "section.pricing" }}
         </a>
-        <a href="#faq" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/#faq{{ else }}/#faq{{ end }}" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
           {{ i18n "section.faq" }}
         </a>
         <a href="https://demo.raus.cloud" target="_blank" rel="noopener" class="text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors font-medium">
@@ -38,7 +38,7 @@
         <div class="flex items-center gap-2 border-l border-brand-border dark:border-gray-700 pl-6">
           {{ if .IsTranslated }}
             {{ range .Translations }}
-              <a href="{{ .Permalink }}"
+              <a href="{{ .RelPermalink }}"
                  onclick="localStorage.setItem('userLangPreference', '{{ .Language.Lang }}')"
                  class="text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase"
                  title="{{ i18n "languageSwitch" }}">
@@ -81,16 +81,16 @@
        x-transition
        class="md:hidden bg-white dark:bg-gray-900 border-t border-brand-border dark:border-gray-700">
      <div class="container-custom py-6 space-y-4">
-      <a href="#how-it-works" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+      <a href="{{ if eq .Site.Language.Lang "de" }}/de/#how-it-works{{ else }}/#how-it-works{{ end }}" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.howItWorks" }}
       </a>
       <a href="{{ partial "components/blog-url.html" . }}" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "navigation.blog" }}
       </a>
-      <a href="#pricing" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+      <a href="{{ if eq .Site.Language.Lang "de" }}/de/#pricing{{ else }}/#pricing{{ end }}" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.pricing" }}
       </a>
-      <a href="#faq" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+      <a href="{{ if eq .Site.Language.Lang "de" }}/de/#faq{{ else }}/#faq{{ end }}" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.faq" }}
       </a>
       <a href="https://demo.raus.cloud" target="_blank" rel="noopener" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors font-medium">
@@ -115,7 +115,7 @@
       <div class="border-t border-brand-border dark:border-gray-700 pt-4">
         {{ if .IsTranslated }}
           {{ range .Translations }}
-            <a href="{{ .Permalink }}"
+            <a href="{{ .RelPermalink }}"
                onclick="localStorage.setItem('userLangPreference', '{{ .Language.Lang }}')"
                class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
               {{ i18n "languageSwitch" }}
