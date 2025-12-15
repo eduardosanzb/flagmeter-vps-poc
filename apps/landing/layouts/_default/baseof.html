@@ -30,6 +30,13 @@
   {{ $css := resources.Get "css/style.css" | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 
+  <!-- Hide Mermaid.js tooltip that gets injected by the library -->
+  <style>
+    .mermaidTooltip {
+      display: none !important;
+    }
+  </style>
+
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="{{ if .Title }}{{ .Title }}{{ else }}{{ .Site.Title }}{{ end }}">
   <meta property="og:description" content="{{ if .Description }}{{ .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
