@@ -26,8 +26,10 @@ WORKDIR /app
 COPY --from=node-builder /app /app
 
 # Build Hugo site with production environment (enables analytics)
+# HUGO_BASEURL can be overridden for preview environments (e.g., https://28.raus.cloud)
+ARG HUGO_BASEURL
 ENV HUGO_ENV=production
-RUN hugo --minify
+RUN hugo --minify ${HUGO_BASEURL:+--baseURL=$HUGO_BASEURL}
 
 # Stage 3: Serve with nginx
 FROM nginx:1.25-alpine

@@ -2,7 +2,7 @@
   <nav class="container-custom py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="{{ .Site.BaseURL }}" class="text-3xl font-light tracking-wide text-brand-dark dark:text-white hover:text-brand-accent dark:hover:text-brand-accent transition-colors flex-shrink-0 mr-8">
+      <a href="{{ if eq .Site.Language.Lang "de" }}/de/{{ else }}/{{ end }}" class="text-3xl font-light tracking-wide text-brand-dark dark:text-white hover:text-brand-accent dark:hover:text-brand-accent transition-colors flex-shrink-0 mr-8">
         raus.cloud
       </a>
 
@@ -38,7 +38,7 @@
         <div class="flex items-center gap-2 border-l border-brand-border dark:border-gray-700 pl-6">
           {{ if .IsTranslated }}
             {{ range .Translations }}
-              <a href="{{ .Permalink }}"
+              <a href="{{ .RelPermalink }}"
                  onclick="localStorage.setItem('userLangPreference', '{{ .Language.Lang }}')"
                  class="text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase"
                  title="{{ i18n "languageSwitch" }}">
@@ -115,7 +115,7 @@
       <div class="border-t border-brand-border dark:border-gray-700 pt-4">
         {{ if .IsTranslated }}
           {{ range .Translations }}
-            <a href="{{ .Permalink }}"
+            <a href="{{ .RelPermalink }}"
                onclick="localStorage.setItem('userLangPreference', '{{ .Language.Lang }}')"
                class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
               {{ i18n "languageSwitch" }}

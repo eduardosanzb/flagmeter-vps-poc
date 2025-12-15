@@ -26,7 +26,7 @@
 
             <!-- Title -->
             <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-3 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
-              <a href="{{ .Permalink }}">{{ .Title }}</a>
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
             </h2>
 
             <!-- Description -->
@@ -41,7 +41,7 @@
             </div>
 
             <!-- Read More -->
-            <a href="{{ .Permalink }}" class="inline-flex items-center mt-4 text-brand-accent hover:text-brand-dark dark:hover:text-white transition-colors font-medium">
+            <a href="{{ .RelPermalink }}" class="inline-flex items-center mt-4 text-brand-accent hover:text-brand-dark dark:hover:text-white transition-colors font-medium">
               {{ i18n "blog.readMore" }}
             </a>
           </div>
