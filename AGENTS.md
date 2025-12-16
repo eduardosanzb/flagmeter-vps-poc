@@ -2,6 +2,40 @@
 
 > **AI-quota microservice**: Event ingestion → Valkey queue → Worker aggregation → PostgreSQL rollups → Dashboard + Slack webhooks at 80% quota
 
+## GitHub Project Management
+
+The raus.cloud business is tracked in GitHub issues within the `eduardosanzb/eduardosanzb` repository, organized by milestones that correspond to business phases.
+
+### Project Board
+- **Location**: [Freelance Project Board](https://github.com/users/eduardosanzb/projects/2/views/2)
+- **Repository**: `eduardosanzb/eduardosanzb`
+- **Label**: All raus.cloud issues are tagged with `raus.cloud`
+
+### Business Phases (Milestones)
+1. **Phase 1: Validation** - €15-30k revenue, 3 case studies, 1+ referral
+2. **Phase 2: Blueprint Launch** - 500+ GitHub stars, 10+ inbound leads, HN frontpage
+3. **Phase 3: Productized Scale** - €50-100k/yr, 50/50 DIY/paid split
+
+### BSC Layers (Labels)
+- `bsc:impact` - Brand, referrals, recognition (Purple)
+- `bsc:customer` - Client deliverables, migrations (Green)
+- `bsc:process` - Internal efficiency, templates (Blue)
+- `bsc:learning` - Content, OSS, skills (Yellow)
+- `bsc:financial` - Revenue, pricing (Orange)
+
+### Creating New Issues
+When creating new issues for raus.cloud initiatives:
+1. Use the `eduardosanzb/eduardosanzb` repository
+2. Apply the `raus.cloud` label
+3. Assign appropriate BSC layer labels
+4. Associate with the correct milestone/phase
+5. Include clear objectives and success criteria in the issue body
+
+Example command:
+```bash
+gh issue create --repo eduardosanzb/eduardosanzb --title "New Initiative" --label "raus.cloud,bsc:customer" --milestone "raus.cloud Phase 1: Validation"
+```
+
 ## Quick Start
 - **Stack**: Node 20 LTS + PostgreSQL 18 + Valkey + TanStack Start + Drizzle ORM + shadcn/ui
 - **Structure**: Monorepo (pnpm workspace) - `apps/` (dashboard, worker, landing) + `packages/` (db, types, telemetry) + `infra/`
