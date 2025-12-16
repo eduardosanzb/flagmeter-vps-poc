@@ -115,7 +115,7 @@ graph TB
             GRAF[Grafana :3001]
         end
     end
-    
+
     INTERNET((Internet)) --> TRAEFIK
     TRAEFIK --> DASH
     TRAEFIK --> GRAF
@@ -155,7 +155,7 @@ sequenceDiagram
     participant GH as GitHub
     participant Cool as Coolify
     participant VPS as Hetzner VPS
-    
+
     Dev->>GH: git push main
     GH->>Cool: Webhook Trigger
     Cool->>Cool: Pull Code
@@ -218,9 +218,9 @@ Wir nutzen das auch für unsere Landing Page – jeder Blog-Post PR bekommt eine
 
 ![Coolify New Server Dialog zeigt Hetzner Integration Option](/images/blog/coolify-hetzner-integration.png "One-Click Hetzner Server Provisioning direkt in Coolify")
 
-### Die ehrlichen Gotchas
+### Die richtigen Gotchas
 
-Wir sind nicht hier um dir Coolify zu verkaufen. Das hat uns gestolpert:
+Wir sind nicht hier um dir Coolify zu verkaufen. Das waren die Stolperfallen:
 
 **1. Coolify nutzt `docker compose up`, NICHT `docker stack deploy`**
 
@@ -311,21 +311,21 @@ resource "hcloud_server" "flagmeter" {
 
 resource "hcloud_firewall" "web" {
   name = "web-firewall"
-  
+
   rule {
     direction = "in"
     protocol  = "tcp"
     port      = "22"
     source_ips = ["0.0.0.0/0"]
   }
-  
+
   rule {
     direction = "in"
     protocol  = "tcp"
     port      = "80"
     source_ips = ["0.0.0.0/0"]
   }
-  
+
   rule {
     direction = "in"
     protocol  = "tcp"
@@ -363,13 +363,13 @@ graph LR
         TF --> FW[Firewall Rules]
         TF --> NET[Private Network]
     end
-    
+
     subgraph "Application Layer"
         COOL[Coolify] --> DEPLOY[Deployments]
         COOL --> CERTS[SSL Zertifikate]
         COOL --> PREVIEW[PR Previews]
     end
-    
+
     SERVER --> COOL
 ```
 
