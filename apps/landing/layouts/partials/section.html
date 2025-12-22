@@ -8,6 +8,20 @@
   {{ return }}
 {{ end }}
 
+<!-- Special handling for blog section -->
+{{ if eq $sectionName "blog_posts" }}
+  <section class="section section-light" id="blog-posts">
+    <div class="container-custom">
+      <!-- Render section header if title and subtitle exist -->
+      {{ if and $data.title $data.subtitle }}
+        {{ partial "components/section-header.html" $data }}
+      {{ end }}
+      {{ partial "sections/blog-posts.html" (dict "data" $data "context" $context) }}
+    </div>
+  </section>
+  {{ return }}
+{{ end }}
+
 <!-- Get the items array (could be named items, steps, tiers, or questions) -->
 {{ $items := $data.items }}
 
@@ -16,9 +30,14 @@
   {{ return }}
 {{ end }}
 
-<!-- Check if items array has any elements -->
-{{ if eq (len $items) 0 }}
-  <!-- Items array is empty, skip rendering -->
+<!-- Check if items array has any elements (safely handle non-slice types) -->
+{{ if reflect.IsSlice $items }}
+  {{ if eq (len $items) 0 }}
+    <!-- Items array is empty, skip rendering -->
+    {{ return }}
+  {{ end }}
+{{ else }}
+  <!-- Items is not a slice, skip -->
   {{ return }}
 {{ end }}
 
