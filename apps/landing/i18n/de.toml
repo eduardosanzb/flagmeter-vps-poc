@@ -53,3 +53,6 @@ other = "Impressum"
 [blog]
 [blog.readMore]
 other = "Weiterlesen →"
+
+[blog.viewAll]
+other = "Alle Fallstudien ansehen →"

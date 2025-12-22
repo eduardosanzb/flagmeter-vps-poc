@@ -30,11 +30,14 @@
   {{ return }}
 {{ end }}
 
-<!-- Skip if items exists but is empty (with block only executes if items is valid) -->
+<!-- Check if items is valid and not empty using with block -->
 {{ with $items }}
   {{ if eq (len .) 0 }}
     {{ return }}
   {{ end }}
+{{ else }}
+  <!-- Items exists but with considers it falsy (e.g., empty array), skip -->
+  {{ return }}
 {{ end }}
 
 <!-- Detect section type from first item structure -->

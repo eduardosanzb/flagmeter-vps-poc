@@ -52,11 +52,7 @@
 {{ if gt (len $blogPosts) 0 }}
 <div class="text-center mt-12">
   <a href="{{ partial "components/blog-url.html" $context }}" class="inline-flex items-center px-6 py-3 bg-brand-accent hover:bg-brand-accentDark text-white font-semibold rounded-lg transition-colors">
-    {{ if eq $context.Language.Lang "de" }}
-      Alle Fallstudien ansehen →
-    {{ else }}
-      View All Case Studies →
-    {{ end }}
+    {{ i18n "blog.viewAll" }}
   </a>
 </div>
 {{ end }}
