@@ -2,6 +2,43 @@
 
 > **AI-quota microservice**: Event ingestion → Valkey queue → Worker aggregation → PostgreSQL rollups → Dashboard + Slack webhooks at 80% quota
 
+## Outline Document Workflow
+
+### Accessing Comments & Content from Outline
+
+**Important**: Short alphanumeric document IDs from Outline URLs (e.g., `T175VscwC9`) are not valid for API operations. You must convert them to full UUIDs first.
+
+**Workflow for any document operation:**
+
+1. **Always convert short IDs to UUIDs first** using `mcp-outline_get_document_id_from_title`
+   - Search by document title (can be partial/approximate)
+   - This returns the proper UUID needed for API operations
+   - **Cache this UUID** for future operations within the session
+
+2. **Then perform the desired operation** with the UUID:
+   - `mcp-outline_read_document` - Read document content
+   - `mcp-outline_list_document_comments` - Get all comments with anchor text
+   - `mcp-outline_update_document` - Edit document
+   - `mcp-outline_export_document` - Export as markdown
+
+**Example:**
+```
+# Given URL: https://notes.eduardosanzb.dev/doc/draft-article-0-the-status-quo-on-cloud-repatriation-T175VscwC9
+
+# Step 1: Get the UUID
+get_document_id_from_title("status quo on cloud repatriation")
+# Returns: badf9a35-1db9-4b33-885b-8b3587f4edb2
+
+# Step 2: Use UUID to get comments
+list_document_comments(document_id="badf9a35-1db9-4b33-885b-8b3587f4edb2", include_anchor_text=true)
+```
+
+**When user provides an Outline URL:**
+1. Extract the document title/description from the URL
+2. Use `mcp-outline_get_document_id_from_title` to get the UUID
+3. Map and reference the UUID internally for all subsequent operations
+4. Display the UUID to the user for their reference
+
 ## GitHub Project Management
 
 The raus.cloud business is tracked in GitHub issues within the `eduardosanzb/eduardosanzb` repository, organized by milestones that correspond to business phases.
