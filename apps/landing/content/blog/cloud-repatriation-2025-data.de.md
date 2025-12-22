@@ -1,6 +1,6 @@
 ---
 title: "Cloud-Repatriierung 2025: Was die Zahlen wirklich sagen"
-date: 2025-12-23
+date: 2025-12-22
 description: "70% der Unternehmen planen, Workloads zurück On-Prem zu bringen. Was Cloud-Repats wirklich bedeuten – und warum es auch für wachsende Teams wichtig ist."
 author: "Eduardo Sanchez"
 categories: ["Fallstudien"]

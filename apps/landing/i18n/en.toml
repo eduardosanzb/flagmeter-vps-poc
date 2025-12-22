@@ -53,3 +53,6 @@ other = "Legal Notice"
 [blog]
 [blog.readMore]
 other = "Read more →"
+
+[blog.viewAll]
+other = "View All Case Studies →"

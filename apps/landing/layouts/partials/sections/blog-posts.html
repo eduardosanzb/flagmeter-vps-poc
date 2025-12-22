@@ -1,0 +1,58 @@
+<!-- Recent blog posts section -->
+{{ $context := .context }}
+{{ $data := .data }}
+
+<!-- Get blog posts (language-aware) -->
+{{ $blogPosts := where (where $context.Site.RegularPages "Section" "blog") ".File.TranslationBaseName" "!=" "_index" }}
+{{ $blogPosts = where $blogPosts ".Params.draft" "!=" true }}
+{{ $blogPosts = $blogPosts.ByDate.Reverse }}
+
+<!-- Limit to 3 most recent posts -->
+{{ $blogPosts = first 3 $blogPosts }}
+
+<div class="grid md:grid-cols-3 gap-8">
+  {{ range $blogPosts }}
+  <article class="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-200 dark:border-gray-700 flex flex-col">
+    <div class="p-6 flex flex-col flex-grow">
+      <!-- Categories -->
+      {{ if .Params.categories }}
+      <div class="flex gap-2 mb-3 flex-wrap">
+        {{ range .Params.categories }}
+        <span class="text-xs px-2 py-1 bg-brand-accent/10 text-brand-accent rounded">{{ . }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      <!-- Title -->
+      <h3 class="text-xl font-bold text-brand-dark dark:text-white mb-3 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h3>
+
+      <!-- Description -->
+      <p class="text-brand-secondary dark:text-gray-300 mb-4 flex-grow">{{ .Params.description }}</p>
+
+      <!-- Meta -->
+      <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+        {{ if .Params.author }}
+        <span>{{ .Params.author }}</span>
+        {{ end }}
+      </div>
+
+      <!-- Read More -->
+      <a href="{{ .RelPermalink }}" class="inline-flex items-center text-brand-accent hover:text-brand-dark dark:hover:text-white transition-colors font-medium">
+        {{ i18n "blog.readMore" }}
+      </a>
+    </div>
+  </article>
+  {{ end }}
+</div>
+
+<!-- View All Link -->
+{{ if gt (len $blogPosts) 0 }}
+<div class="text-center mt-12">
+  <a href="{{ partial "components/blog-url.html" $context }}" class="inline-flex items-center px-6 py-3 bg-brand-accent hover:bg-brand-accentDark text-white font-semibold rounded-lg transition-colors">
+    {{ i18n "blog.viewAll" }}
+  </a>
+</div>
+{{ end }}

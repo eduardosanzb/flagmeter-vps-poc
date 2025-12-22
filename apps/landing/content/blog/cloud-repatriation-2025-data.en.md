@@ -1,6 +1,6 @@
 ---
 title: "Cloud Repatriation in 2025: What the Numbers Actually Say"
-date: 2025-12-23
+date: 2025-12-22
 description: "70% of enterprises plan to move workloads back on-prem. Here's what cloud repatriation actually looks like—and why it matters for growing teams."
 author: "Eduardo Sanchez"
 categories: ["Case Studies"]

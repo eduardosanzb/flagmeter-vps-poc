@@ -8,17 +8,35 @@
   {{ return }}
 {{ end }}
 
-<!-- Get the items array (could be named items, steps, tiers, or questions) -->
-{{ $items := $data.items }}
-
-{{ if not $items }}
-  <!-- No items to render -->
+<!-- Special handling for blog section -->
+{{ if eq $sectionName "blog_posts" }}
+  <section class="section section-light" id="blog-posts">
+    <div class="container-custom">
+      <!-- Render section header if title and subtitle exist -->
+      {{ if and $data.title $data.subtitle }}
+        {{ partial "components/section-header.html" $data }}
+      {{ end }}
+      {{ partial "sections/blog-posts.html" (dict "data" $data "context" $context) }}
+    </div>
+  </section>
   {{ return }}
 {{ end }}
 
-<!-- Check if items array has any elements -->
-{{ if eq (len $items) 0 }}
-  <!-- Items array is empty, skip rendering -->
+<!-- Get the items array (could be named items, steps, tiers, or questions) -->
+{{ $items := $data.items }}
+
+<!-- Skip if no items -->
+{{ if not $items }}
+  {{ return }}
+{{ end }}
+
+<!-- Check if items is valid and not empty using with block -->
+{{ with $items }}
+  {{ if eq (len .) 0 }}
+    {{ return }}
+  {{ end }}
+{{ else }}
+  <!-- Items exists but with considers it falsy (e.g., empty array), skip -->
   {{ return }}
 {{ end }}
 
