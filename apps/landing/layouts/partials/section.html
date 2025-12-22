@@ -25,20 +25,16 @@
 <!-- Get the items array (could be named items, steps, tiers, or questions) -->
 {{ $items := $data.items }}
 
+<!-- Skip if no items -->
 {{ if not $items }}
-  <!-- No items to render -->
   {{ return }}
 {{ end }}
 
-<!-- Check if items array has any elements (safely handle non-slice types) -->
-{{ if reflect.IsSlice $items }}
-  {{ if eq (len $items) 0 }}
-    <!-- Items array is empty, skip rendering -->
+<!-- Skip if items exists but is empty (with block only executes if items is valid) -->
+{{ with $items }}
+  {{ if eq (len .) 0 }}
     {{ return }}
   {{ end }}
-{{ else }}
-  <!-- Items is not a slice, skip -->
-  {{ return }}
 {{ end }}
 
 <!-- Detect section type from first item structure -->

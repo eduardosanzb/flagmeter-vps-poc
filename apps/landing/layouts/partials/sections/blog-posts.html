@@ -2,17 +2,10 @@
 {{ $context := .context }}
 {{ $data := .data }}
 
-<!-- Get blog posts based on language -->
-{{ $blogPosts := slice }}
-{{ if eq $context.Language.Lang "de" }}
-  {{ $blogPosts = where (where $context.Site.RegularPages "Section" "blog") ".File.TranslationBaseName" "!=" "_index" }}
-  {{ $blogPosts = where $blogPosts ".Params.draft" "!=" true }}
-  {{ $blogPosts = $blogPosts.ByDate.Reverse }}
-{{ else }}
-  {{ $blogPosts = where (where $context.Site.RegularPages "Section" "blog") ".File.TranslationBaseName" "!=" "_index" }}
-  {{ $blogPosts = where $blogPosts ".Params.draft" "!=" true }}
-  {{ $blogPosts = $blogPosts.ByDate.Reverse }}
-{{ end }}
+<!-- Get blog posts (language-aware) -->
+{{ $blogPosts := where (where $context.Site.RegularPages "Section" "blog") ".File.TranslationBaseName" "!=" "_index" }}
+{{ $blogPosts = where $blogPosts ".Params.draft" "!=" true }}
+{{ $blogPosts = $blogPosts.ByDate.Reverse }}
 
 <!-- Limit to 3 most recent posts -->
 {{ $blogPosts = first 3 $blogPosts }}
