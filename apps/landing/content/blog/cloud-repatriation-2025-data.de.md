@@ -12,20 +12,20 @@ mermaid: true
 # Cloud-Repatriation 2025: Was die Zahlen wirklich sagen
 
 > **Kurz zusammengefasst:**
-> - 70% der Unternehmen planen Workloads bis 2026 zu repatriieren — Sie sind nicht verrückt, das in Betracht zu ziehen
+> - 70% der Unternehmen planen Workloads bis 2026 zurückzuholen — man ist nicht verrückt, das in Betracht zu ziehen
 > - 42% der IT-Professionals haben letztes Jahr bereits von Cloud zurück zu Dedicated migriert
 > - Typische Einsparungen: 30–50 % bei Infrastrukturkosten
 > - Startups haben mehr Freiheit als Enterprises — keine Vendor-Politik oder Einkaufszyklen
 > - Unser Test: €7,59/Monat VPS vs €10.560/Monat AWS Lambda für denselben Workload (1.400x Unterschied)
-> - Geben Sie €5k–15k/Monat für Cloud aus? [Wir helfen bei der Bewertung](/contact)
+> - €5k–15k/Monat für Cloud ausgeben? [Wir helfen bei der Bewertung](/contact)
 
 ---
 
-*Was wäre, wenn die Infrastruktur, für die Sie bezahlen, halb so viel kosten könnte — bei besserer Kontrolle?*
+*Was wäre, wenn die Infrastruktur halb so viel kosten könnte — bei besserer Kontrolle?*
 
 Die Daten zeigen bei Unternehmen verschiedener Größen einen Trend: einen leisen Wechsel weg von der Public Cloud, hin zu nachhaltigen, hybriden Architekturen.
 
-Es geht nicht darum, AWS zu hassen oder darum die Cloud für tot zu erklären. Es geht darum zu erkennen, dass sich für viele Unternehmen die Wirtschaftlichkeit geändert hat — und damit auch die Abwägungen.
+Es geht nicht darum, AWS abzulehnen oder die Cloud für tot zu erklären. Es geht darum zu erkennen, dass sich für viele Unternehmen die Wirtschaftlichkeit geändert hat — und damit auch die Abwägungen.
 
 ## Was ist Cloud-Repatriation?
 
@@ -40,14 +40,14 @@ Es ist kein Rückschritt in die Pre-Cloud-Ära. Moderne Repatriation bedeutet no
 
 Das Ziel ist nicht, alle Cloud-Dienste aufzugeben – sondern Workloads dort zu platzieren, wo sie wirtschaftlich und operativ Sinn machen. Wir nennen das **nachhaltige Infrastruktur**: ein hybrider Ansatz, der Cloud dort nutzt, wo sie Mehrwert bringt, und dedizierte Ressourcen, wo sie Geld spart.
 
-### Was Sie eintauschen
+### Was man eintauscht
 
 Um klar zu sein: Repatriation beinhaltet Trade-offs:
 
-| Was Sie aufgeben | Was Sie gewinnen |
+| Was man aufgibt | Was man gewinnt |
 |------------------|------------------|
-| Automatisches Skaling (Sie managen Kapazität) | Vorhersehbare, feste monatliche Kosten |
-| Einige Managed-Service-Komforts | Vollkontrolle über Ihre Daten und Stack |
+| Automatisches Skaling (man managt Kapazität) | Vorhersehbare, feste monatliche Kosten |
+| Einige Managed-Service-Komforts | Vollkontrolle über Daten und Stack |
 | Vendor-provided Compliance-Zertifizierungen | Kein Vendor-Lock-in oder Egress-Surprise-Rechnungen |
 
 Für viele Teams, besonders mit vorhersehbaren Workloads, lohnt sich der Trade-off.
@@ -99,15 +99,15 @@ Das Zitat, das hängen blieb:
 
 Andreessen Horowitz veröffentlichte 2021 eine vielzitierte Analyse, die sich als bemerkenswert genau erwies. Ihre Kern-Erkenntnis:
 
-> „Du bist verrückt, wenn du nicht in der Cloud startest; du bist verrückt, wenn du drin bleibst."
+> „You're crazy if you don't start in the cloud; you're crazy if you stay on it."
 
-**Übersetzung:** Die Cloud macht am Anfang Sinn für Geschwindigkeit – aber die Wirtschaftlichkeit kippt beim Skalieren. Das Problem: Dann bist du bereits eingesperrt.
+**Übersetzung:** Die Cloud macht am Anfang Sinn für Geschwindigkeit – aber die Wirtschaftlichkeit kippt beim Skalieren. Das Problem: Dann ist man bereits eingesperrt.
 
 Ihre Schätzung: **$100 Mrd.+ Marktkapitalisierung** verloren bei den Top 50 Public-Software-Unternehmen durch Cloud-Kosten, die die Bruttomargen auffressen.
 
 **Das Dropbox-Beispiel:** Verbesserte Bruttomarge von **33% auf 67%** nach Infrastruktur-Optimierung (Mix aus Repatriation und internen Tools), sparte **$75M kumuliert** in den zwei Jahren vor dem IPO.
 
-Ich sah diese Dynamik hautnah, als ich bei Unity Technologies arbeitete. In ihren öffentlichen Finanzdaten wird Cloud-Infrastruktur als „zweitgrößte Ausgabenkategorie“ gelistet. Wenn Ihre Hosting-Rechnung in die hunderten Millionen läuft, zählt jeder Prozentpunkt Marge.
+Ich sah diese Dynamik hautnah, als ich bei Unity Technologies arbeitete. In ihren öffentlichen Finanzdaten wird Cloud-Infrastruktur als „zweitgrößte Ausgabenkategorie“ gelistet. Wenn die Hosting-Rechnung in die hunderten Millionen läuft, zählt jeder Prozentpunkt Marge.
 
 Wir empfehlen dringend die vollständige Analyse: [a16z: The Cost of Cloud, a Trillion Dollar Paradox](https://a16z.com/the-cost-of-cloud-a-trillion-dollar-paradox/)
 
@@ -131,9 +131,9 @@ Ihre Meinung:
 
 Hier liegt das Problem.
 
-Die Enterprise-Daten sind überzeugend – aber wenn Sie ein wachsendes Startup mit 10 Ingenieuren sind, das €70–90k/Jahr bei AWS ausgibt, bauen Sie kein Rechenzentrum und stellen kein Platform-Team ein.
+Die Enterprise-Daten sind überzeugend – aber als wachsendes Startup mit 10 Ingenieuren, das €70–90k/Jahr bei AWS ausgibt, baut man kein Rechenzentrum und stellt kein Platform-Team ein.
 
-Und wenn Sie ein Indie-Hacker mit einem $5/Monat-DigitalOcean-Droplet sind, sind Sie bereits schlank.
+Und als Indie-Hacker mit einem $5/Monat-DigitalOcean-Droplet ist man bereits schlank.
 
 **Die Teams, die feststecken, sind in der Mitte:**
 
@@ -145,7 +145,7 @@ Und wenn Sie ein Indie-Hacker mit einem $5/Monat-DigitalOcean-Droplet sind, sind
 | Traffic | Häufig überprovisioniert für tatsächliche Last |
 | Schmerz | Zahlen Enterprise-Preise ohne Enterprise-Bedarf |
 
-Diese Teams *wissen*, dass sie zuviel ausgeben. Sie haben nur nicht die Zeit, Expertise oder Zuversinnheit, es zu ändern.
+Diese Teams *wissen*, dass sie zuviel ausgeben. Es fehlt nur die Zeit, Expertise oder Zuversicht, es zu ändern.
 
 Ein Zitat aus einem Indie-Hackers-Thread fasst es perfekt zusammen:
 
@@ -159,20 +159,20 @@ Etwas ist erwähnenswert: Enterprises haben oft große Verträge mit Cloud-Anbie
 
 Startups haben diese Einschränkungen nicht. Man kann frei erkunden, experimentieren und Infrastruktur basierend auf dem wählen, was wirklich für das Team und Budget funktioniert. Die Probleme, die man löst, und die Entscheidungen, die man trifft, sind komplett anders als bei einem 10.000-Personen-Enterprise.
 
-Diese Freiheit ist ein Vorteil — nutzen Sie ihn.
+Diese Freiheit ist ein Vorteil — man sollte ihn nutzen.
 
 ## Die Gelegenheit: Dieselbe Wirtschaftlichkeit, andere Ausführung
 
 Die gute Nachricht: **Repatriation im Startup-Maßstab ist schneller, günstiger und risikoärmer als die Enterprise-Version.**
 
-Sie brauchen nicht:
+Man braucht nicht:
 - Einen mehrjährigen Migrationsplan
 - $500k Hardware
 - Ein dediziertes Platform-Team
 
-Sie brauchen:
-- Einen fokussierten Audit Ihrer aktuellen Ausgaben (48–72 Stunden)
-- Eine Shortlist vorhersehbaren, stabilen Workloads
+Man braucht:
+- Einen fokussierten Audit der aktuellen Ausgaben (48–72 Stunden)
+- Eine Shortlist vorhersehbarer, stabiler Workloads
 - Einen Migrationspfad, der Produkt-Arbeit nicht blockiert
 
 ### Echte Beispiele
@@ -189,7 +189,7 @@ Das ist keine Rundungsdifferenz. Das ist ein **1.400-facher Unterschied**.
 
 ## Was dies bedeutet
 
-Cloud-Repatriation ist keine konträre Position – es ist eine datengesteuerte Neubewertung, wo Ihr Infrastrukturbudget den meisten Mehrwert liefert.
+Cloud-Repatriation ist keine konträre Position – es ist eine datengesteuerte Neubewertung, wo das Infrastrukturbudget den meisten Mehrwert liefert.
 
 Das Muster ist konsistent über Unternehmensgrößen:
 
@@ -206,11 +206,11 @@ Für Startups kann er viel früher kommen – besonders bei vorhersehbaren Workl
 
 Wir dokumentieren diesen Wandel – und helfen kleinen Teams beim Umzug, wenn es Sinn macht.
 
-Wenn Sie €5k–15k/Monat für Cloud-Infrastruktur ausgeben und sich fragen, ob es einen einfacheren Weg gibt, führen wir fokussierte **72-Stunden-Infrastruktur-Audits** durch, um Ihre Optionen zu kartieren. Keine Verpflichtung, nur Daten.
+Wer €5k–15k/Monat für Cloud-Infrastruktur ausgibt und sich fragt, ob es einen einfacheren Weg gibt: Wir führen fokussierte **72-Stunden-Infrastruktur-Audits** durch, um die Optionen zu kartieren. Keine Verpflichtung, nur Daten.
 
 **→ [Infrastruktur-Audit anfragen](https://raus.cloud)**
 
-Oder folgen Sie mit, wenn wir mehr veröffentlichen. Als Nächstes: Die Schritt-für-Schritt-Playbook, um von €8 auf €800/Monat auf einfacher Infrastruktur zu skalieren.
+Oder einfach mitverfolgen, wenn wir mehr veröffentlichen. Als Nächstes: Die Schritt-für-Schritt-Playbook, um von €8 auf €800/Monat auf einfacher Infrastruktur zu skalieren.
 
 ---
 
