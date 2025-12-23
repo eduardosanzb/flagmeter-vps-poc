@@ -11,23 +11,13 @@ mermaid: true
 
 # Cloud-Repatriierung 2025: Was die Zahlen wirklich sagen
 
-> **Kurz zusammengefasst:**  
-> - 70% der Unternehmen planen Workloads bis 2026 zu repatriieren — Sie sind nicht verrückt, das in Betracht zu ziehen
-> - 42% der IT-Professionals haben letztes Jahr bereits von Cloud zurück zu Dedicated migriert
-> - Typische Einsparungen: 30-50% bei Infrastrukturkosten
-> - Startups haben mehr Freiheit als Enterprises — keine Vendor-Politik oder Einkaufszyklen
-> - Unser Test: €7,59/Monat VPS vs €10.560/Monat AWS Lambda für denselben Workload (1.400x Unterschied)
-> - Geben Sie €5k-15k/Monat für Cloud aus? [Wir helfen bei der Bewertung](/contact)
+*Was wäre, wenn die Infrastruktur, für die Sie bezahlen, die Hälfte kosten könnte – mit besserer Kontrolle?*
 
----
+Das ist kein Pitch. Das zeigen die Daten in Unternehmen jeder Größe: ein leiser, aber beschleunigender Wechsel weg von Public Cloud, zurück zu nachhaltigen, hybriden Architekturen.
 
-*Was wäre, wenn die Infrastruktur, für die Sie bezahlen, halb so viel kosten könnte — bei besserer Kontrolle?*
+Es geht nicht darum, AWS zu hassen oder die „Cloud ist tot“ zu erklären. Es geht darum zu erkennen, dass für viele Organisationen die Wirtschaftlichkeit gekippt ist – und die Trade-offs sich geändert haben.
 
-Das ist kein Verkaufsargument. Die Daten zeigen bei Unternehmen verschiedener Größen einen Trend: einen leisen Wechsel weg von der Public Cloud, hin zu nachhaltigen, hybriden Architekturen.
-
-Es geht nicht darum, AWS zu hassen oder darum die Cloud für tot zu erklären. Es geht darum zu erkennen, dass sich für viele Unternehmen die Wirtschaftlichkeit geändert hat — und damit auch die Abwägungen.
-
-Schauen wir uns an, was tatsächlich passiert.
+Schauen wir uns an, was wirklich passiert.
 
 ## Was ist Cloud-Repats?
 
@@ -163,15 +153,7 @@ Ein Zitat aus einem Indie-Hackers-Thread fasst es perfekt zusammen:
 
 > „Ich bin Software-Ingenieur und kenne DevOps-Sachen nicht so gut. Ich möchte sichere, skalierbare Projekte bauen und mir nicht so viele Gedanken über Infrastruktur machen... momentan, wenn ich das manage, dauert es zu viel Zeit."
 
-Das ist keine Wissenslücke — es ist eine Zeitlücke.
-
-### Warum Startups mehr Freiheit haben
-
-Etwas ist erwähnenswert: Enterprises haben oft große Verträge mit Cloud-Anbietern, getrieben von Geschäftsbeziehungen und Top-Down-Entscheidungen. Politik und Einkaufszyklen zählen mehr als reine Wirtschaftlichkeit.
-
-Startups haben diese Einschränkungen nicht. Man kann frei erkunden, experimentieren und Infrastruktur basierend auf dem wählen, was wirklich für das Team und Budget funktioniert. Die Probleme, die man löst, und die Entscheidungen, die man trifft, sind komplett anders als bei einem 10.000-Personen-Enterprise.
-
-Diese Freiheit ist ein Vorteil — nutzen Sie ihn.
+Das ist keine Wissenslücke – es ist eine Bandbreitenlücke.
 
 ## Die Gelegenheit: Dieselbe Wirtschaftlichkeit, andere Ausführung
 

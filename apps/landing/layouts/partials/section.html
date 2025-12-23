@@ -1,80 +1,61 @@
-<!-- Smart section dispatcher - auto-detects type from data structure -->
-{{ $data := .data }}
-{{ $context := .context }}
-{{ $sectionName := .sectionName }}
+{{- /* Smart section dispatcher - auto-detects type from data structure */ -}}
+{{- $data := .data -}}
+{{- $context := .context -}}
+{{- $sectionName := .sectionName -}}
 
-{{ if not $data }}
-  <!-- Skip if no data -->
-  {{ return }}
-{{ end }}
-
-<!-- Special handling for blog section -->
-{{ if eq $sectionName "blog_posts" }}
+{{- if not $data -}}
+  {{- /* Skip if no data */ -}}
+{{- else if eq $sectionName "blog_posts" -}}
+  {{- /* Special handling for blog section */ -}}
   <section class="section section-light" id="blog-posts">
     <div class="container-custom">
-      <!-- Render section header if title and subtitle exist -->
-      {{ if and $data.title $data.subtitle }}
+      {{- /* Render section header if title and subtitle exist */ -}}
+      {{- if and $data.title $data.subtitle }}
         {{ partial "components/section-header.html" $data }}
-      {{ end }}
+      {{- end }}
       {{ partial "sections/blog-posts.html" (dict "data" $data "context" $context) }}
     </div>
   </section>
-  {{ return }}
-{{ end }}
+{{- else -}}
+  {{- /* Get the items array (could be named items, steps, tiers, or questions) */ -}}
+  {{- $items := $data.items -}}
 
-<!-- Get the items array (could be named items, steps, tiers, or questions) -->
-{{ $items := $data.items }}
+  {{- /* Skip if no items or empty */ -}}
+  {{- if and $items (gt (len $items) 0) -}}
+    {{- /* Detect section type from first item structure */ -}}
+    {{- $firstItem := index $items 0 -}}
+    {{- $sectionType := "simple-cards" -}}
 
-<!-- Skip if no items -->
-{{ if not $items }}
-  {{ return }}
-{{ end }}
+    {{- if $firstItem.number -}}
+      {{- $sectionType = "step-cards" -}}
+    {{- else if $firstItem.icon -}}
+      {{- $sectionType = "icon-cards" -}}
+    {{- else if $firstItem.price -}}
+      {{- $sectionType = "pricing-cards" -}}
+    {{- else if $firstItem.question -}}
+      {{- $sectionType = "faq-accordion" -}}
+    {{- end -}}
 
-<!-- Check if items is valid and not empty using with block -->
-{{ with $items }}
-  {{ if eq (len .) 0 }}
-    {{ return }}
-  {{ end }}
-{{ else }}
-  <!-- Items exists but with considers it falsy (e.g., empty array), skip -->
-  {{ return }}
-{{ end }}
-
-<!-- Detect section type from first item structure -->
-{{ $firstItem := index $items 0 }}
-{{ $sectionType := "simple-cards" }}
-
-{{ if $firstItem.number }}
-  {{ $sectionType = "step-cards" }}
-{{ else if $firstItem.icon }}
-  {{ $sectionType = "icon-cards" }}
-{{ else if $firstItem.price }}
-  {{ $sectionType = "pricing-cards" }}
-{{ else if $firstItem.question }}
-  {{ $sectionType = "faq-accordion" }}
-{{ end }}
-
-<!-- Render section wrapper -->
-<section class="section {{ if eq $sectionType "faq-accordion" }}section-light{{ else if eq $sectionType "step-cards" }}section-light{{ else if eq $sectionType "icon-cards" }}bg-white dark:bg-gray-900{{ else if eq $sectionType "simple-cards" }}section-light{{ else }}bg-white dark:bg-gray-900{{ end }}"{{ if $sectionName }} id="{{ replace $sectionName "_" "-" }}"{{ end }}>
-  <div class="container-custom">
-    
-    <!-- Render section header if title and subtitle exist -->
-    {{ if and $data.title $data.subtitle }}
-      {{ partial "components/section-header.html" $data }}
-    {{ end }}
-    
-    <!-- Dispatch to specific section partial -->
-    {{ if eq $sectionType "step-cards" }}
-      {{ partial "sections/step-cards.html" (dict "data" $data "context" $context) }}
-    {{ else if eq $sectionType "icon-cards" }}
-      {{ partial "sections/icon-cards.html" (dict "data" $data "context" $context) }}
-    {{ else if eq $sectionType "simple-cards" }}
-      {{ partial "sections/simple-cards.html" (dict "data" $data "context" $context) }}
-    {{ else if eq $sectionType "pricing-cards" }}
-      {{ partial "sections/pricing-cards.html" (dict "data" $data "context" $context) }}
-    {{ else if eq $sectionType "faq-accordion" }}
-      {{ partial "sections/faq-accordion.html" (dict "data" $data "context" $context) }}
-    {{ end }}
-    
-  </div>
-</section>
+    {{- /* Render section wrapper */ -}}
+    <section class="section {{ if eq $sectionType "faq-accordion" }}section-light{{ else if eq $sectionType "step-cards" }}section-light{{ else if eq $sectionType "icon-cards" }}bg-white dark:bg-gray-900{{ else if eq $sectionType "simple-cards" }}section-light{{ else }}bg-white dark:bg-gray-900{{ end }}"{{ if $sectionName }} id="{{ replace $sectionName "_" "-" }}"{{ end }}>
+      <div class="container-custom">
+        {{- /* Render section header if title and subtitle exist */ -}}
+        {{- if and $data.title $data.subtitle }}
+          {{ partial "components/section-header.html" $data }}
+        {{- end }}
+        {{- /* Dispatch to specific section partial */ -}}
+        {{- if eq $sectionType "step-cards" }}
+          {{ partial "sections/step-cards.html" (dict "data" $data "context" $context) }}
+        {{- else if eq $sectionType "icon-cards" }}
+          {{ partial "sections/icon-cards.html" (dict "data" $data "context" $context) }}
+        {{- else if eq $sectionType "simple-cards" }}
+          {{ partial "sections/simple-cards.html" (dict "data" $data "context" $context) }}
+        {{- else if eq $sectionType "pricing-cards" }}
+          {{ partial "sections/pricing-cards.html" (dict "data" $data "context" $context) }}
+        {{- else if eq $sectionType "faq-accordion" }}
+          {{ partial "sections/faq-accordion.html" (dict "data" $data "context" $context) }}
+        {{- end }}
+      </div>
+    </section>
+  {{- end -}}
+{{- end -}}

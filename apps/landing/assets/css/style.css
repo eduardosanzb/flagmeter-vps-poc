@@ -555,10 +555,12 @@ video {
 }
 
 html {
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
+  overflow-x: hidden;
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   font-family: Helvetica Neue, Helvetica, -apple-system, BlinkMacSystemFont, Segoe UI, Arial, sans-serif;
@@ -1379,6 +1381,14 @@ h1:is(.dark *), h2:is(.dark *), h3:is(.dark *), h4:is(.dark *), h5:is(.dark *), 
   flex-shrink: 0;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
 .-translate-y-2 {
   --tw-translate-y: -0.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1657,6 +1667,11 @@ h1:is(.dark *), h2:is(.dark *), h3:is(.dark *), h4:is(.dark *), h5:is(.dark *), 
   padding-right: 1rem;
 }
 
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -1670,6 +1685,11 @@ h1:is(.dark *), h2:is(.dark *), h3:is(.dark *), h4:is(.dark *), h5:is(.dark *), 
 .py-20 {
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 
 .py-4 {
@@ -1945,6 +1965,11 @@ h1:is(.dark *), h2:is(.dark *), h3:is(.dark *), h4:is(.dark *), h5:is(.dark *), 
 .hover\:\!border-white:hover {
   --tw-border-opacity: 1 !important;
   border-color: rgb(255 255 255 / var(--tw-border-opacity, 1)) !important;
+}
+
+.hover\:bg-brand-accentDark:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 150 105 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:bg-gray-100:hover {

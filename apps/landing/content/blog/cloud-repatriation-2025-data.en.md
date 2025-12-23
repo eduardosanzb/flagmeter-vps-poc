@@ -11,6 +11,16 @@ mermaid: true
 
 # Cloud Repatriation in 2025: What the Numbers Actually Say
 
+> **TL;DR for busy readers:**  
+> - 70% of enterprises plan to repatriate workloads by 2026 — you're not crazy for considering it
+> - 42% of IT pros already moved from cloud back to dedicated servers last year
+> - Typical savings: 30-50% on infrastructure costs
+> - Startups have more freedom than enterprises — no vendor politics or procurement cycles
+> - Our test: €7.59/month VPS vs €10,560/month AWS Lambda for same workload (1,400x difference)
+> - Spending €5k-15k/month on cloud? [We can help you evaluate options](/contact)
+
+---
+
 *What if the infrastructure you're paying for could cost you half as much—with better control?*
 
 That's not a pitch. It's what the data is showing across companies of all sizes: a quiet but accelerating shift away from public cloud, back toward sustainable, hybrid architectures.
