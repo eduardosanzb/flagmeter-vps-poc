@@ -44,6 +44,8 @@ The goal isn't to abandon all cloud services—it's to place workloads where the
 
 ### What You're Trading
 
+Enterprises often have big contracts with cloud providers, driven by top-down choices based on business relationships and procurement cycles. These contracts tend to prioritize politics over cost-efficiency. Startups, on the other hand, can experiment more freely and make decisions suited to their unique challenges, untouched by the constraints of scaling across thousands of employees.
+
 To be clear, repatriation involves trade-offs:
 
 | What You Give Up | What You Gain |
@@ -129,6 +131,12 @@ Their take:
 > — DHH
 
 *Source: [37signals Cloud Exit](https://basecamp.com/cloud-exit/) and [Leaving the Cloud podcast](https://37signals.com/podcast/leaving-the-cloud/)*
+
+### Enterprise vs Startup Freedom
+
+Enterprises often have big contracts with cloud providers, driven by top-down decisions based on business relationships and procurement cycles. These contracts can prioritize politics over optimal economics. Startups, on the other hand, have the flexibility to explore and experiment with infrastructure choices. The challenges and decisions are entirely different from those faced by a 10,000-employee enterprise.
+
+This freedom is an advantage—don't follow what the big companies do when their situations don’t apply to yours.
 
 ## The Gap: Why Growing Teams Get Stuck
 

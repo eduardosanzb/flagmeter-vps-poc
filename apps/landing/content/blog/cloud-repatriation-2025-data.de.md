@@ -90,8 +90,8 @@ Eine Umfrage von 1.009 IT-Profis in verschiedenen Branchen:
 
 Das Zitat, das hängen blieb:
 
-> „Das größte Missverständnis ist, dass wir dedizierte Server nicht mehr brauchen, weil wir die Cloud nutzen. Aber dedizierte Server handhaben unsere kritischsten Operationen wegen Zuverlässigkeit, Kontrolle und planbaren Kosten."
-> — *IT-Professional, Liquid Web Umfrage*
+> "The biggest misconception is that we don't need [dedicated servers] anymore because of cloud adoption. But dedicated servers still handle our most critical operations due to reliability, control, and predictable costs."
+> — *IT professional, Liquid Web survey*
 
 *Quelle: [Liquid Web Dedicated Server Studie 2025](https://www.liquidweb.com/white-papers/dedicated-server-study/)*
 
@@ -103,7 +103,7 @@ Andreessen Horowitz veröffentlichte 2021 eine vielzitierte Analyse, die sich al
 
 **Übersetzung:** Die Cloud macht am Anfang Sinn für Geschwindigkeit – aber die Wirtschaftlichkeit kippt beim Skalieren. Das Problem: Dann bist du bereits eingesperrt.
 
-Ihre Schätzung: **$100B+ Marktkapitalisierung** verloren bei den Top 50 Public-Software-Unternehmen durch Cloud-Kosten, die die Bruttomargen auffressen.
+Ihre Schätzung: **$100 Mrd.+ Marktkapitalisierung** verloren bei den Top 50 Public-Software-Unternehmen durch Cloud-Kosten, die die Bruttomargen auffressen.
 
 **Das Dropbox-Beispiel:** Verbesserte Bruttomarge von **33% auf 67%** nach Infrastruktur-Optimierung (Mix aus Repatriation und internen Tools), sparte **$75M kumuliert** in den zwei Jahren vor dem IPO.
 
