@@ -1,5 +1,5 @@
 ---
-title: "Cloud-Repatriierung 2025: Was die Zahlen wirklich sagen"
+title: "Cloud-Repatriation 2025: Was die Zahlen wirklich sagen"
 date: 2025-12-22
 description: "70% der Unternehmen planen, Workloads zurück On-Prem zu bringen. Was Cloud-Repats wirklich bedeuten – und warum es auch für wachsende Teams wichtig ist."
 author: "Eduardo Sanchez"
@@ -9,7 +9,7 @@ draft: false
 mermaid: true
 ---
 
-# Cloud-Repatriierung 2025: Was die Zahlen wirklich sagen
+# Cloud-Repatriation 2025: Was die Zahlen wirklich sagen
 
 > **Kurz zusammengefasst:**  
 > - 70% der Unternehmen planen Workloads bis 2026 zu repatriieren — Sie sind nicht verrückt, das in Betracht zu ziehen
