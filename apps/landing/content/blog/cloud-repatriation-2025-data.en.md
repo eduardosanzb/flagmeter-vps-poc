@@ -11,7 +11,7 @@ mermaid: true
 
 # Cloud Repatriation in 2025: What the Numbers Actually Say
 
-> **TL;DR for busy readers:**  
+> **TL;DR for busy readers:**
 > - 70% of enterprises plan to repatriate workloads by 2026 — you're not crazy for considering it
 > - 42% of IT pros already moved from cloud back to dedicated servers last year
 > - Typical savings: 30-50% on infrastructure costs
@@ -92,10 +92,10 @@ A survey of 1,009 IT professionals across industries:
 
 The quote that stuck with me:
 
-> "The biggest misconception is that we don't need [dedicated servers] anymore because of cloud adoption. But dedicated servers still handle our most critical operations due to reliability, control, and predictable costs."  
+> "The biggest misconception is that we don't need [dedicated servers] anymore because of cloud adoption. But dedicated servers still handle our most critical operations due to reliability, control, and predictable costs."
 > — *IT professional, Liquid Web survey*
 
-*Source: [Liquid Web Dedicated Server Study 2025](https://www.liquidweb.com/white-papers/dedicated-server-study/)*
+*Source: <a href="https://www.liquidweb.com/white-papers/dedicated-server-study/" target="_blank" rel="noopener noreferrer">Liquid Web dedicated servers study in a cloud-first world.</a>*
 
 ## The a16z Analysis: The Cloud Paradox
 
@@ -111,15 +111,6 @@ Their estimate: **$100B+ in market cap** lost across the top 50 public software 
 
 I saw this dynamic firsthand when working at Unity Technologies. In their public financial results, cloud infrastructure is listed as the "second-largest expense category." When your hosting bill runs into the hundreds of millions annually, every percentage point of margin matters.
 
-### a16z's 5 Recommendations
-
-The article also provides a practical framework for companies evaluating their cloud spend:
-
-1. **Make cloud spend a KPI** — Treat infrastructure as a first-class business metric, not just an engineering concern
-2. **Incentivize the right behaviors** — One company used spot bonuses for engineers who reduced cloud spend → $3M savings in 6 months
-3. **Optimize continuously** — Segment reduced infra costs by 30% while increasing traffic by 25%
-4. **Think about repatriation up front** — Architect for portability early (one reason Kubernetes adoption grew)
-5. **Incrementally repatriate** — Even aggressive companies retain 10-30% of workloads in cloud
 
 We strongly recommend reading the full analysis: [a16z: The Cost of Cloud, a Trillion Dollar Paradox](https://a16z.com/the-cost-of-cloud-a-trillion-dollar-paradox/)
 
@@ -134,7 +125,7 @@ DHH and the team at 37signals (Basecamp, HEY) are the most vocal about their clo
 
 Their take:
 
-> "The benefits have been vastly overstated. The cloud is often just as complicated as running things yourself, and it's usually ridiculously more expensive."  
+> "The benefits have been vastly overstated. The cloud is often just as complicated as running things yourself, and it's usually ridiculously more expensive."
 > — DHH
 
 *Source: [37signals Cloud Exit](https://basecamp.com/cloud-exit/) and [Leaving the Cloud podcast](https://37signals.com/podcast/leaving-the-cloud/)*

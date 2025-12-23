@@ -1,7 +1,7 @@
 ---
 title: "Cloud-Repatriation 2025: Was die Zahlen wirklich sagen"
 date: 2025-12-22
-description: "70% der Unternehmen planen, Workloads zurück On-Prem zu bringen. Was Cloud-Repats wirklich bedeuten – und warum es auch für wachsende Teams wichtig ist."
+description: "70% der Unternehmen planen, Workloads zurück On-Prem zu bringen. Was Cloud-Repatriation wirklich bedeuten – und warum es auch für wachsende Teams wichtig ist."
 author: "Eduardo Sanchez"
 categories: ["Fallstudien"]
 tags: ["cloud-kosten", "infrastruktur", "repatriierung", "vmware", "liquid-web", "a16z"]
@@ -11,29 +11,27 @@ mermaid: true
 
 # Cloud-Repatriation 2025: Was die Zahlen wirklich sagen
 
-> **Kurz zusammengefasst:**  
+> **Kurz zusammengefasst:**
 > - 70% der Unternehmen planen Workloads bis 2026 zu repatriieren — Sie sind nicht verrückt, das in Betracht zu ziehen
 > - 42% der IT-Professionals haben letztes Jahr bereits von Cloud zurück zu Dedicated migriert
-> - Typische Einsparungen: 30-50% bei Infrastrukturkosten
+> - Typische Einsparungen: 30–50 % bei Infrastrukturkosten
 > - Startups haben mehr Freiheit als Enterprises — keine Vendor-Politik oder Einkaufszyklen
 > - Unser Test: €7,59/Monat VPS vs €10.560/Monat AWS Lambda für denselben Workload (1.400x Unterschied)
-> - Geben Sie €5k-15k/Monat für Cloud aus? [Wir helfen bei der Bewertung](/contact)
+> - Geben Sie €5k–15k/Monat für Cloud aus? [Wir helfen bei der Bewertung](/contact)
 
 ---
 
 *Was wäre, wenn die Infrastruktur, für die Sie bezahlen, halb so viel kosten könnte — bei besserer Kontrolle?*
 
-Das ist kein Verkaufsargument. Die Daten zeigen bei Unternehmen verschiedener Größen einen Trend: einen leisen Wechsel weg von der Public Cloud, hin zu nachhaltigen, hybriden Architekturen.
+Die Daten zeigen bei Unternehmen verschiedener Größen einen Trend: einen leisen Wechsel weg von der Public Cloud, hin zu nachhaltigen, hybriden Architekturen.
 
 Es geht nicht darum, AWS zu hassen oder darum die Cloud für tot zu erklären. Es geht darum zu erkennen, dass sich für viele Unternehmen die Wirtschaftlichkeit geändert hat — und damit auch die Abwägungen.
 
-Schauen wir uns an, was tatsächlich passiert.
+## Was ist Cloud-Repatriation?
 
-## Was ist Cloud-Repats?
+Cloud-Repatriation ist der Prozess, Workloads, Anwendungen oder Daten von Public-Cloud-Anbietern (AWS, GCP, Azure) zurück On-Premises, in Co-Location oder auf dedizierte Server zu verschieben.
 
-Cloud-Repats ist der Prozess, Workloads, Anwendungen oder Daten von Public-Cloud-Anbietern (AWS, GCP, Azure) zurück On-Premises, in Co-Location oder auf dedizierte Server zu verschieben.
-
-Es ist kein Rückschritt in die Pre-Cloud-Ära. Moderne Repats bedeuten normalerweise:
+Es ist kein Rückschritt in die Pre-Cloud-Ära. Moderne Repatriation bedeutet normalerweise:
 
 - **Dedizierte Server** ([Hetzner](https://www.hetzner.com/), [OVHcloud](https://www.ovhcloud.com/), [Vultr](https://www.vultr.com/)) statt EC2
 - **Einfache Container-Orchestrierung** ([Docker Compose](https://docs.docker.com/compose/), [Kamal](https://kamal-deploy.org/), [Coolify](https://coolify.io/)) statt Kubernetes
@@ -44,7 +42,7 @@ Das Ziel ist nicht, alle Cloud-Dienste aufzugeben – sondern Workloads dort zu 
 
 ### Was Sie eintauschen
 
-Um klar zu sein: Repats beinhaltet Trade-offs:
+Um klar zu sein: Repatriation beinhaltet Trade-offs:
 
 | Was Sie aufgeben | Was Sie gewinnen |
 |------------------|------------------|
@@ -56,7 +54,7 @@ Für viele Teams, besonders mit vorhersehbaren Workloads, lohnt sich der Trade-o
 
 ## Die Daten: Was wirklich passiert
 
-Der Repats-Trend ist nicht anekdotisch – er zeigt sich in Branchenumfragen, Finanzberichten und Unternehmensankündigungen.
+Der Repatriation-Trend ist nicht anekdotisch – er zeigt sich in Branchenumfragen, Finanzberichten und Unternehmensankündigungen.
 
 ### Enterprise-Signal: VMware Private Cloud Outlook 2025
 
@@ -66,7 +64,7 @@ VMware (heute Teil von Broadcom) befragte 1.800 IT-Leiter in 17 Ländern (Sept�
 |------------|----------|
 | Organisationen, die Workloads innerhalb 24 Monate On-Prem verschieben wollen | **70%** (~1.260 Orgs) |
 | Nennen Private Cloud „kritisch“ für 2025-Strategie | **89%** (von 54% in 2022) |
-| Berichten 30-45% Kosteneinsparungen nach Repats | **51%** |
+| Berichten 30-45% Kosteneinsparungen nach Repatriation | **51%** |
 | Erlebten Public-Cloud-Sicherheitsvorfall (letzte 12 Monate) | **74%** |
 
 **Top-Treiber des Wechsels:**
@@ -92,7 +90,7 @@ Eine Umfrage von 1.009 IT-Profis in verschiedenen Branchen:
 
 Das Zitat, das hängen blieb:
 
-> „Das größte Missverständnis ist, dass wir dedizierte Server nicht mehr brauchen, weil wir die Cloud nutzen. Aber dedizierte Server handhaben unsere kritischsten Operationen wegen Zuverlässigkeit, Kontrolle und planbaren Kosten."  
+> „Das größte Missverständnis ist, dass wir dedizierte Server nicht mehr brauchen, weil wir die Cloud nutzen. Aber dedizierte Server handhaben unsere kritischsten Operationen wegen Zuverlässigkeit, Kontrolle und planbaren Kosten."
 > — *IT-Professional, Liquid Web Umfrage*
 
 *Quelle: [Liquid Web Dedicated Server Studie 2025](https://www.liquidweb.com/white-papers/dedicated-server-study/)*
@@ -107,19 +105,9 @@ Andreessen Horowitz veröffentlichte 2021 eine vielzitierte Analyse, die sich al
 
 Ihre Schätzung: **$100B+ Marktkapitalisierung** verloren bei den Top 50 Public-Software-Unternehmen durch Cloud-Kosten, die die Bruttomargen auffressen.
 
-**Das Dropbox-Beispiel:** Verbesserte Bruttomarge von **33% auf 67%** nach Infrastruktur-Optimierung (Mix aus Repats und internen Tools), sparte **$75M kumuliert** in den zwei Jahren vor dem IPO.
+**Das Dropbox-Beispiel:** Verbesserte Bruttomarge von **33% auf 67%** nach Infrastruktur-Optimierung (Mix aus Repatriation und internen Tools), sparte **$75M kumuliert** in den zwei Jahren vor dem IPO.
 
 Ich sah diese Dynamik hautnah, als ich bei Unity Technologies arbeitete. In ihren öffentlichen Finanzdaten wird Cloud-Infrastruktur als „zweitgrößte Ausgabenkategorie“ gelistet. Wenn Ihre Hosting-Rechnung in die hunderten Millionen läuft, zählt jeder Prozentpunkt Marge.
-
-### Die 5 Empfehlungen von a16z
-
-Der Artikel bietet auch einen praktischen Rahmen für Unternehmen, die ihre Cloud-Ausgaben bewerten:
-
-1. **Machen Sie Cloud-Ausgaben zu einem KPI** – Behandeln Sie Infrastruktur als Business-Metrik erster Klasse, nicht nur als Engineering-Thema
-2. **Incentivieren Sie das richtige Verhalten** – Ein Unternehmen nutzte Spot-Boni für Engineers, die Cloud-Kosten senkten → $3M Einsparungen in 6 Monaten
-3. **Optimieren Sie kontinuierlich** – Segment reduzierte Infrastrukturkosten um 30% bei 25% Traffic-Wachstum
-4. **Denken Sie frühzeitig über Repats nach** – Architektur für Portabilität (ein Grund fürs Kubernetes-Wachstum)
-5. **Repatriieren Sie inkrementell** – Selbst aggressive Unternehmen behalten 10-30% Workloads in der Cloud
 
 Wir empfehlen dringend die vollständige Analyse: [a16z: The Cost of Cloud, a Trillion Dollar Paradox](https://a16z.com/the-cost-of-cloud-a-trillion-dollar-paradox/)
 
@@ -134,7 +122,7 @@ DHH und das 37signals-Team (Basecamp, HEY) sind die lautstärksten Befürworter 
 
 Ihre Meinung:
 
-> „Die Vorteile wurden masslos übertrieben. Die Cloud ist oft genauso kompliziert wie selbst betreiben, und meist erheblich teurer."  
+> „Die Vorteile wurden masslos übertrieben. Die Cloud ist oft genauso kompliziert wie selbst betreiben, und meist erheblich teurer."
 > — DHH
 
 *Quelle: [37signals Cloud Exit](https://basecamp.com/cloud-exit/) und [Leaving the Cloud Podcast](https://37signals.com/podcast/leaving-the-cloud/)*
@@ -175,7 +163,7 @@ Diese Freiheit ist ein Vorteil — nutzen Sie ihn.
 
 ## Die Gelegenheit: Dieselbe Wirtschaftlichkeit, andere Ausführung
 
-Die gute Nachricht: **Repats im Startup-Maßstab ist schneller, günstiger und risikoärmer als die Enterprise-Version.**
+Die gute Nachricht: **Repatriation im Startup-Maßstab ist schneller, günstiger und risikoärmer als die Enterprise-Version.**
 
 Sie brauchen nicht:
 - Einen mehrjährigen Migrationsplan
@@ -201,7 +189,7 @@ Das ist keine Rundungsdifferenz. Das ist ein **1.400-facher Unterschied**.
 
 ## Was dies bedeutet
 
-Cloud-Repats ist keine konträre Position – es ist eine datengesteuerte Neubewertung, wo Ihr Infrastrukturbudget den meisten Mehrwert liefert.
+Cloud-Repatriation ist keine konträre Position – es ist eine datengesteuerte Neubewertung, wo Ihr Infrastrukturbudget den meisten Mehrwert liefert.
 
 Das Muster ist konsistent über Unternehmensgrößen:
 
