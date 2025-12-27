@@ -297,4 +297,105 @@
       @apply p-4;
     }
   }
+
+  /* Tradeoffs component */
+  .tradeoffs-container {
+    @apply my-8 flex flex-col gap-4;
+  }
+
+  /* Desktop: side-by-side table layout */
+  @media (min-width: 769px) {
+    .tradeoffs-container {
+      @apply grid grid-cols-1 gap-3;
+    }
+
+    .tradeoff-card {
+      @apply grid grid-cols-[1fr_auto_1fr] items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm;
+    }
+
+    .tradeoff-arrow {
+      @apply flex items-center justify-center text-gray-400 dark:text-gray-500;
+    }
+
+    .tradeoff-arrow svg {
+      @apply w-5 h-5 rotate-[-90deg];
+    }
+
+    .tradeoff-give-up,
+    .tradeoff-gain {
+      @apply flex flex-col gap-1;
+    }
+
+    .tradeoff-give-up {
+      @apply text-right;
+    }
+
+    .tradeoff-gain {
+      @apply text-left;
+    }
+
+    .tradeoff-label {
+      @apply text-xs font-medium uppercase tracking-wider;
+    }
+
+    .tradeoff-give-up .tradeoff-label {
+      @apply text-red-500 dark:text-red-400;
+    }
+
+    .tradeoff-gain .tradeoff-label {
+      @apply text-emerald-600 dark:text-emerald-400;
+    }
+
+    .tradeoff-value {
+      @apply text-gray-700 dark:text-gray-300 font-medium;
+    }
+  }
+
+  /* Mobile: stacked cards */
+  @media (max-width: 768px) {
+    .tradeoff-card {
+      @apply flex flex-col p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm;
+    }
+
+    .tradeoff-give-up,
+    .tradeoff-gain {
+      @apply flex flex-col gap-1 py-2;
+    }
+
+    .tradeoff-give-up {
+      @apply border-b border-gray-100 dark:border-gray-700 pb-3;
+    }
+
+    .tradeoff-gain {
+      @apply pt-3 bg-emerald-50/50 dark:bg-emerald-900/10 -mx-4 px-4 -mb-4 pb-4 rounded-b-lg;
+    }
+
+    .tradeoff-arrow {
+      @apply flex items-center justify-center py-1 text-gray-400 dark:text-gray-500;
+    }
+
+    .tradeoff-arrow svg {
+      @apply w-4 h-4;
+    }
+
+    .tradeoff-label {
+      @apply text-xs font-semibold uppercase tracking-wider;
+    }
+
+    .tradeoff-give-up .tradeoff-label {
+      @apply text-red-500 dark:text-red-400;
+    }
+
+    .tradeoff-gain .tradeoff-label {
+      @apply text-emerald-600 dark:text-emerald-400;
+    }
+
+    .tradeoff-value {
+      @apply text-gray-700 dark:text-gray-300 text-sm leading-relaxed;
+    }
+
+    .tradeoff-gain .tradeoff-value {
+      @apply font-medium text-emerald-700 dark:text-emerald-300;
+    }
+  }
 }

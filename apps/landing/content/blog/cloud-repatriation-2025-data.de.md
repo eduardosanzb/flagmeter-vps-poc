@@ -44,11 +44,11 @@ Das Ziel ist nicht, alle Cloud-Dienste aufzugeben – sondern Workloads dort zu 
 
 Um klar zu sein: Repatriation beinhaltet Trade-offs:
 
-| Was man aufgibt | Was man gewinnt |
-|------------------|------------------|
+{{< tradeoffs >}}
 | Automatisches Skaling (man managt Kapazität) | Vorhersehbare, feste monatliche Kosten |
 | Einige Managed-Service-Komforts | Vollkontrolle über Daten und Stack |
 | Vendor-provided Compliance-Zertifizierungen | Kein Vendor-Lock-in oder Egress-Surprise-Rechnungen |
+{{< /tradeoffs >}}
 
 Für viele Teams, besonders mit vorhersehbaren Workloads, lohnt sich der Trade-off.
 

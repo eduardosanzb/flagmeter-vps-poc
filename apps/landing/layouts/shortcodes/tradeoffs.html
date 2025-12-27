@@ -1,0 +1,30 @@
+<div class="tradeoffs-container">
+  {{ range split .Inner "\n" }}
+    {{ $trimmed := trim . " \t\r\n" }}
+    {{ if and $trimmed (not (hasPrefix $trimmed "|--")) (not (hasPrefix $trimmed "| What")) (not (hasPrefix $trimmed "| Was")) }}
+      {{ $parts := split $trimmed "|" }}
+      {{ if ge (len $parts) 3 }}
+        {{ $giveUp := trim (index $parts 1) " \t" }}
+        {{ $gain := trim (index $parts 2) " \t" }}
+        {{ if and $giveUp $gain }}
+        <div class="tradeoff-card">
+          <div class="tradeoff-give-up">
+            <span class="tradeoff-label">You give up</span>
+            <span class="tradeoff-value">{{ $giveUp }}</span>
+          </div>
+          <div class="tradeoff-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+          </div>
+          <div class="tradeoff-gain">
+            <span class="tradeoff-label">You gain</span>
+            <span class="tradeoff-value">{{ $gain }}</span>
+          </div>
+        </div>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+</div>

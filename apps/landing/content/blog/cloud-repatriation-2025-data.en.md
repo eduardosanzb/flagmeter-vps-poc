@@ -48,11 +48,11 @@ Enterprises often have big contracts with cloud providers, driven by top-down ch
 
 To be clear, repatriation involves trade-offs:
 
-| What You Give Up | What You Gain |
-|------------------|---------------|
+{{< tradeoffs >}}
 | Automatic scaling (you manage capacity) | Predictable, fixed monthly costs |
 | Some managed service convenience | Full control over your data and stack |
 | Vendor-provided compliance certifications | No vendor lock-in or surprise egress bills |
+{{< /tradeoffs >}}
 
 For many teams, especially those with predictable workloads, the trade is worth it.
 
