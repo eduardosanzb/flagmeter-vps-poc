@@ -3,18 +3,14 @@
 <!-- Hero Section -->
 {{ partial "sections/hero.html" . }}
 
-<!-- Desktop Marquee (below hero) -->
+<!-- Desktop Marquee (below hero) - Full width -->
 <div class="hidden md:block bg-brand-accent py-2">
-  <div class="container-custom">
-    {{ partial "blog-marquee.html" . }}
-  </div>
+  {{ partial "blog-marquee.html" . }}
 </div>
 
-<!-- Mobile Sticky Marquee (bottom) -->
+<!-- Mobile Sticky Marquee (bottom) - Full width -->
 <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-brand-accent py-2 border-t border-brand-border">
-  <div class="container-custom">
-    {{ partial "blog-marquee.html" . }}
-  </div>
+  {{ partial "blog-marquee.html" . }}
 </div>
 
 <!-- Dynamic Sections Loop -->
