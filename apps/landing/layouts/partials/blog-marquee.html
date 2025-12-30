@@ -27,8 +27,11 @@
           {{ end }}
         {{ end }}
 
-        <!-- "Read more" separator -->
-        <span class="text-white/60 ml-2 mr-4">Read more →</span>
+        <!-- "Read more" link to blog -->
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}"
+           class="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors hover:underline ml-2 mr-4">
+          <span>{{ i18n "blog.readMore" }}</span>
+        </a>
       </div>
 
       <!-- Duplicate for seamless loop -->
@@ -55,8 +58,12 @@
           {{ end }}
         {{ end }}
 
-        <!-- "Read more" separator -->
-        <span class="text-white/40 ml-2 mr-4" aria-hidden="true">Read more →</span>
+        <!-- "Read more" link to blog -->
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}"
+           class="inline-flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors ml-2 mr-4"
+           aria-hidden="true">
+          <span>{{ i18n "blog.readMore" }}</span>
+        </a>
       </div>
     </div>
   </div>
