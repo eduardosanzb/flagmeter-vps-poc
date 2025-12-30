@@ -1,36 +1,4 @@
-<footer class="section-dark">
-  <div class="container-custom">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-brand-secondary/20 dark:border-gray-700">
-      <!-- Brand -->
-      <div>
-        <h3 class="text-2xl font-bold mb-4 text-white">raus.cloud</h3>
-        <p class="text-slate-300 dark:text-gray-400">{{ i18n "footer.built" }}</p>
-      </div>
-      
-      <!-- Quick Links -->
-      <div>
-        <h4 class="font-semibold mb-4 text-white">Quick Links</h4>
-        <ul class="space-y-2 text-slate-300 dark:text-gray-400">
-          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/#how-it-works{{ else }}/#how-it-works{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.howItWorks" }}</a></li>
-          <li><a href="{{ partial "components/blog-url.html" . }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "navigation.blog" }}</a></li>
-          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/#pricing{{ else }}/#pricing{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.pricing" }}</a></li>
-          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/#faq{{ else }}/#faq{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.faq" }}</a></li>
-          <li><a href="{{ if eq .Site.Language.Lang "de" }}/de/impressum{{ else }}/impressum{{ end }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "footer.impressum" }}</a></li>
-        </ul>
-      </div>
-      
-      <!-- Contact -->
-      <div>
-        <h4 class="font-semibold mb-4 text-white">Get Started</h4>
-        <a href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" class="btn btn-primary">
-          {{ i18n "cta.bookAudit" }}
-        </a>
-      </div>
-    </div>
-    
-    <!-- Copyright -->
-    <div class="pt-8 text-center text-slate-400 dark:text-gray-500 text-sm">
-      <p>{{ i18n "footer.copyright" }}</p>
-    </div>
-  </div>
-</footer>
+<!-- Mobile-only sticky marquee (60% prioritized) -->
+<div class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-brand-accent backdrop-blur-sm">
+  {{ partial "blog-marquee.html" . }}
+</div>

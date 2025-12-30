@@ -3,6 +3,13 @@
 <!-- Hero Section -->
 {{ partial "sections/hero.html" . }}
 
+<!-- Desktop marquee strip (below hero) -->
+<div class="hidden md:block bg-brand-accent py-2">
+  <div class="container-custom">
+    {{ partial "blog-marquee.html" . }}
+  </div>
+</div>
+
 <!-- Dynamic Sections Loop -->
 {{ range .Params.sections }}
   {{ partial "section.html" (dict "data" (index $.Params .) "context" $ "sectionName" .) }}

@@ -57,6 +57,39 @@
   .container-custom {
     @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
+
+  /* Marquee animation - CSS-only approach (no Tailwind) */
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .marquee-container {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .marquee-content {
+    display: inline-flex;
+    animation: marquee-scroll var(--marquee-speed, 15s) linear infinite;
+    gap: 1.5rem;
+  }
+
+  .marquee-content:hover {
+    animation-play-state: paused;
+  }
+
+  /* Mobile marquee adjustments */
+  @media (max-width: 768px) {
+    .marquee-content a {
+      font-size: 0.7rem;
+    }
+  }
 }
 
 @layer utilities {
@@ -137,11 +170,11 @@
       box-shadow: none;
     }
 
-    .prose-brand table thead {
+    .prose-brand thead {
       display: none;
     }
 
-    .prose-brand table tbody {
+    .prose-brand tbody {
       display: flex;
       flex-direction: column;
       gap: 8px;
