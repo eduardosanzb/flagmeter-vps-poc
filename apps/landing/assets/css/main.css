@@ -76,7 +76,7 @@
 
   .marquee-content {
     display: inline-flex;
-    animation: marquee-scroll var(--marquee-speed, 90s) linear infinite;
+    animation: marquee-scroll var(--marquee-speed, 100s) linear infinite;
     gap: 1.5rem;
   }
 
