@@ -1066,6 +1066,19 @@ h1:is(.dark *), h2:is(.dark *), h3:is(.dark *), h4:is(.dark *), h5:is(.dark *), 
     color: #6ee7b7;
     border-bottom-color: #374151;
   }
+
+  .prose-brand td:not(:first-child)::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: #6b7280;
+    margin-right: 8px;
+    display: inline-block;
+    min-width: 100px;
+  }
+
+  .dark .prose-brand td:not(:first-child)::before {
+    color: #9ca3af;
+  }
 }
 
 .prose-brand th {
@@ -1665,6 +1678,10 @@ h1:is(.dark *), h2:is(.dark *), h3:is(.dark *), h4:is(.dark *), h5:is(.dark *), 
 
 .inline-flex {
   display: inline-flex;
+}
+
+.table {
+  display: table;
 }
 
 .grid {
