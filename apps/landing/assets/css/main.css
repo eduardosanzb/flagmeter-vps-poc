@@ -84,10 +84,40 @@
     animation-play-state: paused;
   }
 
-  /* Mobile marquee adjustments */
+  /* Mobile: Make marquee horizontally scrollable */
   @media (max-width: 768px) {
+    .marquee-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    }
+    
+    .marquee-container::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    .marquee-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .marquee-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+    }
+    
+    .marquee-container::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    
+    .marquee-content {
+      animation: none; /* Disable animation on mobile */
+      padding-bottom: 8px; /* Space for scrollbar */
+    }
+    
     .marquee-content a {
-      font-size: 0.7rem;
+      font-size: 0.85rem;
     }
   }
 }
