@@ -58,32 +58,36 @@
     @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
 
-  /* Marquee animation */
-  @keyframes marquee {
+  /* Marquee animation - CSS-only approach (no Tailwind) */
+  @keyframes marquee-scroll {
     0% {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-50%);
+      transform: translateX(-100%);
     }
   }
 
-  :root {
-    --marquee-speed: 15s;
+  .marquee-container {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
   }
 
-  .animate-marquee {
-    animation: marquee var(--marquee-speed, 15s) linear infinite;
+  .marquee-content {
+    display: inline-flex;
+    animation: marquee-scroll var(--marquee-speed, 50s) linear infinite;
+    gap: 1.5rem;
   }
 
-  .animate-marquee:hover {
+  .marquee-content:hover {
     animation-play-state: paused;
   }
 
   /* Mobile marquee adjustments */
   @media (max-width: 768px) {
-    .animate-marquee a {
-      font-size: 0.85rem;
+    .marquee-content a {
+      font-size: 1rem;
     }
   }
 }
