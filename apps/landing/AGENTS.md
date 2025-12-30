@@ -120,3 +120,33 @@ Hugo static site generator for raus.cloud marketing site with bilingual support 
   - Internal links point to non-existent pages
   - Images referenced don't exist
 - Check console output for warnings during `pnpm dev`
+
+
+### Git Operations Policy (CRITICAL)
+
+**NEVER commit or push changes to git unless explicitly told by the user.**
+
+**This is a hard rule for this repository.**
+
+**When user requests changes:**
+1. Make file modifications locally
+2. Test with `pnpm dev` if needed
+3. Wait for user to explicitly say "commit" or "push"
+4. Only commit/push at that specific time
+5. Do not proactively commit or push
+
+**If you commit/push without permission:**
+- You will overwrite manual user changes
+- You will cause merge conflicts
+- You will revert important updates
+- **This breaks the repository state**
+
+**User must explicitly say one of:**
+- "commit this"
+- "push this"
+- "create a commit"
+- "push to remote"
+- "save to git"
+- Similar specific git action commands
+
+Until then: **NO GIT OPERATIONS** - only local file changes.
