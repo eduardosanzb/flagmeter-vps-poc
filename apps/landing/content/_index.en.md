@@ -7,6 +7,7 @@ sections:
   - how_it_works
   - principles
   - pillars
+  - blog_posts
   - pricing
   - faq
 # Hero Section
@@ -69,6 +70,11 @@ pillars:
     - title: "Tests + Runbooks"
       description: "Every migration includes integration tests, health checks, and a single-page runbook. No tribal knowledge, no bus factor."
  
+# Blog Posts Section
+blog_posts:
+  title: "Real-World Infrastructure Stories"
+  subtitle: "No theory, just results. Learn from our experiments and case studies."
+
 # Pricing Section
 pricing:
   title: "Transparent Pricing"
