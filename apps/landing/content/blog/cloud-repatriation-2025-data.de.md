@@ -185,7 +185,7 @@ Man braucht:
 
 Das ist keine Rundungsdifferenz. Das ist ein **1.400-facher Unterschied**.
 
-*Quelle: Unsere vollständige Analyse (Link folgt)*
+*Quelle:* [Unsere vollständige Analyse ](/de/blog/docker-swarm-test-11-euro-lesson/)
 
 ## Was dies bedeutet
 

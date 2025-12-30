@@ -3,12 +3,22 @@
 <!-- Hero Section -->
 {{ partial "sections/hero.html" . }}
 
+<!-- Desktop Marquee (below hero) - Full width -->
+<div class="hidden md:block bg-brand-accent py-2">
+  {{ partial "blog-marquee.html" . }}
+</div>
+
+<!-- Mobile Sticky Marquee (bottom) - Full width, no border -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-brand-accent py-2">
+  {{ partial "blog-marquee.html" . }}
+</div>
+
 <!-- Dynamic Sections Loop -->
 {{ range .Params.sections }}
   {{ partial "section.html" (dict "data" (index $.Params .) "context" $ "sectionName" .) }}
 {{ end }}
 
 <!-- Final CTA Section -->
-{{ partial "sections/cta.html" . }}
+{{  partial "sections/cta.html"  }}
 
 {{ end }}

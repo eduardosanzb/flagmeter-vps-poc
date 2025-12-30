@@ -425,5 +425,43 @@
       }
     });
   </script>
+
+  <!-- Table mobile labels -->
+  <script>
+    function initMobileTableLabels() {
+      // Only run on mobile
+      if (window.innerWidth > 768) return;
+      
+      const tables = document.querySelectorAll('.prose-brand table');
+      tables.forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => 
+          th.textContent.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim()
+        );
+        
+        // Skip if no headers found
+        if (headers.length === 0) return;
+        
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+          const cells = row.querySelectorAll('td');
+          cells.forEach((cell, index) => {
+            if (index > 0 && headers[index]) { // Skip first cell (row header)
+              cell.setAttribute('data-label', headers[index] + ':');
+            }
+          });
+        });
+      });
+    }
+
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', initMobileTableLabels);
+    
+    // Run on window resize (if switching between mobile/desktop)
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(initMobileTableLabels, 250);
+    });
+  </script>
 </body>
 </html>

@@ -28,7 +28,7 @@
   }
 
   .btn-primary {
-    @apply bg-brand-accent text-white hover:bg-blue-600 hover:shadow-lg dark:bg-brand-accent dark:hover:bg-emerald-600;
+    @apply bg-brand-accent text-white hover:bg-brand-accentDark  hover:shadow-lg dark:bg-brand-accent dark:hover:bg-emerald-600;
   }
 
   .btn-secondary {
@@ -56,6 +56,39 @@
   /* Container */
   .container-custom {
     @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  /* Marquee animation - CSS-only approach (no Tailwind) */
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .marquee-container {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .marquee-content {
+    display: inline-flex;
+    animation: marquee-scroll var(--marquee-speed, 100s) linear infinite;
+    gap: 1.5rem;
+  }
+
+  .marquee-content:hover {
+    animation-play-state: paused;
+  }
+
+  /* Mobile marquee adjustments */
+  @media (max-width: 768px) {
+    .marquee-content a {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -137,11 +170,11 @@
       box-shadow: none;
     }
 
-    .prose-brand table thead {
+    .prose-brand thead {
       display: none;
     }
 
-    .prose-brand table tbody {
+    .prose-brand tbody {
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -189,6 +222,19 @@
     .dark .prose-brand td:first-child {
       color: #6ee7b7;
       border-bottom-color: #374151;
+    }
+
+    .prose-brand td:not(:first-child)::before {
+      content: attr(data-label);
+      font-weight: 500;
+      color: #6b7280;
+      margin-right: 8px;
+      display: inline-block;
+      min-width: 100px;
+    }
+
+    .dark .prose-brand td:not(:first-child)::before {
+      color: #9ca3af;
     }
   }
 
