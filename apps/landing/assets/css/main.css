@@ -58,65 +58,31 @@
     @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
 
-  /* Marquee animation - CSS-only approach (no Tailwind) */
-  @keyframes marquee-scroll {
+  /* Marquee animation */
+  @keyframes marquee {
     0% {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-50%);
     }
   }
 
-  .marquee-container {
-    overflow: hidden;
-    position: relative;
-    white-space: nowrap;
+  :root {
+    --marquee-speed: 15s;
   }
 
-  .marquee-content {
-    display: inline-flex;
-    animation: marquee-scroll var(--marquee-speed, 50s) linear infinite;
-    gap: 1.5rem;
+  .animate-marquee {
+    animation: marquee var(--marquee-speed, 15s) linear infinite;
   }
 
-  .marquee-content:hover {
+  .animate-marquee:hover {
     animation-play-state: paused;
   }
 
-  /* Mobile: Make marquee horizontally scrollable */
+  /* Mobile marquee adjustments */
   @media (max-width: 768px) {
-    .marquee-container {
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-    }
-    
-    .marquee-container::-webkit-scrollbar {
-      height: 4px;
-    }
-    
-    .marquee-container::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    
-    .marquee-container::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 2px;
-    }
-    
-    .marquee-container::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.5);
-    }
-    
-    .marquee-content {
-      animation: none; /* Disable animation on mobile */
-      padding-bottom: 8px; /* Space for scrollbar */
-    }
-    
-    .marquee-content a {
+    .animate-marquee a {
       font-size: 0.85rem;
     }
   }
