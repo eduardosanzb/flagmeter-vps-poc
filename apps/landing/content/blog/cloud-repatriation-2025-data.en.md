@@ -188,7 +188,7 @@ You need:
 
 That's not a rounding error. That's a **1,400x difference**.
 
-*Source: [Our full analysis](/blog/docker-swarm-test-11-euro-lesson/) (also available in [German](/de/blog/docker-swarm-test-11-euro-lesson/))*
+*Source:* [Our full analysis](/blog/docker-swarm-test-11-euro-lesson/)
 
 ## What This Means
 
