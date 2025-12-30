@@ -3,8 +3,15 @@
 <!-- Hero Section -->
 {{ partial "sections/hero.html" . }}
 
-<!-- Marquee Strip (below hero, desktop only) -->
+<!-- Desktop Marquee (below hero) -->
 <div class="hidden md:block bg-brand-accent py-2">
+  <div class="container-custom">
+    {{ partial "blog-marquee.html" . }}
+  </div>
+</div>
+
+<!-- Mobile Sticky Marquee (bottom) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-brand-accent py-2 border-t border-brand-border">
   <div class="container-custom">
     {{ partial "blog-marquee.html" . }}
   </div>
@@ -16,6 +23,6 @@
 {{ end }}
 
 <!-- Final CTA Section -->
-{{ partial "sections/cta.html" . }}
+{{  partial "sections/cta.html"  }}
 
 {{ end }}
