@@ -13,16 +13,16 @@
           <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-white/20 rounded-full">
             <span class="text-xs font-bold uppercase text-white">NEW</span>
           </span>
-          <span class="font-bold text-white">{{ (index $latestPosts 0).Title }}</span>
+          <span class="font-bold text-white hover:underline">{{ (index $latestPosts 0).Title }}</span>
         </a>
 
         <!-- Other posts -->
         {{ range $index, $latestPosts }}
           {{ if ne $index 0 }}
             <a href="{{ .RelPermalink }}"
-               class="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors">
+               class="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors hover:underline">
               <span class="text-white/50">●</span>
-              <span class="font-medium text-white">{{ .Title }}</span>
+              <span class="font-medium text-white hover:underline">{{ .Title }}</span>
             </a>
           {{ end }}
         {{ end }}
