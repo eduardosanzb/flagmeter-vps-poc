@@ -34,7 +34,100 @@
         </a>
       </div>
 
-      <!-- Duplicate for seamless loop -->
+      <!-- Duplicate 5x for seamless loop (more duplicates = less restart on wide screens) -->
+      <div class="inline-flex gap-6">
+        <!-- Latest post with NEW tag -->
+        <a href="{{ (index $latestPosts 0).RelPermalink }}"
+           class="inline-flex items-center gap-2 text-white/70 hover:text-white/70 transition-colors"
+           aria-hidden="true">
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-white/20 rounded-full">
+            <span class="text-xs font-bold uppercase text-white/90">NEW</span>
+          </span>
+          <span class="font-semibold text-white/90">{{ (index $latestPosts 0).Title | truncate 50 "..." }}</span>
+        </a>
+
+        <!-- Other posts -->
+        {{ range $index, $latestPosts }}
+          {{ if ne $index 0 }}
+            <a href="{{ .RelPermalink }}"
+               class="inline-flex items-center gap-2 text-white/50 hover:text-white/70 transition-colors"
+               aria-hidden="true">
+              <span class="text-white/30">●</span>
+              <span class="font-medium text-white/70">{{ .Title | truncate 50 "..." }}</span>
+            </a>
+          {{ end }}
+        {{ end }}
+
+        <!-- "Read more" link to blog -->
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}"
+           class="inline-flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors ml-2 mr-4"
+           aria-hidden="true">
+          <span>{{ i18n "blog.readMore" }}</span>
+        </a>
+      </div>
+
+      <div class="inline-flex gap-6">
+        <!-- Latest post with NEW tag -->
+        <a href="{{ (index $latestPosts 0).RelPermalink }}"
+           class="inline-flex items-center gap-2 text-white/70 hover:text-white/70 transition-colors"
+           aria-hidden="true">
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-white/20 rounded-full">
+            <span class="text-xs font-bold uppercase text-white/90">NEW</span>
+          </span>
+          <span class="font-semibold text-white/90">{{ (index $latestPosts 0).Title | truncate 50 "..." }}</span>
+        </a>
+
+        <!-- Other posts -->
+        {{ range $index, $latestPosts }}
+          {{ if ne $index 0 }}
+            <a href="{{ .RelPermalink }}"
+               class="inline-flex items-center gap-2 text-white/50 hover:text-white/70 transition-colors"
+               aria-hidden="true">
+              <span class="text-white/30">●</span>
+              <span class="font-medium text-white/70">{{ .Title | truncate 50 "..." }}</span>
+            </a>
+          {{ end }}
+        {{ end }}
+
+        <!-- "Read more" link to blog -->
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}"
+           class="inline-flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors ml-2 mr-4"
+           aria-hidden="true">
+          <span>{{ i18n "blog.readMore" }}</span>
+        </a>
+      </div>
+
+      <div class="inline-flex gap-6">
+        <!-- Latest post with NEW tag -->
+        <a href="{{ (index $latestPosts 0).RelPermalink }}"
+           class="inline-flex items-center gap-2 text-white/70 hover:text-white/70 transition-colors"
+           aria-hidden="true">
+          <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-white/20 rounded-full">
+            <span class="text-xs font-bold uppercase text-white/90">NEW</span>
+          </span>
+          <span class="font-semibold text-white/90">{{ (index $latestPosts 0).Title | truncate 50 "..." }}</span>
+        </a>
+
+        <!-- Other posts -->
+        {{ range $index, $latestPosts }}
+          {{ if ne $index 0 }}
+            <a href="{{ .RelPermalink }}"
+               class="inline-flex items-center gap-2 text-white/50 hover:text-white/70 transition-colors"
+               aria-hidden="true">
+              <span class="text-white/30">●</span>
+              <span class="font-medium text-white/70">{{ .Title | truncate 50 "..." }}</span>
+            </a>
+          {{ end }}
+        {{ end }}
+
+        <!-- "Read more" link to blog -->
+        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}"
+           class="inline-flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors ml-2 mr-4"
+           aria-hidden="true">
+          <span>{{ i18n "blog.readMore" }}</span>
+        </a>
+      </div>
+
       <div class="inline-flex gap-6">
         <!-- Latest post with NEW tag -->
         <a href="{{ (index $latestPosts 0).RelPermalink }}"
