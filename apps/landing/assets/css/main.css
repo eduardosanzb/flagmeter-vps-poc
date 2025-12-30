@@ -28,7 +28,7 @@
   }
 
   .btn-primary {
-    @apply bg-brand-accent text-white hover:bg-blue-600 hover:shadow-lg dark:bg-brand-accent dark:hover:bg-emerald-600;
+    @apply bg-brand-accent text-white hover:bg-brand-accentDark  hover:shadow-lg dark:bg-brand-accent dark:hover:bg-emerald-600;
   }
 
   .btn-secondary {
