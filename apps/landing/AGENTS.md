@@ -98,6 +98,89 @@ Hugo static site generator for raus.cloud marketing site with bilingual support 
 4. Add images: Place in `static/images/blog/`
 5. Test locally: `pnpm dev`, visit http://localhost:1313/blog/my-post/
 
+### German Translation Guidelines
+
+**Goal:** Make translations sound natural and conversational, not like literal translations.
+
+**Tone & Style:**
+- Use informal "du" form, NOT formal "Sie" (standard in German tech community)
+- Write like a native German tech blogger would write
+- Be direct and casual, avoid overly formal business German
+- Mix German/English tech terms naturally (Denglisch is authentic in German tech writing)
+
+**Technical Terms - When to Use English:**
+Use English terms that are commonly used in German tech circles:
+- Performance, Throughput, Latency, Bottleneck
+- Scale/Scaling, Load Balancing, Failover
+- Setup, Stack, Pipeline, Deployment
+- Infrastructure, Cloud, On-premise
+- Best Practice, Use Case, Proof of Concept
+- RPS (Requests per Second), CPU, RAM, vCPU
+- Single-node, Multi-node, Distributed
+- Baseline, Benchmark, Test Case
+
+**Technical Terms - When to Use German:**
+Use German for general concepts and actions:
+- kosten/Kosten (cost/costs)
+- Server (same in both languages)
+- testen/Test (test/testing)
+- gewinnt/verliert (wins/loses)
+- schneller/langsamer (faster/slower)
+
+**Common Patterns:**
+
+❌ **Avoid (too literal/formal):**
+- "Sie müssen die Konfiguration anpassen" → ❌ Too formal
+- "Durchsatz" → ❌ Germans say "Throughput"
+- "Flaschenhals" → ❌ Germans say "Bottleneck"
+- "Skalierung" → ❌ Germans say "Scale" or "Scaling"
+- "bewältigen Sie" → ❌ Too formal
+- "Leistung" → ❌ Germans say "Performance"
+
+✅ **Use instead (natural German tech slang):**
+- "Du musst die Config anpassen" → ✅ Natural
+- "Throughput" → ✅ Natural
+- "Bottleneck" → ✅ Natural
+- "Scale/Scaling" → ✅ Natural
+- "handlen" (handle) → ✅ Natural
+- "Performance" → ✅ Natural
+
+**Sentence Structure:**
+- Keep it punchy and direct
+- Use contractions naturally: "hat's" instead of "hat es"
+- Mix verb forms: "gewinnt" (wins), "killt" (kills), "crashed" (crashed)
+- Use English verbs germanized: "handlen", "testen", "deployen", "scalen"
+
+**Examples of Natural Tech German:**
+
+Good:
+- "Der single CAX21 schlägt alles"
+- "Traefik hat 180% CPU gefressen"
+- "Das Setup ist simple"
+- "Wir haben vier Tests durchgeführt"
+- "Performance-Overhead killt die Latency"
+- "Zero errors, aber langsam"
+
+Bad (too literal):
+- "Der einzelne CAX21 gewinnt alles"
+- "Traefik verbrauchte 180% CPU"
+- "Die Einrichtung ist einfach"
+- "Wir führten vier Tests durch"
+- "Leistungs-Overhead tötet die Latenz"
+- "Keine Fehler, aber langsam"
+
+**Translation Process:**
+1. Read the English version completely first
+2. Understand the tone and message
+3. Rewrite in German as if you were a German tech blogger writing originally
+4. Don't translate word-for-word
+5. Keep technical terms in English where natural
+6. Use "du" form consistently
+7. Read it out loud - does it sound natural or stilted?
+
+**Final Check:**
+Ask yourself: "Would a native German developer write it this way?" If it sounds like a translation, rewrite it.
+
 ### Key Files Reference
 - `layouts/_default/baseof.html` - Base template (header, footer, scripts)
 - `layouts/partials/header.html` - Navigation with language switcher
