@@ -288,12 +288,13 @@ gh issue create --repo eduardosanzb/eduardosanzb --title "New Initiative" --labe
 - AWS reality: Lambda deployment = €10,560/mo vs €7.59/mo VPS
 - Key data: Cost per 100 RPS comparison, month-by-month AWS escalation (€200 → €8,000)
 
-**Article 2: "Zero DevOps: Deploy Production Infrastructure with Coolify"** 🔜 Coming Soon
+**Article 2: "The Lean DevOps Stack: From Git Push to Production in 2 Minutes"** ✅ Published (EN + DE)
 - Target: Founders who want to ship features, not debug Kubernetes
 - Core message: Production-grade infrastructure without DevOps expertise
-- Tools covered: Coolify (PaaS), Docker Compose (simple orchestration), basic Terraform (optional IaC)
+- Tools covered: Coolify (PaaS), Docker Compose (simple orchestration), Terraform (IaC)
 - Focus: Developer experience over operational complexity
 - Proof: Deploy FlagMeter with auto-HTTPS, zero-downtime deployments, branch previews in <30 min
+- Key data: 2-3 minute deploys, €11.38/mo total cost, 147+ successful deployments
 
 **Article 3: "The €8 to €800 Scaling Roadmap"** 🔜 Coming Soon
 - Target: Founders planning growth from launch to scale
@@ -301,6 +302,15 @@ gh issue create --repo eduardosanzb/eduardosanzb --title "New Initiative" --labe
 - Roadmap: CAX11 (€3.79) → CAX21 (€7.59) → CAX31 (€14.90) → CAX41 (€28.49)
 - When to distribute: Only after maxing out largest VPS (~1,500-2,000 RPS)
 - Cost comparison: €1.50-1.90 per 100 RPS (VPS) vs €50-80 per 100 RPS (AWS)
+
+**Article 5: "Self-Running Databases in Production: The €7.59 Reality Check"** ✅ Published (EN + DE)
+- Target: Founders deciding between managed (RDS) and self-hosted PostgreSQL
+- Core message: Truth-seeking analysis, neither option is universally better
+- Methodology: Hegelian dialectic analysis (thesis/antithesis/synthesis) across 8 dimensions
+- Key finding: Self-hosted wins 6 of 8 dimensions for bootstrapped SaaS (<2,000 RPS)
+- Cost comparison: €7.59/mo (self-hosted) vs $200-500/mo (RDS) = 925x cost difference
+- Research: 50+ sources, 8 Hegelian agents, documented in Outline
+- Decision framework: Mermaid flowchart based on team maturity, scale, compliance, budget
 
 ### Marketing Strategy
 See Outline: "Marketing Strategy: Infrastructure Repatriation Blog Series"
