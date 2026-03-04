@@ -1,138 +1,150 @@
 ---
 title: "Infrastruktur ohne DevOps"
-# Reihenfolge der Abschnitte (kann leicht geändert werden!)
+
 sections:
   - who_we_are
   - how_it_works
+  - sovereignty
   - principles
   - pillars
   - blog_posts
   - pricing
   - faq
-# Hero-Abschnitt
+
 hero:
-  title: "Hören Sie auf, für Cloud-Komplexität zu bezahlen. Übernehmen Sie die Kontrolle über Ihre Infrastruktur."
-  subtitle: "Infrastruktur-Migrationsberatung für europäische B2B-SaaS-Teams. Wir entwerfen Architekturen rund um Ihre Geschäftsbedürfnisse – nicht um Vendor-Lock-in. VPS, Hybrid oder Multi-Cloud. Ihr Team besitzt sie vollständig."
-  cta_primary: "Kostenloses Audit erhalten"
+  title: "Feuere deinen Cloud-Provider. Rette dein Runway."
+  subtitle: "Europäische B2B-SaaS-Teams zahlen €8k+/Monat für Infrastruktur, die sie nicht verlassen können. Wir senken die Kosten um 60%, bringen eure Daten in EU-Jurisdiktion, und übergeben euch einen Stack, den euer Team vollständig besitzt – in 90 Tagen."
+  cta_primary: "Kostenloses Audit"
   cta_secondary: "So funktioniert's"
-# Abschnitt „Wer wir sind"
+
 who_we_are:
-  title: "Wir sind Ingenieure, die das schon durchgemacht haben"
-  subtitle: "Entwickelt in der Praxis, nicht in der Theorie"
+  title: "Wir sind Engineers, die das schon erlebt haben"
+  subtitle: "Aus der Praxis, nicht aus der Theorie"
   items:
-    - title: "Ingenieure zuerst"
-      description: "Wir haben Produktionssysteme im großen Maßstab für echte Nutzer betrieben. Wir testen unsere Ansätze, bevor wir sie empfehlen – wir haben FlagMeter gebaut, um zu beweisen, dass ein €7,59/Monat VPS 500+ RPS bewältigt."
-    - title: "Cloud-Skeptiker"
-      description: "Wir haben €8.000/Monat AWS-Rechnungen für 100 RPS Workloads gesehen. Manchmal schlägt ein €50 VPS ein €5.000 Lambda-Setup. Infrastruktur sollte Ihrem Geschäft dienen – nicht es besitzen."
-    - title: "Verschwindender Akt"
-      description: "Deployen Sie mit 'git push', debuggen Sie mit 'docker logs'. Nach 90 Tagen brauchen Sie uns nicht mehr. Das ist Erfolg, kein Misserfolg."
-# Abschnitt „So funktioniert's"
+    - title: "Engineers First"
+      description: "Wir haben Production-Systeme im großen Maßstab gebaut – und gesehen, wie Vendor-Dependency Teams zerstört. Wir haben bewiesen, dass ein €7.59/Monat EU-VPS 500+ RPS schafft, weil die Alternative tatsächlich funktioniert."
+    - title: "Cloud Skeptics"
+      description: "Wir haben €8k/Monat AWS-Rechnungen für 100 RPS gesehen. Wir haben gesehen, wie der eine Engineer, der CloudFormation verstanden hat, gekündigt hat. Vendor-Dependency ist ein Business-Risiko. Wir behandeln es so."
+    - title: "Disappearing Act"
+      description: "Nach 90 Tagen liegt jede Config in eurem Repo, jedes Tool ist Standard, jede Entscheidung liegt bei euch. Deployen, debuggen, scalen – ohne uns, ohne AWS, ohne die Erlaubnis von irgendjemandem."
+
 how_it_works:
-  title: "Drei Schritte zur Freiheit"
-  subtitle: "Von der Bewertung bis zur Eigenverantwortung – in Wochen, nicht in Quartalen"
+  title: "Drei Steps zur Unabhängigkeit"
+  subtitle: "Von Vendor-Dependency zu Full Ownership in Wochen, nicht Quartalen"
   items:
     - number: "01"
-      title: "Kostenloses Architektur-Audit (1–2 Stunden)"
-      description: "Wir analysieren Ihre Infrastruktur, Architektur und Geschäftsanforderungen. Sie erhalten eine detaillierte Bewertung mit Optimierungsmöglichkeiten – kein Verkaufsgespräch, keine Verpflichtung."
+      title: "Free Independence Audit (1-2 Stunden)"
+      description: "Wir mappen eure Infrastruktur, Vendor-Dependencies und Data-Residency-Gaps. Ihr seht, was Bleiben kostet und wie Freiheit aussieht. Kein Pitch, keine Verpflichtung."
     - number: "02"
-      title: "Pilot-Migration (€3.000, 1 Woche)"
-      description: "Migrieren Sie 1–3 Services basierend auf Komplexität und Einsparpotenzial. Beweisen Sie den Ansatz mit echten Kostensenkungen, bevor Sie sich für den gesamten Stack verpflichten."
+      title: "Pilot Migration (€3k, 1 Woche)"
+      description: "Migriere 1-3 Services zu souveräner EU-Infrastruktur. Eliminiere deine erste Vendor-Dependency. Beweise die Ersparnis, bevor du dich für den Full-Stack entscheidest."
     - number: "03"
-      title: "Vollständige Migration (Individuelle Preisgestaltung)"
-      description: "Vollständige Infrastrukturtransformation. Ihr Team wird in Deploys, Debugging und Skalierung geschult. Runbook wird übergeben. Wir geben Ihnen die Schlüssel."
-# Abschnitt „Unsere Arbeitsprinzipien"
+      title: "Full Migration (Individuelles Pricing)"
+      description: "Komplette operative Unabhängigkeit. Dein Team trainiert auf Deploys, Debugging und Scaling – ohne uns. Jede Config in deinem Repo. Runbook delivered. Wir verschwinden."
+
+sovereignty:
+  title: "Warum operative Souveränität zählt"
+  subtitle: "Vendor-Dependency ist nicht nur teuer. Es ist ein Business-Risiko."
+  items:
+    - title: "Schütz dein Runway"
+      description: "AWS hat Egress-Preise 2024 verdreifacht. Selbst nach Hetzners jüngster Anpassung zahlst du 10x weniger als bei AWS. Wichtiger: Standard Docker heißt, du kannst in Stunden zu jedem Provider wechseln. Dein Runway ist nicht von irgendjemandem abhängig."
+      icon: "shield"
+    - title: "Deine Daten. EU Jurisdiktion."
+      description: "Alle Infrastruktur in EU-Rechenzentren. GDPR-konform by Default. Kein US CLOUD Act Exposure. Deine Kundendaten überqueren nie eine Grenze ohne deine explizite Entscheidung."
+      icon: "globe"
+    - title: "Zero Lock-in. Keine Ausnahmen."
+      description: "Jede Config liegt in deinem GitHub-Repo. Standard Docker + PostgreSQL + Nginx – jeder Engineer kann es betreiben. Du bist nie eine Preiserhöhung von einer Krise entfernt."
+      icon: "unlock"
+    - title: "Own Every Decision"
+      description: "Nach 90 Tagen: Deploy mit `git push`, Debug mit `docker logs`, Scale ohne jemanden anzurufen. Kein Vendor zum Verhandeln. Keine Genehmigung nötig."
+      icon: "key"
+
 principles:
   title: "Wie wir arbeiten"
-  subtitle: "Effizienz durch Design, nicht durch Zufall"
+  subtitle: "Effizienz by Design, Unabhängigkeit by Default"
   items:
-    - title: "Geschäftsorientierte Architektur"
-      description: "Wir entwerfen Infrastruktur rund um Ihre Geschäftsbedürfnisse und Wachstumstrajektorie. Datengetriebene Entscheidungen über VPS vs. Hybrid vs. Multi-Cloud – nicht Raten oder Vendor-Bias."
+    - title: "Business-First Architecture"
+      description: "Jede Entscheidung beginnt mit: Erzeugt das eine Dependency, die du nicht willst? VPS für Vorhersagbarkeit, Hybrid wenn bewiesen nötig. Dein Business treibt den Stack – nicht Vendor-Incentives."
       icon: "chart-bar"
-    - title: "Keine regelmäßigen Meetings"
-      description: "Alle Updates erfolgen über GitHub-Issues und Pull Requests. Ihr Team bleibt fokussiert auf die Feature-Entwicklung, nicht auf Standups."
+    - title: "Keine Recurring Meetings"
+      description: "Alle Updates in GitHub Issues und PRs. Dein Team shipt Features, statt an Standups teilzunehmen."
       icon: "calendar-x"
-    - title: "Asynchron als Standard"
-      description: "Kontext in Issues, Reviews in Pull Requests, Entscheidungen in Kommentaren. Zusammenarbeit über Zeitzonen hinweg – ohne Reibungsverluste."
+    - title: "Async by Default"
+      description: "Context in Issues, Reviews in PRs, Decisions in Comments. Arbeit über Zeitzonen hinweg ohne Friction."
       icon: "message-circle"
-    - title: "Wir feuern uns selbst"
-      description: "Jede Konfiguration landet in Ihrem Repository. Nach 90 Tagen brauchen Sie uns nicht mehr. Das ist Erfolg."
+    - title: "We Fire Ourselves"
+      description: "Jede Config landet in deinem Repo. Nach 90 Tagen brauchst du uns nicht mehr – und keinen Vendor. Das ist der Vertrag."
       icon: "check-circle"
-# Abschnitt „Qualitätsgrundsätze"
-pillars:
-  title: "Was Sie erhalten"
-  subtitle: "Nicht verhandelbare Elemente, die unsere Leistungen definieren"
-  items:
-    - title: "Geschäftsorientierte Architektur"
-      description: "Infrastruktur, die für Ihre Wachstumstrajektorie und Geschäftsmodell entworfen wurde. VPS für Vorhersagbarkeit, Hybrid für spezifische Bedürfnisse, Multi-Cloud nur wenn nachweislich notwendig. Kein Vendor-Lock-in."
-    - title: "Stärkung Ihres Engineering-Teams"
-      description: "Deployen Sie mit 'git push', debuggen Sie mit 'docker logs' – kein YAML, kein IAM, keine 7-Service-Pipeline. Ihr Team besitzt die Produktion vollständig."
-    - title: "Tests + Runbooks"
-      description: "Jede Migration beinhaltet Integrationstests, Health Checks und ein einseitiges Runbook. Kein Insider-Wissen, kein Bus-Faktor."
- 
-# Blog-Beiträge
-blog_posts:
-  title: "Praxisnahe Infrastruktur-Geschichten"
-  subtitle: "Keine Theorie, nur Ergebnisse. Lernen Sie aus unseren Experimenten und Fallstudien."
 
-# Preisgestaltung
+pillars:
+  title: "Was du bekommst"
+  subtitle: "Non-Negotiables, die unsere Deliverables definieren"
+  items:
+    - title: "Resiliente, Souveräne Architektur"
+      description: "Bewiesen bei 500+ RPS auf €7.59/Monat. EU Data Residency by Default. Kein Vendor Lock-in. Infrastruktur designed für dein Wachstum – nicht für das Pricing-Modell eines Hyperscalers."
+    - title: "Engineer Empowerment"
+      description: "Deploy mit `git push`, Debug mit `docker logs` – kein IAM, keine 7-Service-Pipeline, kein Tribal Knowledge. Dein Team owns Production komplett."
+    - title: "Tests + Runbooks"
+      description: "Jede Migration inkludiert Integration Tests, Health Checks und ein One-Page Runbook. Kein Bus Factor. Kein Knowledge, das mit jemandem rausgeht."
+
+blog_posts:
+  title: "Praxisnahe Infrastruktur-Stories"
+  subtitle: "Keine Theorie. Kein Vendor-Pitch. Nur was wirklich passiert ist, als wir es getestet haben."
+
 pricing:
   title: "Transparente Preise"
-  subtitle: "Bezahlen Sie für Ergebnisse, nicht für Stunden"
+  subtitle: "Du zahlst für Ergebnisse. Wir messen Erfolg an deiner Unabhängigkeit."
   items:
-    - name: "Architektur-Audit"
+    - name: "Architecture Audit"
       price: "€0"
-      description: "Umfassende Bewertungssession"
+      description: "Umfassendes Independence-Assessment"
       features:
-        - "Review von Infrastruktur, Architektur & Geschäftsbedürfnissen"
-        - "Identifikation von Optimierungsmöglichkeiten"
-        - "Zukunft: Verweis auf Open-Source-Blueprints"
-        - "Keine Verpflichtung, kein Verkaufsgespräch"
+        - "Map deine Vendor-Dependencies und Lock-in-Risiken"
+        - "EU Data Residency Gap-Analysis"
+        - "Identifiziere €2k+/Monat an sofortigen Ersparnissen"
+        - "Keine Verpflichtung, kein Pitch"
       cta: "Jetzt buchen"
       highlighted: false
-    - name: "Pilot-Migration"
-      price: "€3.000"
-      description: "1-wöchiger Proof of Concept"
+    - name: "Pilot Migration"
+      price: "€3k"
+      description: "1-Wochen Proof of Concept"
       features:
-        - "Migration von 1–3 Services (komplexitätsbasiert)"
-        - "Demonstration echter Kosteneinsparungen"
-        - "Operativer Nachweis vor vollständiger Verpflichtung"
+        - "Migriere 1-3 Services zu souveräner EU-Infrastruktur"
+        - "Eliminiere deine erste Vendor-Dependency"
+        - "Demonstriere echte Kosteneinsparungen vor vollem Commitment"
       cta: "Pilot starten"
       highlighted: false
-    - name: "Vollständige Migration"
-      price: "individuell"
-      description: "End-to-End-Transformation"
+    - name: "Full Migration"
+      price: "Individuell"
+      description: "End-to-End operative Unabhängigkeit"
       features:
-        - "Vollständige Infrastrukturmigration"
-        - "Team-Schulung + Runbook-Übergabe"
-        - "Optionaler Support nach der Migration"
-      cta: "Lassen Sie uns sprechen"
+        - "Komplette Migration zu resilienter, souveräner Infrastruktur"
+        - "Team trainiert auf Deploys, Debugging und Scaling"
+        - "Runbook delivered. Keys handed over. We disappear."
+      cta: "Lass uns sprechen"
       highlighted: false
-# FAQ-Abschnitt
+
 faq:
   title: "Häufig gestellte Fragen"
-  subtitle: "Einwandbehandlung – Ingenieur zu Ingenieur"
+  subtitle: "Einwände behandeln – Engineer zu Engineer"
   items:
     - question: "Warum VPS statt Cloud?"
-      answer: "VPS bietet vorhersehbare Kosten und Einfachheit. Wir kombinieren es mit Cloudflare für Edge-Fälle (z. B. CDN, DDoS). Kein Vendor-Lock-in, kein YAML-Albtraum."
+      answer: "VPS gibt dir vorhersagbare Kosten und operative Unabhängigkeit. Wir paaren es mit Cloudflare für CDN und DDoS-Schutz. Kein Lock-in, kein YAML-Hell, kein Vendor, der deine Architektur als Geisel hält."
     - question: "Wie skaliert das?"
-      answer: 'Vertikale Skalierung bringt Sie problemlos zu 50.000 Nutzern. Erst dann fügen wir Read-Replikas hinzu – nicht früher. Die meisten „Skalierungsprobleme" sind vorzeitige Optimierung.'
+      answer: "Vertikales Scaling bringt dich locker zu 50k Usern. Wenn du das erreichst, fügen wir Read-Replicas hinzu – nicht vorher. Die meisten 'Scale'-Probleme sind premature Optimization, die dir von Vendors verkauft wird, die von Komplexität profitieren."
     - question: "Wo ist der Haken?"
-      answer: 'Wir sind nicht die richtige Wahl, wenn Sie heute schon Multi-Region-Failover benötigen oder Kubernetes für „einfach" halten. Dieses Angebot richtet sich an Teams, die Features liefern wollen – nicht Infrastruktur verwalten.'
+      answer: "Wir passen nicht, wenn du heute Multi-Region-Failover brauchst oder Kubernetes für 'einfach' hältst. Das ist für Teams, die Features shippen wollen – nicht Infrastruktur managen."
     - question: "Was passiert, wenn der VPS ausfällt?"
-      answer: 'Wir betreiben zwei Instanzen mit einer Floating IP. Günstiger als eine EC2-Instanz mit Redundanz – und Failover erfolgt automatisch.'
-    - question: "Werden Investoren nicht nervös?"
-      answer: 'Hetzner ist ein europäisches Unternehmen mit über 1 Mrd. € Umsatz und besserer Verfügbarkeit als viele AWS-Setups junger Unternehmen. Das ist kein Raspberry Pi unter Ihrem Schreibtisch – sondern Enterprise-Infrastruktur ohne Komplexitätsaufschlag.'
-    - question: "Wie sieht es mit DSGVO-Konformität aus?"
-      answer: "Die gesamte Infrastruktur bleibt in EU-Rechenzentren. Hetzner ist standardmäßig DSGVO-konform. Bei Bedarf stellen wir gern Auftragsverarbeitungsvereinbarungen bereit."
-    - question: "Wie schafft ihr Kontext ohne Meetings?"
-      answer: 'Kurzes Loom-Video + Link zum GitHub-Issue. Das war''s. Wir lesen Ihren Code, stellen Fragen in Kommentaren und liefern Pull Requests. Die meisten „Meetings" sind nur Status-Updates, die asynchron möglich sind.'
-    - question: "Was ist bei Notfällen?"
-      answer: 'Optional für €500/Monat stehen wir Ihnen 90 Tage lang über PagerDuty zur Verfügung. Danach sollten Sie uns nicht mehr brauchen – aber wir sind per DM erreichbar, falls doch.'
-    - question: "Wie gewährleistet ihr finanzielle Verantwortlichkeit?"
-      answer: "Wir integrieren FinOps-Praktiken direkt in Ihren Workflow, sodass technische Entscheidungen stets mit Geschäftszielen abgestimmt sind."
-    - question: "Müssen wir eure Tools nutzen?"
-      answer: "Nein. Wir passen uns Ihrem Workflow an. Unser Ziel ist es, nahtlos in Ihre bestehenden Prozesse zu verschwinden."
-# Social-Proof-Abschnitt (optional für die Zukunft)
+      answer: "Wir betreiben zwei Instanzen mit einer Floating IP. Billiger als eine EC2 mit Redundancy, und Failover ist automatisch. Du besitzt beide Instanzen und die Failover-Config – kein Vendor zum Anrufen."
+    - question: "Werden Investoren nervös?"
+      answer: "Hetzner ist ein €1B EU-Unternehmen mit besserer Uptime als die AWS-Setups der meisten Startups. Das ist kein Pi unter dem Schreibtisch – sondern Enterprise-Infrastruktur ohne Complexity-Tax."
+    - question: "Was ist mit DSGVO-Konformität?"
+      answer: "Alle Infrastruktur bleibt in EU-Rechenzentren. Hetzner ist DSGVO-konform by Default – keine DPA-Verhandlungen mit einem US-Vendor. AVV können wir bei Bedarf bereitstellen."
+    - question: "Tauschen wir AWS-Lock-in gegen Hetzner-Lock-in?"
+      answer: "Nein. AWS-Lock-in bedeutet proprietäre Services (Lambda, RDS, IAM, CloudFormation), die nur auf AWS laufen. Unser Stack ist Docker + Standard-PostgreSQL + Nginx. Gleiche Tools, beliebiger Provider. Du migrierst in Stunden."
+    - question: "Was wenn Hetzner die Preise wieder erhöht?"
+      answer: "Standard Docker Compose + PostgreSQL heißt: Du migrierst in Stunden zu jedem VPS-Provider. Kein CloudFormation zu reverse-engineeren, keine IAM-Policies zu entwirren. Das ist der Punkt: Du bist bei niemandem eingesperrt."
+
 testimonials:
   title: "Was CTOs sagen"
   items: []

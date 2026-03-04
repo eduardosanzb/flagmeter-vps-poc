@@ -1,0 +1,70 @@
+[language]
+other = "ES"
+
+[languageSwitch]
+other = "Cambiar a Español"
+
+[navigation]
+[navigation.home]
+other = "Inicio"
+
+[navigation.pricing]
+other = "Precios"
+
+[navigation.faq]
+other = "FAQ"
+
+[navigation.blog]
+other = "Casos de Estudio"
+
+[cta]
+[cta.bookAudit]
+other = "Auditoría Gratuita"
+
+[cta.learnMore]
+other = "Más Información"
+
+[section]
+[section.howItWorks]
+other = "Cómo Funciona"
+
+[section.principles]
+other = "Principios de Operación"
+
+[section.pillars]
+other = "Pilares de Calidad"
+
+[section.pricing]
+other = "Precios Transparentes"
+
+[section.faq]
+other = "Preguntas Frecuentes"
+
+[footer]
+[footer.copyright]
+other = "© 2025 Raus.cloud. Todos los derechos reservados."
+
+[footer.built]
+other = "Infraestructura sin DevOps"
+
+[footer.impressum]
+other = "Aviso Legal"
+
+[blog]
+[blog.readMore]
+other = "Leer más →"
+
+[blog.viewAll]
+other = "Ver Todos los Casos →"
+
+[blog.ctaTitle]
+other = "¿Listo para Simplificar tu Infraestructura?"
+
+[blog.ctaDescription]
+other = "Déjanos mostrarte cómo reducir tus costes de nube y simplificar tus operaciones."
+
+[blog.ctaButton]
+other = "Reservar Consultoría Gratuita"
+
+[blog.backToBlog]
+other = "← Volver a los Casos de Estudio"

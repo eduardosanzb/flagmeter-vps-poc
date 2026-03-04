@@ -56,3 +56,15 @@ other = "Read more →"
 
 [blog.viewAll]
 other = "View All Case Studies →"
+
+[blog.ctaTitle]
+other = "Ready to Simplify Your Infrastructure?"
+
+[blog.ctaDescription]
+other = "Let us show you how to cut your cloud costs and simplify your operations."
+
+[blog.ctaButton]
+other = "Book Free Consultation"
+
+[blog.backToBlog]
+other = "← Back to Case Studies"

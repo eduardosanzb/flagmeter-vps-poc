@@ -53,7 +53,7 @@
   {{ end }}
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:locale" content="{{ if eq .Site.Language.Lang "de" }}de_DE{{ else }}en_US{{ end }}">
+  <meta property="og:locale" content="{{ if eq .Site.Language.Lang "de" }}de_DE{{ else if eq .Site.Language.Lang "es" }}es_ES{{ else }}en_US{{ end }}">
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
@@ -148,13 +148,16 @@
       const currentLang = document.documentElement.lang;
       const browserLang = navigator.language || navigator.userLanguage;
       const isGerman = browserLang.toLowerCase().startsWith('de');
+      const isSpanish = browserLang.toLowerCase().startsWith('es');
       const isOnRoot = window.location.pathname === '/' || window.location.pathname === '';
 
       // Only redirect if on root path and browser language doesn't match
       if (isOnRoot) {
         if (isGerman && currentLang !== 'de') {
           window.location.href = '/de/';
-        } else if (!isGerman && currentLang === 'de') {
+        } else if (isSpanish && currentLang !== 'es') {
+          window.location.href = '/es/';
+        } else if (!isGerman && !isSpanish && currentLang !== 'en') {
           window.location.href = '/';
         }
       }

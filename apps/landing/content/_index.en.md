@@ -1,92 +1,107 @@
 ---
 title: "Infrastructure Without DevOps"
 
-# Sections order (can be reordered easily!)
 sections:
   - who_we_are
   - how_it_works
+  - sovereignty
   - principles
   - pillars
   - blog_posts
   - pricing
   - faq
-# Hero Section
+
 hero:
-  title: "Stop paying for cloud complexity. Own your infrastructure."
-  subtitle: "Infrastructure migration consulting for European B2B SaaS teams. We design architectures around your business needs—not vendor lock-in. VPS, hybrid, or multi-cloud. Your team owns it completely."
+  title: "Fire your cloud provider. Keep your runway."
+  subtitle: "European B2B SaaS teams pay €8k+/month for infrastructure they can't leave. We cut costs 60%, move your data to EU jurisdiction, and hand your team a stack they fully own — in 90 days."
   cta_primary: "Get Free Audit"
   cta_secondary: "See How It Works"
-# Who We Are Section
+
 who_we_are:
-  title: "We're Engineers Who've Been There"
+  title: "We're engineers who've been there"
   subtitle: "Built in the trenches, not in theory"
   items:
     - title: "Engineers First"
-      description: "We've shipped production systems at scale for real users. We test our approaches before recommending them—we built FlagMeter to prove a €7.59/month VPS handles 500+ RPS, so we know it works."
+      description: "We've shipped production systems at scale and watched vendor dependency destroy teams. We proved a €7.59/month EU VPS handles 500+ RPS because the alternative actually works."
     - title: "Cloud Skeptics"
-      description: "We've seen €8k/month AWS bills for 100 RPS workloads. Sometimes a €50 VPS beats a €5k Lambda setup. Infrastructure should serve your business—not own it."
+      description: "We've seen €8k/month AWS bills for 100 RPS. We've seen the one engineer who understood CloudFormation quit. Vendor dependency is a business risk. We treat it like one."
     - title: "Disappearing Act"
-      description: "Deploy with 'git push', debug with 'docker logs'. After 90 days, you don't need us. That's success, not failure."
-# How It Works Section
+      description: "After 90 days, every config is in your repo, every tool is standard, every decision is yours. Deploy, debug, scale — without us, without AWS, without anyone's permission."
+
 how_it_works:
-  title: "Three Steps to Freedom"
-  subtitle: "From assessment to ownership in weeks, not quarters"
+  title: "Three steps to independence"
+  subtitle: "From vendor dependency to full ownership in weeks, not quarters"
   items:
     - number: "01"
-      title: "Free Architecture Audit (1-2 Hours)"
-      description: "We analyze your infrastructure, architecture, and business needs. You get a detailed assessment with optimization opportunities—no pitch, no obligation."
+      title: "Free Independence Audit (1-2 hours)"
+      description: "We map your infrastructure, vendor dependencies, and data residency gaps. You see what staying costs and what freedom looks like. No pitch, no obligation."
     - number: "02"
-      title: "Pilot Migration (€3k, 1 Week)"
-      description: "Migrate 1-3 services based on complexity and potential savings. Prove the approach with real cost cuts before committing to the full stack."
+      title: "Pilot Migration (€3k, 1 week)"
+      description: "Migrate 1-3 services to sovereign EU infrastructure. Eliminate your first vendor dependency. Prove the savings before committing to the full stack."
     - number: "03"
-      title: "Full Migration (Custom Pricing)"
-      description: "Complete infrastructure transformation. Your team trained on deploys, debugging, and scaling. Runbook delivered. We hand over the keys."
-# Operating Principles Section
+      title: "Full Migration (Custom pricing)"
+      description: "Complete operational independence. Your team trained to deploy, debug, and scale without us. Every config in your repo. Runbook delivered. We disappear."
+
+sovereignty:
+  title: "Why operational sovereignty matters"
+  subtitle: "Vendor dependency isn't just expensive. It's a business risk."
+  items:
+    - title: "Shield Your Runway"
+      description: "AWS raised egress pricing 3x in 2024. Even after Hetzner's recent adjustment, you're paying 10x less than equivalent AWS. More importantly: standard Docker means you can move to any provider in hours. Your runway isn't held hostage by anyone."
+      icon: "shield"
+    - title: "Your Data. EU Jurisdiction."
+      description: "All infrastructure in EU data centers. GDPR-compliant by default. No US CLOUD Act exposure. Your customers' data never crosses a border without your explicit decision."
+      icon: "globe"
+    - title: "Zero Lock-in. No Exceptions."
+      description: "Every config lives in your GitHub repo. Standard Docker + PostgreSQL + Nginx — any engineer can run it. You're never one pricing change away from a crisis."
+      icon: "unlock"
+    - title: "Own Every Decision"
+      description: "After 90 days: deploy with `git push`, debug with `docker logs`, scale without calling anyone. No vendor to negotiate with. No permission required."
+      icon: "key"
+
 principles:
-  title: "How We Work"
-  subtitle: "Efficiency by design, not by accident"
+  title: "How we work"
+  subtitle: "Efficiency by design, independence by default"
   items:
     - title: "Business-First Architecture"
-      description: "We design infrastructure around your business needs and growth trajectory. Data-driven decisions on VPS vs hybrid vs multi-cloud—not guesswork or vendor bias."
+      description: "Every decision starts with: does this create dependency you don't want? VPS for predictability, hybrid when proven necessary. Your business drives the stack — not vendor incentives."
       icon: "chart-bar"
     - title: "No Recurring Meetings"
-      description: "All updates in GitHub issues and PRs. Your team stays focused on shipping features, not attending standups."
+      description: "All updates in GitHub issues and PRs. Your team ships features, not attends standups."
       icon: "calendar-x"
     - title: "Async by Default"
       description: "Context in issues, reviews in PRs, decisions in comments. Work across timezones without friction."
       icon: "message-circle"
     - title: "We Fire Ourselves"
-      description: "Every config goes in your repo. After 90 days, you don't need us. That's success."
+      description: "Every config goes in your repo. After 90 days, you don't need us — or any vendor. That's the contract."
       icon: "check-circle"
-# Quality Pillars Section
+
 pillars:
-  title: "What You Get"
+  title: "What you get"
   subtitle: "Non-negotiables that define our deliverables"
   items:
-    - title: "Business-First Architecture"
-      description: "Infrastructure designed for your growth trajectory and business model. VPS for predictability, hybrid for specific needs, multi-cloud only when proven necessary. No vendor lock-in."
+    - title: "Resilient, Sovereign Architecture"
+      description: "Proven at 500+ RPS on €7.59/month. EU data residency by default. No vendor lock-in. Infrastructure designed for your growth — not a hyperscaler's pricing model."
     - title: "Engineer Empowerment"
-      description: "Deploy with 'git push', debug with 'docker logs'—no YAML, no IAM, no 7-service pipeline. Your team owns production completely."
+      description: "Deploy with `git push`, debug with `docker logs` — no IAM, no 7-service pipeline, no tribal knowledge. Your team owns production completely."
     - title: "Tests + Runbooks"
-      description: "Every migration includes integration tests, health checks, and a single-page runbook. No tribal knowledge, no bus factor."
- 
-# Blog Posts Section
-blog_posts:
-  title: "Real-World Infrastructure Stories"
-  subtitle: "No theory, just results. Learn from our experiments and case studies."
+      description: "Every migration includes integration tests, health checks, and a single-page runbook. No bus factor. No knowledge that walks out the door."
 
-# Pricing Section
+blog_posts:
+  title: "Real-world infrastructure stories"
+  subtitle: "No theory. No vendor pitch. Just what actually happened when we tested it."
+
 pricing:
-  title: "Transparent Pricing"
-  subtitle: "Bill for outcomes, not hours"
+  title: "Transparent pricing"
+  subtitle: "You pay for outcomes. We measure success by your independence."
   items:
     - name: "Architecture Audit"
       price: "€0"
-      description: "Comprehensive assessment session"
+      description: "Comprehensive independence assessment"
       features:
-        - "Review infrastructure, architecture & business needs"
-        - "Identify optimization opportunities"
-        - "Future: Reference open-source blueprints"
+        - "Map your vendor dependencies and lock-in risks"
+        - "EU data residency gap analysis"
+        - "Identify €2k+/month in immediate savings"
         - "No obligation, no pitch"
       cta: "Book Now"
       highlighted: false
@@ -94,47 +109,43 @@ pricing:
       price: "€3k"
       description: "1-week proof of concept"
       features:
-        - "Migrate 1-3 services (complexity-based)"
-        - "Demonstrate real cost savings"
-        - "Operational proof before full commitment"
+        - "Migrate 1-3 services to sovereign EU infrastructure"
+        - "Eliminate your first vendor dependency"
+        - "Demonstrate real cost savings before full commitment"
       cta: "Start Pilot"
       highlighted: false
     - name: "Full Migration"
-      price: "custom"
-      description: "End-to-end transformation"
+      price: "Custom"
+      description: "End-to-end operational independence"
       features:
-        - "Complete infrastructure migration"
-        - "Team training + runbook delivery"
-        - "Optional post-migration support"
+        - "Complete migration to resilient, sovereign infrastructure"
+        - "Team trained on deploys, debugging, and scaling"
+        - "Runbook delivered. Keys handed over. We disappear."
       cta: "Let's Talk"
       highlighted: false
-# FAQ Section
+
 faq:
-  title: "Frequently Asked Questions"
+  title: "Frequently asked questions"
   subtitle: "Handling the objections, engineer to engineer"
   items:
     - question: "Why VPS over cloud?"
-      answer: "VPS offers predictable costs and simplicity. We pair it with Cloudflare for edge cases (e.g., CDN, DDoS). No lock-in, no YAML hell."
+      answer: "VPS gives you predictable costs and operational independence. We pair it with Cloudflare for CDN and DDoS protection. No lock-in, no YAML hell, no vendor holding your architecture hostage."
     - question: "How does this scale?"
-      answer: "Vertical scaling gets you to 50k users easily. If you hit that, we add read replicas—not before. Most 'scale' problems are premature optimization."
+      answer: "Vertical scaling gets you to 50k users easily. If you hit that, we add read replicas — not before. Most 'scale' problems are premature optimization sold by vendors who profit from complexity."
     - question: "What's the catch?"
-      answer: "We're not a fit if you need multi-region failover today or think Kubernetes is 'simple.' This is for teams who want to ship features, not manage infrastructure."
+      answer: "We're not a fit if you need multi-region failover today or think Kubernetes is 'simple'. This is for teams who want to ship features, not manage infrastructure."
     - question: "What if the VPS dies?"
-      answer: "We run two instances with a floating IP. Cheaper than one EC2 with redundancy, and failover is automatic."
+      answer: "We run two instances with a floating IP. Cheaper than one EC2 with redundancy, and failover is automatic. You own both instances and the failover config — no vendor to call."
     - question: "Won't investors freak out?"
-      answer: "Hetzner is a €1B EU company with better uptime than most startups' AWS setups. This isn't a Pi under your desk—it's enterprise-grade infrastructure without the complexity tax."
+      answer: "Hetzner is a €1B EU company with better uptime than most startups' AWS setups. This isn't a Pi under your desk — it's enterprise-grade infrastructure without the complexity tax."
     - question: "What about GDPR compliance?"
-      answer: "All infrastructure stays in EU data centers. Hetzner is GDPR-compliant by default. We can provide data processing agreements if needed."
-    - question: "How do you provide context without meetings?"
-      answer: "Short Loom video + GitHub issue link. That's it. We read your code, ask questions in comments, and ship PRs. Most 'meetings' are just status updates we can async."
-    - question: "What if we need emergency support?"
-      answer: "Optional €500/mo gets you on our PagerDuty rotation for 90 days. After that, you shouldn't need us—but we're a DM away if you do."
-    - question: "How do you ensure financial accountability?"
-      answer: "We embed FinOps practices into your workflow, ensuring alignment between engineering decisions and business outcomes."
-    - question: "Do we have to use your tools?"
-      answer: "No. We adapt to your workflow. The goal is to disappear into your existing process."
-# Social Proof Section (optional for future)
+      answer: "All infrastructure stays in EU data centers. Hetzner is GDPR-compliant by default — no DPA negotiations with a US vendor. We can provide data processing agreements if needed."
+    - question: "Aren't we trading AWS lock-in for Hetzner lock-in?"
+      answer: "No. AWS lock-in means proprietary services (Lambda, RDS, IAM, CloudFormation) that only run on AWS. Our stack is Docker + standard PostgreSQL + Nginx. Same tools, any provider. You migrate in hours."
+    - question: "What if Hetzner raises prices again?"
+      answer: "Standard Docker Compose + PostgreSQL means you migrate to any VPS provider in hours, not weeks. No CloudFormation to reverse-engineer, no IAM policies to untangle. That's the point: you're not locked in to anyone."
+
 testimonials:
-  title: "What CTOs Say"
+  title: "What CTOs say"
   items: []
 ---

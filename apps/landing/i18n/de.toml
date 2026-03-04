@@ -56,3 +56,15 @@ other = "Weiterlesen →"
 
 [blog.viewAll]
 other = "Alle Fallstudien ansehen →"
+
+[blog.ctaTitle]
+other = "Bereit, Ihre Infrastruktur zu vereinfachen?"
+
+[blog.ctaDescription]
+other = "Lassen Sie uns zeigen, wie Sie Ihre Cloud-Kosten senken und Ihre Betriebsabläufe vereinfachen können."
+
+[blog.ctaButton]
+other = "Kostenlose Beratung buchen"
+
+[blog.backToBlog]
+other = "← Zurück zu den Fallstudien"

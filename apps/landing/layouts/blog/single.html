@@ -10,7 +10,7 @@
     <div class="container-custom max-w-4xl">
       <ol class="flex items-center space-x-2 text-sm text-gray-400" itemscope itemtype="https://schema.org/BreadcrumbList">
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="{{ if eq .Site.Language.Lang "de" }}/de/{{ else }}/{{ end }}" itemprop="item" class="hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+          <a href="{{ .Site.LanguagePrefix }}/" itemprop="item" class="hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
             <span itemprop="name">Home</span>
           </a>
           <meta itemprop="position" content="1" />
@@ -21,7 +21,7 @@
           </svg>
         </li>
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}" itemprop="item" class="hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
+          <a href="{{ .Site.LanguagePrefix }}/blog/" itemprop="item" class="hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
             <span itemprop="name">Case Studies</span>
           </a>
           <meta itemprop="position" content="2" />
@@ -104,32 +104,20 @@
       <!-- CTA Box -->
       <div class="mt-12 p-8 bg-gradient-to-br from-brand-accent/10 to-brand-accent/5 dark:from-brand-accent/20 dark:to-brand-accent/10 rounded-lg border border-brand-accent/20">
         <h3 class="text-2xl font-bold text-brand-dark dark:text-white mb-4">
-          {{ if eq .Site.Language.Lang "de" }}
-            Bereit, Ihre Infrastruktur zu vereinfachen?
-          {{ else }}
-            Ready to Simplify Your Infrastructure?
-          {{ end }}
+          {{ i18n "blog.ctaTitle" }}
         </h3>
         <p class="text-brand-secondary dark:text-gray-400 mb-6">
-          {{ if eq .Site.Language.Lang "de" }}
-            Lassen Sie uns zeigen, wie Sie Ihre Cloud-Kosten senken und Ihre Betriebsabläufe vereinfachen können.
-          {{ else }}
-            Let us show you how to cut your cloud costs and simplify your operations.
-          {{ end }}
+          {{ i18n "blog.ctaDescription" }}
         </p>
         <a href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" class="btn btn-primary" data-cta="book-workshop-blog">
-          {{ if eq .Site.Language.Lang "de" }}
-            Kostenlose Beratung buchen
-          {{ else }}
-            Book Free Consultation
-          {{ end }}
+          {{ i18n "blog.ctaButton" }}
         </a>
       </div>
 
       <!-- Back to Blog -->
       <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <a href="{{ if eq .Site.Language.Lang "de" }}/de/blog/{{ else }}/blog/{{ end }}" class="inline-flex items-center text-brand-accent hover:text-brand-dark dark:hover:text-white transition-colors font-medium">
-          ← Back to Case Studies
+        <a href="{{ .Site.LanguagePrefix }}/blog/" class="inline-flex items-center text-brand-accent hover:text-brand-dark dark:hover:text-white transition-colors font-medium">
+          {{ i18n "blog.backToBlog" }}
         </a>
       </div>
     </div>

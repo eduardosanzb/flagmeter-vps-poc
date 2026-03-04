@@ -1,0 +1,395 @@
+Cloud providers are forcing you into
+their AI native cloud services whether
+you like it or not. Let's talk about
+that.
+[music]
+So, welcome to the cloud computing
+insider. I'm Dave. Let's get going. So,
+over the last year, something subtle but
+massive has been happening in the
+background of every AI headline. The
+cloud itself is being rebuilt around
+generative AI. What used to be about
+cheap storage and flexible compute is
+now a race for GPUs, proprietary models,
+and all-in-one AI platforms. So, what
+I'd like to do is take a look at how
+this shift is occurring and how it's
+going to affect enterprises out there.
+As many of the cloud providers,
+including the major hyperscalers,
+Amazon, Microsoft, and Google is
+shifting their focus to AI. Well, that's
+having a consequence in terms of their
+roadmap and the way in which they're
+rolling out cloud services. Ultimately,
+it means that AI native services are
+going to start to appear in front of the
+enterprises out there. And if they
+leverage these services, whether they're
+doing AI or not, then they're going to
+see a bit of lock in. And so, we need to
+talk about the trade-offs there. So the
+AI native cloud is the idea that cloud
+platforms are being redesigned from the
+ground up around generative AI
+workloads, not just traditional
+applications and storage. And so we've
+seen this since 2022 since the arrival
+of ChatGpt and the generative AI mass
+movement. All of the cloud providers are
+rushing into that space. Now, what's
+occurring, we talked about this when I
+when I did my review of reinvent, is
+that they're re-engineering their
+platform to be an AI first platform. So,
+in other words, they're not only
+building AI services, things that you
+can build and deploy, you know, AI
+models and AI based applications, you
+know, agent, generative AI, things like
+that. We're not going to get into that
+here, but the fact of the matter is is
+that the AI is leaking into most of the
+aspects of their infrastructure. So
+whether you're using AI or not, it's
+going to be part of their infrastructure
+one way or the other. And many of the
+services will be will be AI enabled. And
+that causes a couple of things. Number
+one, they're probably going to have to
+charge you more money for that, uh,
+whether you use the AI features or not.
+And number two, and probably the most
+concerning, it's going to lock you in.
+So what's the evidence that this is
+happening? Cloud providers are reporting
+massive capital expenditures on GPUs and
+AI accelerators in their earnings calls,
+explicitly trying this spend in
+supporting generative AI demand. So in
+other words, they're they're calling out
+the fact that their AI stuff is growing
+and that's where they're spending the
+majority of the innovative capital and
+certainly that's been the case. If you
+go to any of the cloud conferences over
+the last uh you know three years they've
+turned into uh generative AI conferences
+and agentic AI conferences. Also major
+cloud platforms have redesigned their
+home homepages and top level messaging
+to lead with AI services models
+co-pilots AI platforms rather than
+generic compute and storage flagship
+cloud conferences. We talked about this
+before, you know, such as reinvent,
+cloud next, uh, Ignite or all all
+focused uh, on AI. In fact, I would say
+they they've turned into AI conferences,
+moving away from traditional cloud
+services, which basically used to be the
+discussion into kind of an AI only play.
+And as we talked about in reinvent, 70%
+of their announcements were AI focused
+and not necessarily focused on the
+traditional business. And that's a
+little concerning if you're not going to
+leverage AI uh and you're just going to
+leverage the traditional services. You
+seem to be getting the short end of the
+stick. Uh if you're not moving as fast
+to AI as people think you should be
+moving. Core cloud services, databases,
+developer tools, and workflow
+orchestration products are being rebuilt
+uh and extended to include deeply
+integrated AI capabilities by default.
+and industry analysts now classify
+generative AI cloud or AI platforms as
+distinct competitive categories
+evaluating hyperscalers primarily on
+their AI offerings. Now if you look at
+the hyperscalers that are being
+criticized or being complimented out
+there normally it's around the majority
+of their AI features and not looking at
+their ability to do cloud storage and
+cloud comput systems the ability to
+provide uh quality comput systems on
+demand. It's how they're chasing uh the
+AI trend. And obviously, you know, AWS
+got some uh um criticism a few years ago
+for being behind and obviously they're
+trying to catch up when reinvent was all
+about AI, things like that. So, it's
+going to be their primary focus for a
+while. So, instead of selling uh generic
+compute and storage, cloud providers are
+racing to become AI platforms with GPUs,
+proprietary models, vector databases,
+and end-to-end machine learning ops
+built in. So this is undeniable. Um it's
+obviously so obvious. I didn't know why
+why I even needed to, you know, state it
+again. But the evidence is there that
+the focus is clearly on AI. While in
+some instances, I'm not knocking AI,
+that's going to be a good trend because
+many organizations are truly looking to
+use AI as a force multiplier and
+typically using cloud providers as the
+platform of choice to leverage these new
+AI systems. The problem is the majority
+of enterprises out there may not be on
+to AI yet and it may be a few years many
+years in some instances before they're
+going to be able to afford it. Now
+what's happening now is that their
+infrastructure is changing beneath them.
+So in other words they're leveraging
+storage leveraging compute services
+things like that those are becoming AI
+enabled or basically the features are
+turning to turning into AI enabled
+systems which is not necessarily going
+to benefit them. And if they use those
+systems, which in some cases are going
+to be forced to use those systems, those
+native systems, they're going to be
+locked into that cloud provider even
+more. So all of that power comes at a
+price and many teams are already seeing
+cloud bills spike from training runs,
+consistent in inference and always on AI
+features. Uh so in other words the
+prices are definitely trending up and
+architecturally the cloud is shifting
+toward GPUTPU clusters specialized AI
+accelerators and data platforms
+optimized specifically for LLMs and
+retrieval augmented generation or rag.
+So infrastructure is changing
+infrastructure is changing primarily
+around the AI models um not necessarily
+focused on the traditional patterns of
+computing which we've used over the last
+30 years. AI, by the way, is nothing
+new. It's been around for a long period
+of time, but it's a different focus.
+It's a different way of developing. It's
+a different way of using the technology.
+And you certainly have value in using it
+for some problems, but not all problems.
+So, I know what some of you are saying.
+What's the big deal, Dave? If
+everybody's moving to AI, that's good.
+You know, that's where the next
+generation of computing is going to be
+probably. But the big risk is AI
+platform lock in where your data models
+and tooling become so tightly coupled to
+one vendor that switching becomes nearly
+impossible if not overly expensive.
+There's a type of lock in that I call
+economic lock in. It doesn't mean you
+can't move off of the provider. That's
+always going to be an option if you're
+willing to spend enough money and time.
+The problem is it may be uneconomically
+viable to do so. And so many of these
+organizations are going to find that
+they're locked into a particular cloud
+provider. they want to move off that
+cloud provider for whatever reason. Uh
+cost, you know, sovereign, you know,
+data sovereignty, things like that. And
+in order to do that, they're going to
+have to spend way more than they thought
+they would. And so it's uneconomically
+viable. So they just kind of leave the
+system where it is and go ahead and, you
+know, pay um, you know, pay the
+technical debt and pay the technical uh
+hosting costs for it remaining on that
+cloud. So, Agentic AI and AIdriven
+automation are being pitched as the next
+productivity waves where cloud hosted AI
+agents can call tools, trigger workflows
+and act on your behalf. So, that's how
+things are being sold out there. You
+know, definitely the Agentic thing is
+kind of way out over its skis and I
+think people are using it in too many
+places where it shouldn't be used and
+cloud providers are first and foremost
+in that. Nothing wrong with Agentic AI
+as you guys know and I mentioned a few
+times before, you know, I make uh
+Agentic AI courses and teach Agentic AI.
+Love it as an architectural option, but
+it's not always going to be an option.
+It shouldn't always be the solution. So,
+with the Agentic AI stuff, you know,
+everything's kind of looking like a nail
+and we're overusing the technology and
+the cloud providers, I think, are the
+worst offenders. So, what the cloud
+providers are pushing is something
+that's called AI ready. Cloud
+architecture means having clean
+accessible data, smart choice between
+proprietary and open source models and
+scalable inference endpoints that won't
+blow your budget. So what I'm pitching
+here is not moving away from AI that
+definitely not. What I am pitching here
+is that we pick the platforms that are
+right for the applications that are
+running and we're not trying to
+overengineer or over or underoptimize
+these systems by overusing a particular
+technology such as AI. So if AI is not
+needed, it's an expense that typically
+should not be added to the cost of an
+application. And people don't see it out
+see it that way. They think that every
+infrastructure, every application,
+everything that's built can benefit from
+an AI capability. Um maybe sometimes,
+not all the time though. So we need to
+think hard and fast in terms of when we
+leverage the technology. Now if an AI
+platform, a cloud computing platform is
+pushing AI at you and it's going to be
+something that's very much a force fit.
+In other words, you can't get away. You
+can't get away from it. You know, maybe
+it's time to look for other platforms
+that don't do that to you. So, to stay
+in control, organizations need to treat
+AI costs as first class design
+constraints to build in observability
+guard rails and clear budgets from day
+one. I can't stress that enough.
+Everything needs to be planned and I'm
+not seeing a lot of planning going on
+right now. seeing a lot of knee-jerk
+movement into the AI space with not a
+lot of thinking about what the business
+needs and that's just going to end a
+disaster and we've done that before in
+the past and can point to many times
+where you know organizations have you
+know pushed things too fast misalign
+technology to the business problems and
+ended up failing. So the key strategic
+question for every team is how to
+leverage the benefits of AI native cloud
+without handing over control of cost
+architecture and innovation to a single
+provider. That's really key to this. At
+the end of the day, you're the one who
+makes the decisions and how you're going
+to build and deploy your applications.
+You're the one who makes the decisions
+as to what platform you're going to run
+on. lock-in systems or systems where
+you're bound down in proprietary ways
+that technology providers are pushing
+you to is not going to be an advantage
+to you. I understand they're telling you
+it's an advantage. I understand that
+they're telling you that look at these
+new capabilities. Look what we can do
+with some of these AI agents. Look at
+some of the operation systems, the
+observability systems, security systems
+that are AI enabled. You know, this is
+this is going to be a better technology
+for you. Sometimes yes. Most of the
+time, no. It's going to cost you more
+money. it's going to lock you in and we
+need to avoid that. And the big
+question, should you give up on your
+cloud provider who's doing that to you,
+pushing you toward AI whether you like
+it or not. So this means, you know,
+looking at all clouds like private
+clouds, sovereign clouds, managed
+service providers, everything we talk
+about on this channel and go back and
+check out those videos if you haven't
+already. Those are going to be viable
+options uh in that they're not going to
+push you to typically proprietary lockin
+technology. The large hyperscalers will
+because they feel they need to. they
+feel they need to drive up the stack and
+provide sophisticated services that they
+view are going to be gamechanging in the
+market. However, many of the enterprises
+who leverage those services will find
+that they become lock in that are very
+difficult to displace later on down the
+line and and and uneconomically viable
+to do so. And you don't want to be put
+in that situation. You don't you don't
+want a technology provider to dictate
+your IT strategy. And I think many of
+them are looking to do that. So as
+generative AI eats more of the cloud,
+the real story isn't just new features,
+it's power, control, and cost. So we got
+to figure out what to do with this
+stuff. We need to look at some of the
+choices that are out there and make the
+right choices. Now I think for many
+enterprises, this is going to be a
+critical junction. So in other words,
+are we going to continue on either
+hypers scale or are you going to move to
+different platforms? either your own
+owns owned uh platforms that run in your
+data center or data center you rent rent
+managed service providers private clouds
+sovereign clouds or some of the second
+tier clouds that are out there you know
+those are a viable option as well and
+many of those aren't going to push the
+AI first infrastructure uh onto your
+stack they're going to allow you to make
+those decisions and I think that's just
+going to be a better way to do it so if
+you're in this situation you feel that
+your hyperscaler is dictating your
+platforms you're concerned about lock
+and you're concerned about costs, it's
+time to start looking outside of those
+hyperscalers and look at some of the
+alternatives out there and see if
+they're going to be a better fit. Some
+sometimes they will, sometimes they
+won't, but at least you're looking,
+you're considering those options. Well,
+anyway, let me know what you think in
+the comments about this, whether you
+feel you're being locked in or not, or
+you feel you're perfectly fine and, you
+know, moving to AI first and AI native
+uh clouds that that are being pushed out
+there now. But anyway, don't forget to
+like and subscribe and check out my
+other videos on this channel. Also check
+out my inf world cloud computing blog,
+underless LinkedIn learning courses, and
+of course my generative AI architecture
+course out on go cloud careers. And
+finally, my latest books, unlocking the
+power of cloud and an insiders guide to
+cloud computing. So until next week,
+stay very, very safe. The magical
+YouTube algorithm thinks this is another
+one of my videos that you should watch
+now.
+[music]
