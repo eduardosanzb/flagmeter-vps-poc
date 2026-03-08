@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>raus.cloud Business Card - Print Ready</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .card {
+            width: 1054px;
+            height: 700px;
+            background: #0a0a0a;
+            position: relative;
+            padding: 84px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .brand {
+            font-size: 52px;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .brand-accent {
+            color: #10b981;
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 8px;
+        }
+
+        .middle-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 100px;
+            padding-top: 20px;
+        }
+
+        .name {
+            font-size: 44px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #10b981;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-top: 24px;
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .email {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+        }
+
+        .location {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #6b7280;
+            letter-spacing: 0.05em;
+        }
+
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 50px;
+            padding-bottom: 10px;
+        }
+
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
+        .vertical-line {
+            position: absolute;
+            left: 84px;
+            top: 204px;
+            bottom: 204px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #374151 20%, #374151 80%, transparent);
+        }
+
+        .corner-accent {
+            position: absolute;
+            top: 84px;
+            right: 84px;
+            width: 40px;
+            height: 40px;
+            border-top: 1px solid #10b981;
+            border-right: 1px solid #10b981;
+            opacity: 0.5;
+        }
+
+        @media print {
+            body {
+                background: #0a0a0a;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .card {
+                width: 1054px;
+                height: 700px;
+                page-break-inside: avoid;
+            }
+
+            @page {
+                size: 1054px 700px;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="vertical-line"></div>
+        <div class="corner-accent"></div>
+
+        <div class="top-section">
+            <div>
+                <div class="brand">raus<span class="brand-accent">.</span>cloud</div>
+                <div class="tagline">Infrastructure Independence</div>
+            </div>
+        </div>
+
+        <div class="middle-section">
+            <div class="name">Emre Yilmaz</div>
+            <div class="title">Product Engineer</div>
+        </div>
+
+        <div class="bottom-section">
+            <div class="contact-info">
+                <div class="email">emre@raus.cloud</div>
+                <div class="location">Berlin, Germany</div>
+            </div>
+            <div class="qr-code">
+                <img src="qr-code.png" alt="QR Code">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 other = "EN"
 
 [languageSwitch]
-other = "Switch to German"
+other = "Switch to "
 
 [navigation]
 [navigation.home]
@@ -47,8 +47,21 @@ other = "© 2025 Raus.cloud. All rights reserved."
 [footer.built]
 other = "Infrastructure without DevOps"
 
+[footer.builtBy]
+other = "Built by"
+
 [footer.impressum]
 other = "Legal Notice"
+
+[founder]
+[founder.title]
+other = "Meet the Engineer"
+
+[founder.subtitle]
+other = "The person behind raus.cloud"
+
+[founder.linkText]
+other = "View full profile →"
 
 [blog]
 [blog.readMore]

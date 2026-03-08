@@ -47,8 +47,21 @@ other = "© 2025 Raus.cloud. Alle Rechte vorbehalten."
 [footer.built]
 other = "Infrastruktur ohne DevOps"
 
+[footer.builtBy]
+other = "Gebaut von"
+
 [footer.impressum]
 other = "Impressum"
+
+[founder]
+[founder.title]
+other = "Lerne den Engineer kennen"
+
+[founder.subtitle]
+other = "Die Person hinter raus.cloud"
+
+[founder.linkText]
+other = "Vollständiges Profil ansehen →"
 
 [blog]
 [blog.readMore]

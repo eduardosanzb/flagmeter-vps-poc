@@ -4,6 +4,7 @@ title: "Infrastruktur ohne DevOps"
 sections:
   - who_we_are
   - how_it_works
+  - founder
   - sovereignty
   - principles
   - pillars
@@ -90,6 +91,16 @@ pillars:
 blog_posts:
   title: "Praxisnahe Infrastruktur-Stories"
   subtitle: "Keine Theorie. Kein Vendor-Pitch. Nur was wirklich passiert ist, als wir es getestet haben."
+
+founder:
+  title: "Lerne den Engineer kennen"
+  subtitle: "Die Person hinter raus.cloud"
+  name: "Eduardo Sanchez Bautista"
+  title_role: "Product Engineer"
+  bio: "9+ Jahre Production-Systeme im großen Maßstab. Ehemals Unity Technologies (€70k jährliche Kosteneinsparungen). 100% mit AI Agents gebaut. Hilft Teams, Systeme zu bauen, die funktionieren, wachsen und bleiben."
+  location: "Berlin, Deutschland"
+  link_text: "Vollständiges Profil ansehen →"
+  link_url: "https://eduardosanzb.dev"
 
 pricing:
   title: "Transparente Preise"

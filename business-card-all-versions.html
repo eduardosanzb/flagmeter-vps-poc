@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>raus.cloud Business Card - All Versions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            padding: 40px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 50px;
+            font-size: 14px;
+        }
+        
+        .versions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .version-wrapper {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        
+        .version-label {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 14px;
+            font-weight: 600;
+            color: #10b981;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 20px 10px;
+            background: #0a0a0a;
+            border-radius: 8px;
+        }
+        
+        iframe {
+            border: none;
+            background: #0a0a0a;
+            border-radius: 8px;
+        }
+        
+        .version-info {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .version-info h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .version-info p {
+            color: #9ca3af;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .version-info ul {
+            color: #9ca3af;
+            margin-left: 20px;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .version-info li {
+            margin-bottom: 5px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .versions-container {
+                gap: 30px;
+            }
+            .version-wrapper {
+                background: white;
+                padding: 20px;
+            }
+            .version-label,
+            .version-info {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>raus.cloud Business Card Concepts</h1>
+    <p class="subtitle">Open individual HTML files or print this page to see all versions</p>
+    
+    <div class="versions-container">
+        <div class="version-wrapper">
+            <div class="version-label">V1</div>
+            <iframe src="business-card-v1-architectural.html" width="502" height="325" style="transform: scale(0.5); transform-origin: top left; width: 1004px; height: 650px;"></iframe>
+            <div class="version-info">
+                <h3>Version 1: Architectural</h3>
+                <p>Centered, framed layout with a border creating focus. Everything aligned to center with clear vertical rhythm. The divider line adds elegance and structure.</p>
+                <ul>
+                    <li>Framed border (40px inset)</li>
+                    <li>Centered alignment</li>
+                    <li>Horizontal divider accent</li>
+                    <li>Generous whitespace</li>
+                    <li>Most traditional, very elegant</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="version-wrapper">
+            <div class="version-label">V2</div>
+            <iframe src="business-card-v2-asymmetric.html" width="502" height="325" style="transform: scale(0.5); transform-origin: top left; width: 1004px; height: 650px;"></iframe>
+            <div class="version-info">
+                <h3>Version 2: Asymmetric</h3>
+                <p>Editorial magazine-style layout with intentional asymmetry. Brand top-left anchors the design, name offset creates visual tension, QR balances bottom-right.</p>
+                <ul>
+                    <li>Asymmetric composition</li>
+                    <li>Vertical accent line on left</li>
+                    <li>Name offset to right</li>
+                    <li>QR as visual counterweight</li>
+                    <li>Most editorial, modern</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="version-wrapper">
+            <div class="version-label">V3</div>
+            <iframe src="business-card-v3-minimal.html" width="502" height="325" style="transform: scale(0.5); transform-origin: top left; width: 1004px; height: 650px;"></iframe>
+            <div class="version-info">
+                <h3>Version 3: Minimal</h3>
+                <p>Ultra-minimal with geometric logo icon. Stacked brand name as central focus. Clean separation of areas. Best for making the brand name memorable.</p>
+                <ul>
+                    <li>Geometric logo icon</li>
+                    <li>Stacked brand typography</li>
+                    <li>Three distinct zones (top/middle/bottom)</li>
+                    <li>Smallest QR</li>
+                    <li>Most minimal, brand-focused</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
