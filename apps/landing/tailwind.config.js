@@ -21,12 +21,21 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          'Helvetica Neue',
-          'Helvetica',
+          'Inter',
+          'system-ui',
           '-apple-system',
           'BlinkMacSystemFont',
           'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
           'Arial',
+          'sans-serif',
+        ],
+        display: [
+          'Space Grotesk',
+          'Inter',
+          'system-ui',
+          '-apple-system',
           'sans-serif',
         ],
       },

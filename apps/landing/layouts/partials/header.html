@@ -1,9 +1,9 @@
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-brand-border dark:border-gray-700">
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300 bg-white/95 dark:bg-black/90 border-gray-200 dark:border-gray-800">
   <nav class="container-custom py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="{{ .Site.LanguagePrefix }}/" class="text-3xl font-light tracking-wide text-brand-dark dark:text-white hover:text-brand-accent dark:hover:text-brand-accent transition-colors flex-shrink-0 mr-8">
-        raus.cloud
+      <a href="{{ .Site.LanguagePrefix }}/" class="text-3xl font-medium tracking-tight transition-colors flex-shrink-0 mr-8 font-display text-brand-dark dark:text-white">
+        raus<span class="text-brand-accent">.</span>cloud
       </a>
 
       <!-- Navigation -->
@@ -98,7 +98,7 @@
        x-show="open"
        x-transition
        x-cloak
-       class="md:hidden bg-white dark:bg-gray-900 border-t border-brand-border dark:border-gray-700">
+       class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
      <div class="container-custom py-6 space-y-4">
        <a href="{{ .Site.LanguagePrefix }}/#how-it-works" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.howItWorks" }}

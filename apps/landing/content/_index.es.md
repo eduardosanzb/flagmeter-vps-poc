@@ -4,6 +4,7 @@ title: "Infraestructura sin DevOps"
 sections:
   - who_we_are
   - how_it_works
+  - founder
   - sovereignty
   - principles
   - pillars
@@ -90,6 +91,16 @@ pillars:
 blog_posts:
   title: "Historias reales de infraestructura"
   subtitle: "Sin teoría. Sin vendor pitch. Solo lo que realmente pasó cuando lo testeamos."
+
+founder:
+  title: "Conoce al Engineer"
+  subtitle: "La persona detrás de raus.cloud"
+  name: "Eduardo Sanchez Bautista"
+  title_role: "Product Engineer"
+  bio: "9+ años shippeando sistemas en producción a escala. Ex-Unity Technologies (€70k ahorro anual). Construido 100% con agentes de IA. Ayudando a equipos a crear sistemas que funcionan, crecen y perduran."
+  location: "Berlín, Alemania"
+  link_text: "Ver perfil completo →"
+  link_url: "https://eduardosanzb.dev"
 
 pricing:
   title: "Precios transparentes"

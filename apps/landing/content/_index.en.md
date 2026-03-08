@@ -4,6 +4,7 @@ title: "Infrastructure Without DevOps"
 sections:
   - who_we_are
   - how_it_works
+  - founder
   - sovereignty
   - principles
   - pillars
@@ -90,6 +91,16 @@ pillars:
 blog_posts:
   title: "Real-world infrastructure stories"
   subtitle: "No theory. No vendor pitch. Just what actually happened when we tested it."
+
+founder:
+  title: "Meet the Engineer"
+  subtitle: "The person behind raus.cloud"
+  name: "Eduardo Sanchez Bautista"
+  title_role: "Product Engineer"
+  bio: "9+ years shipping production systems at scale. Former Unity Technologies (€70k annual cost savings). Built 100% with AI agents. Helping teams create systems that work, grow, and last."
+  location: "Berlin, Germany"
+  link_text: "View full profile →"
+  link_url: "https://eduardosanzb.dev"
 
 pricing:
   title: "Transparent pricing"
