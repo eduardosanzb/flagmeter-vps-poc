@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>raus.cloud Business Card - Final Version 2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 40px;
+        }
+        
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .card {
+            width: 1004px;
+            height: 650px;
+            background: #0a0a0a;
+            position: relative;
+            padding: 60px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .brand {
+            font-size: 52px;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        
+        .brand-accent {
+            color: #10b981;
+        }
+        
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
+            font-weight: 400;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 8px;
+        }
+        
+        .middle-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 100px;
+            padding-top: 20px;
+        }
+        
+        .name {
+            font-size: 44px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        
+        .title {
+            font-size: 14px;
+            font-weight: 400;
+            color: #10b981;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-top: 24px;
+        }
+        
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .email {
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: 0.02em;
+        }
+        
+        .location {
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #6b7280;
+            letter-spacing: 0.05em;
+        }
+        
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qr-placeholder {
+            width: 130px;
+            height: 130px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .qr-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 9px;
+            font-weight: 400;
+            color: #374151;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .vertical-line {
+            position: absolute;
+            left: 60px;
+            top: 180px;
+            bottom: 180px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, #374151 20%, #374151 80%, transparent);
+        }
+        
+        /* Subtle corner accent */
+        .corner-accent {
+            position: absolute;
+            top: 60px;
+            right: 60px;
+            width: 40px;
+            height: 40px;
+            border-top: 1px solid #10b981;
+            border-right: 1px solid #10b981;
+            opacity: 0.5;
+        }
+        
+        .specs {
+            background: #2a2a2a;
+            color: #fff;
+            padding: 25px;
+            font-family: 'Inter', monospace;
+            font-size: 13px;
+            border-radius: 8px;
+            max-width: 600px;
+            border: 1px solid #374151;
+        }
+        
+        .specs h3 {
+            margin-bottom: 15px;
+            color: #10b981;
+            font-size: 16px;
+        }
+        
+        .specs p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        
+        .specs strong {
+            color: #fff;
+        }
+        
+        .specs .highlight {
+            color: #10b981;
+        }
+        
+        @media print {
+            .specs {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="vertical-line"></div>
+            <div class="corner-accent"></div>
+            
+            <div class="top-section">
+                <div>
+                    <div class="brand">raus<span class="brand-accent">.</span>cloud</div>
+                    <div class="tagline">Infrastructure Independence</div>
+                </div>
+            </div>
+            
+            <div class="middle-section">
+                <div class="name">Eduardo Sanchez<br>Bautista</div>
+                <div class="title">Product Engineer</div>
+            </div>
+            
+            <div class="bottom-section">
+                <div class="contact-info">
+                    <div class="email">eduardo@raus.cloud</div>
+                    <div class="location">Berlin, Germany</div>
+                </div>
+                <div class="qr-section">
+                    <div class="qr-placeholder">QR CODE<br>130x130px<br>raus.cloud</div>
+                    <div class="qr-label">Scan to connect</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="specs">
+            <h3>Final Version 2 - Specifications for Figma</h3>
+            <p><strong>Card Size:</strong> <span class="highlight">1004 x 650 px</span> (85 x 55mm @ 300dpi)</p>
+            <p><strong>Background:</strong> #0a0a0a (near black)</p>
+            <p><strong>Padding:</strong> 60px on all sides</p>
+            <p>&nbsp;</p>
+            <p><strong>BRAND (top-left):</strong></p>
+            <p>- Font: Space Grotesk, 52px, Weight 500</p>
+            <p>- Color: #ffffff (white) with #10b981 (emerald) for the period</p>
+            <p>- Tagline: Inter, 11px, Weight 400, uppercase, letter-spacing 0.15em, color #6b7280</p>
+            <p>&nbsp;</p>
+            <p><strong>NAME (offset right):</strong></p>
+            <p>- Font: Space Grotesk, 44px, Weight 600</p>
+            <p>- Color: #ffffff</p>
+            <p>- Position: 100px left padding from card edge</p>
+            <p>- Line-height: 1.1</p>
+            <p>&nbsp;</p>
+            <p><strong>TITLE:</strong></p>
+            <p>- Font: Space Grotesk, 14px, Weight 400</p>
+            <p>- Color: #10b981 (emerald)</p>
+            <p>- Text-transform: uppercase, letter-spacing 0.3em</p>
+            <p>- Margin-top: 24px</p>
+            <p>&nbsp;</p>
+            <p><strong>CONTACT (bottom-left):</strong></p>
+            <p>- Email: Inter, 17px, Weight 400, #ffffff</p>
+            <p>- Location: Inter, 13px, Weight 300, #6b7280</p>
+            <p>&nbsp;</p>
+            <p><strong>QR CODE (bottom-right):</strong></p>
+            <p>- Size: 130 x 130px</p>
+            <p>- Background: #ffffff</p>
+            <p>- Label: Inter, 9px, uppercase, #374151</p>
+            <p>&nbsp;</p>
+            <p><strong>ACCENTS:</strong></p>
+            <p>- Vertical line: 1px wide, #374151, gradient fade top/bottom</p>
+            <p>- Position: 60px from left edge, 180px from top/bottom</p>
+            <p>- Corner accent: 40x40px L-shape, #10b981, 50% opacity, top-right</p>
+        </div>
+    </div>
+</body>
+</html>
