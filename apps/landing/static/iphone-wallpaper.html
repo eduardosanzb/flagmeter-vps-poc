@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>raus.cloud — Eduardo Sanchez Bautista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Space Grotesk', Inter, system-ui, -apple-system, sans-serif;
+      gap: 32px;
+      padding: 40px 20px;
+    }
+
+    .instructions {
+      color: #6b7280;
+      font-size: 13px;
+      text-align: center;
+      max-width: 360px;
+      line-height: 1.6;
+    }
+    .instructions strong { color: #10b981; }
+
+    /* The card — iPhone 15 Pro logical resolution */
+    .card {
+      width: 393px;
+      height: 852px;
+      background: #0a0a0a;
+      border-radius: 48px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 72px 40px 56px;
+      box-shadow: 0 0 0 1px rgba(16,185,129,0.15), 0 32px 80px rgba(0,0,0,0.8);
+    }
+
+    /* Subtle background glow */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Top section: logo + domain */
+    .top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .domain {
+      font-size: 38px;
+      font-weight: 300;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+    }
+
+    .domain .dot {
+      color: #10b981;
+    }
+
+    /* Middle: name + title */
+    .middle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .title {
+      font-size: 15px;
+      color: #10b981;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #10b981, transparent);
+      margin-top: 4px;
+    }
+
+    /* Bottom: QR code + label */
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .qr-wrap {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 0 24px rgba(16,185,129,0.2);
+    }
+
+    #qrcode canvas, #qrcode img {
+      display: block;
+      border-radius: 4px;
+    }
+
+    .qr-label {
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .qr-label strong {
+      color: #d1fae5;
+      font-weight: 500;
+    }
+
+    /* Print: hide body chrome, show just the card */
+    @media print {
+      body { background: white; gap: 0; padding: 0; min-height: unset; }
+      .instructions { display: none; }
+      .card {
+        border-radius: 0;
+        box-shadow: none;
+        width: 393px;
+        height: 852px;
+        page-break-after: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="instructions">
+    <strong>How to use as wallpaper:</strong><br>
+    Right-click → Save image as… (or take a screenshot of just the card)<br>
+    On iPhone: AirDrop → Photos → Set as Wallpaper → Lock Screen
+  </p>
+
+  <div class="card">
+    <!-- Top -->
+    <div class="top">
+      <div class="domain">raus<span class="dot">.</span>cloud</div>
+    </div>
+
+    <!-- Middle -->
+    <div class="middle">
+      <div class="name">Eduardo<br>Sanchez Bautista</div>
+      <div class="title">Founder</div>
+      <div class="divider"></div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="bottom">
+      <div class="qr-wrap">
+        <div id="qrcode"></div>
+      </div>
+      <div class="qr-label">
+        Scan to connect<br>
+        <strong>raus.cloud/cloudfest</strong>
+      </div>
+    </div>
+  </div>
+
+  <p class="instructions" style="font-size:12px; opacity:0.6;">
+    The QR code links to raus.cloud/cloudfest
+  </p>
+
+  <!-- QR Code library (qrcode.js) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://raus.cloud/cloudfest",
+      width: 160,
+      height: 160,
+      colorDark: "#0a0a0a",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+</body>
+</html>
