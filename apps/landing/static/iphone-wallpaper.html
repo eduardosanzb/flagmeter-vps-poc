@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>raus.cloud — Eduardo Sanchez Bautista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Space Grotesk', Inter, system-ui, -apple-system, sans-serif;
+      gap: 32px;
+      padding: 40px 20px;
+    }
+
+    .instructions {
+      color: #6b7280;
+      font-size: 13px;
+      text-align: center;
+      max-width: 360px;
+      line-height: 1.6;
+    }
+    .instructions strong { color: #10b981; }
+
+    /* iPhone 15 Pro logical resolution: 393×852 */
+    .card {
+      width: 393px;
+      height: 852px;
+      background: #0a0a0a;
+      border-radius: 48px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 0 1px rgba(16,185,129,0.15), 0 32px 80px rgba(0,0,0,0.8);
+    }
+
+    /* Subtle glow in the upper half (behind the iOS clock) */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /*
+      Safe zone on iPhone 15 Pro lock screen:
+      - iOS date + clock occupies roughly top 410px
+      - iOS flashlight/camera buttons occupy bottom ~120px
+      → usable: y=410 to y=732 (~322px)
+      Anchor from top so we never overflow the bottom.
+    */
+    .content {
+      position: absolute;
+      top: 415px;
+      left: 0; right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 0 36px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 300;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+    }
+    .logo .dot { color: #10b981; }
+
+    .divider {
+      width: 36px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, #10b981, transparent);
+    }
+
+    .name {
+      font-size: 30px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    .title {
+      font-size: 12px;
+      color: #10b981;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .qr-wrap {
+      margin-top: 4px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 9px;
+      box-shadow: 0 0 28px rgba(16,185,129,0.25);
+    }
+
+    #qrcode canvas, #qrcode img {
+      display: block;
+      border-radius: 3px;
+    }
+
+    .qr-label {
+      font-size: 11px;
+      color: #4b5563;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .qr-label strong { color: #6b7280; font-weight: 500; }
+
+    @media print {
+      body { background: white; gap: 0; padding: 0; min-height: unset; }
+      .instructions { display: none; }
+      .card { border-radius: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="instructions">
+    <strong>How to use as wallpaper:</strong><br>
+    Open on iPhone Safari → Share → Save to Photos → Set as Wallpaper → Lock Screen
+  </p>
+
+  <div class="card">
+    <div class="content">
+      <div class="logo">raus<span class="dot">.</span>cloud</div>
+      <div class="divider"></div>
+      <div class="name">Eduardo<br>Sanchez Bautista</div>
+      <div class="title">Founder</div>
+      <div class="qr-wrap">
+        <div id="qrcode"></div>
+      </div>
+      <div class="qr-label">
+        Scan to book a call,<br>
+        connect on LinkedIn<br>
+        or drop me an email<br>
+        <strong>raus.cloud/cloudfest</strong>
+      </div>
+    </div>
+  </div>
+
+  <p class="instructions" style="font-size:12px; opacity:0.6;">
+    QR links to raus.cloud/cloudfest
+  </p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    new QRCode(document.getElementById("qrcode"), {
+      text: "https://raus.cloud/cloudfest",
+      width: 88,
+      height: 88,
+      colorDark: "#0a0a0a",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  </script>
+</body>
+</html>
