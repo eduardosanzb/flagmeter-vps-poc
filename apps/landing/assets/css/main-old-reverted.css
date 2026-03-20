@@ -13,59 +13,31 @@
   }
 
   body {
-    @apply font-sans antialiased overflow-x-hidden bg-white dark:bg-brand-dark text-brand-dark dark:text-white;
+    @apply font-sans text-brand-dark antialiased bg-white dark:bg-gray-900 dark:text-gray-100 overflow-x-hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-semibold text-brand-dark dark:text-white;
-    letter-spacing: -0.02em;
-  }
-  
-  /* Accent elements */
-  .accent-line {
-    @apply w-32 h-0.5 bg-brand-accent;
-  }
-  
-  /* Smooth text rendering */
-  * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply font-semibold dark:text-white;
   }
 }
 
 @layer components {
-  /* Button styles - business card inspired */
+  /* Button styles */
   .btn {
-    @apply inline-flex items-center justify-center px-8 py-4 rounded-lg font-medium transition-all duration-300;
-    font-family: 'Space Grotesk', sans-serif;
-    letter-spacing: 0.02em;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200;
   }
 
   .btn-primary {
-    @apply bg-brand-accent text-white hover:shadow-2xl;
-    box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.25);
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.35);
+    @apply bg-brand-accent text-white hover:bg-brand-accentDark  hover:shadow-lg dark:bg-brand-accent dark:hover:bg-emerald-600;
   }
 
   .btn-secondary {
-    @apply bg-transparent text-brand-dark dark:text-white border border-gray-300 dark:border-white/30 hover:border-brand-accent hover:text-brand-accent;
-    backdrop-filter: blur(10px);
+    @apply bg-transparent text-brand-dark border-2 border-brand-border hover:border-brand-accent hover:text-brand-accent dark:text-gray-200 dark:border-gray-600 dark:hover:border-brand-accent dark:hover:text-brand-accent;
   }
 
-  /* Card styles - modern aesthetic */
+  /* Card styles */
   .card {
-    @apply rounded-2xl p-8 border transition-all duration-300 bg-white dark:bg-gray-900/60 border-gray-200 dark:border-gray-800;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  }
-  
-  .card:hover {
-    @apply border-brand-accent/30;
-    box-shadow: 0 10px 40px rgba(16, 185, 129, 0.1);
-    transform: translateY(-2px);
+    @apply bg-white rounded-2xl p-8 shadow-card border border-brand-border hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 dark:border-gray-700;
   }
 
   /* Section styles */
@@ -74,46 +46,16 @@
   }
 
   .section-dark {
-    @apply py-20 bg-white dark:bg-brand-dark text-brand-dark dark:text-white;
+    @apply bg-brand-primary text-white py-20 dark:bg-gray-950;
   }
 
   .section-light {
-    @apply py-20 bg-gray-50 dark:bg-gray-900/40 text-brand-dark dark:text-white;
+    @apply bg-brand-light dark:bg-gray-800;
   }
 
   /* Container */
   .container-custom {
     @apply max-w-7xl mx-auto px-6 lg:px-8;
-  }
-
-  /* Text gradient for hero - emerald glow */
-  .text-gradient {
-    background: linear-gradient(135deg, #0a0a0a 0%, #10b981 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .dark .text-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  /* Vertical accent line - business card style */
-  .accent-vertical {
-    @apply w-px;
-    background: linear-gradient(to bottom, transparent, #d1d5db 20%, #d1d5db 80%, transparent);
-  }
-  
-  .dark .accent-vertical {
-    background: linear-gradient(to bottom, transparent, #374151 20%, #374151 80%, transparent);
-  }
-  
-  /* Corner accent - business card style */
-  .corner-accent {
-    @apply w-10 h-10 border-t border-r border-brand-accent opacity-50;
   }
 
   /* Marquee animation - CSS-only approach (no Tailwind) */
@@ -154,27 +96,6 @@
   .text-balance {
     text-wrap: balance;
   }
-  
-  /* Subtle animations */
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-in;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Emerald glow effect */
-  .glow-emerald {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-  }
 }
 
 /* Blog post prose styling */
@@ -184,7 +105,7 @@
   }
 
   .prose-brand h2 {
-    @apply text-3xl font-bold mt-12 mb-6 border-b pb-3 text-brand-dark dark:text-white border-gray-200 dark:border-gray-700;
+    @apply text-3xl font-bold mt-12 mb-6 text-brand-dark dark:text-white border-b border-gray-200 dark:border-gray-700 pb-3;
   }
 
   .prose-brand h3 {
@@ -196,7 +117,7 @@
   }
 
   .prose-brand p {
-    @apply mb-6 leading-relaxed text-gray-700 dark:text-gray-300;
+    @apply mb-6 text-gray-700 dark:text-gray-300 leading-relaxed;
   }
 
   .prose-brand strong {
@@ -204,15 +125,15 @@
   }
 
   .prose-brand code {
-    @apply px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono text-brand-accent border border-gray-200 dark:border-gray-700;
+    @apply px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono text-brand-accent dark:text-emerald-400 border border-gray-200 dark:border-gray-700;
   }
 
   .prose-brand pre {
-    @apply my-8 p-6 rounded-lg overflow-x-auto border bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700;
+    @apply my-8 p-6 bg-gray-900 dark:bg-gray-950 rounded-lg overflow-x-auto border border-gray-700;
   }
 
   .prose-brand pre code {
-    @apply bg-transparent border-0 text-gray-900 dark:text-gray-100 p-0;
+    @apply bg-transparent border-0 text-gray-100 p-0;
   }
 
   .prose-brand ul, .prose-brand ol {
@@ -232,7 +153,7 @@
   }
 
   .prose-brand blockquote {
-    @apply pl-6 my-8 italic border-l-4 border-brand-accent text-gray-600 dark:text-gray-400;
+    @apply border-l-4 border-brand-accent pl-6 my-8 italic text-gray-600 dark:text-gray-400;
   }
 
   .prose-brand table {
@@ -318,7 +239,7 @@
   }
 
   .prose-brand th {
-    @apply bg-brand-accent px-4 py-3 text-left font-bold text-white border border-emerald-600;
+    @apply bg-brand-accent dark:bg-emerald-700 px-4 py-3 text-left font-bold text-white border border-emerald-600 dark:border-emerald-800;
   }
 
   .prose-brand td {
@@ -326,7 +247,7 @@
   }
 
   .prose-brand tbody tr {
-    @apply bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors;
+    @apply hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors;
   }
 
   /* Highlight winner row (Test 3) */
@@ -386,7 +307,7 @@
   }
 
   .prose-brand a {
-    @apply text-brand-accent hover:underline font-medium;
+    @apply text-brand-accent dark:text-emerald-400 hover:underline font-medium;
   }
 
   .prose-brand img {
@@ -399,12 +320,12 @@
 
   /* Special styling for results/verdict sections */
   .prose-brand .result-box {
-    @apply my-6 p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border-l-4 border-brand-accent;
+    @apply my-6 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg border-l-4 border-brand-accent;
   }
 
   /* Mermaid diagram styling */
   .prose-brand .mermaid {
-    @apply my-12 p-8 rounded-xl shadow-xl border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700;
+    @apply my-12 p-8 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -435,7 +356,7 @@
     }
 
     .tradeoff-card {
-      @apply grid grid-cols-[1fr_auto_1fr] items-center gap-4 p-4 rounded-lg border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm;
+      @apply grid grid-cols-[1fr_auto_1fr] items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm;
     }
 
     .tradeoff-arrow {
@@ -479,7 +400,7 @@
   /* Mobile: stacked cards */
   @media (max-width: 768px) {
     .tradeoff-card {
-      @apply flex flex-col p-4 rounded-lg border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm;
+      @apply flex flex-col p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm;
     }
 
     .tradeoff-give-up,
@@ -523,13 +444,4 @@
       @apply font-medium text-emerald-700 dark:text-emerald-300;
     }
   }
-}
-
-/* Navigation link hover effects */
-a {
-  @apply transition-colors;
-}
-
-a:hover {
-  @apply text-brand-accent;
 }

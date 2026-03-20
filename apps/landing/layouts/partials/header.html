@@ -1,9 +1,9 @@
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-brand-border dark:border-gray-700">
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300 bg-white/95 dark:bg-black/90 border-gray-200 dark:border-gray-800">
   <nav class="container-custom py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="{{ .Site.LanguagePrefix }}/" class="text-3xl font-light tracking-wide text-brand-dark dark:text-white hover:text-brand-accent dark:hover:text-brand-accent transition-colors flex-shrink-0 mr-8">
-        raus.cloud
+      <a href="{{ .Site.LanguagePrefix }}/" class="text-3xl font-medium tracking-tight transition-colors flex-shrink-0 mr-8 font-display text-brand-dark dark:text-white">
+        raus<span class="text-brand-accent">.</span>cloud
       </a>
 
       <!-- Navigation -->
@@ -98,7 +98,7 @@
        x-show="open"
        x-transition
        x-cloak
-       class="md:hidden bg-white dark:bg-gray-900 border-t border-brand-border dark:border-gray-700">
+       class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
      <div class="container-custom py-6 space-y-4">
        <a href="{{ .Site.LanguagePrefix }}/#how-it-works" class="block text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
         {{ i18n "section.howItWorks" }}
@@ -130,28 +130,36 @@
         </button>
       </div>
 
-      <!-- Language Switcher Mobile -->
-      <div class="border-t border-brand-border dark:border-gray-700 pt-4">
-        {{ if .IsTranslated }}
-          {{ range .Translations }}
-            <a href="{{ .RelPermalink }}"
-               onclick="localStorage.setItem('userLangPreference', '{{ .Language.Lang }}')"
-               class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
-              {{ i18n "languageSwitch" }}
-            </a>
-          {{ end }}
-        {{ else }}
-          {{ range .Site.Languages }}
-            {{ if not (eq .Lang $.Site.Language.Lang) }}
-              <a href="{{ if eq .Lang "en" }}/{{ else }}/{{ .Lang }}/{{ end }}"
-                 onclick="localStorage.setItem('userLangPreference', '{{ .Lang }}')"
-                 class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors">
-                {{ i18n "languageSwitch" }}
-              </a>
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      </div>
+       <!-- Language Switcher Mobile -->
+       <div class="border-t border-brand-border dark:border-gray-700 pt-4" x-data="{ langOpen: false }">
+         <button @click="langOpen = !langOpen"
+                 class="flex items-center gap-2 text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors w-full">
+           <span class="uppercase">{{ .Site.Language.Lang }}</span>
+           <svg class="w-4 h-4 transition-transform duration-200" :class="{ 'rotate-180': langOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+           </svg>
+         </button>
+         
+         <!-- Language Options -->
+         <div x-show="langOpen" 
+              x-transition
+              class="mt-2 space-y-2 pl-4"
+              x-cloak>
+           {{ range .Site.Languages }}
+             {{ if eq .Lang $.Site.Language.Lang }}
+               <span class="block text-sm font-medium text-brand-accent uppercase">
+                 {{ .LanguageName }} ✓
+               </span>
+             {{ else }}
+               <a href="{{ if eq .Lang "en" }}/{{ else }}/{{ .Lang }}/{{ end }}"
+                  onclick="localStorage.setItem('userLangPreference', '{{ .Lang }}')"
+                  class="block text-sm font-medium text-brand-secondary dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-accent transition-colors uppercase">
+                 {{ .LanguageName }}
+               </a>
+             {{ end }}
+           {{ end }}
+         </div>
+       </div>
 
       <a href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" class="btn btn-primary w-full">
         {{ i18n "cta.bookAudit" }}

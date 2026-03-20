@@ -1,0 +1,28 @@
+<!-- Founder Section -->
+<section id="founder" class="section-dark">
+  <div class="container-custom">
+    <div class="max-w-4xl mx-auto">
+      {{ partial "components/section-header.html" (dict "title" .Params.founder.title "subtitle" .Params.founder.subtitle) }}
+      
+      <div class="mt-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <!-- Avatar/Logo Placeholder -->
+        <div class="w-32 h-32 md:w-40 md:h-40 rounded-full bg-brand-accent/10 border-2 border-brand-accent flex items-center justify-center flex-shrink-0">
+          <span class="text-4xl font-bold text-brand-accent font-display">ES</span>
+        </div>
+        
+        <div class="text-center md:text-left">
+          <h3 class="text-2xl font-bold mb-1 font-display text-brand-dark dark:text-white">{{ .Params.founder.name }}</h3>
+          <p class="font-medium mb-4 text-brand-accent">{{ .Params.founder.title_role }}</p>
+          <p class="mb-6 leading-relaxed text-gray-700 dark:text-gray-300">{{ .Params.founder.bio }}</p>
+          <p class="text-sm mb-4 text-gray-500 dark:text-gray-400">{{ .Params.founder.location }}</p>
+          <a href="{{ .Params.founder.link_url }}" target="_blank" rel="noopener" class="inline-flex items-center text-brand-accent hover:text-brand-accentDark transition-colors">
+            {{ .Params.founder.link_text }}
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
