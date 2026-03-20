@@ -1,0 +1,572 @@
+{{ define "main" }}
+<div class="min-h-screen bg-white dark:bg-gray-900">
+
+  <!-- Header -->
+  <div class="bg-brand-primary text-white py-16">
+    <div class="container-custom">
+      <p class="text-brand-accent text-sm font-medium uppercase tracking-widest mb-3">Internal Reference</p>
+      <h1 class="text-display font-bold mb-4 text-white">raus.cloud Design System</h1>
+      <p class="text-gray-400 text-lg max-w-2xl">Living reference for all brand, typography, color, and component decisions. Always use this when building new pages or UI.</p>
+      <div class="mt-6 flex gap-3">
+        <button onclick="toggleTheme()" class="btn btn-primary text-sm">Toggle Dark Mode</button>
+        <a href="/" class="btn text-sm text-white border border-white/30 hover:border-brand-accent hover:text-brand-accent transition-colors">Back to Site</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-custom py-16 space-y-20">
+
+    <!-- ─────────────────────────────────────────────
+         1. IDENTITY
+    ───────────────────────────────────────────── -->
+    <section id="identity">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Identity</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">The raus.cloud identity is text-based — no image logo. The wordmark and favicon icon are the two brand marks.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Wordmark -->
+        <div class="card">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Wordmark (light bg)</p>
+          <div class="bg-white rounded-lg p-8 flex items-center justify-center border border-gray-100">
+            <a href="#" class="text-3xl font-medium tracking-tight font-display text-brand-dark hover:text-brand-accent transition-colors">raus<span class="text-brand-accent">.</span>cloud</a>
+          </div>
+          <p class="mt-4 text-sm text-brand-secondary dark:text-gray-400 font-mono">text-3xl font-medium tracking-tight font-display text-brand-dark</p>
+        </div>
+        <div class="card">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Wordmark (dark bg)</p>
+          <div class="bg-gray-900 rounded-lg p-8 flex items-center justify-center border border-gray-800">
+            <a href="#" class="text-3xl font-medium tracking-tight font-display text-white hover:text-brand-accent transition-colors">raus<span class="text-brand-accent">.</span>cloud</a>
+          </div>
+          <p class="mt-4 text-sm text-brand-secondary dark:text-gray-400 font-mono">text-3xl font-medium tracking-tight font-display text-white</p>
+        </div>
+
+        <!-- Favicon -->
+        <div class="card">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Favicon / Icon</p>
+          <div class="flex items-center gap-8">
+            <!-- Large -->
+            <div class="flex flex-col items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80">
+                <rect width="100" height="100" rx="20" fill="#10b981"/>
+                <text x="50" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="white" text-anchor="middle">R</text>
+              </svg>
+              <span class="text-xs text-brand-secondary dark:text-gray-400">80px</span>
+            </div>
+            <!-- Medium -->
+            <div class="flex flex-col items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="48" height="48">
+                <rect width="100" height="100" rx="20" fill="#10b981"/>
+                <text x="50" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="white" text-anchor="middle">R</text>
+              </svg>
+              <span class="text-xs text-brand-secondary dark:text-gray-400">48px</span>
+            </div>
+            <!-- Small -->
+            <div class="flex flex-col items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="24" height="24">
+                <rect width="100" height="100" rx="20" fill="#10b981"/>
+                <text x="50" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="white" text-anchor="middle">R</text>
+              </svg>
+              <span class="text-xs text-brand-secondary dark:text-gray-400">24px</span>
+            </div>
+          </div>
+          <p class="mt-4 text-sm text-brand-secondary dark:text-gray-400 font-mono">bg: #10b981, rx: 20, letter: white bold "R"</p>
+        </div>
+
+        <!-- Hover state -->
+        <div class="card">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Wordmark hover state</p>
+          <div class="bg-white dark:bg-gray-800 rounded-lg p-8 flex items-center justify-center border border-gray-100 dark:border-gray-700">
+            <a href="#" class="text-3xl font-light tracking-wide text-brand-dark dark:text-white hover:text-brand-accent dark:hover:text-brand-accent transition-colors">raus.cloud</a>
+          </div>
+          <p class="mt-4 text-sm text-brand-secondary dark:text-gray-400 font-mono">hover:text-brand-accent transition-colors</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         2. COLORS
+    ───────────────────────────────────────────── -->
+    <section id="colors">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Brand Colors</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">Emerald green is the primary accent. The palette supports both light and dark mode.</p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <!-- Accent -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl bg-brand-accent shadow-glow"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">brand-accent</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#10b981</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Primary CTA, links</p>
+        </div>
+        <!-- Accent Dark -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl" style="background:#059669;"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">brand-accentDark</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#059669</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Hover states</p>
+        </div>
+        <!-- Light -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl bg-brand-light border border-brand-border"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">brand-light</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#ecfdf5</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Light section bg</p>
+        </div>
+        <!-- Border -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl bg-brand-border"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">brand-border</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#d1fae5</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Card borders</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <!-- Dark -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl bg-brand-dark"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">brand-dark</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#0a0a0a</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Body text</p>
+        </div>
+        <!-- Primary -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl bg-brand-primary"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">brand-primary</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#0f1419</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Dark section bg</p>
+        </div>
+        <!-- Secondary -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl bg-brand-secondary"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">brand-secondary</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#6b7280</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Muted text</p>
+        </div>
+        <!-- White -->
+        <div class="space-y-2">
+          <div class="h-20 rounded-xl bg-white border border-gray-200"></div>
+          <p class="font-semibold text-sm text-brand-dark dark:text-white">white</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">#ffffff</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Card backgrounds</p>
+        </div>
+      </div>
+
+      <!-- Grays -->
+      <p class="text-sm font-semibold text-brand-secondary dark:text-gray-400 uppercase tracking-widest mb-4">Neutral Scale</p>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+        <div class="space-y-1"><div class="h-12 rounded-lg bg-gray-100 border border-gray-200"></div><p class="text-xs font-mono text-center text-brand-secondary dark:text-gray-400">gray-100</p></div>
+        <div class="space-y-1"><div class="h-12 rounded-lg bg-gray-200"></div><p class="text-xs font-mono text-center text-brand-secondary dark:text-gray-400">gray-200</p></div>
+        <div class="space-y-1"><div class="h-12 rounded-lg bg-gray-400"></div><p class="text-xs font-mono text-center text-brand-secondary dark:text-gray-400">gray-400</p></div>
+        <div class="space-y-1"><div class="h-12 rounded-lg bg-gray-700"></div><p class="text-xs font-mono text-center text-brand-secondary dark:text-gray-400">gray-700</p></div>
+        <div class="space-y-1"><div class="h-12 rounded-lg bg-gray-800"></div><p class="text-xs font-mono text-center text-brand-secondary dark:text-gray-400">gray-800</p></div>
+        <div class="space-y-1"><div class="h-12 rounded-lg bg-gray-950"></div><p class="text-xs font-mono text-center text-brand-secondary dark:text-gray-400">gray-950</p></div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         3. TYPOGRAPHY
+    ───────────────────────────────────────────── -->
+    <section id="typography">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Typography</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">Space Grotesk for display/headings, Inter for body. Self-hosted in <code class="text-brand-accent text-sm">static/fonts/</code>.</p>
+
+      <!-- Font families -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <div class="card">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Space Grotesk — Display</p>
+          <p class="text-4xl font-bold mb-1" style="font-family:'Space Grotesk',sans-serif;">The Quick Brown</p>
+          <p class="text-3xl font-semibold mb-1" style="font-family:'Space Grotesk',sans-serif;">Fox Jumps Over</p>
+          <p class="text-2xl font-medium mb-1" style="font-family:'Space Grotesk',sans-serif;">The Lazy Dog</p>
+          <p class="text-xl font-light mt-4 text-brand-secondary" style="font-family:'Space Grotesk',sans-serif;">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789</p>
+          <p class="mt-4 text-xs font-mono text-brand-secondary dark:text-gray-400">font-family: 'Space Grotesk'<br>Headings, hero, wordmark, CTAs</p>
+        </div>
+        <div class="card">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Inter — Body</p>
+          <p class="text-lg font-normal mb-2" style="font-family:'Inter',sans-serif;">Body copy reads cleanly at any size. Inter is optimized for screen legibility across all weights from light to bold.</p>
+          <p class="text-sm text-brand-secondary dark:text-gray-400" style="font-family:'Inter',sans-serif;">Secondary text, metadata, captions, and UI labels use Inter at smaller sizes.</p>
+          <p class="mt-4 text-xs font-mono text-brand-secondary dark:text-gray-400">font-family: 'Inter'<br>Body, UI text, captions</p>
+        </div>
+      </div>
+
+      <!-- Type scale -->
+      <div class="card">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-6">Type Scale</p>
+        <div class="space-y-4 divide-y divide-gray-100 dark:divide-gray-700">
+          <div class="flex items-baseline gap-6 pt-4 first:pt-0">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-hero</code>
+            <span class="text-hero font-bold text-brand-dark dark:text-white leading-none">Hero</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">3.5rem / lh 1.1 / ls -0.02em</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-display</code>
+            <span class="text-display font-bold text-brand-dark dark:text-white leading-none">Display</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">2.5rem / lh 1.2 / ls -0.01em</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-3xl</code>
+            <span class="text-3xl font-semibold text-brand-dark dark:text-white">Section Heading</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">1.875rem</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-2xl</code>
+            <span class="text-2xl font-semibold text-brand-dark dark:text-white">Sub-heading</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">1.5rem</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-xl</code>
+            <span class="text-xl text-brand-dark dark:text-white">Lead paragraph</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">1.25rem</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-lg</code>
+            <span class="text-lg text-brand-dark dark:text-white">Body large</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">1.125rem</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-base</code>
+            <span class="text-base text-brand-dark dark:text-white">Body default</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">1rem</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-sm</code>
+            <span class="text-sm text-brand-secondary dark:text-gray-400">Caption / metadata</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">0.875rem</span>
+          </div>
+          <div class="flex items-baseline gap-6 pt-4">
+            <code class="text-xs text-brand-accent w-28 flex-shrink-0">text-xs</code>
+            <span class="text-xs uppercase tracking-widest text-brand-secondary dark:text-gray-400">Label / eyebrow</span>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 ml-auto">0.75rem</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Font weights -->
+      <div class="card mt-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-6">Font Weights</p>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div><p class="text-2xl font-light text-brand-dark dark:text-white">Light</p><p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">font-light (300)</p></div>
+          <div><p class="text-2xl font-normal text-brand-dark dark:text-white">Normal</p><p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">font-normal (400)</p></div>
+          <div><p class="text-2xl font-medium text-brand-dark dark:text-white">Medium</p><p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">font-medium (500)</p></div>
+          <div><p class="text-2xl font-semibold text-brand-dark dark:text-white">Semibold</p><p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">font-semibold (600)</p></div>
+          <div><p class="text-2xl font-bold text-brand-dark dark:text-white">Bold</p><p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">font-bold (700)</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         4. COMPONENTS
+    ───────────────────────────────────────────── -->
+    <section id="components">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Components</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">Reusable CSS component classes defined in <code class="text-brand-accent text-sm">assets/css/main.css</code>.</p>
+
+      <!-- Buttons -->
+      <div class="card mb-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-6">Buttons</p>
+        <div class="flex flex-wrap gap-4 mb-6">
+          <button class="btn btn-primary">Book Audit</button>
+          <button class="btn btn-secondary">Learn More</button>
+          <button class="btn btn-primary" disabled style="opacity:0.5;cursor:not-allowed;">Disabled</button>
+        </div>
+        <div class="space-y-2 text-sm">
+          <div class="flex gap-3 items-center">
+            <code class="text-brand-accent bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded text-xs">.btn.btn-primary</code>
+            <span class="text-brand-secondary dark:text-gray-400">bg-brand-accent, white text, hover → bg-brand-accentDark</span>
+          </div>
+          <div class="flex gap-3 items-center">
+            <code class="text-brand-accent bg-gray-50 dark:bg-gray-800 px-2 py-1 rounded text-xs">.btn.btn-secondary</code>
+            <span class="text-brand-secondary dark:text-gray-400">transparent, border-brand-border, hover → border-brand-accent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card -->
+      <div class="mb-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Card</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card">
+            <div class="w-10 h-10 bg-brand-light rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="font-semibold text-brand-dark dark:text-white mb-2">Card Title</h3>
+            <p class="text-brand-secondary dark:text-gray-400 text-sm">Description text explaining the feature or concept in a concise way.</p>
+          </div>
+          <div class="card">
+            <div class="w-10 h-10 bg-brand-light rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="font-semibold text-brand-dark dark:text-white mb-2">Another Card</h3>
+            <p class="text-brand-secondary dark:text-gray-400 text-sm">Cards use rounded-2xl, shadow-card, border-brand-border with hover shadow-lg.</p>
+          </div>
+          <div class="card">
+            <div class="w-10 h-10 bg-brand-light rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+            </div>
+            <h3 class="font-semibold text-brand-dark dark:text-white mb-2">Third Card</h3>
+            <p class="text-brand-secondary dark:text-gray-400 text-sm">Dark mode: bg-gray-800, border-gray-700 — automatically applied via dark: variants.</p>
+          </div>
+        </div>
+        <p class="mt-3 text-xs font-mono text-brand-secondary dark:text-gray-400">.card → bg-white rounded-2xl p-8 shadow-card border border-brand-border hover:shadow-lg dark:bg-gray-800 dark:border-gray-700</p>
+      </div>
+
+      <!-- Sections -->
+      <div class="mb-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Section Backgrounds</p>
+        <div class="rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+          <div class="section-light py-8">
+            <div class="container-custom">
+              <p class="font-semibold text-brand-dark dark:text-white">.section-light</p>
+              <p class="text-sm text-brand-secondary dark:text-gray-400">bg-brand-light (emerald tint) / dark: bg-gray-800</p>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 py-8">
+            <div class="container-custom">
+              <p class="font-semibold text-brand-dark dark:text-white">.section (default)</p>
+              <p class="text-sm text-brand-secondary dark:text-gray-400">bg-white / dark: bg-gray-900 — py-20</p>
+            </div>
+          </div>
+          <div class="section-dark py-8">
+            <div class="container-custom">
+              <p class="font-semibold text-white">.section-dark</p>
+              <p class="text-sm text-gray-400">bg-brand-primary (#0f1419) / dark: bg-gray-950</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code blocks -->
+      <div class="card mb-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-6">Code & Prose</p>
+        <div class="space-y-4">
+          <div>
+            <p class="text-sm text-brand-secondary dark:text-gray-400 mb-2">Inline code:</p>
+            <p class="text-brand-dark dark:text-gray-200">Use <code class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-sm font-mono text-brand-accent dark:text-emerald-400 border border-gray-200 dark:border-gray-700">hugo server -D</code> to start development.</p>
+          </div>
+          <div>
+            <p class="text-sm text-brand-secondary dark:text-gray-400 mb-2">Code block:</p>
+            <pre class="my-0 p-4 bg-gray-900 dark:bg-gray-950 rounded-lg overflow-x-auto border border-gray-700"><code class="bg-transparent border-0 text-gray-100 p-0 text-sm">cd apps/landing && hugo server -D
+# Server running on http://localhost:1313</code></pre>
+          </div>
+          <div>
+            <p class="text-sm text-brand-secondary dark:text-gray-400 mb-2">Blockquote:</p>
+            <blockquote class="border-l-4 border-brand-accent pl-6 italic text-gray-600 dark:text-gray-400">
+              Stop spending runway on AWS, spend it on customers instead.
+            </blockquote>
+          </div>
+          <div>
+            <p class="text-sm text-brand-secondary dark:text-gray-400 mb-2">Badge / tag:</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 bg-brand-light text-brand-accent text-xs font-semibold rounded-full border border-brand-border">Case Study</span>
+              <span class="px-3 py-1 bg-brand-light text-brand-accent text-xs font-semibold rounded-full border border-brand-border">Infrastructure</span>
+              <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-brand-secondary dark:text-gray-400 text-xs font-semibold rounded-full">Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         5. SHADOWS
+    ───────────────────────────────────────────── -->
+    <section id="shadows">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Shadows</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">All shadows use emerald-tinted values for cohesion with the brand accent.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-subtle inline-block w-full border border-brand-border"></div>
+          <p class="mt-4 font-semibold text-brand-dark dark:text-white">shadow-subtle</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">rgba(16,185,129,0.1)</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Hover cards, inputs</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-card inline-block w-full border border-brand-border"></div>
+          <p class="mt-4 font-semibold text-brand-dark dark:text-white">shadow-card</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">rgba(16,185,129,0.08)</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Default card shadow (.card)</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-10 shadow-glow inline-block w-full border border-brand-border"></div>
+          <p class="mt-4 font-semibold text-brand-dark dark:text-white">shadow-glow</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono mt-1">rgba(16,185,129,0.3)</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Accent elements, CTAs</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         6. BORDER RADIUS
+    ───────────────────────────────────────────── -->
+    <section id="radius">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Border Radius</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">Generous rounding gives the brand a modern, friendly feel.</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="bg-brand-light border border-brand-border h-20 w-full rounded-lg"></div>
+          <p class="mt-3 font-semibold text-sm text-brand-dark dark:text-white">rounded-lg</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">0.5rem (8px)</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Buttons, tags, inputs</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-brand-light border border-brand-border h-20 w-full rounded-xl"></div>
+          <p class="mt-3 font-semibold text-sm text-brand-dark dark:text-white">rounded-xl</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">1rem (16px)</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Sections, containers</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-brand-light border border-brand-border h-20 w-full rounded-2xl"></div>
+          <p class="mt-3 font-semibold text-sm text-brand-dark dark:text-white">rounded-2xl</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">1.5rem (24px)</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Cards (.card)</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-brand-light border border-brand-border h-20 w-full rounded-full"></div>
+          <p class="mt-3 font-semibold text-sm text-brand-dark dark:text-white">rounded-full</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400 font-mono">9999px</p>
+          <p class="text-xs text-brand-secondary dark:text-gray-400">Badges, pills</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         7. SPACING
+    ───────────────────────────────────────────── -->
+    <section id="spacing">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Spacing</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">Key spacing values used consistently across the site.</p>
+      <div class="card">
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <code class="text-brand-accent text-xs w-24 flex-shrink-0">py-20</code>
+            <div class="flex-1 bg-brand-light rounded" style="height:80px;"></div>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 w-32 text-right">5rem — section padding</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="text-brand-accent text-xs w-24 flex-shrink-0">p-8</code>
+            <div class="flex-1 bg-brand-light rounded" style="height:48px;"></div>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 w-32 text-right">2rem — card padding</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="text-brand-accent text-xs w-24 flex-shrink-0">py-4 px-6</code>
+            <div class="flex-1 bg-brand-light rounded" style="height:32px;"></div>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 w-32 text-right">button padding</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <code class="text-brand-accent text-xs w-24 flex-shrink-0">px-6 lg:px-8</code>
+            <div class="flex-1 bg-brand-light rounded" style="height:24px;"></div>
+            <span class="text-xs text-brand-secondary dark:text-gray-400 w-32 text-right">container horizontal</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         8. ANIMATION
+    ───────────────────────────────────────────── -->
+    <section id="animation">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Animation</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">CSS-only marquee for the logo/tech strip. Dark mode aware via <code class="text-brand-accent text-sm">dark:</code> variants.</p>
+      <div class="card mb-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Marquee (.marquee-container + .marquee-content)</p>
+        <div class="marquee-container py-4 bg-brand-light dark:bg-gray-800 rounded-lg" style="--marquee-speed: 20s;">
+          <div class="marquee-content">
+            <span class="px-4 py-2 text-brand-accent font-semibold">Docker Swarm</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Coolify</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Hetzner CAX21</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">PostgreSQL</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Terraform</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Let's Encrypt</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <!-- duplicate for seamless loop -->
+            <span class="px-4 py-2 text-brand-accent font-semibold">Docker Swarm</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Coolify</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Hetzner CAX21</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">PostgreSQL</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Terraform</span>
+            <span class="px-4 py-2 text-brand-secondary dark:text-gray-400">·</span>
+            <span class="px-4 py-2 text-brand-accent font-semibold">Let's Encrypt</span>
+          </div>
+        </div>
+        <div class="mt-4 space-y-1 text-xs font-mono text-brand-secondary dark:text-gray-400">
+          <p>--marquee-speed: 20s (default: 100s, fast: 10s)</p>
+          <p>Pause on hover: .marquee-content:hover { animation-play-state: paused }</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────
+         9. DARK MODE
+    ───────────────────────────────────────────── -->
+    <section id="dark-mode">
+      <h2 class="text-2xl font-bold text-brand-dark dark:text-white mb-2">Dark Mode</h2>
+      <p class="text-brand-secondary dark:text-gray-400 mb-8">Class-based dark mode via <code class="text-brand-accent text-sm">dark:</code> Tailwind variants. The <code class="text-brand-accent text-sm">.dark</code> class is toggled on <code class="text-brand-accent text-sm">&lt;html&gt;</code>. Persisted in localStorage.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="rounded-2xl p-6 bg-white border border-gray-200">
+          <p class="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Light Mode</p>
+          <div class="space-y-3">
+            <p class="text-brand-dark font-semibold">Heading text (#0a0a0a)</p>
+            <p class="text-brand-secondary text-sm">Secondary text (#6b7280)</p>
+            <div class="p-4 bg-brand-light rounded-xl border border-brand-border">
+              <p class="text-brand-dark text-sm">Light section background</p>
+            </div>
+            <button class="btn btn-primary w-full">CTA Button</button>
+          </div>
+        </div>
+        <div class="rounded-2xl p-6 bg-gray-900 border border-gray-700">
+          <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">Dark Mode</p>
+          <div class="space-y-3">
+            <p class="text-white font-semibold">Heading text (white)</p>
+            <p class="text-gray-400 text-sm">Secondary text (gray-400)</p>
+            <div class="p-4 bg-gray-800 rounded-xl border border-gray-700">
+              <p class="text-gray-300 text-sm">Dark section background</p>
+            </div>
+            <button class="btn btn-primary w-full">CTA Button</button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 card">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary dark:text-gray-400 mb-4">Implementation</p>
+        <pre class="my-0 p-4 bg-gray-900 rounded-lg overflow-x-auto border border-gray-700 text-sm"><code class="bg-transparent border-0 text-gray-100 p-0">&lt;!-- In &lt;head&gt;, before body renders --&gt;
+&lt;script&gt;
+  const theme = localStorage.getItem('theme') ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  if (theme === 'dark') document.documentElement.classList.add('dark');
+&lt;/script&gt;
+
+&lt;!-- Toggle function --&gt;
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+}</code></pre>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer nav -->
+  <div class="border-t border-brand-border dark:border-gray-800 mt-16">
+    <div class="container-custom py-8 flex flex-wrap gap-4 text-sm text-brand-secondary dark:text-gray-400">
+      <a href="#identity" class="hover:text-brand-accent transition-colors">Identity</a>
+      <a href="#colors" class="hover:text-brand-accent transition-colors">Colors</a>
+      <a href="#typography" class="hover:text-brand-accent transition-colors">Typography</a>
+      <a href="#components" class="hover:text-brand-accent transition-colors">Components</a>
+      <a href="#shadows" class="hover:text-brand-accent transition-colors">Shadows</a>
+      <a href="#radius" class="hover:text-brand-accent transition-colors">Radius</a>
+      <a href="#spacing" class="hover:text-brand-accent transition-colors">Spacing</a>
+      <a href="#animation" class="hover:text-brand-accent transition-colors">Animation</a>
+      <a href="#dark-mode" class="hover:text-brand-accent transition-colors">Dark Mode</a>
+      <a href="/" class="ml-auto hover:text-brand-accent transition-colors">← Back to raus.cloud</a>
+    </div>
+  </div>
+
+</div>
+{{ end }}
