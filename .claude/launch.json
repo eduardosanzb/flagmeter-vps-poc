@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "landing",
+      "runtimeExecutable": "hugo",
+      "runtimeArgs": ["server", "-D", "--port", "1314", "--baseURL", "http://localhost:1314"],
+      "port": 1314,
+      "cwd": "apps/landing"
+    }
+  ]
+}

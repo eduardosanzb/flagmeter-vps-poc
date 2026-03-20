@@ -1,27 +1,30 @@
-<footer class="section-dark">
+<footer class="bg-gray-900 text-white py-20">
   <div class="container-custom">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-brand-secondary/20 dark:border-gray-700">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-gray-700">
       <!-- Brand -->
       <div>
-        <h3 class="text-2xl font-bold mb-4 text-white">raus.cloud</h3>
-        <p class="text-slate-300 dark:text-gray-400 mb-4">{{ i18n "footer.built" }}</p>
-        <p class="text-sm text-slate-400 dark:text-gray-500">
+        <a href="{{ .Site.LanguagePrefix }}/" class="text-2xl font-medium tracking-tight font-display text-white hover:text-brand-accent transition-colors inline-block mb-4">
+          raus<span class="text-brand-accent">.</span>cloud
+        </a>
+        <p class="text-gray-300 mb-4">{{ i18n "footer.built" }}</p>
+        <p class="text-sm text-gray-400">
           {{ i18n "footer.builtBy" }} <a href="https://eduardosanzb.dev" target="_blank" rel="noopener" class="text-brand-accent hover:text-white transition-colors">Eduardo Sanchez</a>
         </p>
       </div>
-      
+
       <!-- Quick Links -->
       <div>
         <h4 class="font-semibold mb-4 text-white">Quick Links</h4>
-        <ul class="space-y-2 text-slate-300 dark:text-gray-400">
-          <li><a href="{{ .Site.LanguagePrefix }}/#how-it-works" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.howItWorks" }}</a></li>
-          <li><a href="{{ partial "components/blog-url.html" . }}" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "navigation.blog" }}</a></li>
-          <li><a href="{{ .Site.LanguagePrefix }}/#pricing" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.pricing" }}</a></li>
-          <li><a href="{{ .Site.LanguagePrefix }}/#faq" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "section.faq" }}</a></li>
-          <li><a href="{{ .Site.LanguagePrefix }}/impressum" class="hover:text-white dark:hover:text-brand-accent transition-colors">{{ i18n "footer.impressum" }}</a></li>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="{{ .Site.LanguagePrefix }}/#how-it-works" class="hover:text-brand-accent transition-colors">{{ i18n "section.howItWorks" }}</a></li>
+          <li><a href="{{ partial "components/blog-url.html" . }}" class="hover:text-brand-accent transition-colors">{{ i18n "navigation.blog" }}</a></li>
+          <li><a href="{{ .Site.LanguagePrefix }}/#pricing" class="hover:text-brand-accent transition-colors">{{ i18n "section.pricing" }}</a></li>
+          <li><a href="{{ .Site.LanguagePrefix }}/#faq" class="hover:text-brand-accent transition-colors">{{ i18n "section.faq" }}</a></li>
+          <li><a href="{{ .Site.LanguagePrefix }}/design-system" class="hover:text-brand-accent transition-colors">Brand</a></li>
+          <li><a href="{{ .Site.LanguagePrefix }}/impressum" class="hover:text-brand-accent transition-colors">{{ i18n "footer.impressum" }}</a></li>
         </ul>
       </div>
-      
+
       <!-- Contact -->
       <div>
         <h4 class="font-semibold mb-4 text-white">Get Started</h4>
@@ -30,9 +33,9 @@
         </a>
       </div>
     </div>
-    
+
     <!-- Copyright -->
-    <div class="pt-8 text-center text-slate-400 dark:text-gray-500 text-sm">
+    <div class="pt-8 text-center text-gray-400 text-sm">
       <p>{{ i18n "footer.copyright" }}</p>
     </div>
   </div>

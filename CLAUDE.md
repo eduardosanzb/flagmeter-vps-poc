@@ -2,6 +2,38 @@
 
 > **AI-quota microservice**: Event ingestion → Valkey queue → Worker aggregation → PostgreSQL rollups → Dashboard + Slack webhooks at 80% quota
 
+## Design System
+
+The raus.cloud design system is documented as a living page in the landing site.
+
+- **Page source**: `apps/landing/content/design-system.en.md`
+- **Layout**: `apps/landing/layouts/_default/design-system.html`
+- **URL**: `/design-system/` (not linked from main nav — internal reference only)
+
+**Always reference this page when:**
+- Creating new landing pages or sections
+- Adding new UI components to the Hugo site
+- Choosing colors, spacing, typography, shadows, or animation tokens
+
+### Brand Summary
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `brand-accent` | `#10b981` | Primary CTA, links, highlights |
+| `brand-accentDark` | `#059669` | Hover states |
+| `brand-dark` | `#0a0a0a` | Body text |
+| `brand-primary` | `#0f1419` | Dark section backgrounds |
+| `brand-secondary` | `#6b7280` | Secondary text |
+| `brand-light` | `#ecfdf5` | Light section backgrounds |
+| `brand-border` | `#d1fae5` | Card/input borders |
+
+**Fonts** (self-hosted in `static/fonts/`):
+- Display/headings: **Space Grotesk** (300–700)
+- Body/UI: **Inter** (300–700)
+
+**Wordmark**: `raus.cloud` as plain text — `text-3xl font-light tracking-wide`
+**Icon**: Emerald square (`#10b981`, rx=20) + white bold "R"
+
 ## Outline Document Workflow
 
 ### Accessing Comments & Content from Outline

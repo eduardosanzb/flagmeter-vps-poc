@@ -2,9 +2,7 @@
   <nav class="container-custom py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="{{ .Site.LanguagePrefix }}/" class="text-3xl font-medium tracking-tight transition-colors flex-shrink-0 mr-8 font-display text-brand-dark dark:text-white">
-        raus<span class="text-brand-accent">.</span>cloud
-      </a>
+      <div class="flex-shrink-0 mr-8">{{ partial "components/logo.html" . }}</div>
 
       <!-- Navigation -->
       <div class="hidden md:flex items-center gap-8">
