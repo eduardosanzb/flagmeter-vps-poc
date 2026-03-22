@@ -1,0 +1,285 @@
+{{ define "main" }}
+<div class="min-h-screen bg-brand-primary">
+
+  <!-- Header -->
+  <div class="border-b border-gray-800">
+    <div class="container-custom py-10">
+      <div class="flex items-center justify-between mb-6">
+        <a href="/" class="flex items-center gap-2 text-gray-500 hover:text-brand-accent transition-colors text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          raus.cloud
+        </a>
+        <a href="/design-system/" class="text-xs text-brand-secondary hover:text-brand-accent transition-colors font-mono">design system →</a>
+      </div>
+      <p class="text-brand-accent text-xs font-semibold uppercase tracking-widest mb-3">Slide Decks</p>
+      <h1 class="text-display font-bold text-white font-display mb-2">raus.cloud Slides</h1>
+      <p class="text-gray-400 text-base max-w-xl">Presentation decks built on the raus.cloud design system. Navigate with arrow keys, swipe, or click.</p>
+    </div>
+  </div>
+
+  <div class="container-custom py-12 space-y-16">
+
+    <!-- ── Available Decks ── -->
+    <section>
+      <h2 class="text-lg font-semibold text-white font-display mb-6">Available Decks</h2>
+      {{ if .Pages }}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {{ range .Pages }}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/40 transition-colors group">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <p class="text-white font-semibold group-hover:text-brand-accent transition-colors">{{ .Title }}</p>
+              {{ if .Params.slides }}
+              <p class="text-gray-500 text-xs mt-1">{{ len .Params.slides }} slides</p>
+              {{ end }}
+            </div>
+            <svg class="w-4 h-4 text-gray-600 group-hover:text-brand-accent transition-colors flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </div>
+          {{ if .Description }}
+          <p class="text-gray-400 text-xs mb-4 leading-relaxed">{{ .Description }}</p>
+          {{ end }}
+          <a href="{{ .RelPermalink }}?slide=1" class="btn btn-primary text-xs py-1.5 px-4 inline-block">Open deck →</a>
+        </div>
+        {{ end }}
+      </div>
+      {{ else }}
+      <div class="bg-gray-900/40 border border-gray-800 border-dashed rounded-2xl p-10 text-center">
+        <p class="text-gray-500 text-sm">No decks yet. Create a file in <code class="text-brand-accent">content/slides/</code> to get started.</p>
+      </div>
+      {{ end }}
+    </section>
+
+    <!-- ── Authoring Guide ── -->
+    <section>
+      <h2 class="text-lg font-semibold text-white font-display mb-2">How to Write Slides</h2>
+      <p class="text-gray-400 text-sm mb-8">Create a <code class="text-brand-accent text-xs bg-gray-900 px-1.5 py-0.5 rounded">.en.md</code> file inside <code class="text-brand-accent text-xs bg-gray-900 px-1.5 py-0.5 rounded">content/slides/</code>. Define your slides as a YAML array in the frontmatter. Each slide needs a <code class="text-brand-accent text-xs bg-gray-900 px-1.5 py-0.5 rounded">type</code> that determines its visual layout.</p>
+
+      <!-- Frontmatter schema -->
+      <div class="bg-gray-950 border border-brand-accent/20 rounded-2xl p-6 mb-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary mb-4">Frontmatter Schema</p>
+        <pre class="font-mono text-xs text-gray-300 leading-relaxed overflow-x-auto">---
+title: "My Deck Title"
+description: "Short description shown on the index"
+slides:
+  - number: 1
+    type: hero
+    label: "Section Label"
+    title: "BIG SLIDE TITLE"
+    subtitle: "Supporting line under the title"
+    # ... type-specific fields (see below)
+---</pre>
+      </div>
+
+      <!-- Slide types grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        <!-- hero -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">hero</code>
+            <span class="text-gray-400 text-xs">Title slide with bullets + terminal CTA</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: hero
+bullets: ["60% cost cut", "2-day ownership"]
+cta: "raus.cloud --audit --free"</pre>
+        </div>
+
+        <!-- two-col -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">two-col</code>
+            <span class="text-gray-400 text-xs">Two panels: green ✓ list / red ✗ list</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: two-col
+col_a:
+  heading: "✓ This IS for you"
+  items: ["5-15 engineers", ...]
+col_b:
+  heading: "✗ This is NOT for you"
+  items: ["Need multi-region", ...]</pre>
+        </div>
+
+        <!-- terminal -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">terminal</code>
+            <span class="text-gray-400 text-xs">Terminal prompt with conditional outcomes</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: terminal
+prompt: '"Who owns your PagerDuty?"'
+outcomes:
+  - answer: '"We all do"'
+    result: "Alert fatigue. No ownership."
+conclusion: "One resignation away from outage."</pre>
+        </div>
+
+        <!-- diagnosis -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">diagnosis</code>
+            <span class="text-gray-400 text-xs">Comparison cases with root cause conclusion</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: diagnosis
+cases:
+  - answer: '"We all do"'
+    tag: "Complexity > ownership"
+    description: "Everyone is on-call..."
+conclusion: "Root cause: ..."</pre>
+        </div>
+
+        <!-- layers -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">layers</code>
+            <span class="text-gray-400 text-xs">Numbered cascade layers</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: layers
+layers:
+  - number: 1
+    category: "Financial"
+    description: "€70k-90k/yr on..."</pre>
+        </div>
+
+        <!-- stat-grid -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">stat-grid</code>
+            <span class="text-gray-400 text-xs">3 big stats + detail explanation boxes</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: stat-grid
+stats:
+  - value: "€80k"
+    label: "annual shadow ops cost"
+details:
+  - heading: "The Hidden DevOps Payroll"
+    body: "Last week's incident..."</pre>
+        </div>
+
+        <!-- code-block -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">code-block</code>
+            <span class="text-gray-400 text-xs">Terminal code pane + stat bullets</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: code-block
+code: |
+  $ cat stack.yml
+  Hetzner CPX51   €50/mo
+bullets:
+  - value: "60%"
+    label: "cost reduction"
+footer: "No IAM. No YAML hell."</pre>
+        </div>
+
+        <!-- timeline -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">timeline</code>
+            <span class="text-gray-400 text-xs">Multi-week columns with checklists</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: timeline
+weeks:
+  - number: "01"
+    heading: "Audit + Setup"
+    items: ["Free audit", "Identify waste"]
+footer: "Deploy: git push."</pre>
+        </div>
+
+        <!-- promise -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">promise</code>
+            <span class="text-gray-400 text-xs">3 large commitment cards</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: promise
+promises:
+  - value: "60%"
+    heading: "Cost cut."
+    body: "Right-sized infrastructure..."</pre>
+        </div>
+
+        <!-- feature-list -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">feature-list</code>
+            <span class="text-gray-400 text-xs">2-column bold feature items</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: feature-list
+features:
+  - heading: "Business-First Architecture"
+    body: "We design around your needs..."</pre>
+        </div>
+
+        <!-- pricing -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">pricing</code>
+            <span class="text-gray-400 text-xs">Engagement tiers with price + duration</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: pricing
+tiers:
+  - number: "01"
+    name: "Architecture Audit"
+    description: "Find €2k+/mo waste."
+    price: "Free"
+    duration: "15 min call"</pre>
+        </div>
+
+        <!-- proof -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">proof</code>
+            <span class="text-gray-400 text-xs">Case study cards with result headline</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: proof
+cases:
+  - client: "Unity (SaaS)"
+    result: "€70k/year saved"
+    body: "Fixed CloudWatch retention..."</pre>
+        </div>
+
+        <!-- steps -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">steps</code>
+            <span class="text-gray-400 text-xs">Numbered action flow</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: steps
+tagline: "You're a peer, not a salesperson."
+steps:
+  - number: 1
+    action: "ASK"
+    description: '"What was your last fire?"'</pre>
+        </div>
+
+        <!-- cta -->
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-2 mb-3">
+            <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">cta</code>
+            <span class="text-gray-400 text-xs">Final call-to-action with website + email</span>
+          </div>
+          <pre class="font-mono text-xs text-gray-500 leading-relaxed">type: cta
+website: "raus.cloud"
+email: "hello@raus.cloud"
+tagline: "Right-sized. Business-first."</pre>
+        </div>
+
+      </div><!-- /grid -->
+
+      <!-- Navigation tip -->
+      <div class="mt-8 bg-gray-900/40 border border-gray-800 rounded-xl px-5 py-4 flex items-center gap-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">Navigation</p>
+        <div class="flex items-center gap-4 text-xs text-gray-400">
+          <span><kbd class="bg-gray-800 border border-gray-700 rounded px-1.5 py-0.5 font-mono text-gray-300">←</kbd> <kbd class="bg-gray-800 border border-gray-700 rounded px-1.5 py-0.5 font-mono text-gray-300">→</kbd> arrow keys</span>
+          <span><kbd class="bg-gray-800 border border-gray-700 rounded px-1.5 py-0.5 font-mono text-gray-300">Space</kbd> next slide</span>
+          <span>Swipe left/right on mobile</span>
+          <span><code class="text-brand-accent">?slide=N</code> deep link to any slide</span>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+</div>
+{{ end }}

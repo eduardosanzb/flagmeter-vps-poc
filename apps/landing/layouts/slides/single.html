@@ -1,0 +1,466 @@
+{{ define "main" }}
+{{ $slides := .Params.slides }}
+{{ $total := len $slides }}
+
+<div id="slides-app" class="flex flex-col h-screen w-screen bg-brand-primary">
+
+  <!-- Top bar -->
+  <div class="flex-none flex items-center justify-between px-6 py-3 border-b border-gray-800/60">
+    <a href="/" class="flex items-center gap-2 text-gray-500 hover:text-brand-accent transition-colors text-sm font-medium">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      raus.cloud
+    </a>
+    <button onclick="showSlide(1)" class="text-brand-accent text-xs font-semibold uppercase tracking-widest font-display hover:text-brand-accentDark transition-colors cursor-pointer">{{ .Title }}</button>
+    <span id="slide-counter-top" class="text-gray-600 text-xs font-mono">1 / {{ $total }}</span>
+  </div>
+
+  <!-- Slides area -->
+  <div class="flex-1 relative overflow-hidden">
+    {{ range $slides }}
+    <div class="slide absolute inset-0 flex flex-col items-center justify-center px-8 md:px-16 lg:px-24 opacity-0 pointer-events-none transition-opacity duration-300"
+         data-slide="{{ .number }}">
+
+      <!-- Label pill — only shown when it adds context beyond the title -->
+      {{ if and .label (ne (upper .label) .title) }}
+      <div class="mb-6 self-start md:self-center">
+        <span class="text-xs font-semibold uppercase tracking-widest text-brand-accent border border-brand-accent/30 rounded-full px-3 py-1 bg-brand-accent/5">
+          {{ .label }}
+        </span>
+      </div>
+      {{ end }}
+
+      <!-- Content by type -->
+      <div class="w-full max-w-5xl">
+
+        {{/* ─── HERO ─── */}}
+        {{ if eq .type "hero" }}
+        <div class="text-center">
+          <h1 class="text-display md:text-hero font-bold text-white font-display mb-4 leading-tight tracking-tight">{{ .title }}</h1>
+          <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">{{ .subtitle }}</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            {{ range .bullets }}
+            <div class="flex items-center gap-2 bg-gray-900/60 border border-brand-accent/20 rounded-lg px-4 py-2">
+              <span class="text-brand-accent font-bold text-sm">✓</span>
+              <span class="text-white text-sm font-medium">{{ . }}</span>
+            </div>
+            {{ end }}
+          </div>
+          <div class="font-mono text-brand-accent bg-gray-900 border border-brand-accent/30 rounded-xl px-6 py-4 inline-block text-base md:text-lg shadow-glow">
+            <span class="text-gray-500 mr-2">$</span>{{ .cta }}
+          </div>
+        </div>
+
+        {{/* ─── TWO-COL ─── */}}
+        {{ else if eq .type "two-col" }}
+        <div>
+          <div class="mb-6 text-center">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary">{{ .subtitle }}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-900/60 border border-green-800/40 rounded-2xl p-6">
+              <p class="text-brand-accent font-semibold mb-4 text-sm uppercase tracking-wide">{{ .col_a.heading }}</p>
+              <ul class="space-y-3">
+                {{ range .col_a.items }}
+                <li class="flex items-start gap-3">
+                  <span class="text-brand-accent mt-0.5 flex-shrink-0">✓</span>
+                  <span class="text-gray-300 text-sm">{{ . }}</span>
+                </li>
+                {{ end }}
+              </ul>
+            </div>
+            <div class="bg-gray-900/60 border border-red-900/40 rounded-2xl p-6">
+              <p class="text-red-400 font-semibold mb-4 text-sm uppercase tracking-wide">{{ .col_b.heading }}</p>
+              <ul class="space-y-3">
+                {{ range .col_b.items }}
+                <li class="flex items-start gap-3">
+                  <span class="text-red-500 mt-0.5 flex-shrink-0">✗</span>
+                  <span class="text-gray-400 text-sm">{{ . }}</span>
+                </li>
+                {{ end }}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {{/* ─── TERMINAL ─── */}}
+        {{ else if eq .type "terminal" }}
+        <div class="text-center max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold text-white font-display mb-8">{{ .title }}</h2>
+          <div class="bg-gray-950 border border-brand-accent/30 rounded-2xl p-8 mb-8 shadow-glow text-left">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+            </div>
+            <p class="font-mono text-brand-accent text-lg md:text-2xl mb-8">
+              <span class="text-gray-500">&gt; _</span> {{ .prompt }}
+            </p>
+            <div class="space-y-4">
+              {{ range .outcomes }}
+              <div class="border-l-2 border-brand-accent/40 pl-4">
+                <p class="font-mono text-brand-accent text-sm mb-1">{{ .answer }}</p>
+                <p class="text-gray-400 text-sm">→ {{ .result }}</p>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+          <p class="text-gray-300 text-base italic border border-gray-700 rounded-xl px-6 py-4 bg-gray-900/40">{{ .conclusion }}</p>
+        </div>
+
+        {{/* ─── DIAGNOSIS ─── */}}
+        {{ else if eq .type "diagnosis" }}
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-display font-bold text-white font-display mb-2">{{ .title }}</h2>
+            <p class="text-gray-400 text-sm leading-relaxed">{{ .subtitle }}</p>
+          </div>
+          <div class="space-y-4 mb-6">
+            {{ range .cases }}
+            <div class="bg-gray-900/60 border border-gray-700 rounded-xl p-5 flex gap-4">
+              <div class="flex-shrink-0">
+                <span class="font-mono text-brand-accent text-sm bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-1">{{ .answer }}</span>
+              </div>
+              <div>
+                <p class="text-white font-semibold text-sm mb-1">{{ .tag }}</p>
+                <p class="text-gray-400 text-sm">{{ .description }}</p>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+          <div class="border-l-4 border-brand-accent pl-4 py-2">
+            <p class="text-gray-300 text-sm">{{ .conclusion }}</p>
+          </div>
+        </div>
+
+        {{/* ─── LAYERS ─── */}}
+        {{ else if eq .type "layers" }}
+        <div class="max-w-3xl mx-auto">
+          <div class="mb-6">
+            <h2 class="text-display font-bold text-white font-display mb-2">{{ .title }}</h2>
+            <p class="text-gray-400 text-sm">{{ .subtitle }}</p>
+          </div>
+          <div class="space-y-3">
+            {{ range .layers }}
+            <div class="flex items-start gap-4 bg-gray-900/40 border border-gray-800 rounded-xl p-4 hover:border-brand-accent/30 transition-colors">
+              <div class="flex-shrink-0 w-16 text-center">
+                <span class="text-brand-accent font-bold text-xs uppercase tracking-widest">Layer</span>
+                <p class="text-2xl font-bold text-brand-accent font-display">{{ .number }}</p>
+              </div>
+              <div class="border-l border-gray-700 pl-4">
+                <p class="text-white font-semibold text-sm mb-1">{{ .category }}</p>
+                <p class="text-gray-400 text-sm leading-relaxed">{{ .description }}</p>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* ─── STAT-GRID ─── */}}
+        {{ else if eq .type "stat-grid" }}
+        <div>
+          <div class="mb-6">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+          </div>
+          <div class="grid grid-cols-3 gap-4 mb-6">
+            {{ range .stats }}
+            <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4 text-center">
+              <p class="text-2xl md:text-3xl font-bold text-brand-accent font-display mb-1">{{ .value }}</p>
+              <p class="text-gray-400 text-xs">{{ .label }}</p>
+            </div>
+            {{ end }}
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{ range .details }}
+            <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-5">
+              <p class="text-brand-accent font-semibold text-sm mb-2">{{ .heading }}</p>
+              <p class="text-gray-400 text-sm leading-relaxed">{{ .body }}</p>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* ─── CODE-BLOCK ─── */}}
+        {{ else if eq .type "code-block" }}
+        <div>
+          <div class="mb-4">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }} — <em class="text-gray-400">{{ .tagline }}</em></p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gray-950 border border-brand-accent/30 rounded-2xl p-5 shadow-glow">
+              <div class="flex items-center gap-1.5 mb-4">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/50"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/50"></span>
+              </div>
+              <pre class="font-mono text-xs text-gray-300 leading-relaxed whitespace-pre overflow-x-auto">{{ .code }}</pre>
+            </div>
+            <div class="flex flex-col justify-between">
+              <div class="space-y-3 mb-4">
+                {{ range .bullets }}
+                <div class="flex items-center gap-3 bg-gray-900/60 border border-gray-800 rounded-xl px-4 py-3">
+                  <span class="text-brand-accent font-bold text-lg font-display">{{ .value }}</span>
+                  <span class="text-gray-300 text-sm">{{ .label }}</span>
+                </div>
+                {{ end }}
+              </div>
+              <div class="border-l-4 border-brand-accent pl-4 py-1">
+                <p class="text-gray-400 text-sm font-mono">{{ .footer }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{/* ─── TIMELINE ─── */}}
+        {{ else if eq .type "timeline" }}
+        <div>
+          <div class="mb-5">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }} — <em class="text-gray-400">{{ .tagline }}</em></p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            {{ range .weeks }}
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="text-brand-accent font-bold font-display text-sm">Week {{ .number }}</span>
+                <span class="text-white font-semibold text-sm">{{ .heading }}</span>
+              </div>
+              <ul class="space-y-2">
+                {{ range .items }}
+                <li class="flex items-start gap-2">
+                  <span class="text-brand-accent text-xs mt-0.5 flex-shrink-0">✓</span>
+                  <span class="text-gray-400 text-xs">{{ . }}</span>
+                </li>
+                {{ end }}
+              </ul>
+            </div>
+            {{ end }}
+          </div>
+          <div class="bg-gray-950 border border-brand-accent/20 rounded-xl px-5 py-3">
+            <p class="font-mono text-gray-400 text-xs">{{ .footer }}</p>
+          </div>
+        </div>
+
+        {{/* ─── PROMISE ─── */}}
+        {{ else if eq .type "promise" }}
+        <div>
+          <div class="mb-6">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {{ range .promises }}
+            <div class="bg-gray-900/60 border border-brand-accent/20 rounded-2xl p-6 hover:border-brand-accent/50 transition-colors">
+              <p class="text-3xl md:text-4xl font-bold text-brand-accent font-display mb-2">{{ .value }}</p>
+              <p class="text-white font-semibold mb-2 text-sm">{{ .heading }}</p>
+              <p class="text-gray-400 text-xs leading-relaxed">{{ .body }}</p>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* ─── FEATURE-LIST ─── */}}
+        {{ else if eq .type "feature-list" }}
+        <div>
+          <div class="mb-6">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{ range .features }}
+            <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-5 hover:border-brand-accent/30 transition-colors">
+              <div class="flex items-start gap-3">
+                <span class="w-1.5 h-1.5 bg-brand-accent rounded-full mt-2 flex-shrink-0"></span>
+                <div>
+                  <p class="text-white font-semibold text-sm mb-1">{{ .heading }}</p>
+                  <p class="text-gray-400 text-xs leading-relaxed">{{ .body }}</p>
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* ─── PRICING ─── */}}
+        {{ else if eq .type "pricing" }}
+        <div>
+          <div class="mb-5">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+          </div>
+          <div class="space-y-3">
+            {{ range .tiers }}
+            <div class="flex items-center gap-4 bg-gray-900/60 border border-gray-800 rounded-xl px-5 py-4 hover:border-brand-accent/30 transition-colors">
+              <span class="font-mono text-brand-accent text-sm font-bold flex-shrink-0 w-8">{{ .number }}</span>
+              <div class="flex-1 min-w-0">
+                <p class="text-white font-semibold text-sm">{{ .name }}</p>
+                <p class="text-gray-400 text-xs truncate">{{ .description }}</p>
+              </div>
+              <div class="text-right flex-shrink-0">
+                <p class="text-brand-accent font-bold text-sm font-display">{{ .price }}</p>
+                <p class="text-gray-500 text-xs">{{ .duration }}</p>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* ─── PROOF ─── */}}
+        {{ else if eq .type "proof" }}
+        <div>
+          <div class="mb-6">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {{ range .cases }}
+            <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+              <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary mb-3">{{ .client }}</p>
+              <p class="text-2xl font-bold text-brand-accent font-display mb-3">{{ .result }}</p>
+              <p class="text-gray-400 text-sm leading-relaxed">{{ .body }}</p>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* ─── STEPS ─── */}}
+        {{ else if eq .type "steps" }}
+        <div>
+          <div class="mb-5">
+            <h2 class="text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            <p class="text-brand-secondary text-sm">{{ .subtitle }} — <em class="text-gray-400">{{ .tagline }}</em></p>
+          </div>
+          <div class="space-y-2">
+            {{ range .steps }}
+            <div class="flex items-center gap-4 bg-gray-900/40 border border-gray-800 rounded-xl px-5 py-3 hover:border-brand-accent/30 transition-colors">
+              <span class="w-7 h-7 flex-shrink-0 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center">
+                <span class="text-brand-accent text-xs font-bold">{{ .number }}</span>
+              </span>
+              <span class="text-brand-accent font-bold text-sm font-display w-20 flex-shrink-0">{{ .action }}</span>
+              <span class="text-gray-400 text-sm">{{ .description }}</span>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* ─── CTA ─── */}}
+        {{ else if eq .type "cta" }}
+        <div class="text-center max-w-2xl mx-auto">
+          <h2 class="text-display md:text-hero font-bold text-white font-display mb-4 leading-tight">{{ .title }}</h2>
+          <p class="text-lg text-gray-300 mb-8">{{ .subtitle }}</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <a href="https://{{ .website }}" target="_blank" rel="noopener"
+               class="btn btn-primary text-base px-8 py-3">
+              {{ .website }}
+            </a>
+            <a href="mailto:{{ .email }}"
+               class="btn btn-secondary text-base px-8 py-3">
+              {{ .email }}
+            </a>
+          </div>
+          <p class="text-brand-secondary text-sm font-mono">{{ .tagline }}</p>
+        </div>
+
+        {{ end }}
+      </div><!-- /max-w-5xl -->
+    </div><!-- /slide -->
+    {{ end }}
+  </div><!-- /slides area -->
+
+  <!-- Bottom bar -->
+  <div class="flex-none">
+    <!-- Progress bar -->
+    <div class="h-0.5 bg-gray-800">
+      <div id="progress-bar" class="h-full bg-brand-accent transition-all duration-300" style="width: 0%; box-shadow: 0 0 8px rgba(16,185,129,0.5);"></div>
+    </div>
+    <!-- Nav controls -->
+    <div class="flex items-center justify-between px-6 py-3 border-t border-gray-800/60">
+      <button id="btn-prev" onclick="prevSlide()"
+              class="btn btn-secondary text-sm py-1.5 px-4">
+        ← Prev
+      </button>
+      <span id="slide-counter" class="text-brand-secondary text-xs font-mono"></span>
+      <button id="btn-next" onclick="nextSlide()"
+              class="btn btn-primary text-sm py-1.5 px-4">
+        Next →
+      </button>
+    </div>
+  </div>
+
+</div><!-- /slides-app -->
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 1;
+
+  function getSlideFromURL() {
+    return parseInt(new URLSearchParams(window.location.search).get('slide')) || 1;
+  }
+
+  function showSlide(n) {
+    current = Math.max(1, Math.min(n, total));
+    slides.forEach(s => {
+      const isActive = parseInt(s.dataset.slide) === current;
+      s.classList.toggle('opacity-0', !isActive);
+      s.classList.toggle('pointer-events-none', !isActive);
+    });
+    const pct = (current / total * 100).toFixed(1);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('slide-counter').textContent = current + ' / ' + total;
+    document.getElementById('slide-counter-top').textContent = current + ' / ' + total;
+    document.getElementById('btn-prev').disabled = current === 1;
+    document.getElementById('btn-prev').style.opacity = current === 1 ? '0.3' : '1';
+    document.getElementById('btn-next').disabled = current === total;
+    document.getElementById('btn-next').style.opacity = current === total ? '0.3' : '1';
+    history.pushState({ slide: current }, '', '?slide=' + current);
+  }
+
+  function prevSlide() { showSlide(current - 1); }
+  function nextSlide() { showSlide(current + 1); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      nextSlide();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      prevSlide();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      showSlide(1);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      showSlide(total);
+    }
+  });
+
+  // Swipe gesture
+  let touchStartX = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) > 50) dx < 0 ? nextSlide() : prevSlide();
+  }, { passive: true });
+
+  // Browser back/forward
+  window.addEventListener('popstate', function(e) {
+    showSlide(e.state && e.state.slide ? e.state.slide : getSlideFromURL());
+  });
+
+  // Expose for onclick handlers
+  window.showSlide = showSlide;
+  window.prevSlide = prevSlide;
+  window.nextSlide = nextSlide;
+
+  // Init
+  showSlide(getSlideFromURL());
+})();
+</script>
+{{ end }}
