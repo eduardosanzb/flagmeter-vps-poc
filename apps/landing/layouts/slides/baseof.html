@@ -18,7 +18,7 @@
   {{ $css := resources.Get "css/style.css" | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 </head>
-<body class="bg-brand-primary overflow-hidden">
+<body class="bg-brand-primary">
   {{ block "main" . }}{{ end }}
 
   <!-- Alpine.js -->
