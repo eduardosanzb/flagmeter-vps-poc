@@ -1,0 +1,514 @@
+{{ define "main" }}
+<div class="min-h-screen bg-brand-primary">
+
+  <!-- Header -->
+  <div class="border-b border-gray-800">
+    <div class="container-custom py-10">
+      <div class="flex items-center justify-between mb-6">
+        <a href="/" class="flex items-center gap-2 text-gray-500 hover:text-brand-accent transition-colors text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          raus.cloud
+        </a>
+        <a href="/design-system/" class="text-xs text-brand-secondary hover:text-brand-accent transition-colors font-mono">design system →</a>
+      </div>
+      <p class="text-brand-accent text-xs font-semibold uppercase tracking-widest mb-3">Slide Decks</p>
+      <h1 class="text-display font-bold text-white font-display mb-2">raus.cloud Slides</h1>
+      <p class="text-gray-400 text-base max-w-xl">Presentation decks built on the raus.cloud design system. Navigate with arrow keys, swipe, or click.</p>
+    </div>
+  </div>
+
+  <div class="container-custom py-12 space-y-16">
+
+    <!-- ── Available Decks ── -->
+    <section>
+      <h2 class="text-lg font-semibold text-white font-display mb-6">Available Decks</h2>
+      {{ $visiblePages := where .Pages "Params.nodeck" "!=" true }}
+      {{ if $visiblePages }}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {{ range $visiblePages }}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/40 transition-colors group">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <p class="text-white font-semibold group-hover:text-brand-accent transition-colors">{{ .Title }}</p>
+              {{ if .Params.slides }}
+              <p class="text-gray-500 text-xs mt-1">{{ len .Params.slides }} slides</p>
+              {{ end }}
+            </div>
+            <svg class="w-4 h-4 text-gray-600 group-hover:text-brand-accent transition-colors flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </div>
+          {{ if .Description }}
+          <p class="text-gray-400 text-xs mb-4 leading-relaxed">{{ .Description }}</p>
+          {{ end }}
+          <a href="{{ .RelPermalink }}?slide=1" class="btn btn-primary text-xs py-1.5 px-4 inline-block">Open deck →</a>
+        </div>
+        {{ end }}
+      </div>
+      {{ else }}
+      <div class="bg-gray-900/40 border border-gray-800 border-dashed rounded-2xl p-10 text-center">
+        <p class="text-gray-500 text-sm">No decks yet. Create a file in <code class="text-brand-accent">content/slides/</code> to get started.</p>
+      </div>
+      {{ end }}
+    </section>
+
+    <!-- ── BCG Slide Principles ── -->
+    <section>
+      <div class="flex items-center gap-3 mb-2">
+        <h2 class="text-lg font-semibold text-white font-display">BCG Slide Principles</h2>
+        <span class="text-xs font-semibold uppercase tracking-widest text-brand-accent border border-brand-accent/30 rounded-full px-2.5 py-0.5 bg-brand-accent/5">best practices</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-8 max-w-2xl">Rules from McKinsey, BCG, and Minto's Pyramid Principle. Follow these and your slides will communicate faster and land harder.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-4">
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-brand-accent font-bold font-display text-2xl leading-none">40</span>
+            <span class="text-white font-semibold text-sm">The Word Limit</span>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed mb-4">Every slide has 40 words or fewer. If you need more — you have two slides. Count before you ship.</p>
+          <div class="bg-gray-950 rounded-xl p-3 space-y-2 text-xs font-mono">
+            <p class="text-red-400/80 line-through">Meanwhile, one engineer holds the mental model for all of it. Your team ships features around infra constraints. Hotfixes take 38 minutes instead of 2...</p>
+            <p class="text-brand-accent">→ One engineer holds the model. They leave — MTTR = unknown.</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-brand-accent font-bold font-display text-2xl leading-none">→</span>
+            <span class="text-white font-semibold text-sm">Action Titles</span>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed mb-4">The title states the <em class="text-gray-300">conclusion</em>, not the topic. The audience should understand your point from the title alone — even without the body.</p>
+          <div class="bg-gray-950 rounded-xl p-3 space-y-1.5 text-xs font-mono">
+            <p class="text-red-400/80 line-through">Cost Analysis</p>
+            <p class="text-red-400/80 line-through">Infrastructure Overview</p>
+            <p class="text-brand-accent">THE BILL DOESN'T SPIKE. IT CREEPS.</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-brand-accent font-bold font-display text-2xl leading-none">¶</span>
+            <span class="text-white font-semibold text-sm">No Paragraphs</span>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed mb-4">Paragraphs force reading. Statements allow scanning. Use <code class="text-brand-accent">statements:</code> arrays — each point must survive alone.</p>
+          <div class="bg-gray-950 rounded-xl p-3 text-xs font-mono leading-relaxed">
+            <p class="text-gray-500">statements:</p>
+            <p class="text-brand-accent ml-2">- "Point one. Short."</p>
+            <p class="text-brand-accent ml-2">- "Point two. Alone."</p>
+            <p class="text-brand-accent ml-2">- "Point three. Done."</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-brand-accent font-bold font-display text-2xl leading-none">2/3</span>
+            <span class="text-white font-semibold text-sm">White Space Rule</span>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">Two-thirds of every slide should be empty. Negative space is not wasted space — it's where the message lands. If it looks sparse, it's probably right.</p>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-brand-accent font-bold font-display text-2xl leading-none">3</span>
+            <span class="text-white font-semibold text-sm">Points Maximum</span>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed mb-3">If you have four things to say, you have two slides. Three is the maximum the brain holds without a numbered list. Fewer is always better.</p>
+          <p class="text-gray-600 text-xs font-mono border border-gray-800 rounded-lg px-3 py-2">5-5-5: ≤5 words/bullet · ≤5 bullets · ≤5 min/section</p>
+        </div>
+
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-brand-accent font-bold font-display text-2xl leading-none">△</span>
+            <span class="text-white font-semibold text-sm">Pyramid Principle</span>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed mb-4">Conclusion first. Evidence second. Context last. The reader should never have to wait for your point — state it in the title, prove it in the body.</p>
+          <div class="bg-gray-950 rounded-xl p-3 text-xs space-y-1">
+            <p class="text-white font-semibold">1. State the answer.</p>
+            <p class="text-gray-400 ml-2">2. Show the proof.</p>
+            <p class="text-gray-500 ml-4">3. Provide the context.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Authoring Guide ── -->
+    <section>
+      <h2 class="text-lg font-semibold text-white font-display mb-2">How to Write Slides</h2>
+      <p class="text-gray-400 text-sm mb-8">Create a <code class="text-brand-accent text-xs bg-gray-900 px-1.5 py-0.5 rounded">.en.md</code> file inside <code class="text-brand-accent text-xs bg-gray-900 px-1.5 py-0.5 rounded">content/slides/</code>. Define your slides as a YAML array in the frontmatter. Each slide needs a <code class="text-brand-accent text-xs bg-gray-900 px-1.5 py-0.5 rounded">type</code> that determines its visual layout.</p>
+
+      <!-- Frontmatter schema -->
+      <div class="bg-gray-950 border border-brand-accent/20 rounded-2xl p-6 mb-8">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary mb-4">Frontmatter Schema</p>
+        <pre class="font-mono text-xs text-gray-300 leading-relaxed overflow-x-auto">---
+title: "My Deck Title"
+description: "Short description shown on the index"
+slides:
+  - number: 1
+    type: hero
+    label: "Section Label"
+    title: "BIG SLIDE TITLE"
+    subtitle: "Supporting line under the title"
+    # ... type-specific fields (see below)
+---</pre>
+      </div>
+
+      <!-- Slide types list — preview + code -->
+      <div class="space-y-3">
+
+        {{ $demo := "/slides/slide-types-demo/" }}
+
+        {{/* helper macro: type card with live iframe preview */}}
+        {{/* hero */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=1" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">hero</code>
+              <span class="text-gray-400 text-xs">Title slide with bullets + terminal CTA</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: hero
+bullets: ["60% cost cut", "2-day ownership"]
+cta: "raus.cloud --audit --free"</pre>
+          </div>
+        </div>
+
+        {{/* context */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=2" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">context</code>
+              <span class="text-gray-400 text-xs">Problem framing with 3 punchy statements</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: context
+statements:
+  - "€200/mo → €2k → €8k. None reviewed."
+  - "One engineer holds all context."
+  - "Ship around infra, not business goals."
+tagline: "One-line conclusion."</pre>
+          </div>
+        </div>
+
+        {{/* two-col */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=3" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">two-col</code>
+              <span class="text-gray-400 text-xs">Two panels: green ✓ list / red ✗ list</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: two-col
+col_a:
+  heading: "✓ This IS for you"
+  items: ["5-15 engineers", ...]
+col_b:
+  heading: "✗ This is NOT for you"
+  items: ["Need multi-region", ...]</pre>
+          </div>
+        </div>
+
+        {{/* diagnostic */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=4" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">diagnostic</code>
+              <span class="text-gray-400 text-xs">Terminal prompt with conditional outcomes (alias: <code class="text-gray-500">terminal</code>)</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: diagnostic
+prompt: '"Who owns on-call?"'
+outcomes:
+  - answer: '"We all do"'
+    result: "Alert fatigue. No ownership."
+conclusion: "One resignation from outage."</pre>
+          </div>
+        </div>
+
+        {{/* table */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=5" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">table</code>
+              <span class="text-gray-400 text-xs">Icon + category + pain rows</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: table
+rows:
+  - icon: "💸"
+    category: "Financial"
+    pain: "€80k/yr on IAM, not product"
+  - icon: "🚀"
+    category: "Speed"
+    pain: "25-min deploys."</pre>
+          </div>
+        </div>
+
+        {{/* layers */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=6" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">layers</code>
+              <span class="text-gray-400 text-xs">Numbered cascade layers</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: layers
+layers:
+  - number: 1
+    category: "Financial"
+    description: "€70k-90k/yr on..."</pre>
+          </div>
+        </div>
+
+        {{/* stat-grid */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=7" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">stat-grid</code>
+              <span class="text-gray-400 text-xs">3 big stats + detail explanation boxes</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: stat-grid
+stats:
+  - value: "€80k"
+    label: "annual shadow ops cost"
+details:
+  - heading: "The Hidden DevOps Payroll"
+    body: "30% of eng time on infra."</pre>
+          </div>
+        </div>
+
+        {{/* code-block */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=8" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">code-block</code>
+              <span class="text-gray-400 text-xs">Terminal code pane + stat bullets</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: code-block
+code: |
+  $ cat stack.yml
+  Hetzner CPX51   €50/mo
+bullets:
+  - value: "60%"
+    label: "cost reduction"
+footer: "No IAM. No YAML hell."</pre>
+          </div>
+        </div>
+
+        {{/* timeline */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=9" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">timeline</code>
+              <span class="text-gray-400 text-xs">Multi-week columns with checklists</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: timeline
+weeks:
+  - number: "01"
+    heading: "Audit + Setup"
+    items: ["Free audit", "Identify waste"]
+footer: "Deploy: git push."</pre>
+          </div>
+        </div>
+
+        {{/* promise */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=10" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">promise</code>
+              <span class="text-gray-400 text-xs">3 large commitment cards</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: promise
+promises:
+  - value: "60%"
+    heading: "Cost cut."
+    body: "Right-sized infrastructure..."</pre>
+          </div>
+        </div>
+
+        {{/* feature-list */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=11" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">feature-list</code>
+              <span class="text-gray-400 text-xs">2-column bold feature items</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: feature-list
+features:
+  - heading: "Business-First Architecture"
+    body: "Designed around your goals."</pre>
+          </div>
+        </div>
+
+        {{/* pricing */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=12" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">pricing</code>
+              <span class="text-gray-400 text-xs">Engagement tiers with price + duration</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: pricing
+tiers:
+  - number: "01"
+    name: "Architecture Audit"
+    price: "Free"
+    duration: "15 min call"</pre>
+          </div>
+        </div>
+
+        {{/* proof */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=13" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">proof</code>
+              <span class="text-gray-400 text-xs">Case study cards with result headline</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: proof
+cases:
+  - client: "Series A SaaS"
+    result: "€70k/year saved"
+    body: "Fixed CloudWatch retention..."</pre>
+          </div>
+        </div>
+
+        {{/* steps */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=14" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">steps</code>
+              <span class="text-gray-400 text-xs">Numbered action + description flow</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: steps
+steps:
+  - number: 1
+    action: "ASK"
+    description: '"What was your last fire?"'</pre>
+          </div>
+        </div>
+
+        {{/* conversation */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=15" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">conversation</code>
+              <span class="text-gray-400 text-xs">Numbered steps without action labels</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: conversation
+tagline: "No deck. No proposal."
+steps:
+  - number: 1
+    description: "You tell me your headache."</pre>
+          </div>
+        </div>
+
+        {{/* cta */}}
+        <div class="bg-gray-900/60 border border-gray-800 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=16" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-gray-800 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">cta</code>
+              <span class="text-gray-400 text-xs">Final call-to-action with website + email</span>
+            </div>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: cta
+website: "raus.cloud"
+email: "hello@raus.cloud"
+tagline: "Right-sized. Business-first."</pre>
+          </div>
+        </div>
+
+        {{/* quote — BCG */}}
+        <div class="bg-gray-900/60 border border-brand-accent/20 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=17" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-brand-accent/10 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">quote</code>
+              <span class="text-brand-accent text-xs font-semibold">BCG: single powerful statement</span>
+            </div>
+            <p class="text-gray-500 text-xs mb-2">Full-screen blockquote with attribution. Use for testimonials or bold opening provocation.</p>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: quote
+quote: "Infrastructure that serves your business."
+attribution: "Eduardo Sanchez, raus.cloud"
+context: "What every eng team deserves."</pre>
+          </div>
+        </div>
+
+        {{/* one-thing — BCG */}}
+        <div class="bg-gray-900/60 border border-brand-accent/20 rounded-2xl overflow-hidden flex flex-col sm:flex-row">
+          <div class="relative bg-brand-primary flex-shrink-0 sm:w-72" style="height:162px;overflow:hidden;">
+            <iframe src="{{ $demo }}?slide=18" style="position:absolute;top:0;left:0;width:960px;height:540px;transform:scale(0.3);transform-origin:top left;border:none;pointer-events:none;" loading="lazy"></iframe>
+          </div>
+          <div class="p-4 flex-1 border-t sm:border-t-0 sm:border-l border-brand-accent/10 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <code class="text-brand-accent text-xs bg-brand-accent/10 border border-brand-accent/20 rounded px-2 py-0.5">one-thing</code>
+              <span class="text-brand-accent text-xs font-semibold">BCG: one message, full screen</span>
+            </div>
+            <p class="text-gray-500 text-xs mb-2">Single statement rendered huge. The ultimate 2/3 white space slide.</p>
+            <pre class="font-mono text-xs text-gray-500 leading-relaxed overflow-x-auto">type: one-thing
+statement: "One resignation away from
+  a 48-hour outage."
+tagline: "That's the real bus factor."</pre>
+          </div>
+        </div>
+
+      </div><!-- /types list -->
+
+      <!-- Navigation tip -->
+      <div class="mt-8 bg-gray-900/40 border border-gray-800 rounded-xl px-5 py-4 flex items-center gap-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary">Navigation</p>
+        <div class="flex items-center gap-4 text-xs text-gray-400">
+          <span><kbd class="bg-gray-800 border border-gray-700 rounded px-1.5 py-0.5 font-mono text-gray-300">←</kbd> <kbd class="bg-gray-800 border border-gray-700 rounded px-1.5 py-0.5 font-mono text-gray-300">→</kbd> arrow keys</span>
+          <span><kbd class="bg-gray-800 border border-gray-700 rounded px-1.5 py-0.5 font-mono text-gray-300">Space</kbd> next slide</span>
+          <span>Swipe left/right on mobile</span>
+          <span><code class="text-brand-accent">?slide=N</code> deep link to any slide</span>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+</div>
+{{ end }}
