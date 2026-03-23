@@ -14,7 +14,7 @@ sections:
 
 hero:
   title: "Despide a tu proveedor de cloud. Salva tu runway."
-  subtitle: "Equipos SaaS B2B europeos pagan €8k+/mes por infraestructura de la que no pueden escapar. Reducimos costes un 60%, movemos tus datos a jurisdicción UE, y entregamos a tu equipo un stack que poseen completamente — en 90 días."
+  subtitle: "Equipos SaaS B2B de post-seed a Series B queman €15k+/mes en cloud del que no pueden escapar. Reducimos costes un 60%, recuperamos soberanía de datos en la UE, y entregamos a tu equipo un stack que poseen completamente — en 90 días."
   cta_primary: "Auditoría Gratuita"
   cta_secondary: "Cómo Funciona"
 
@@ -37,8 +37,8 @@ how_it_works:
       title: "Free Independence Audit (1-2 horas)"
       description: "Mapeamos tu infraestructura, vendor dependencies y gaps de data residency. Ves qué cuesta quedarte y cómo es la libertad. Sin pitch, sin obligación."
     - number: "02"
-      title: "Pilot Migration (€3k, 1 semana)"
-      description: "Migra 1-3 servicios a infraestructura soberana UE. Elimina tu primera vendor dependency. Demuestra el ahorro antes de comprometerte con el stack completo."
+      title: "Pilot Migration (desde €5k)"
+      description: "Migra 1-3 servicios a infraestructura soberana UE. Demuestra ahorros reales — típicamente €5k-15k/mes — antes de comprometerte con el stack completo."
     - number: "03"
       title: "Full Migration (Precio custom)"
       description: "Independencia operativa completa. Tu equipo entrenado para deploy, debug y scale sin nosotros. Cada config en tu repo. Runbook entregado. Nos desaparecemos."
@@ -50,14 +50,14 @@ sovereignty:
     - title: "Protege tu Runway"
       description: "AWS triplicó los precios de egress en 2024. Incluso tras el ajuste reciente de Hetzner, pagas 10x menos que AWS equivalente. Más importante: Docker estándar significa que puedes moverte a cualquier provider en horas. Tu runway no está rehén de nadie."
       icon: "shield"
-    - title: "Tus Datos. Jurisdicción UE."
-      description: "Toda la infraestructura en data centers UE. GDPR-compliant by default. Sin exposición al US CLOUD Act. Los datos de tus clientes nunca cruzan una frontera sin tu decisión explícita."
+    - title: "Más Allá del GDPR: Soberanía Real"
+      description: "El US CLOUD Act permite a autoridades americanas obligar a AWS, Azure y GCP a entregar datos almacenados en la UE — el GDPR solo no te protege. NIS2 y DORA están empujando a empresas europeas hacia infraestructura soberana. Te movemos a providers europeos, completamente fuera de la jurisdicción legal de EE.UU."
       icon: "globe"
     - title: "Zero Lock-in. Sin Excepciones."
       description: "Cada config vive en tu repo de GitHub. Docker estándar + PostgreSQL + Nginx — cualquier engineer puede operarlo. Nunca estás a un cambio de precios de una crisis."
       icon: "unlock"
     - title: "Own Every Decision"
-      description: "Después de 90 días: deploy con `git push`, debug con `docker logs`, scale sin llamar a nadie. Sin vendor con el que negociar. Sin permiso requerido."
+      description: "Después de 90 días: deploy con `git push`, debug con `docker logs`, scale sin llamar a nadie. Tu infraestructura gobernada por ley europea, no por una cláusula de arbitraje en Seattle. Sin permiso requerido."
       icon: "key"
 
 principles:
@@ -117,12 +117,12 @@ pricing:
       cta: "Reservar Ahora"
       highlighted: false
     - name: "Pilot Migration"
-      price: "€3k"
-      description: "Proof of concept de 1 semana"
+      price: "desde €5k"
+      description: "Proof of concept de 1-2 semanas"
       features:
         - "Migra 1-3 servicios a infraestructura soberana UE"
         - "Elimina tu primera vendor dependency"
-        - "Demuestra ahorros reales antes del commit completo"
+        - "Demuestra ahorros reales — típicamente €5k-15k/mes — antes del commit completo"
       cta: "Iniciar Pilot"
       highlighted: false
     - name: "Full Migration"
@@ -132,6 +132,7 @@ pricing:
         - "Migración completa a infraestructura resiliente, soberana"
         - "Equipo entrenado en deploys, debugging y scaling"
         - "Runbook entregado. Keys handed over. We disappear."
+        - "Soporte continuo opcional disponible después del handoff"
       cta: "Hablemos"
       highlighted: false
 
@@ -144,17 +145,19 @@ faq:
     - question: "¿Cómo escala esto?"
       answer: "Vertical scaling te lleva a 50k usuarios fácilmente. Si llegas ahí, añadimos read replicas — no antes. La mayoría de los problemas de 'scale' son premature optimization vendida por vendors que profitan de la complejidad."
     - question: "¿Dónde está el truco?"
-      answer: "No somos fit si necesitas multi-region failover hoy o piensas que Kubernetes es 'simple'. Esto es para equipos que quieren shippear features, no manejar infraestructura."
+      answer: "No somos fit si necesitas multi-region failover hoy, si tienes un platform team dedicado (20+ engineers), o piensas que Kubernetes es 'simple'. Esto es para equipos post-seed a Series B que quieren shippear features — no manejar infraestructura."
     - question: "¿Qué pasa si el VPS muere?"
       answer: "Corremos dos instancias con una floating IP. Más barato que una EC2 con redundancy, y failover es automático. Tú owns ambas instancias y la failover config — sin vendor a quien llamar."
     - question: "¿No se asustarán los inversores?"
-      answer: "Hetzner es una empresa UE de €1B con mejor uptime que la mayoría de los setups AWS de startups. Esto no es una Pi bajo tu escritorio — es enterprise-grade infrastructure sin el complexity tax."
+      answer: "Hetzner es una empresa UE de €1B con mejor uptime que la mayoría de los setups AWS de startups. Y el viento regulatorio sopla a tu favor — NIS2, DORA y EUCS están empujando hacia la soberanía de infraestructura en la UE. Los inversores ven cada vez más la dependencia de vendors US como un riesgo, no como una feature."
     - question: "¿Qué pasa con GDPR compliance?"
-      answer: "Toda la infraestructura se queda en EU data centers. Hetzner es GDPR-compliant by default — sin DPA negotiations con un US vendor. Podemos proporcionar data processing agreements si es necesario."
+      answer: "Toda la infraestructura se queda en EU data centers bajo jurisdicción legal europea. A diferencia de cloud providers de propiedad estadounidense, no hay exposición al CLOUD Act — las autoridades de EE.UU. no pueden forzar la entrega de datos. GDPR-compliant by default. Ready para NIS2 y DORA. Sin DPA negotiations con un US vendor."
     - question: "¿No estamos cambiando AWS lock-in por Hetzner lock-in?"
       answer: "No. AWS lock-in significa servicios propietarios (Lambda, RDS, IAM, CloudFormation) que solo corren en AWS. Nuestro stack es Docker + PostgreSQL estándar + Nginx. Mismas tools, cualquier provider. Migras en horas."
     - question: "¿Qué si Hetzner sube precios de nuevo?"
       answer: "Docker Compose estándar + PostgreSQL significa que migras a cualquier VPS provider en horas, no semanas. Sin CloudFormation que reverse-engineer, sin IAM policies que desenredar. Ese es el punto: no estás locked in con nadie."
+    - question: "¿Para quién NO es esto?"
+      answer: "Startups pre-tracción (pertenecen en Heroku/Railway). Companies con platform teams dedicados (20+ ops engineers). Negocios que necesitan multi-region failover hoy. Si tu infraestructura funciona y tu equipo la owna — no nos necesitas."
 
 testimonials:
   title: "Lo que dicen los CTOs"

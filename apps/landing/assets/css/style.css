@@ -2156,10 +2156,6 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgb(209 250 229 / var(--tw-border-opacity, 1));
 }
 
-.border-brand-secondary\/20 {
-  border-color: rgb(107 114 128 / 0.2);
-}
-
 .border-gray-100 {
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
@@ -2627,11 +2623,6 @@ h1, h2, h3, h4, h5, h6 {
   color: rgb(203 213 225 / var(--tw-text-opacity, 1));
 }
 
-.text-slate-400 {
-  --tw-text-opacity: 1;
-  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
-}
-
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2986,11 +2977,6 @@ a:hover {
 .dark\:text-gray-400:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));
-}
-
-.dark\:text-gray-500:is(.dark *) {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
 }
 
 .dark\:text-white:is(.dark *) {
