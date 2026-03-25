@@ -1,0 +1,567 @@
+{{ define "main" }}
+{{ $questions := .Params.questions }}
+{{ $total := len $questions }}
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --accent: #10b981;
+    --accent-dark: #059669;
+    --text: #ffffff;
+    --secondary: #6b7280;
+    --card: #111111;
+    --font: 'Space Grotesk', Inter, system-ui, -apple-system, sans-serif;
+  }
+
+  html, body {
+    min-height: 100svh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse at top, rgba(16,185,129,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px 48px;
+  }
+
+  .wizard-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-shrink: 0;
+  }
+
+  .back-link {
+    font-size: 13px;
+    color: var(--secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .progress-wrap {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.35s ease;
+    width: 10%;
+    box-shadow: 0 0 8px rgba(16,185,129,0.4);
+  }
+
+  .step-counter {
+    font-size: 12px;
+    color: var(--secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .wizard-body { flex: 1; }
+
+  .step { display: none; }
+  .step.active { display: block; }
+
+  .step-section {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .step-question {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+    margin-bottom: 6px;
+  }
+
+  .step-hint {
+    font-size: 13px;
+    color: var(--secondary);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .option:hover {
+    border-color: rgba(255,255,255,0.15);
+    background: #161616;
+  }
+
+  .option:active { transform: scale(0.98); }
+  .option input { display: none; }
+
+  .indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .option.checkbox .indicator { border-radius: 6px; }
+
+  .option.selected {
+    border-color: rgba(16,185,129,0.4);
+    background: rgba(16,185,129,0.06);
+  }
+
+  .option.selected .indicator {
+    border-color: var(--accent);
+    background: rgba(16,185,129,0.25);
+  }
+
+  .option.selected .indicator::after {
+    content: '✓';
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .option-text {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .input-label {
+    font-size: 12px;
+    color: var(--secondary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .text-input {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .text-input:focus { border-color: rgba(16,185,129,0.5); }
+  .text-input::placeholder { color: rgba(255,255,255,0.2); }
+
+  .wizard-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    flex-shrink: 0;
+  }
+
+  .btn-nav {
+    flex: 1;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font);
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-nav:active { transform: scale(0.97); }
+  .btn-nav:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-back {
+    background: rgba(255,255,255,0.06);
+    color: var(--secondary);
+    flex: 0 0 auto;
+    padding: 16px 20px;
+  }
+  .btn-back:hover:not(:disabled) { background: rgba(255,255,255,0.1); }
+
+  .btn-next {
+    background: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+  .btn-next:hover:not(:disabled) { background: var(--accent-dark); }
+
+  .error-msg {
+    min-height: 18px;
+    font-size: 13px;
+    color: #f87171;
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 8px;
+  }
+
+  .step-success {
+    display: none;
+    text-align: center;
+    padding: 48px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-success.active { display: flex; }
+
+  .success-icon { font-size: 56px; margin-bottom: 20px; }
+
+  .success-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .success-body {
+    font-size: 15px;
+    color: var(--secondary);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 340px;
+  }
+
+  .success-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text);
+    width: 100%;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .success-cta:hover {
+    border-color: rgba(16,185,129,0.6);
+    background: rgba(16,185,129,0.18);
+  }
+
+  .success-cta-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(16,185,129,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+
+  .success-cta-label { font-size: 15px; font-weight: 600; color: var(--accent); }
+  .success-cta-sub { font-size: 12px; color: var(--secondary); margin-top: 2px; }
+  .success-cta-arrow { color: var(--secondary); font-size: 16px; margin-left: auto; }
+</style>
+
+<div class="page">
+
+  <div class="wizard-header">
+    <a class="back-link" href="/cloudfest/">← raus.cloud</a>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="step-counter" id="step-counter">1 / {{ $total }}</div>
+  </div>
+
+  <div class="wizard-body" id="wizard-body">
+
+    {{ range $questions }}
+    {{ $q := . }}
+    <div class="step" id="step-{{ .step }}" data-step="{{ .step }}">
+
+      {{ if .section }}<div class="step-section">{{ .section }}</div>{{ end }}
+      <div class="step-question">{{ .question }}</div>
+      {{ if .hint }}<div class="step-hint">{{ .hint }}</div>{{ end }}
+
+      {{ if or (eq .type "radio") (eq .type "checkbox") }}
+      <div class="options" id="options-{{ $q.step }}"{{ if $q.max }} data-max="{{ $q.max }}"{{ end }}>
+        {{ range .options }}
+        <label class="option{{ if eq $q.type "checkbox" }} checkbox{{ end }}">
+          <input type="{{ if eq $q.type "checkbox" }}checkbox{{ else }}radio{{ end }}"
+                 name="q{{ $q.step }}" value="{{ .value }}">
+          <span class="indicator"></span>
+          <span class="option-text">{{ .label }}</span>
+        </label>
+        {{ end }}
+      </div>
+
+      {{ else if eq .type "lead" }}
+      {{ range .fields }}
+      <div class="input-group">
+        <label class="input-label">{{ .label }}</label>
+        <input class="text-input" type="{{ .type }}" id="input-{{ .id }}"
+               placeholder="{{ .placeholder }}"
+               autocomplete="{{ if eq .type "email" }}email{{ else if eq .id "respondent_name" }}name{{ else }}organization{{ end }}">
+      </div>
+      {{ end }}
+      {{ end }}
+
+    </div>
+    {{ end }}
+
+    <div class="step-success" id="step-success">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Thanks for sharing!</div>
+      <div class="success-body">
+        We'll review your answers and reach out if there's a clear fit.<br><br>
+        In the meantime, see how raus.cloud helps European teams cut cloud costs and reclaim sovereignty.
+      </div>
+      <a class="success-cta" href="https://raus.cloud">
+        <div class="success-cta-icon">🚀</div>
+        <div>
+          <div class="success-cta-label">Explore raus.cloud</div>
+          <div class="success-cta-sub">Infrastructure consulting · Berlin</div>
+        </div>
+        <div class="success-cta-arrow">→</div>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="wizard-nav" id="wizard-nav">
+    <button class="btn-nav btn-back" id="btn-back">← Back</button>
+    <button class="btn-nav btn-next" id="btn-next">Continue →</button>
+  </div>
+
+  <div class="error-msg" id="error-msg"></div>
+
+</div>
+
+<script>
+(function () {
+  const QUESTIONS = {{ .Params.questions | jsonify }};
+  const TOTAL = {{ $total }};
+  const PB_ENDPOINT = {{ .Params.pocketbase_endpoint | default "/pb/api/collections/assessments/records" | jsonify }};
+  const SOURCE = {{ .Params.source | default "unknown" | jsonify }};
+
+  let current = 1;
+
+  // Wire option selection (visual selected state + max enforcement)
+  document.querySelectorAll('.options').forEach(function(container) {
+    var max = container.dataset.max ? parseInt(container.dataset.max, 10) : null;
+    container.querySelectorAll('.option').forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        var input = opt.querySelector('input');
+        var isCheckbox = input.type === 'checkbox';
+
+        if (isCheckbox) {
+          input.checked = !input.checked;
+          opt.classList.toggle('selected', input.checked);
+          if (max) {
+            var checked = Array.from(container.querySelectorAll('input:checked'));
+            if (checked.length > max) {
+              for (var i = 0; i < checked.length; i++) {
+                if (checked[i] !== input) {
+                  checked[i].checked = false;
+                  checked[i].closest('.option').classList.remove('selected');
+                  break;
+                }
+              }
+            }
+          }
+        } else {
+          container.querySelectorAll('.option').forEach(function(o) { o.classList.remove('selected'); });
+          container.querySelectorAll('input').forEach(function(i) { i.checked = false; });
+          input.checked = true;
+          opt.classList.add('selected');
+        }
+        document.getElementById('error-msg').textContent = '';
+      });
+    });
+  });
+
+  function getQ(step) {
+    return QUESTIONS.find(function(q) { return q.step === step; });
+  }
+
+  function getStepValue(step) {
+    var q = getQ(step);
+    if (!q) return null;
+    if (q.type === 'radio') {
+      var el = document.querySelector('input[name="q' + step + '"]:checked');
+      return el ? el.value : null;
+    }
+    if (q.type === 'checkbox') {
+      return Array.from(document.querySelectorAll('input[name="q' + step + '"]:checked'))
+                  .map(function(i) { return i.value; });
+    }
+    return null;
+  }
+
+  function validateStep(step) {
+    var q = getQ(step);
+    if (!q || !q.required) return true;
+    var val = getStepValue(step);
+    if (val === null) return false;
+    if (Array.isArray(val) && val.length === 0) return false;
+    return true;
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+    document.getElementById('step-success').classList.remove('active');
+
+    var stepEl = document.getElementById('step-' + n);
+    if (stepEl) stepEl.classList.add('active');
+
+    var pct = Math.round((n / TOTAL) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('step-counter').textContent = n + ' / ' + TOTAL;
+
+    var btnBack = document.getElementById('btn-back');
+    var btnNext = document.getElementById('btn-next');
+    btnBack.style.display = n === 1 ? 'none' : '';
+    btnNext.textContent = n === TOTAL ? 'Submit →' : 'Continue →';
+    btnNext.disabled = false;
+
+    document.getElementById('error-msg').textContent = '';
+  }
+
+  function nextStep() {
+    if (!validateStep(current)) {
+      document.getElementById('error-msg').textContent =
+        'Please select at least one option to continue.';
+      return;
+    }
+    if (current === TOTAL) {
+      submitForm();
+      return;
+    }
+    current++;
+    showStep(current);
+  }
+
+  function prevStep() {
+    if (current === 1) {
+      window.location.href = '/cloudfest/';
+      return;
+    }
+    current--;
+    showStep(current);
+  }
+
+  function submitForm() {
+    var btnNext = document.getElementById('btn-next');
+    btnNext.disabled = true;
+    btnNext.textContent = 'Submitting…';
+
+    var payload = { source: SOURCE };
+
+    QUESTIONS.forEach(function(q) {
+      if (q.type === 'radio') {
+        var el = document.querySelector('input[name="q' + q.step + '"]:checked');
+        payload[q.id] = el ? el.value : '';
+      } else if (q.type === 'checkbox') {
+        var vals = Array.from(
+          document.querySelectorAll('input[name="q' + q.step + '"]:checked')
+        ).map(function(i) { return i.value; });
+        payload[q.id] = JSON.stringify(vals);
+      } else if (q.type === 'lead') {
+        (q.fields || []).forEach(function(f) {
+          var el = document.getElementById('input-' + f.id);
+          payload[f.id] = el ? el.value.trim() : '';
+        });
+      }
+    });
+
+    fetch(PB_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).then(function(res) {
+      if (!res.ok) {
+        return res.text().then(function(body) {
+          throw new Error('HTTP ' + res.status + ': ' + body.slice(0, 200));
+        });
+      }
+      document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+      document.getElementById('step-success').classList.add('active');
+      document.getElementById('wizard-nav').style.display = 'none';
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('step-counter').textContent = '✓ Done';
+    }).catch(function(err) {
+      console.error('Submission error:', err);
+      document.getElementById('error-msg').textContent =
+        'Something went wrong. Please try again or email eduardo@raus.cloud';
+      btnNext.disabled = false;
+      btnNext.textContent = 'Submit →';
+    });
+  }
+
+  document.getElementById('btn-next').addEventListener('click', nextStep);
+  document.getElementById('btn-back').addEventListener('click', prevStep);
+
+  showStep(1);
+})();
+</script>
+{{ end }}
