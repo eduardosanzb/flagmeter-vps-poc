@@ -140,7 +140,9 @@ services:
         condition: service_healthy
 
   pocketbase:
-    image: ghcr.io/pocketbase/pocketbase:latest
+    build:
+      context: ./infra/pocketbase
+      dockerfile: Dockerfile
     container_name: flagmeter-pocketbase-dev
     command: ["./pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/pb/pb_data"]
     ports:
@@ -154,6 +156,19 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
+    networks:
+      - flagmeter-dev
+
+  landing:
+    build:
+      context: ./apps/landing
+      dockerfile: Dockerfile
+    container_name: flagmeter-landing-dev
+    ports:
+      - "8080:80"
+    depends_on:
+      pocketbase:
+        condition: service_healthy
     networks:
       - flagmeter-dev
 
