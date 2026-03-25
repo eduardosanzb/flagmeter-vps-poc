@@ -6,6 +6,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: apps/landing
+    # Coolify binds raus.cloud to this service on container port 80.
+    # nginx is baked into this image and serves the Hugo static site.
     ports:
       - 80
     healthcheck:
@@ -23,9 +25,13 @@ services:
       - sh
       - -c
       - ./pocketbase migrate up --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations && exec ./pocketbase serve --http=0.0.0.0:8090 --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations
-    # No ports: — internal only, accessed via nginx proxy at /pb/
-    # To access admin UI after first deploy via SSH:
+    # Coolify binds admin.raus.cloud to this service on container port 8090.
+    # Admin UI: https://admin.raus.cloud/_/
+    # API:      https://admin.raus.cloud/api/
+    # After first deploy, create superuser:
     #   docker exec <container> ./pocketbase superuser upsert admin@raus.cloud <pass>
+    ports:
+      - 8090
     volumes:
       - pocketbase_data:/pb/pb_data
       - ./infra/pocketbase/pb_migrations:/pb/pb_migrations
