@@ -139,11 +139,30 @@ services:
       valkey:
         condition: service_healthy
 
+  pocketbase:
+    image: ghcr.io/pocketbase/pocketbase:latest
+    container_name: flagmeter-pocketbase-dev
+    command: ["./pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/pb/pb_data"]
+    ports:
+      - "8090:8090"
+    volumes:
+      - pocketbase_data_dev:/pb/pb_data
+      - ./infra/pocketbase/pb_migrations:/pb/pb_migrations
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - flagmeter-dev
+
 volumes:
   postgres_data_dev:
   prometheus_data_dev:
   grafana_data_dev:
   loki_data_dev:
+  pocketbase_data_dev:
 
 networks:
   flagmeter-dev:

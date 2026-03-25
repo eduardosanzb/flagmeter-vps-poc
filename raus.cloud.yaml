@@ -15,8 +15,30 @@ services:
       retries: 3
       start_period: 5s
 
+  pocketbase:
+    image: ghcr.io/pocketbase/pocketbase:latest
+    command: ["./pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/pb/pb_data"]
+    # No ports: — internal only, accessed via nginx proxy at /pb/
+    # To access admin UI after first deploy via SSH:
+    #   docker exec <container> ./pocketbase superuser upsert admin@raus.cloud <pass>
+    volumes:
+      - pocketbase_data:/pb/pb_data
+      - ./infra/pocketbase/pb_migrations:/pb/pb_migrations
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
 
 resources:
   landing:
     memory: 64M       # Static nginx site
     cpu: 0.05         # Minimal resources
+  pocketbase:
+    memory: 128M      # PocketBase Go binary + SQLite
+    cpu: 0.05         # Minimal CPU for survey workload
+
+volumes:
+  pocketbase_data:
