@@ -139,11 +139,48 @@ services:
       valkey:
         condition: service_healthy
 
+  pocketbase:
+    build:
+      context: ./infra/pocketbase
+      dockerfile: Dockerfile
+    container_name: flagmeter-pocketbase-dev
+    command:
+      - sh
+      - -c
+      - ./pocketbase migrate up --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations && exec ./pocketbase serve --http=0.0.0.0:8090 --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations
+    ports:
+      - "8090:8090"
+    volumes:
+      - pocketbase_data_dev:/pb/pb_data
+      - ./infra/pocketbase/pb_migrations:/pb/pb_migrations
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - flagmeter-dev
+
+  landing:
+    build:
+      context: ./apps/landing
+      dockerfile: Dockerfile
+    container_name: flagmeter-landing-dev
+    ports:
+      - "8080:80"
+    depends_on:
+      pocketbase:
+        condition: service_healthy
+    networks:
+      - flagmeter-dev
+
 volumes:
   postgres_data_dev:
   prometheus_data_dev:
   grafana_data_dev:
   loki_data_dev:
+  pocketbase_data_dev:
 
 networks:
   flagmeter-dev:
