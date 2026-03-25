@@ -321,6 +321,56 @@
   .success-cta-label { font-size: 15px; font-weight: 600; color: var(--accent); }
   .success-cta-sub { font-size: 12px; color: var(--secondary); margin-top: 2px; }
   .success-cta-arrow { color: var(--secondary); font-size: 16px; margin-left: auto; }
+
+  .resume-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+    background: rgba(17,17,17,0.96);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+  }
+
+  .resume-bar.active { display: flex; }
+
+  .resume-bar-text {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .resume-bar-text strong { color: var(--accent); }
+
+  .resume-bar-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .resume-btn {
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 10px 14px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .resume-btn.primary {
+    background: var(--accent);
+    color: #000;
+    border-color: transparent;
+  }
 </style>
 
 <div class="page">
@@ -395,16 +445,126 @@
 
   <div class="error-msg" id="error-msg"></div>
 
+  <div class="resume-bar" id="resume-bar" aria-live="polite">
+    <div class="resume-bar-text" id="resume-bar-text"></div>
+    <div class="resume-bar-actions">
+      <button class="resume-btn" id="resume-start-over" type="button">Start over</button>
+      <button class="resume-btn primary" id="resume-continue" type="button">Continue</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
 (function () {
-  const QUESTIONS = {{ .Params.questions | jsonify }};
+  const QUESTIONS = JSON.parse({{ .Params.questions | jsonify }});
   const TOTAL = {{ $total }};
-  const PB_ENDPOINT = {{ .Params.pocketbase_endpoint | default "/pb/api/collections/assessments/records" | jsonify }};
-  const SOURCE = {{ .Params.source | default "unknown" | jsonify }};
+  const PB_ENDPOINT = "{{ .Params.pocketbase_endpoint | default `/pb/api/collections/assessments/records` }}";
+  const SOURCE = "{{ .Params.source | default `unknown` }}";
+  const STORAGE_KEY = 'raus_assessment_' + SOURCE;
+  const TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
   let current = 1;
+
+  function getSavedState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      var saved = JSON.parse(raw);
+      if (!saved || typeof saved !== 'object') return null;
+      if (!saved.savedAt || Date.now() - saved.savedAt > TTL_MS) return null;
+      if (!saved.answers || typeof saved.answers !== 'object') return null;
+      if (!saved.step || saved.step < 1 || saved.step > TOTAL) return null;
+      return saved;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function saveState() {
+    try {
+      var answers = {};
+      QUESTIONS.forEach(function(q) {
+        if (q.type === 'radio') {
+          var el = document.querySelector('input[name="q' + q.step + '"]:checked');
+          answers[q.step] = el ? el.value : '';
+        } else if (q.type === 'checkbox') {
+          answers[q.step] = Array.from(document.querySelectorAll('input[name="q' + q.step + '"]:checked'))
+            .map(function(i) { return i.value; });
+        } else if (q.type === 'lead') {
+          answers[q.step] = {};
+          (q.fields || []).forEach(function(f) {
+            var input = document.getElementById('input-' + f.id);
+            answers[q.step][f.id] = input ? input.value : '';
+          });
+        }
+      });
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        step: current,
+        answers: answers,
+        savedAt: Date.now(),
+      }));
+    } catch (err) {}
+  }
+
+  function clearState() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (err) {}
+  }
+
+  function restoreAnswers(answers) {
+    QUESTIONS.forEach(function(q) {
+      var saved = answers[String(q.step)] ?? answers[q.step];
+      if (saved === undefined || saved === null) return;
+
+      if (q.type === 'radio') {
+        var input = document.querySelector('input[name="q' + q.step + '"][value="' + saved + '"]');
+        if (input) {
+          input.checked = true;
+          input.closest('.option').classList.add('selected');
+        }
+      } else if (q.type === 'checkbox') {
+        var values = Array.isArray(saved) ? saved : [];
+        values.forEach(function(val) {
+          var input = document.querySelector('input[name="q' + q.step + '"][value="' + val + '"]');
+          if (input) {
+            input.checked = true;
+            input.closest('.option').classList.add('selected');
+          }
+        });
+      } else if (q.type === 'lead') {
+        (q.fields || []).forEach(function(f) {
+          var input = document.getElementById('input-' + f.id);
+          if (input && saved[f.id] !== undefined) input.value = saved[f.id];
+        });
+      }
+    });
+  }
+
+  function showResumeBar(saved) {
+    var bar = document.getElementById('resume-bar');
+    var text = document.getElementById('resume-bar-text');
+    text.innerHTML = 'You were on <strong>question ' + saved.step + '</strong> of ' + TOTAL + '.';
+    bar.classList.add('active');
+
+    document.getElementById('resume-continue').onclick = function() {
+      bar.classList.remove('active');
+      restoreAnswers(saved.answers);
+      showStep(saved.step, false);
+    };
+
+    document.getElementById('resume-start-over').onclick = function() {
+      clearState();
+      bar.classList.remove('active');
+      current = 1;
+      document.querySelectorAll('.option').forEach(function(o) { o.classList.remove('selected'); });
+      document.querySelectorAll('input').forEach(function(i) {
+        if (i.type === 'checkbox' || i.type === 'radio') i.checked = false;
+        if (i.classList && i.classList.contains('text-input')) i.value = '';
+      });
+      showStep(1, false);
+    };
+  }
 
   // Wire option selection (visual selected state + max enforcement)
   document.querySelectorAll('.options').forEach(function(container) {
@@ -455,6 +615,14 @@
       return Array.from(document.querySelectorAll('input[name="q' + step + '"]:checked'))
                   .map(function(i) { return i.value; });
     }
+    if (q.type === 'lead') {
+      var lead = {};
+      (q.fields || []).forEach(function(f) {
+        var el = document.getElementById('input-' + f.id);
+        lead[f.id] = el ? el.value.trim() : '';
+      });
+      return lead;
+    }
     return null;
   }
 
@@ -467,7 +635,8 @@
     return true;
   }
 
-  function showStep(n) {
+  function showStep(n, persist) {
+    if (persist !== false) saveState();
     document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
     document.getElementById('step-success').classList.remove('active');
 
@@ -545,6 +714,7 @@
         });
       }
       document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+      clearState();
       document.getElementById('step-success').classList.add('active');
       document.getElementById('wizard-nav').style.display = 'none';
       document.getElementById('progress-fill').style.width = '100%';
@@ -561,7 +731,15 @@
   document.getElementById('btn-next').addEventListener('click', nextStep);
   document.getElementById('btn-back').addEventListener('click', prevStep);
 
-  showStep(1);
+  var saved = getSavedState();
+  if (saved) {
+    current = saved.step;
+    restoreAnswers(saved.answers);
+    showResumeBar(saved);
+    showStep(saved.step, false);
+  } else {
+    showStep(1, false);
+  }
 })();
 </script>
 {{ end }}
