@@ -459,7 +459,10 @@
 (function () {
   const QUESTIONS = JSON.parse({{ .Params.questions | jsonify }});
   const TOTAL = {{ $total }};
-  const PB_ENDPOINT = "{{ .Params.pocketbase_endpoint | default `/pb/api/collections/assessments/records` }}";
+  const PB_BASE = window.location.hostname === 'localhost'
+    ? 'http://localhost:8090'
+    : 'https://admin.raus.cloud';
+  const PB_ENDPOINT = PB_BASE + '/api/collections/assessments/records';
   const SOURCE = "{{ .Params.source | default `unknown` }}";
   const STORAGE_KEY = 'raus_assessment_' + SOURCE;
   const TTL_MS = 7 * 24 * 60 * 60 * 1000;
