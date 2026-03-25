@@ -19,7 +19,10 @@ services:
     build:
       context: infra/pocketbase
       dockerfile: Dockerfile
-    command: ["./pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/pb/pb_data", "--migrationsDir=/pb/pb_migrations"]
+    command:
+      - sh
+      - -c
+      - ./pocketbase migrate up --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations && exec ./pocketbase serve --http=0.0.0.0:8090 --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations
     # No ports: — internal only, accessed via nginx proxy at /pb/
     # To access admin UI after first deploy via SSH:
     #   docker exec <container> ./pocketbase superuser upsert admin@raus.cloud <pass>

@@ -144,7 +144,10 @@ services:
       context: ./infra/pocketbase
       dockerfile: Dockerfile
     container_name: flagmeter-pocketbase-dev
-    command: ["./pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/pb/pb_data", "--migrationsDir=/pb/pb_migrations"]
+    command:
+      - sh
+      - -c
+      - ./pocketbase migrate up --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations && exec ./pocketbase serve --http=0.0.0.0:8090 --dir=/pb/pb_data --migrationsDir=/pb/pb_migrations
     ports:
       - "8090:8090"
     volumes:
