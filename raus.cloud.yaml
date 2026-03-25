@@ -34,7 +34,6 @@ services:
       - 8090
     volumes:
       - pocketbase_data:/pb/pb_data
-      - ./infra/pocketbase/pb_migrations:/pb/pb_migrations
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
       interval: 30s

@@ -16,6 +16,8 @@ RUN EXPECTED_AMD64="0e4f28b0447a964dc25d82af28e682097a80457f7bc89a83d29e243e1789
     && rm /tmp/pb.zip \
     && chmod +x /pb/pocketbase
 
+COPY pb_migrations/ /pb/pb_migrations/
+
 WORKDIR /pb
 
 EXPOSE 8090
