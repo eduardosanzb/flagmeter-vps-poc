@@ -1634,6 +1634,11 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0px;
 }
 
+.inset-y-0 {
+  top: 0px;
+  bottom: 0px;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -2953,6 +2958,10 @@ h1, h2, h3, h4, h5, h6 {
   color: rgb(255 255 255 / 0.9);
 }
 
+.text-brand-accent\/40 {
+  color: rgb(16 185 129 / 0.4);
+}
+
 .line-through {
   text-decoration-line: line-through;
 }
@@ -3089,6 +3098,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .duration-75 {
   transition-duration: 75ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
 }
 
 .ease-in {

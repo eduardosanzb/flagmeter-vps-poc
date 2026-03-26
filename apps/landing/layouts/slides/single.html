@@ -401,7 +401,7 @@
             <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
             {{ if .subtitle }}<p class="text-brand-secondary text-sm">{{ .subtitle }}</p>{{ end }}
           </div>
-          <div class="flex flex-col items-center gap-2">
+          <div class="flex flex-col gap-2 w-full">
             {{ if .peak }}
             <div class="flex justify-center mb-1">
               <div class="bg-brand-accent/10 border border-brand-accent shadow-glow rounded-xl px-10 py-2.5 text-center">
@@ -412,11 +412,14 @@
             {{- $n := float (len .layers) -}}
             {{- range $i, $layer := .layers -}}
             {{- $w := int (math.Round (math.Mul (math.Div (float (add $i 1)) $n) 100.0)) -}}
-            <div class="flex items-center gap-4 bg-gray-900/50 border border-gray-800 rounded-xl px-6 py-3 hover:border-brand-accent/30 transition-colors"
-                 style="width: {{ $w }}%">
-              <div class="w-1.5 h-1.5 rounded-full bg-brand-accent flex-shrink-0"></div>
-              <p class="text-brand-accent font-semibold text-sm font-display w-28 flex-shrink-0">{{ $layer.label }}</p>
-              <p class="text-gray-400 text-sm leading-relaxed">{{ $layer.description }}</p>
+            <div class="relative rounded-xl overflow-hidden border border-gray-800 hover:border-brand-accent/30 transition-colors">
+              <div class="absolute inset-y-0 left-0 bg-brand-accent/10 transition-all duration-500" style="width: {{ $w }}%"></div>
+              <div class="relative flex items-center gap-4 px-6 py-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-brand-accent flex-shrink-0"></div>
+                <p class="text-brand-accent font-semibold text-sm font-display w-24 flex-shrink-0">{{ $layer.label }}</p>
+                <p class="text-gray-400 text-sm leading-relaxed min-w-0">{{ $layer.description }}</p>
+                <span class="text-brand-accent/40 font-mono text-xs flex-shrink-0 hidden sm:block">{{ $w }}%</span>
+              </div>
             </div>
             {{- end }}
           </div>
