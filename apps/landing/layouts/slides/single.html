@@ -394,6 +394,56 @@
           {{ end }}
         </div>
 
+        {{/* ─── PYRAMID ─── */}}
+        {{ else if eq .type "pyramid" }}
+        <div class="max-w-4xl mx-auto w-full">
+          <div class="mb-5">
+            <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            {{ if .subtitle }}<p class="text-brand-secondary text-sm">{{ .subtitle }}</p>{{ end }}
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            {{ if .peak }}
+            <div class="flex justify-center mb-1">
+              <div class="bg-brand-accent/10 border border-brand-accent shadow-glow rounded-xl px-10 py-2.5 text-center">
+                <p class="text-brand-accent font-bold font-display uppercase tracking-widest text-base">{{ .peak }}</p>
+              </div>
+            </div>
+            {{ end }}
+            {{- $n := float (len .layers) -}}
+            {{- range $i, $layer := .layers -}}
+            {{- $w := int (math.Round (math.Mul (math.Div (float (add $i 1)) $n) 100.0)) -}}
+            <div class="flex items-center gap-4 bg-gray-900/50 border border-gray-800 rounded-xl px-6 py-3 hover:border-brand-accent/30 transition-colors"
+                 style="width: {{ $w }}%">
+              <div class="w-1.5 h-1.5 rounded-full bg-brand-accent flex-shrink-0"></div>
+              <p class="text-brand-accent font-semibold text-sm font-display w-28 flex-shrink-0">{{ $layer.label }}</p>
+              <p class="text-gray-400 text-sm leading-relaxed">{{ $layer.description }}</p>
+            </div>
+            {{- end }}
+          </div>
+        </div>
+
+        {{/* ─── ICON-GRID ─── */}}
+        {{ else if eq .type "icon-grid" }}
+        <div class="max-w-4xl mx-auto w-full">
+          <div class="mb-6">
+            <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+            {{ if .subtitle }}<p class="text-brand-secondary text-sm">{{ .subtitle }}</p>{{ end }}
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {{ range .items }}
+            <div class="flex items-start gap-4 bg-gray-900/50 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+              <div class="flex-shrink-0 w-10 h-10 text-brand-accent">
+                {{ partial "slides-icon.html" (dict "icon" .icon) }}
+              </div>
+              <div>
+                <p class="text-white font-semibold mb-1 text-sm">{{ .heading }}</p>
+                <p class="text-gray-400 text-xs leading-relaxed">{{ .body }}</p>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
         {{/* ─── CTA ─── */}}
         {{ else if eq .type "cta" }}
         <div class="text-center max-w-2xl mx-auto">
