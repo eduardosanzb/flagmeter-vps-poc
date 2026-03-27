@@ -47,10 +47,11 @@
 
 These directly put content in front of the ICP. Eduardo does these manually.
 
-#### DIST-1: CloudFest Learnings LinkedIn Post
-- **Owner:** Eduardo (this weekend)
+#### DIST-1: CloudFest Learnings LinkedIn Post ✅
+- **Owner:** Eduardo
+- **Status:** Drafted and ready to post Monday
 - **Format:** Personal narrative post about CloudFest: what resonated, what people asked, what felt real
-- **CTA:** Link to assessment or book a call
+- **CTA:** Soft promotion to assessment / book a call
 
 #### DIST-2: Direct LinkedIn Outreach to ICP CTOs
 - **Owner:** Eduardo
