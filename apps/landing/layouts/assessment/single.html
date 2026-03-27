@@ -424,13 +424,25 @@
       <div class="success-title">Thanks for sharing!</div>
       <div class="success-body">
         We'll review your answers and reach out if there's a clear fit.<br><br>
-        In the meantime, see how raus.cloud helps European teams cut cloud costs and reclaim sovereignty.
+        Want to discuss your infrastructure right now? Book a free 15-minute call.
       </div>
-      <a class="success-cta" href="https://raus.cloud">
-        <div class="success-cta-icon">🚀</div>
+      
+      <!-- Primary CTA: Book a Call -->
+      <a class="success-cta" href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" style="margin-bottom: 12px;">
+        <div class="success-cta-icon">📅</div>
         <div>
-          <div class="success-cta-label">Explore raus.cloud</div>
-          <div class="success-cta-sub">Infrastructure consulting · Berlin</div>
+          <div class="success-cta-label">Book Free Call</div>
+          <div class="success-cta-sub">15 min · No commitment</div>
+        </div>
+        <div class="success-cta-arrow">→</div>
+      </a>
+      
+      <!-- Secondary CTA: Explore Site -->
+      <a class="success-cta" href="{{ .Site.LanguagePrefix }}/" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+        <div class="success-cta-icon" style="background: rgba(255,255,255,0.1);">🏠</div>
+        <div>
+          <div class="success-cta-label" style="color: var(--text);">Explore raus.cloud</div>
+          <div class="success-cta-sub">Read case studies & methodology</div>
         </div>
         <div class="success-cta-arrow">→</div>
       </a>
