@@ -81,3 +81,6 @@ other = "Book Free Consultation"
 
 [blog.backToBlog]
 other = "← Back to Case Studies"
+
+[navigation.assessment]
+other = "Free Assessment"
