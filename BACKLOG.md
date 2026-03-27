@@ -3,6 +3,7 @@
 > **North Star: Fill the pipeline.** Content is strong. Proof exists. The bottleneck is distribution: getting what we've built in front of the people who need it. Everything else is blocked on having prospects to talk to.
 
 **Last updated:** 2026-03-27
+**GitHub issues:** All raus.cloud issues migrated and closed. BACKLOG.md is now the single source of truth.
 
 ---
 
@@ -29,9 +30,11 @@
 
 | Category | Done | Remaining |
 |----------|------|-----------|
-| Content/Learning | `#95`, `#94`, `#73` (3 closed) | `#65`, `#72`, `#82`, `#96`, `#97` |
-| Commercial (audits/pilots/revenue) | 0 | `#74`, `#75`, `#76`, `#77`, `#78`, `#79`, `#80` |
+| Content/Learning | `#73`, `#94`, `#95` (3 closed) | `#65`, `#72`, `#96`, `#97` |
+| Commercial (audits/pilots/revenue) | `#75` (audit framework complete) | `#74`, `#76`, `#77`, `#78`, `#79`, `#80`, `#81`, `#83` |
+| Site Conversion | 0 | `SITE-1` through `SITE-5` |
 | Infrastructure | 0 | `#53`, `#64`, `#84`, `#85` |
+| Distribution | 0 | `DIST-1` through `DIST-5`, `#89` |
 
 **Success criteria:** `€15k-30k` revenue, 3 case studies, 1+ referral  
 **Kill trigger:** `<€15k after 5 audits`
@@ -277,26 +280,70 @@ Code changes that capture visitors who arrive but are not ready to book a call.
 **Status:** Research phase (`#96`). New series exploring self-hosted LLM inference on Hetzner ARM.
 **Priority:** Future. Do not start until current series is fully distributed.
 
+#### CONTENT-4: Blueprint from FlagMeter
+- Extract reusable patterns from FlagMeter implementation
+- **GitHub issue:** `#72`
+
+#### CONTENT-5: Additional Slide Use Cases
+- Slides explaining use cases and how to do it (e.g. WordPress or other common stacks)
+- **GitHub issue:** `#65`
+
+#### CONTENT-6: Database Articles
+- Publish additional database-focused content
+- **GitHub issue:** `#97`
+
 ---
 
 ### P3 - Sales Infrastructure
 
 These support the audit process once leads start flowing.
 
-#### SALES-1: Standardized Audit Template
+#### SALES-1: Run 5-10 Free Architecture Audits
+- **Goal:** Fill the pipeline with qualified leads
+- **Method:** Use the standardized audit framework (see SALES-2)
+- **Success metric:** >20% conversion to pilots
+- **GitHub issue:** `#74`
+
+#### SALES-2: Standardized Audit Template
 - Create repeatable discovery checklist
 - Should cover: cloud setup, team size, deployment pipeline, observability, cost breakdown, bus factor assessment
 - The 3 diagnostic questions are the opener
+- **Status:** ✅ Complete (9 docs in Outline → Fuck.Cloud collection)
 - **GitHub issue:** `#75`
 
-#### SALES-2: Audit Report Template (`€2k` Waste Report)
+#### SALES-3: Audit Report Template (`€2k` Waste Report)
 - Deliverable from the free 15-min audit
 - Template: 1-page PDF showing waste identified, recommended stack, projected savings
+- **Status:** ✅ Complete (Report Template + 1-Page Summary in Outline)
 - **GitHub issue:** Part of `#75`
 
-#### SALES-3: Pipeline Tracking
+#### SALES-4: Pipeline Tracking
 - Even a simple spreadsheet: Name, Company, Source, Stage, Next Action, Date
 - Stages: Lead -> Audit Booked -> Audit Done -> Pilot Proposed -> Pilot Closed
+
+#### SALES-5: Close First €3k Pilot
+- **GitHub issue:** `#76`
+
+#### SALES-6: Close Second €3k Pilot
+- **GitHub issue:** `#77`
+
+#### SALES-7: Execute First Full Migration
+- **GitHub issue:** `#78`
+
+#### SALES-8: Write First Case Study
+- Document real client results for social proof
+- **GitHub issue:** `#79`
+
+#### SALES-9: Get First Referral
+- **GitHub issue:** `#80`
+
+#### SALES-10: Extract Migration Patterns into Playbook
+- Codify what works into reusable templates
+- **GitHub issue:** `#81`
+
+#### SALES-11: Create Runbook Template
+- Standardized operational documentation for clients
+- **GitHub issue:** `#83`
 
 ---
 
@@ -307,14 +354,38 @@ Explicitly parked until Phase 1 commercial metrics are met.
 | Item | GitHub Issue | Trigger |
 |------|-------------|---------|
 | Extract blueprint to public repo | `#86` | After 2+ completed audits inform the patterns |
-| Document blueprint | `#87` | After `#86` |
-| Add client patterns (Rails/Node/Python) | `#88` | After real client migrations |
+| Document blueprint: README, architecture diagrams, deployment guide | `#87` | After `#86` |
+| Add client patterns: Rails/Node/Python examples | `#88` | After real client migrations |
 | Launch on HN/Reddit (blueprint) | `#89` | After `#86-#88` |
 | TUI/agent audit tool | New issue | After assessment generates signal |
 | DIY Guide (`€199`) | `#91` | Phase 3 |
 | Office Hours (`€500/mo`) | `#92` | Phase 3 |
-| Path C website messaging | `#90` | Phase 3 |
-| Fixed scope services | `#93` | Phase 3 |
+| Path C website messaging ("Use our blueprint or hire us") | `#90` | Phase 3 |
+| Fixed scope services (no bespoke work outside blueprint) | `#93` | Phase 3 |
+
+---
+
+### P5 - Infrastructure Operations
+
+Platform and tooling improvements to support the consulting service.
+
+#### INFRA-1: Migrate to ARM Hetzner Instance
+- Optimize FlagMeter deployment for ARM architecture
+- **GitHub issue:** `#53`
+
+#### INFRA-2: Decouple Database to Coolify DB
+- Separate database management from application deployment
+- **GitHub issue:** `#64`
+
+#### INFRA-3: RSS Subscription for Blog
+- Make RSS feed visible and accessible to subscribers
+- **Status:** Feed exists at `/index.xml`, needs promotion
+- **GitHub issue:** `#84`
+
+#### INFRA-4: Fix Analytics
+- Resolve Umami analytics tracking issues in production
+- **Status:** Production build may be missing analytics script
+- **GitHub issue:** `#85`
 
 ---
 
