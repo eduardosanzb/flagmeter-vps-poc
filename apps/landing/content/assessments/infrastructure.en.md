@@ -5,6 +5,7 @@ type: assessment
 url: "/assessment/"
 pocketbase_endpoint: "/pb/api/collections/assessments/records"
 source: "website"
+back_url: "/"
 draft: false
 
 questions:

@@ -5,6 +5,7 @@ type: assessment
 url: "/cloudfest/assessment/"
 pocketbase_endpoint: "/pb/api/collections/assessments/records"
 source: "cloudfest"
+back_url: "/cloudfest/"
 draft: false
 
 questions:
