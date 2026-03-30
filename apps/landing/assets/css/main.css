@@ -526,10 +526,10 @@
 }
 
 /* Navigation link hover effects */
-a {
+nav a:not(.btn) {
   @apply transition-colors;
 }
 
-a:hover {
+nav a:not(.btn):hover {
   @apply text-brand-accent;
 }
