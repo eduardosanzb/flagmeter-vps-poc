@@ -376,7 +376,7 @@
 <div class="page">
 
   <div class="wizard-header">
-    <a class="back-link" href="/cloudfest/">← raus.cloud</a>
+    <a class="back-link" href="{{ .Params.back_url | default (printf "%s/" .Site.LanguagePrefix) }}">← raus.cloud</a>
     <div class="progress-wrap">
       <div class="progress-fill" id="progress-fill"></div>
     </div>
@@ -478,6 +478,9 @@
   const SOURCE = "{{ .Params.source | default `unknown` }}";
   const STORAGE_KEY = 'raus_assessment_' + SOURCE;
   const TTL_MS = 7 * 24 * 60 * 60 * 1000;
+  const LANGUAGE = "{{ .Site.Language.Lang }}";
+  const REFERRER = document.referrer || '';
+  const BACK_URL = "{{ .Params.back_url | default (printf "%s/" .Site.LanguagePrefix) }}";
 
   let current = 1;
 
@@ -687,7 +690,7 @@
 
   function prevStep() {
     if (current === 1) {
-      window.location.href = '/cloudfest/';
+      window.location.href = BACK_URL;
       return;
     }
     current--;
@@ -699,7 +702,7 @@
     btnNext.disabled = true;
     btnNext.textContent = 'Submitting…';
 
-    var payload = { source: SOURCE };
+    var payload = { source: SOURCE, language: LANGUAGE, referrer: REFERRER };
 
     QUESTIONS.forEach(function(q) {
       if (q.type === 'radio') {
