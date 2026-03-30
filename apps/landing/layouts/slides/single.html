@@ -1,4 +1,78 @@
 {{ define "main" }}
+<style>
+@media print {
+  /* Reset the slides app container for print flow */
+  #slides-app {
+    display: block !important;
+    height: auto !important;
+    width: auto !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  /* Hide the top bar (back link, title, slide counter) */
+  #slides-app > .flex-none:first-child {
+    display: none !important;
+  }
+
+  /* Hide the bottom bar (progress bar, nav buttons) */
+  #slides-app > .flex-none:last-child {
+    display: none !important;
+  }
+
+  /* Make slides area a normal flow container */
+  #slides-app > .flex-1 {
+    position: static !important;
+    overflow: visible !important;
+  }
+
+  /* Make ALL slides visible and positioned in normal flow */
+  .slide {
+    position: static !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    width: 100% !important;
+    min-height: 100vh;
+    page-break-after: always;
+    break-after: page;
+    background: white !important;
+    padding: 2rem !important;
+  }
+
+  /* Ensure text is black for print readability */
+  .slide, .slide * {
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Keep accent color for visual elements */
+  .slide .text-brand-accent {
+    color: #10b981 !important;
+  }
+
+  /* Remove transitions and animations */
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Ensure backgrounds print correctly for cards */
+  .slide .bg-gray-900\/60,
+  .slide .bg-gray-900\/40,
+  .slide .bg-gray-950 {
+    background: #f9fafb !important;
+    border-color: #e5e7eb !important;
+  }
+
+  /* Make borders visible in print */
+  .slide [class*="border-gray-800"],
+  .slide [class*="border-brand-accent"] {
+    border-color: #d1d5db !important;
+  }
+}
+</style>
 {{ $slides := default (slice) .Params.slides }}
 {{ $total := len $slides }}
 
