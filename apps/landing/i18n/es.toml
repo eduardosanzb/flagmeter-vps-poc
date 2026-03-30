@@ -68,3 +68,6 @@ other = "Reservar Consultoría Gratuita"
 
 [blog.backToBlog]
 other = "← Volver a los Casos de Estudio"
+
+[navigation.assessment]
+other = "Assessment Gratuito"
