@@ -25,6 +25,7 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  {{ with .OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .RelPermalink }}">{{ end }}
   
   <!-- Google Fonts: Space Grotesk + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
