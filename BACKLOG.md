@@ -2,7 +2,7 @@
 
 > **North Star: Fill the pipeline.** Content is strong. Proof exists. The bottleneck is distribution: getting what we've built in front of the people who need it. Everything else is blocked on having prospects to talk to.
 
-**Last updated:** 2026-03-27
+**Last updated:** 2026-03-30
 **GitHub issues:** All raus.cloud issues migrated and closed. BACKLOG.md is now the single source of truth.
 
 ---
@@ -13,14 +13,13 @@
 - **4 published articles** (EN/DE/ES) with real benchmarks, not theory
 - **FlagMeter reference architecture**: 500+ RPS on `€7.59/month`, production-tested
 - **Landing site**: Professional, bilingual, clear pricing, Cal.com booking on every page
-- **Assessment wizard**: 10-step PocketBase-backed lead capture tool (currently buried at `/cloudfest/`)
+- **Assessment wizard**: 10-step multilingual PocketBase-backed lead capture tool at `/assessment/` (plus legacy `/cloudfest/assessment/`)
 - **Slide deck v2**: 10-slide conference pitch, rendered as HTML
 - **Analytics**: Umami self-hosted with CTA tracking, scroll depth, reading time
 
 ### What's Broken
 - **Zero pipeline**: No audits, no pilots, no revenue. Phase 1 commercial validation has not started.
 - **Content not distributed**: Articles are on the site, but the traffic and follow-up are weak.
-- **Assessment hidden**: Best lead capture tool is under `/cloudfest/assessment/`, not linked from main nav.
 - **No social links on site**: LinkedIn and Twitter/X are not visible in header/footer.
 - **No intermediate conversion**: Visitors are either ready to book a 15-min call or they bounce.
 - **RSS invisible**: Feed is generated at `/index.xml`, but never promoted.
@@ -32,7 +31,7 @@
 |----------|------|-----------|
 | Content/Learning | `#73`, `#94`, `#95` (3 closed) | `#65`, `#72`, `#96`, `#97` |
 | Commercial (audits/pilots/revenue) | `#75` (audit framework complete) | `#74`, `#76`, `#77`, `#78`, `#79`, `#80`, `#81`, `#83` |
-| Site Conversion | 0 | `SITE-1` through `SITE-5` |
+| Site Conversion | 1 | `SITE-2` through `SITE-5` |
 | Infrastructure | 0 | `#53`, `#64`, `#84`, `#85` |
 | Distribution | 0 | `DIST-1` through `DIST-5`, `#89` |
 
@@ -173,30 +172,10 @@ These directly put content in front of the ICP. Eduardo does these manually.
 
 Code changes that capture visitors who arrive but are not ready to book a call.
 
-#### SITE-1: Generalize Assessment Wizard
-
-**What:** Make the CloudFest assessment available as a permanent site feature.
-
-**Current state:**
-- Content: `apps/landing/content/assessments/cloudfest.en.md`
-- Layout: `apps/landing/layouts/assessment/single.html`
-- URL: `/cloudfest/assessment/`
-- Source tag: `"cloudfest"` (sent to PocketBase)
-- Back link: hardcoded to `/cloudfest/`
-
-**Changes needed:**
-1. Create `apps/landing/content/assessments/infrastructure.en.md` (copy from cloudfest, change source to `"website"`, set `url: "/assessment/"`)
-2. Create `.de.md` and `.es.md` translations
-3. Update question framing if needed, but the current 10 questions are already generic enough
-4. Change `source` param to `"website"`
-5. Change `url` param to `/assessment/`
-6. In `layouts/assessment/single.html`, replace the hardcoded `/cloudfest/` back link with a param or a computed home link
-7. Add `"Free Assessment"` to header nav (`layouts/partials/header.html`)
-8. Optionally add it to the footer quick links (`layouts/partials/footer.html`)
-
-**PocketBase:** Verify `assessments` collection accepts records with `source: "website"`.
-
-**GitHub issue:** Needs new issue created
+#### ~~SITE-1: Generalize Assessment Wizard~~ ✅
+- **Status:** Complete
+- **Result:** The assessment now lives at `/assessment/` in EN/DE/ES, with dynamic back links plus `language` and `referrer` tracking in PocketBase.
+- **Completed:** 2026-03-30
 
 #### SITE-2: Add Social Links to Footer
 
