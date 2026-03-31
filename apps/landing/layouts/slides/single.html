@@ -33,11 +33,17 @@
     pointer-events: auto !important;
     display: flex !important;
     width: 100% !important;
-    min-height: 100vh;
+    min-height: auto;
     page-break-after: always;
     break-after: page;
     background: white !important;
     padding: 2rem !important;
+  }
+
+  /* No trailing blank page after the last slide */
+  .slide:last-child {
+    page-break-after: auto;
+    break-after: auto;
   }
 
   /* Ensure text is black for print readability */
@@ -50,6 +56,15 @@
   /* Keep accent color for visual elements */
   .slide .text-brand-accent {
     color: #10b981 !important;
+  }
+
+  /* CTA slide: make buttons legible on white background */
+  .slide .btn-primary,
+  .slide .btn-secondary {
+    background: white !important;
+    color: black !important;
+    border: 1.5px solid #10b981 !important;
+    box-shadow: none !important;
   }
 
   /* Remove transitions and animations */
