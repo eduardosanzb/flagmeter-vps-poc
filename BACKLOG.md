@@ -2,7 +2,7 @@
 
 > **North Star: Fill the pipeline.** Content is strong. Proof exists. The bottleneck is distribution: getting what we've built in front of the people who need it. Everything else is blocked on having prospects to talk to.
 
-**Last updated:** 2026-03-31
+**Last updated:** 2026-04-03
 **GitHub issues:** All raus.cloud issues migrated and closed. BACKLOG.md is now the single source of truth.
 
 ---
@@ -21,17 +21,17 @@
 - **Zero pipeline**: No audits, no pilots, no revenue. Phase 1 commercial validation has not started.
 - **Content not distributed**: Articles are on the site, but the traffic and follow-up are weak.
 - **No intermediate conversion**: Visitors are either ready to book a 15-min call or they bounce.
-- **Article 5 archived**: Database article is fully written and researched, but still in `.archive/`.
-- **Analytics unverified**: Umami may not be firing in production (`enableAnalytics = false` in `hugo.toml`).
+- **Article 5 needs rewrite**: Existing draft is a literature review with no original data; needs pgbench, backup/restore, and disaster recovery benchmarks to match series quality.
+- **Blueprints undefined**: Strategy for composable infrastructure guides (compute, database, deployment, etc.) is sketched but not documented.
 
 ### Phase 1 Progress (GitHub Milestone: `raus.cloud Phase 1: Validation`)
 
 | Category | Done | Remaining |
 |----------|------|-----------|
-| Content/Learning | `#73`, `#94`, `#95` (3 closed) | `#65`, `#72`, `#96`, `#97` |
+| Content/Learning | `#73`, `#94`, `#95`, `#97` (4 closed) | `#65`, `#72`, `#96` |
 | Commercial (audits/pilots/revenue) | `#75` (audit framework complete) | `#74`, `#76`, `#77`, `#78`, `#79`, `#80`, `#81`, `#83` |
-| Site Conversion | 4 | `SITE-5` |
-| Infrastructure | 0 | `#53`, `#64`, `#84`, `#85` |
+| Site Conversion | 5 | - |
+| Infrastructure | 1 | `#53`, `#64`, `#84` |
 | Distribution | 0 | `DIST-1` through `DIST-5`, `#89` |
 
 **Success criteria:** `€15k-30k` revenue, 3 case studies, 1+ referral  
@@ -134,24 +134,19 @@ These directly put content in front of the ICP. Eduardo does these manually.
 >
 > Full roadmap: [link to article 4]
 
-**Post E - The Database Truth (for when Article 5 publishes)**
-> We deployed 8 research agents to settle the managed vs self-hosted database debate.
+**Post E - The Database Blueprint (when CONTENT-1 publishes)**
+> We run PostgreSQL in production on a €7.59/mo VPS. Here's the data:
 >
-> Methodology: Hegelian dialectics across 8 dimensions. 50+ sources. No cherry-picking.
+> **pgbench**: 6,000+ TPS with our tuning (vs 1,000-2,000 on equivalent RDS)
+> **Backup**: pgBackRest full backup in 45 seconds, 120MB compressed
+> **Disaster recovery**: 3 minutes 12 seconds from "server dead" to "app serving requests"
+> **Cost**: €11.40/month total (VPS + Storage Box) vs €280-500/mo RDS
 >
-> Result: Self-hosted PostgreSQL wins 6 of 8 dimensions for bootstrapped SaaS under 2,000 RPS.
+> Most founders don't self-host databases because they've never seen the disaster recovery number. Here's ours.
 >
-> The cost difference: 925x.
-> - FlagMeter full stack: `€11.40/month`
-> - AWS equivalent: `€10,560/month`
->
-> Local NVMe: 50-200us latency
-> EBS (AWS): 500-2,000us latency
-> That's 10-20x faster storage.
->
-> Neither side is universally right. But for bootstrapped B2B SaaS, the data is clear.
->
-> Full analysis: [link to article 5]
+> Full blueprint with copy-paste configs: [link to Article 5]
+
+*Note: Post E content TBD pending CONTENT-1 benchmark results.*
 
 #### DIST-4: Export Pitch v2 Slides to PDF
 - **Purpose:** LinkedIn carousel post + shareable document for outreach
@@ -191,32 +186,47 @@ Code changes that capture visitors who arrive but are not ready to book a call.
 - **Result:** Auto-discovery `<link rel="alternate">` in `<head>` on all pages (falls back to `.CurrentSection` on single posts). Visible "Subscribe via RSS" on blog list. RSS icon in blog single meta area.
 - **Completed:** 2026-03-31
 
-#### SITE-5: Verify Analytics in Production
-
-**Current state:** `apps/landing/hugo.toml` has `enableAnalytics = false`. Presumably overridden in production build.
-
-**Action:** Verify the live site source for the Umami script tag. If missing, fix the production build env.
-
-**GitHub issue:** `#85`
+#### ~~SITE-5: Verify Analytics in Production~~ ✅
+- **Status:** Complete
+- **Result:** Analytics is working. `config/production/params.toml` overrides `enableAnalytics = true`. Umami accessible at `https://analytics.raus.cloud`. Production build uses `--environment production` flag.
+- **Completed:** 2026-04-03
 
 ---
 
 ### P2 - Content Pipeline
 
-#### CONTENT-1: Publish Article 5 (Self-Running Databases)
+#### CONTENT-1: Rewrite Article 5 as Database Blueprint
 
-**Current state:** 504-line article in `apps/landing/content/blog/.archive/self-running-databases-production.en.md` plus `.de.md` and `.es.md`. `draft: true`.
+**Current state:** 504-line article in `.archive/` is a literature review comparing managed vs self-hosted databases using Hegelian analysis. No original benchmarks. Not suitable for publication.
 
-**Changes needed:**
-1. Move all 3 files from `.archive/` to `apps/landing/content/blog/`
-2. Set `draft: false`
-3. Update `date` to the current publish date
-4. Light editorial pass (links, stale references, formatting)
-5. Add inline CTA + bottom CTA box, consistent with other articles
+**New approach:** Rewrite as a practical, benchmark-driven guide: "Running PostgreSQL in Production: The Complete Blueprint"
 
-**Research:** Complete. Extensive Hegelian analysis is already in Outline.
+**Required benchmarks (original data):**
+1. `pgbench` on FlagMeter CAX21 (baseline + before/after tuning comparison)
+2. pgBackRest backup cycle (full + incremental backup times, backup sizes)
+3. Disaster recovery test (kill postgres → restore from backup → measure RTO)
+4. Live traffic impact test (backup during app load)
 
-**LinkedIn post:** See `DIST-3` Post E above.
+**Article structure:**
+1. The stack (CAX21 + PostgreSQL + pgBackRest + Prometheus/Grafana)
+2. PostgreSQL tuning (with actual `postgresql.conf` and pgbench numbers)
+3. Backup strategy (pgBackRest to Storage Box, schedule, retention)
+4. Disaster recovery (RTO/RPO measured and documented)
+5. Monitoring setup (postgres_exporter, Grafana dashboard)
+6. Cost breakdown (line-by-line vs managed equivalent)
+7. CTA: Book Database Audit
+
+**Acceptance criteria:**
+- Must have original pgbench TPS numbers
+- Must have actual RTO measurement (<5 minutes target)
+- Must provide copy-paste configs
+- Consistent with Articles 1–4 in tone and structure
+
+**Blocked by:** Running benchmarks on FlagMeter production infrastructure
+
+**Status:** Blocked. Keep archived draft as research reference, do not publish.
+
+**LinkedIn post:** See `DIST-3 Post E` below (to be updated when benchmarks complete)
 
 **GitHub issue:** `#97`
 
@@ -231,17 +241,51 @@ Code changes that capture visitors who arrive but are not ready to book a call.
 **Status:** Research phase (`#96`). New series exploring self-hosted LLM inference on Hetzner ARM.
 **Priority:** Future. Do not start until current series is fully distributed.
 
-#### CONTENT-4: Blueprint from FlagMeter
-- Extract reusable patterns from FlagMeter implementation
-- **GitHub issue:** `#72`
+#### CONTENT-4: Blueprint Strategy & Library
+
+**Vision:** Composable, tested infrastructure blueprints. Hetzner-first, reproducible, documented.
+
+**Philosophy:** Each article proves a component. The blueprint is the article + the code/config + the decision criteria.
+
+**Blueprint taxonomy:**
+| Article | Component | Status |
+|---------|-----------|--------|
+| Article 1 | Compute (VPS vs distributed) | ✅ Published |
+| Article 2 | Deployment (Coolify PaaS) | ✅ Published |
+| Article 4 | Scaling roadmap | ✅ Published |
+| Article 5 (new) | Database (PostgreSQL production) | Blocked on benchmarks |
+| TBD | Observability (Prometheus/Grafana/Loki) | Not written |
+| TBD | Backups & DR | Not written |
+| TBD | Multi-node (Patroni HA) | Future, >2,000 RPS |
+
+**Blueprint format (for now):**
+- Markdown article with benchmarks
+- Copy-paste configs (docker-compose, postgresql.conf, etc.)
+- Decision flowchart (when to use this vs alternatives)
+- Cost breakdown
+
+**Future-proofing:**
+- Keep structure consistent for later agent consumption
+- Each blueprint defines: requirements, inputs, outputs, costs, decision criteria
+
+**Long-term:** TUI/agent that consumes blueprints:
+1. Audit wizard gathers requirements
+2. Agent picks relevant blueprints
+3. Generates custom `docker-compose.yml` + configs
+4. Provides decision flowchart for user's specific case
+
+**Status:** Framework defined. First blueprint (Article 5) blocked on benchmarks.
+
+**Trigger for Phase 2:** After 2+ completed audits inform the patterns → extract FlagMeter patterns into public repo.
+
+**GitHub issues:** `#72`, `#86`, `#87`, `#88`
 
 #### CONTENT-5: Additional Slide Use Cases
 - Slides explaining use cases and how to do it (e.g. WordPress or other common stacks)
 - **GitHub issue:** `#65`
 
-#### CONTENT-6: Database Articles
-- Publish additional database-focused content
-- **GitHub issue:** `#97`
+#### ~~CONTENT-6: Database Articles~~ ✅
+- Merged into CONTENT-1 (rewrite of Article 5 as database blueprint)
 
 ---
 
@@ -298,9 +342,13 @@ These support the audit process once leads start flowing.
 
 ---
 
-### P4 - Future (Post-Traction)
+### P4 - Future (Blueprints → OSS → Agent)
 
-Explicitly parked until Phase 1 commercial metrics are met.
+**Phase 1** (current): CONTENT-1 creates first explicit blueprint. Blueprint framework defined.
+
+**Phase 2** (trigger: after 2+ completed audits): Extract to `raus-cloud/infrastructure-blueprint` public repo.
+
+**Phase 3** (trigger: after repo validated): TUI/agent audit tool using blueprints as context.
 
 | Item | GitHub Issue | Trigger |
 |------|-------------|---------|
@@ -332,10 +380,9 @@ Platform and tooling improvements to support the consulting service.
 - **Status:** Complete (covered by SITE-4)
 - **Completed:** 2026-03-31
 
-#### INFRA-4: Fix Analytics
-- Resolve Umami analytics tracking issues in production
-- **Status:** Production build may be missing analytics script
-- **GitHub issue:** `#85`
+#### ~~INFRA-4: Fix Analytics~~ ✅
+- **Status:** Complete (same as SITE-5)
+- **Completed:** 2026-04-03
 
 ---
 
