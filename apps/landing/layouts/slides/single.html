@@ -1,5 +1,11 @@
 {{ define "main" }}
 <style>
+/* LinkedIn carousel: 1080×1350 px (4:5 portrait) */
+@page {
+  size: 1080px 1350px;
+  margin: 0;
+}
+
 @media print {
   /* Reset the slides app container for print flow */
   #slides-app {
@@ -26,18 +32,20 @@
     overflow: visible !important;
   }
 
-  /* Make ALL slides visible and positioned in normal flow */
+  /* Each slide fills exactly one 1080×1350 page */
   .slide {
     position: static !important;
     opacity: 1 !important;
     pointer-events: auto !important;
     display: flex !important;
-    width: 100% !important;
-    min-height: auto;
+    width: 1080px !important;
+    height: 1350px !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
     page-break-after: always;
     break-after: page;
     background: white !important;
-    padding: 2rem !important;
+    padding: 3rem !important;
   }
 
   /* No trailing blank page after the last slide */
