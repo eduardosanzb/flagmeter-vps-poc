@@ -2,7 +2,7 @@
 
 > **North Star: Fill the pipeline.** Content is strong. Proof exists. The bottleneck is distribution: getting what we've built in front of the people who need it. Everything else is blocked on having prospects to talk to.
 
-**Last updated:** 2026-03-31
+**Last updated:** 2026-04-02
 **GitHub issues:** All raus.cloud issues migrated and closed. BACKLOG.md is now the single source of truth.
 
 ---
@@ -22,7 +22,6 @@
 - **Content not distributed**: Articles are on the site, but the traffic and follow-up are weak.
 - **No intermediate conversion**: Visitors are either ready to book a 15-min call or they bounce.
 - **Article 5 archived**: Database article is fully written and researched, but still in `.archive/`.
-- **Analytics unverified**: Umami may not be firing in production (`enableAnalytics = false` in `hugo.toml`).
 
 ### Phase 1 Progress (GitHub Milestone: `raus.cloud Phase 1: Validation`)
 
@@ -30,9 +29,9 @@
 |----------|------|-----------|
 | Content/Learning | `#73`, `#94`, `#95` (3 closed) | `#65`, `#72`, `#96`, `#97` |
 | Commercial (audits/pilots/revenue) | `#75` (audit framework complete) | `#74`, `#76`, `#77`, `#78`, `#79`, `#80`, `#81`, `#83` |
-| Site Conversion | 4 | `SITE-5` |
-| Infrastructure | 0 | `#53`, `#64`, `#84`, `#85` |
-| Distribution | 0 | `DIST-1` through `DIST-5`, `#89` |
+| Site Conversion | 5 | None |
+| Infrastructure | `#85` | `#84` (Deferred: `#53`, `#64`) |
+| Distribution | 0 | `DIST-1` through `DIST-5` (Scheduled), `#89` |
 
 **Success criteria:** `€15k-30k` revenue, 3 case studies, 1+ referral  
 **Kill trigger:** `<€15k after 5 audits`
@@ -47,7 +46,7 @@ These directly put content in front of the ICP. Eduardo does these manually.
 
 #### DIST-1: CloudFest Learnings LinkedIn Post ✅
 - **Owner:** Eduardo
-- **Status:** Drafted and ready to post Monday
+- **Status:** Scheduled for next week
 - **Format:** Personal narrative post about CloudFest: what resonated, what people asked, what felt real
 - **CTA:** Soft promotion to assessment / book a call
 
@@ -157,12 +156,13 @@ These directly put content in front of the ICP. Eduardo does these manually.
 - **Purpose:** LinkedIn carousel post + shareable document for outreach
 - **Source:** `apps/landing/content/slides/raus-cloud-pitch-v2.en.md` (10 slides)
 - **Approach:** ~~Add print stylesheet to slides layout~~ ✅ Done. Open `/slides/raus-cloud-pitch-v2/` → `Cmd+P` → Save as PDF → upload to LinkedIn as carousel
-- **Status:** Print stylesheet deployed. **Eduardo to do the Cmd+P export.**
+- **Status:** Scheduled for next week
 
 #### DIST-5: Submit Article 1 to Hacker News
 - **Title:** "We Spent `€11/month` Testing Docker Swarm So You Don't Have To"
 - **Why Article 1:** Best hook for HN audience (benchmarks, cost comparison, contrarian finding)
 - **Timing:** ✅ Site conversion fixes are now deployed. **Ready to submit.**
+- **Status:** Scheduled for next week
 - **GitHub issue:** `#89`
 
 ---
@@ -193,6 +193,8 @@ Code changes that capture visitors who arrive but are not ready to book a call.
 
 #### SITE-5: Verify Analytics in Production
 
+**Status:** ✅ Complete (Verified Umami running in production)
+
 **Current state:** `apps/landing/hugo.toml` has `enableAnalytics = false`. Presumably overridden in production build.
 
 **Action:** Verify the live site source for the Umami script tag. If missing, fix the production build env.
@@ -204,6 +206,8 @@ Code changes that capture visitors who arrive but are not ready to book a call.
 ### P2 - Content Pipeline
 
 #### CONTENT-1: Publish Article 5 (Self-Running Databases)
+
+**Status:** 🔄 In Progress
 
 **Current state:** 504-line article in `apps/landing/content/blog/.archive/self-running-databases-production.en.md` plus `.de.md` and `.es.md`. `draft: true`.
 
@@ -269,6 +273,8 @@ These support the audit process once leads start flowing.
 - **GitHub issue:** Part of `#75`
 
 #### SALES-4: Pipeline Tracking
+- **Status:** ✅ Complete
+- **Link:** https://notes.eduardosanzb.dev/doc/cold-outreach-engineering-leaders-FAgI6ppQQT
 - Even a simple spreadsheet: Name, Company, Source, Stage, Next Action, Date
 - Stages: Lead -> Audit Booked -> Audit Done -> Pilot Proposed -> Pilot Closed
 
@@ -321,10 +327,12 @@ Explicitly parked until Phase 1 commercial metrics are met.
 Platform and tooling improvements to support the consulting service.
 
 #### INFRA-1: Migrate to ARM Hetzner Instance
+- **Status:** ⏸️ Deferred (Not MVP)
 - Optimize FlagMeter deployment for ARM architecture
 - **GitHub issue:** `#53`
 
 #### INFRA-2: Decouple Database to Coolify DB
+- **Status:** ⏸️ Deferred (Not MVP)
 - Separate database management from application deployment
 - **GitHub issue:** `#64`
 
@@ -333,8 +341,8 @@ Platform and tooling improvements to support the consulting service.
 - **Completed:** 2026-03-31
 
 #### INFRA-4: Fix Analytics
+- **Status:** ✅ Complete (Verified Umami running in production)
 - Resolve Umami analytics tracking issues in production
-- **Status:** Production build may be missing analytics script
 - **GitHub issue:** `#85`
 
 ---
