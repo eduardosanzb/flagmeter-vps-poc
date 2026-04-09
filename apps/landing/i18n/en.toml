@@ -84,3 +84,6 @@ other = "← Back to Case Studies"
 
 [navigation.assessment]
 other = "Free Assessment"
+
+[navigation.aiStrategy]
+other = "AI Strategy"
