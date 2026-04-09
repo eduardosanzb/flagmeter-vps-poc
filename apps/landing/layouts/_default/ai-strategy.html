@@ -105,360 +105,489 @@ Begin by introducing the assessment and asking about the first dimension (Adopti
     </div>
   </div>
 
-  <!-- Framework Overview / Core Insight -->
-  <div class="section-dark">
+  <!-- Slide Viewer -->
+  <div class="bg-brand-primary py-10">
     <div class="container-custom">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="font-display text-3xl font-bold text-white mb-6">The Core Insight</h2>
-        <p class="text-gray-300 text-lg leading-relaxed mb-6">AI vendor dependency is the new cloud vendor lock-in, and it's worse. Same pattern — subsidized adoption → dependency → pricing correction — but the dependency is at the knowledge layer, not the infrastructure layer. When AWS raises prices, you can (painfully) migrate your Terraform. When Anthropic raises prices, you can't migrate your prompts, evals, and engineering workflows.</p>
-        <p class="text-gray-400 text-lg leading-relaxed">This framework is opinionated but humble. It's not the final answer — AI is moving too fast for final answers. But it's better than having no framework at all, which is where most companies are.</p>
-      </div>
-    </div>
-  </div>
+      <div class="relative rounded-2xl border border-gray-800 overflow-hidden flex flex-col" style="height: 640px;">
 
-  <!-- Dimension 1: Adoption Governance (light bg) -->
-  <div class="section-light">
-    <div class="container-custom">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="font-display text-3xl font-bold text-brand-dark dark:text-white mb-2">1. Adoption Governance</h2>
-        <p class="text-brand-secondary dark:text-gray-400 text-lg mb-8">Who decides which AI tools the company uses?</p>
+        <!-- Slides area -->
+        <div class="flex-1 relative overflow-hidden">
+          {{ $slides := default (slice) .Params.slides }}
+          {{ range $slides }}
+          <div class="slide absolute inset-0 flex flex-col items-center justify-center px-4 md:px-12 lg:px-20 opacity-0 pointer-events-none transition-opacity duration-300"
+               data-slide="{{ .number }}">
 
-        <!-- Thesis / Antithesis / Synthesis -->
-        <div class="space-y-4 mb-10">
-          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-50/50 dark:bg-green-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-600 dark:text-green-400 mb-1">The mainstream position</p>
-            <p class="text-brand-dark dark:text-gray-300">Give everyone AI tools, mandate adoption, standardize on one platform.</p>
+            {{ if and .label (ne (upper .label) .title) }}
+            <div class="mb-6 self-start md:self-center">
+              <span class="text-xs font-semibold uppercase tracking-widest text-brand-accent border border-brand-accent/30 rounded-full px-3 py-1 bg-brand-accent/5">{{ .label }}</span>
+            </div>
+            {{ end }}
+
+            <div class="w-full max-w-5xl">
+
+              {{/* ─── HERO ─── */}}
+              {{ if eq .type "hero" }}
+              <div class="text-center">
+                <h1 class="text-display md:text-hero font-bold text-white font-display mb-4 leading-tight tracking-tight">{{ .title }}</h1>
+                <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">{{ .subtitle }}</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                  {{ range .bullets }}
+                  <div class="flex items-center gap-2 bg-gray-900/60 border border-brand-accent/20 rounded-lg px-4 py-2">
+                    <span class="text-brand-accent font-bold text-sm">✓</span>
+                    <span class="text-white text-sm font-medium">{{ . }}</span>
+                  </div>
+                  {{ end }}
+                </div>
+                <div class="font-mono text-brand-accent bg-gray-900 border border-brand-accent/30 rounded-xl px-6 py-4 inline-block text-base md:text-lg shadow-glow">
+                  <span class="text-gray-500 mr-2">$</span>{{ .cta }}
+                </div>
+              </div>
+
+              {{/* ─── TWO-COL ─── */}}
+              {{ else if eq .type "two-col" }}
+              <div>
+                <div class="mb-6 text-center">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary">{{ .subtitle }}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="bg-gray-900/60 border border-green-800/40 rounded-2xl p-6">
+                    <p class="text-brand-accent font-semibold mb-4 text-sm uppercase tracking-wide">{{ .col_a.heading }}</p>
+                    <ul class="space-y-3">
+                      {{ range .col_a.items }}
+                      <li class="flex items-start gap-3">
+                        <span class="text-brand-accent mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-gray-300 text-sm">{{ . }}</span>
+                      </li>
+                      {{ end }}
+                    </ul>
+                  </div>
+                  <div class="bg-gray-900/60 border border-red-900/40 rounded-2xl p-6">
+                    <p class="text-red-400 font-semibold mb-4 text-sm uppercase tracking-wide">{{ .col_b.heading }}</p>
+                    <ul class="space-y-3">
+                      {{ range .col_b.items }}
+                      <li class="flex items-start gap-3">
+                        <span class="text-red-500 mt-0.5 flex-shrink-0">✗</span>
+                        <span class="text-gray-400 text-sm">{{ . }}</span>
+                      </li>
+                      {{ end }}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {{/* ─── CONTEXT ─── */}}
+              {{ else if eq .type "context" }}
+              <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-xl md:text-display font-bold text-white font-display mb-10">{{ .title }}</h2>
+                {{ if .statements }}
+                <div class="space-y-7 mb-10 text-left">
+                  {{ range .statements }}
+                  <div class="flex items-start gap-5">
+                    <span class="text-brand-accent text-xl mt-0.5 flex-shrink-0 select-none">→</span>
+                    <p class="text-white text-lg md:text-xl leading-snug">{{ . }}</p>
+                  </div>
+                  {{ end }}
+                </div>
+                {{ end }}
+                <p class="font-mono text-brand-accent text-sm border border-brand-accent/20 rounded-xl px-5 py-3 inline-block bg-brand-accent/5">{{ .tagline }}</p>
+              </div>
+
+              {{/* ─── DIAGNOSTIC (also handles legacy "terminal") ─── */}}
+              {{ else if or (eq .type "diagnostic") (eq .type "terminal") }}
+              <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold text-white font-display mb-8">{{ .title }}</h2>
+                <div class="bg-gray-950 border border-brand-accent/30 rounded-2xl p-8 mb-8 shadow-glow text-left">
+                  <div class="flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+                  </div>
+                  <p class="font-mono text-brand-accent text-lg md:text-2xl mb-8">
+                    <span class="text-gray-500">&gt; _</span> {{ .prompt }}
+                  </p>
+                  <div class="space-y-4">
+                    {{ range .outcomes }}
+                    <div class="border-l-2 border-brand-accent/40 pl-4">
+                      <p class="font-mono text-brand-accent text-sm mb-1">{{ .answer }}</p>
+                      <p class="text-gray-400 text-sm">→ {{ .result }}</p>
+                    </div>
+                    {{ end }}
+                  </div>
+                </div>
+                <p class="text-gray-300 text-base italic border border-gray-700 rounded-xl px-6 py-4 bg-gray-900/40">{{ .conclusion }}</p>
+              </div>
+
+              {{/* ─── LAYERS ─── */}}
+              {{ else if eq .type "layers" }}
+              <div class="max-w-3xl mx-auto">
+                <div class="mb-6">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-2">{{ .title }}</h2>
+                  <p class="text-gray-400 text-sm">{{ .subtitle }}</p>
+                </div>
+                <div class="space-y-3">
+                  {{ range .layers }}
+                  <div class="flex items-start gap-4 bg-gray-900/40 border border-gray-800 rounded-xl p-4 hover:border-brand-accent/30 transition-colors">
+                    <div class="flex-shrink-0 w-16 text-center">
+                      <span class="text-brand-accent font-bold text-xs uppercase tracking-widest">Layer</span>
+                      <p class="text-2xl font-bold text-brand-accent font-display">{{ .number }}</p>
+                    </div>
+                    <div class="border-l border-gray-700 pl-4">
+                      <p class="text-white font-semibold text-sm mb-1">{{ .category }}</p>
+                      <p class="text-gray-400 text-sm leading-relaxed">{{ .description }}</p>
+                    </div>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── STAT-GRID ─── */}}
+              {{ else if eq .type "stat-grid" }}
+              <div>
+                <div class="mb-6">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+                </div>
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                  {{ range .stats }}
+                  <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4 text-center">
+                    <p class="text-2xl md:text-3xl font-bold text-brand-accent font-display mb-1">{{ .value }}</p>
+                    <p class="text-gray-400 text-xs">{{ .label }}</p>
+                  </div>
+                  {{ end }}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {{ range .details }}
+                  <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-5">
+                    <p class="text-brand-accent font-semibold text-sm mb-2">{{ .heading }}</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">{{ .body }}</p>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── CODE-BLOCK ─── */}}
+              {{ else if eq .type "code-block" }}
+              <div>
+                <div class="mb-4">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }} — <em class="text-gray-400">{{ .tagline }}</em></p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="bg-gray-950 border border-brand-accent/30 rounded-2xl p-5 shadow-glow">
+                    <div class="flex items-center gap-1.5 mb-4">
+                      <span class="w-2.5 h-2.5 rounded-full bg-red-500/50"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-green-500/50"></span>
+                    </div>
+                    <pre class="font-mono text-xs text-gray-300 leading-relaxed whitespace-pre overflow-x-auto">{{ .code }}</pre>
+                  </div>
+                  <div class="flex flex-col justify-between">
+                    <div class="space-y-3 mb-4">
+                      {{ range .bullets }}
+                      <div class="flex items-center gap-3 bg-gray-900/60 border border-gray-800 rounded-xl px-4 py-3">
+                        <span class="text-brand-accent font-bold text-lg font-display">{{ .value }}</span>
+                        <span class="text-gray-300 text-sm">{{ .label }}</span>
+                      </div>
+                      {{ end }}
+                    </div>
+                    <div class="border-l-4 border-brand-accent pl-4 py-1">
+                      <p class="text-gray-400 text-sm font-mono">{{ .footer }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {{/* ─── TIMELINE ─── */}}
+              {{ else if eq .type "timeline" }}
+              <div>
+                <div class="mb-5">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }} — <em class="text-gray-400">{{ .tagline }}</em></p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  {{ range .weeks }}
+                  <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                      <span class="text-brand-accent font-bold font-display text-sm">Week {{ .number }}</span>
+                      <span class="text-white font-semibold text-sm">{{ .heading }}</span>
+                    </div>
+                    <ul class="space-y-2">
+                      {{ range .items }}
+                      <li class="flex items-start gap-2">
+                        <span class="text-brand-accent text-xs mt-0.5 flex-shrink-0">✓</span>
+                        <span class="text-gray-400 text-xs">{{ . }}</span>
+                      </li>
+                      {{ end }}
+                    </ul>
+                  </div>
+                  {{ end }}
+                </div>
+                <div class="bg-gray-950 border border-brand-accent/20 rounded-xl px-5 py-3">
+                  <p class="font-mono text-gray-400 text-xs">{{ .footer }}</p>
+                </div>
+              </div>
+
+              {{/* ─── PROMISE ─── */}}
+              {{ else if eq .type "promise" }}
+              <div>
+                <div class="mb-6">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  {{ range .promises }}
+                  <div class="bg-gray-900/60 border border-brand-accent/20 rounded-2xl p-6 hover:border-brand-accent/50 transition-colors">
+                    <p class="text-3xl md:text-4xl font-bold text-brand-accent font-display mb-2">{{ .value }}</p>
+                    <p class="text-white font-semibold mb-2 text-sm">{{ .heading }}</p>
+                    <p class="text-gray-400 text-xs leading-relaxed">{{ .body }}</p>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── FEATURE-LIST ─── */}}
+              {{ else if eq .type "feature-list" }}
+              <div>
+                <div class="mb-6">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {{ range .features }}
+                  <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-5 hover:border-brand-accent/30 transition-colors">
+                    <div class="flex items-start gap-3">
+                      <span class="w-1.5 h-1.5 bg-brand-accent rounded-full mt-2 flex-shrink-0"></span>
+                      <div>
+                        <p class="text-white font-semibold text-sm mb-1">{{ .heading }}</p>
+                        <p class="text-gray-400 text-xs leading-relaxed">{{ .body }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── PRICING ─── */}}
+              {{ else if eq .type "pricing" }}
+              <div>
+                <div class="mb-5">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+                </div>
+                <div class="space-y-3">
+                  {{ range .tiers }}
+                  <div class="flex items-center gap-4 bg-gray-900/60 border border-gray-800 rounded-xl px-5 py-4 hover:border-brand-accent/30 transition-colors">
+                    <span class="font-mono text-brand-accent text-sm font-bold flex-shrink-0 w-8">{{ .number }}</span>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-white font-semibold text-sm">{{ .name }}</p>
+                      <p class="text-gray-400 text-xs truncate">{{ .description }}</p>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                      <p class="text-brand-accent font-bold text-sm font-display">{{ .price }}</p>
+                      <p class="text-gray-500 text-xs">{{ .duration }}</p>
+                    </div>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── PROOF ─── */}}
+              {{ else if eq .type "proof" }}
+              <div>
+                <div class="mb-6">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {{ range .cases }}
+                  <div class="bg-gray-900/60 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+                    <p class="text-xs font-semibold uppercase tracking-widest text-brand-secondary mb-3">{{ .client }}</p>
+                    <p class="text-2xl font-bold text-brand-accent font-display mb-3">{{ .result }}</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">{{ .body }}</p>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── STEPS ─── */}}
+              {{ else if eq .type "steps" }}
+              <div>
+                <div class="mb-5">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }} — <em class="text-gray-400">{{ .tagline }}</em></p>
+                </div>
+                <div class="space-y-2">
+                  {{ range .steps }}
+                  <div class="flex items-center gap-4 bg-gray-900/40 border border-gray-800 rounded-xl px-5 py-3 hover:border-brand-accent/30 transition-colors">
+                    <span class="w-7 h-7 flex-shrink-0 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center">
+                      <span class="text-brand-accent text-xs font-bold">{{ .number }}</span>
+                    </span>
+                    <span class="text-brand-accent font-bold text-sm font-display w-20 flex-shrink-0">{{ .action }}</span>
+                    <span class="text-gray-400 text-sm">{{ .description }}</span>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── TABLE ─── */}}
+              {{ else if eq .type "table" }}
+              <div class="max-w-3xl mx-auto w-full">
+                <div class="mb-5">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  <p class="text-brand-secondary text-sm">{{ .subtitle }}</p>
+                </div>
+                <div class="space-y-2">
+                  {{ range .rows }}
+                  <div class="flex items-start gap-4 bg-gray-900/50 border border-gray-800 rounded-xl px-5 py-4 hover:border-brand-accent/30 transition-colors">
+                    <span class="text-xl flex-shrink-0 w-8">{{ .icon }}</span>
+                    <span class="text-brand-accent font-semibold text-sm w-24 flex-shrink-0 pt-0.5">{{ .category }}</span>
+                    <span class="text-gray-300 text-sm leading-relaxed">{{ .pain }}</span>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── CONVERSATION ─── */}}
+              {{ else if eq .type "conversation" }}
+              <div class="max-w-2xl mx-auto text-center w-full">
+                <h2 class="text-2xl font-bold text-white font-display mb-2">{{ .title }}</h2>
+                <p class="text-brand-secondary text-sm mb-8 font-mono">{{ .tagline }}</p>
+                <div class="space-y-3 text-left">
+                  {{ range .steps }}
+                  <div class="flex items-start gap-4 bg-gray-900/40 border border-gray-800 rounded-xl px-5 py-4">
+                    <span class="w-7 h-7 flex-shrink-0 rounded-full bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center">
+                      <span class="text-brand-accent text-xs font-bold">{{ .number }}</span>
+                    </span>
+                    <span class="text-gray-300 text-sm leading-relaxed pt-0.5">{{ .description }}</span>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── QUOTE ─── */}}
+              {{ else if eq .type "quote" }}
+              <div class="max-w-3xl mx-auto text-center">
+                <div class="text-brand-accent text-7xl font-display leading-none mb-4 select-none">"</div>
+                <blockquote class="text-2xl md:text-3xl font-bold text-white font-display leading-tight mb-8">{{ .quote }}</blockquote>
+                {{ if .attribution }}
+                <p class="text-brand-accent font-mono text-sm mb-2">— {{ .attribution }}</p>
+                {{ end }}
+                {{ if .context }}
+                <p class="text-gray-500 text-sm mt-4 italic">{{ .context }}</p>
+                {{ end }}
+              </div>
+
+              {{/* ─── ONE-THING ─── */}}
+              {{ else if eq .type "one-thing" }}
+              <div class="max-w-4xl mx-auto text-center">
+                <p class="text-3xl md:text-5xl font-bold text-white font-display leading-tight mb-8">{{ .statement }}</p>
+                {{ if .tagline }}
+                <p class="text-brand-secondary text-lg font-mono">{{ .tagline }}</p>
+                {{ end }}
+              </div>
+
+              {{/* ─── PYRAMID ─── */}}
+              {{ else if eq .type "pyramid" }}
+              <div class="max-w-4xl mx-auto w-full">
+                <div class="mb-5">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  {{ if .subtitle }}<p class="text-brand-secondary text-sm">{{ .subtitle }}</p>{{ end }}
+                </div>
+                <div class="flex flex-col gap-2 w-full">
+                  {{ if .peak }}
+                  <div class="flex justify-center mb-1">
+                    <div class="bg-brand-accent/10 border border-brand-accent shadow-glow rounded-xl px-10 py-2.5 text-center">
+                      <p class="text-brand-accent font-bold font-display uppercase tracking-widest text-base">{{ .peak }}</p>
+                    </div>
+                  </div>
+                  {{ end }}
+                  {{- $n := float (len .layers) -}}
+                  {{- range $i, $layer := .layers -}}
+                  {{- $w := int (math.Round (math.Mul (math.Div (float (add $i 1)) $n) 100.0)) -}}
+                  <div class="relative rounded-xl overflow-hidden border border-gray-800 hover:border-brand-accent/30 transition-colors">
+                    <div class="absolute inset-y-0 left-0 bg-brand-accent/10 transition-all duration-500" style="width: {{ $w }}%"></div>
+                    <div class="relative flex items-center gap-4 px-6 py-4">
+                      <div class="w-1.5 h-1.5 rounded-full bg-brand-accent flex-shrink-0"></div>
+                      <p class="text-brand-accent font-semibold text-sm font-display w-24 flex-shrink-0">{{ $layer.label }}</p>
+                      <p class="text-gray-400 text-sm leading-relaxed min-w-0">{{ $layer.description }}</p>
+                      <span class="text-brand-accent/40 font-mono text-xs flex-shrink-0 hidden sm:block">{{ $w }}%</span>
+                    </div>
+                  </div>
+                  {{- end }}
+                </div>
+              </div>
+
+              {{/* ─── ICON-GRID ─── */}}
+              {{ else if eq .type "icon-grid" }}
+              <div class="max-w-4xl mx-auto w-full">
+                <div class="mb-6">
+                  <h2 class="text-xl md:text-display font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  {{ if .subtitle }}<p class="text-brand-secondary text-sm">{{ .subtitle }}</p>{{ end }}
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {{ range .items }}
+                  <div class="flex items-start gap-4 bg-gray-900/50 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+                    <div class="flex-shrink-0 w-10 h-10 text-brand-accent">
+                      {{ partial "slides-icon.html" (dict "icon" .icon) }}
+                    </div>
+                    <div>
+                      <p class="text-white font-semibold mb-1 text-sm">{{ .heading }}</p>
+                      <p class="text-gray-400 text-xs leading-relaxed">{{ .body }}</p>
+                    </div>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+
+              {{/* ─── CTA ─── */}}
+              {{ else if eq .type "cta" }}
+              <div class="text-center max-w-2xl mx-auto">
+                <h2 class="text-display md:text-hero font-bold text-white font-display mb-4 leading-tight">{{ .title }}</h2>
+                <p class="text-lg text-gray-300 mb-8">{{ .subtitle }}</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                  <a href="https://{{ .website }}" target="_blank" rel="noopener"
+                     class="btn btn-primary text-base px-8 py-3">
+                    {{ .website }}
+                  </a>
+                  <a href="mailto:{{ .email }}"
+                     class="btn btn-secondary text-base px-8 py-3">
+                    {{ .email }}
+                  </a>
+                </div>
+                <p class="text-brand-secondary text-sm font-mono max-w-lg mx-auto">{{ .tagline }}</p>
+              </div>
+
+              {{/* ─── CUSTOM-SVG ─── */}}
+              {{ else if eq .type "custom-svg" }}
+              <div class="w-full flex flex-col items-center" style="height: 420px;">
+                <div class="mb-3 text-center">
+                  <h2 class="text-xl md:text-2xl font-bold text-white font-display mb-1">{{ .title }}</h2>
+                  {{ if .subtitle }}<p class="text-brand-secondary text-sm">{{ .subtitle }}</p>{{ end }}
+                </div>
+                <div class="w-full flex-1 min-h-0">
+                  {{ partial "ai-strategy-svgs.html" (dict "svg_id" .svg_id) }}
+                </div>
+              </div>
+
+              {{ end }}
+            </div>
           </div>
-          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-50/50 dark:bg-red-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">The skeptical position</p>
-            <p class="text-brand-dark dark:text-gray-300">Mandated adoption without framework creates chaos, random tool adoption, 30% actual usage.</p>
+          {{ end }}
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="flex-none border-t border-gray-800">
+          <div class="h-0.5 bg-gray-800">
+            <div id="ai-progress-bar" class="h-full bg-brand-accent transition-all duration-300" style="width: 0%; box-shadow: 0 0 8px rgba(16,185,129,0.4);"></div>
           </div>
-          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-brand-light/50 dark:bg-emerald-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
-            <p class="text-brand-dark dark:text-gray-300">Top-down guardrails, bottom-up adoption. Leadership sets constraints, engineers choose within them.</p>
+          <div class="flex items-center justify-between px-6 py-3 bg-brand-primary">
+            <button id="ai-btn-prev" data-ai-prev class="btn btn-secondary text-sm py-1.5 px-4">← Prev</button>
+            <span id="ai-slide-counter" class="text-brand-secondary text-xs font-mono"></span>
+            <button id="ai-btn-next" data-ai-next class="btn btn-primary text-sm py-1.5 px-4">Next →</button>
           </div>
         </div>
 
-        <!-- Maturity Levels -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">1</p>
-            <p class="font-semibold text-sm">Chaos</p>
-            <p class="text-xs mt-1 opacity-80">No policy, no measurement</p>
-          </div>
-          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">2</p>
-            <p class="font-semibold text-sm">Mandate</p>
-            <p class="text-xs mt-1 opacity-80">Top-down, no framework</p>
-          </div>
-          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">3</p>
-            <p class="font-semibold text-sm">Governed</p>
-            <p class="text-xs mt-1 opacity-80">Guardrails + measurement</p>
-          </div>
-          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">4</p>
-            <p class="font-semibold text-sm">Adaptive</p>
-            <p class="text-xs mt-1 opacity-80">Evolves with the market</p>
-          </div>
-        </div>
-
-        <!-- Diagnostic Questions -->
-        <div class="mb-8">
-          <h3 class="font-display text-lg font-semibold text-brand-dark dark:text-white mb-3">Diagnostic Questions</h3>
-          <ul class="space-y-2 text-brand-secondary dark:text-gray-400">
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Can anyone in your company sign up for any AI tool without approval?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you have a list of approved AI tools and data rules for each?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Is AI usage measured — who uses what, how often, for what?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> When a new AI tool launches, is there a process to evaluate it?</li>
-          </ul>
-        </div>
-
-        <!-- What Good Looks Like -->
-        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-brand-light/30 dark:bg-emerald-900/10 rounded-r-lg">
-          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
-          <p class="text-brand-dark dark:text-gray-300">Your AI framework evolves with the market. New tools are evaluated systematically. Both enthusiasts and resisters are supported. Governance enables adoption rather than blocking it.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dimension 2: Vendor Dependency (dark bg) -->
-  <div class="section-dark">
-    <div class="container-custom">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="font-display text-3xl font-bold text-white mb-2">2. Vendor Dependency</h2>
-        <p class="text-gray-400 text-lg mb-8">Are you coupled to one AI provider the same way you were coupled to AWS?</p>
-
-        <!-- Thesis / Antithesis / Synthesis -->
-        <div class="space-y-4 mb-10">
-          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-400 mb-1">The mainstream position</p>
-            <p class="text-gray-300">Use the best model for the job, direct API integration is fine.</p>
-          </div>
-          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">The skeptical position</p>
-            <p class="text-gray-300">Can't switch later — prompts are model-specific, evals are model-specific, pricing is fake.</p>
-          </div>
-          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-emerald-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
-            <p class="text-gray-300">Abstract from day one. LiteLLM or similar. Switch in config, not code.</p>
-          </div>
-        </div>
-
-        <!-- Maturity Levels -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">1</p>
-            <p class="font-semibold text-sm">Coupled</p>
-            <p class="text-xs mt-1 opacity-80">Direct API, no abstraction</p>
-          </div>
-          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">2</p>
-            <p class="font-semibold text-sm">Standardized</p>
-            <p class="text-xs mt-1 opacity-80">One provider, aware of lock-in</p>
-          </div>
-          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">3</p>
-            <p class="font-semibold text-sm">Abstracted</p>
-            <p class="text-xs mt-1 opacity-80">Swap in config, not code</p>
-          </div>
-          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">4</p>
-            <p class="font-semibold text-sm">Portable</p>
-            <p class="text-xs mt-1 opacity-80">Switch in hours, not months</p>
-          </div>
-        </div>
-
-        <!-- Diagnostic Questions -->
-        <div class="mb-8">
-          <h3 class="font-display text-lg font-semibold text-white mb-3">Diagnostic Questions</h3>
-          <ul class="space-y-2 text-gray-400">
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> If your AI provider doubled prices tomorrow, how long would it take to switch?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are your prompts and evals model-specific or model-agnostic?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you have an abstraction layer between your code and AI providers?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Have you evaluated self-hosted or open-source alternatives?</li>
-          </ul>
-        </div>
-
-        <!-- What Good Looks Like -->
-        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-emerald-900/10 rounded-r-lg">
-          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
-          <p class="text-gray-300">You can switch AI providers in hours, not months. Self-hosted where it makes sense. No single provider is your critical path.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dimension 3: Data Sovereignty (light bg) -->
-  <div class="section-light">
-    <div class="container-custom">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="font-display text-3xl font-bold text-brand-dark dark:text-white mb-2">3. Data Sovereignty</h2>
-        <p class="text-brand-secondary dark:text-gray-400 text-lg mb-8">What data flows through AI providers?</p>
-
-        <!-- Thesis / Antithesis / Synthesis -->
-        <div class="space-y-4 mb-10">
-          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-50/50 dark:bg-green-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-600 dark:text-green-400 mb-1">The mainstream position</p>
-            <p class="text-brand-dark dark:text-gray-300">AI providers have DPAs, compliance team handles it.</p>
-          </div>
-          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-50/50 dark:bg-red-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">The skeptical position</p>
-            <p class="text-brand-dark dark:text-gray-300">Engineers pasting customer data into ChatGPT right now, CLOUD Act, EU AI Act.</p>
-          </div>
-          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-brand-light/50 dark:bg-emerald-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
-            <p class="text-brand-dark dark:text-gray-300">Classify first, route second. One-page "what data can go where" policy.</p>
-          </div>
-        </div>
-
-        <!-- Maturity Levels -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">1</p>
-            <p class="font-semibold text-sm">Exposed</p>
-            <p class="text-xs mt-1 opacity-80">No classification for AI</p>
-          </div>
-          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">2</p>
-            <p class="font-semibold text-sm">Aware</p>
-            <p class="text-xs mt-1 opacity-80">Informal rules, no enforcement</p>
-          </div>
-          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">3</p>
-            <p class="font-semibold text-sm">Classified</p>
-            <p class="text-xs mt-1 opacity-80">Data routing policy, enforced</p>
-          </div>
-          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">4</p>
-            <p class="font-semibold text-sm">Sovereign</p>
-            <p class="text-xs mt-1 opacity-80">All flows mapped, EU default</p>
-          </div>
-        </div>
-
-        <!-- Diagnostic Questions -->
-        <div class="mb-8">
-          <h3 class="font-display text-lg font-semibold text-brand-dark dark:text-white mb-3">Diagnostic Questions</h3>
-          <ul class="space-y-2 text-brand-secondary dark:text-gray-400">
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you know which data your engineers send to which AI providers?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Is customer data ever pasted into external AI tools?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you have a "what data can go where" policy?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are you compliant with GDPR and the EU AI Act for AI data flows?</li>
-          </ul>
-        </div>
-
-        <!-- What Good Looks Like -->
-        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-brand-light/30 dark:bg-emerald-900/10 rounded-r-lg">
-          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
-          <p class="text-brand-dark dark:text-gray-300">All AI data flows are mapped and controlled. EU-hosted inference by default. Compliance is continuous, not a one-time checkbox.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dimension 4: Cost Visibility (dark bg) -->
-  <div class="section-dark">
-    <div class="container-custom">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="font-display text-3xl font-bold text-white mb-2">4. Cost Visibility</h2>
-        <p class="text-gray-400 text-lg mb-8">Do you know what you're spending on AI?</p>
-
-        <!-- Thesis / Antithesis / Synthesis -->
-        <div class="space-y-4 mb-10">
-          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-400 mb-1">The mainstream position</p>
-            <p class="text-gray-300">AI tools are cheap, $20/month, ROI is obvious.</p>
-          </div>
-          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">The skeptical position</p>
-            <p class="text-gray-300">Pricing is fake — teaser rates, $5000/month burn on $200 subscriptions, ARM reset coming.</p>
-          </div>
-          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-emerald-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
-            <p class="text-gray-300">Measure before you optimize. Track per-engineer spend. Plan for 3-5x price increases.</p>
-          </div>
-        </div>
-
-        <!-- Maturity Levels -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">1</p>
-            <p class="font-semibold text-sm">Blind</p>
-            <p class="text-xs mt-1 opacity-80">No tracking of AI spend</p>
-          </div>
-          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">2</p>
-            <p class="font-semibold text-sm">Tracking</p>
-            <p class="text-xs mt-1 opacity-80">Subscriptions visible, not precise</p>
-          </div>
-          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">3</p>
-            <p class="font-semibold text-sm">Measured</p>
-            <p class="text-xs mt-1 opacity-80">Full visibility, ROI evaluated</p>
-          </div>
-          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">4</p>
-            <p class="font-semibold text-sm">Optimized</p>
-            <p class="text-xs mt-1 opacity-80">Resilient to 3-5x price hikes</p>
-          </div>
-        </div>
-
-        <!-- Diagnostic Questions -->
-        <div class="mb-8">
-          <h3 class="font-display text-lg font-semibold text-white mb-3">Diagnostic Questions</h3>
-          <ul class="space-y-2 text-gray-400">
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Can you name your total AI spend last month, broken down by tool?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you know the per-engineer cost of AI tools?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Have you modeled what happens if AI prices increase 3-5x?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are you building on subsidized (teaser) pricing?</li>
-          </ul>
-        </div>
-
-        <!-- What Good Looks Like -->
-        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-emerald-900/10 rounded-r-lg">
-          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
-          <p class="text-gray-300">Cost modeled under multiple pricing scenarios. Self-hosted alternatives evaluated. Budget resilient to 3-5x price increases.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dimension 5: Team Health (light bg) -->
-  <div class="section-light">
-    <div class="container-custom">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="font-display text-3xl font-bold text-brand-dark dark:text-white mb-2">5. Team Health</h2>
-        <p class="text-brand-secondary dark:text-gray-400 text-lg mb-8">Is AI making your team more productive or more burned out?</p>
-
-        <!-- Thesis / Antithesis / Synthesis -->
-        <div class="space-y-4 mb-10">
-          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-50/50 dark:bg-green-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-green-600 dark:text-green-400 mb-1">The mainstream position</p>
-            <p class="text-brand-dark dark:text-gray-300">AI makes engineers 10x more productive, resisters are just resistant to change.</p>
-          </div>
-          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-50/50 dark:bg-red-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">The skeptical position</p>
-            <p class="text-brand-dark dark:text-gray-300">Dracula Effect — agentic coding is draining, skill atrophy, vibe coding debt, team divide.</p>
-          </div>
-          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-brand-light/50 dark:bg-emerald-900/10 rounded-r-lg">
-            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
-            <p class="text-brand-dark dark:text-gray-300">Productivity is not output volume. Measure what matters. Support both styles. Watch for burnout.</p>
-          </div>
-        </div>
-
-        <!-- Maturity Levels -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">1</p>
-            <p class="font-semibold text-sm">Unmanaged</p>
-            <p class="text-xs mt-1 opacity-80">No measurement, team conflict</p>
-          </div>
-          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">2</p>
-            <p class="font-semibold text-sm">Measured</p>
-            <p class="text-xs mt-1 opacity-80">Tracking, tension unaddressed</p>
-          </div>
-          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">3</p>
-            <p class="font-semibold text-sm">Balanced</p>
-            <p class="text-xs mt-1 opacity-80">Both styles, burnout monitored</p>
-          </div>
-          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
-            <p class="text-2xl font-bold mb-1">4</p>
-            <p class="font-semibold text-sm">Sustainable</p>
-            <p class="text-xs mt-1 opacity-80">Intentional, skills grow with AI</p>
-          </div>
-        </div>
-
-        <!-- Diagnostic Questions -->
-        <div class="mb-8">
-          <h3 class="font-display text-lg font-semibold text-brand-dark dark:text-white mb-3">Diagnostic Questions</h3>
-          <ul class="space-y-2 text-brand-secondary dark:text-gray-400">
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Is there tension between AI enthusiasts and AI resisters on your team?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you track quality metrics alongside output volume?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are junior engineers developing skills or relying on AI output?</li>
-            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Have you seen signs of burnout from agentic coding workflows?</li>
-          </ul>
-        </div>
-
-        <!-- What Good Looks Like -->
-        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-brand-light/30 dark:bg-emerald-900/10 rounded-r-lg">
-          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
-          <p class="text-brand-dark dark:text-gray-300">AI usage is intentional, not compulsive. Team health metrics alongside productivity. Skills grow with AI, not atrophy.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- The Subprime Parallel -->
-  <div class="bg-brand-primary py-20">
-    <div class="container-custom">
-      <div class="max-w-4xl mx-auto border-l-4 border-brand-accent pl-8 py-6">
-        <h2 class="font-display text-3xl font-bold text-white mb-6">The Subprime Parallel</h2>
-        <p class="text-gray-300 text-lg leading-relaxed mb-6">AI pricing mirrors the 2008 subprime mortgage crisis. Subsidized pricing creates fake demand. Every AI lab is underwater — Anthropic: $5B revenue, $10B compute spend. OpenAI: $4.3B revenue, $8.67B on inference alone. When the subsidy ends, the ARM reset hits.</p>
-        <p class="text-gray-400 text-lg leading-relaxed mb-6">Same pattern at three scales — individual (dopamine loops), organizational (vendor coupling), economic (subprime AI). The correction is coming at all three levels.</p>
-        <p class="text-brand-accent font-medium">This framework helps you build independence before the correction hits.</p>
       </div>
     </div>
   </div>
@@ -498,5 +627,50 @@ Begin by introducing the assessment and asking about the first dimension (Adopti
       setTimeout(function() { btn.textContent = 'Copy to clipboard'; }, 2000);
     });
   }
+</script>
+
+<script>
+(function() {
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+  var current = 1;
+
+  function showSlide(n) {
+    current = Math.max(1, Math.min(n, total));
+    slides.forEach(function(s) {
+      var isActive = parseInt(s.dataset.slide) === current;
+      s.classList.toggle('opacity-0', !isActive);
+      s.classList.toggle('pointer-events-none', !isActive);
+    });
+    var pct = (current / total * 100).toFixed(1);
+    var bar = document.getElementById('ai-progress-bar');
+    var counter = document.getElementById('ai-slide-counter');
+    var prev = document.getElementById('ai-btn-prev');
+    var next = document.getElementById('ai-btn-next');
+    if (bar) bar.style.width = pct + '%';
+    if (counter) counter.textContent = current + ' / ' + total;
+    if (prev) { prev.disabled = current === 1; prev.style.opacity = current === 1 ? '0.3' : '1'; }
+    if (next) { next.disabled = current === total; next.style.opacity = current === total ? '0.3' : '1'; }
+  }
+
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('[data-ai-prev]')) showSlide(current - 1);
+    if (e.target.closest('[data-ai-next]')) showSlide(current + 1);
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showSlide(current + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); showSlide(current - 1); }
+  });
+
+  var touchStartX = 0;
+  document.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) > 50) { if (dx < 0) showSlide(current + 1); else showSlide(current - 1); }
+  }, { passive: true });
+
+  showSlide(1);
+})();
 </script>
 {{ end }}
