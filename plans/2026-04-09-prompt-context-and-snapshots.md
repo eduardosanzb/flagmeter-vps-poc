@@ -1,10 +1,42 @@
----
-title: "AI Strategy Assessment Prompt"
-draft: false
-_build:
-  render: never
-  list: never
----
+# Implementation Plan: AI Strategy Prompt — Full Rewrite (13 Feedback Items)
+
+**Date**: 2026-04-09 **Status**: COMPLETED
+
+## Overview
+
+Full rewrite of the AI Strategy Assessment Prompt incorporating all 13 feedback items from the cross-LLM testing review. The current prompt (225 lines) works but has pacing issues (all questions dumped at once), leaks the rubric, has a wall-of-text intro, places the Dialectical section too late, lacks vague-answer handling, and has redundancy. The rewrite restructures the prompt for better conversational flow across Claude, Gemini, and ChatGPT.
+
+## Scope
+
+- Work units: 2
+- Execution phases: 1 (both units are fully parallel — different systems, no file overlap)
+- Files affected:
+  - `apps/landing/content/ai-strategy-prompt.en.md` — modify (full body replacement)
+  - Outline document `216ffbe4-11e3-4515-8249-d942973aec98` — update (body replacement, preserve intro)
+
+## The 13 Changes
+
+For reference, here are all 13 feedback items being applied:
+
+1. **Capture name + date** — Add explicit instruction to ask for name/company and confirm today's date before starting.
+2. **Pacing** — Change "Ask 3-5 questions" to "Ask 2-3 questions per message, then follow up on anything unclear."
+3. **Don't leak the rubric** — Add instruction: "Never show the user the level definitions before scoring."
+4. **Lighter intro** — Change from "2-3 sentences each" × 5 dimensions to "2-3 sentences total, name dimensions in a single line."
+5. **Move Dialectical section** — Move from after Output Format (lines 191-212) to right after The Five Dimensions (after line 61). Add concrete trigger phrases for each dialectical pair.
+6. **Radar chart fallback** — Add: "Use a score card grid layout by default. Only produce a radar chart if you are confident in the SVG coordinate math."
+7. **Redundancy trim** — Remove duplicate "whole number 1-4" instruction, duplicate "Always produce this", and overlapping L3/4 probing.
+8. **Vague answer fallback** — Add: "If an answer is too vague to score, ask one clarifying question with a concrete example."
+9. **ASCII card alignment** — Add: "Pad dimension names and level labels to equal width so the box edges stay aligned."
+10. **Synthesis patterns are examples, not checklist** — Add framing: "These are illustrative — the real synthesis is whatever cross-dimensional pattern is actually true for this user."
+11. **Peer comparison hedging** — Strengthen to: "Say 'in my experience' or 'from what I typically see,' never 'studies show.'"
+12. **Disclaimer → CTA order** — Already correct. No change needed.
+13. **Hard conversation cap** — Add to Guidelines: "Aim for 15-20 total messages before synthesis."
+
+## New Prompt Body
+
+The complete rewritten prompt body (to be used by both WU-1 and WU-2) is provided below. This is the **exact text** that replaces everything after the YAML frontmatter in the content file, and everything after the `---` separator in the Outline document.
+
+```markdown
 You are an AI strategy assessor for European tech companies. Your job is to guide the user through a structured self-assessment of their company's AI strategy, one dimension at a time.
 
 ## Context
@@ -256,3 +288,115 @@ The HTML artifact should include:
 * Aim for 15-20 total messages before synthesis. If you're past that, you're overasking — wrap up the current dimension and move on.
 
 Begin by introducing the assessment (2-3 sentences), listing the five dimensions in one line, and asking for the user's name/company and today's date.
+```
+
+## Work Units
+
+### WU-1: Rewrite Prompt Content File
+
+**Dependencies**: none
+
+**Context**: The AI Strategy Assessment Prompt lives at `apps/landing/content/ai-strategy-prompt.en.md`. This is a headless Hugo content file (`_build: render: never, list: never`) that is loaded by the layout at `apps/landing/layouts/_default/ai-strategy.html` via `{{ .Site.GetPage "/ai-strategy-prompt" }}`. The layout uses `{{ $prompt.RawContent }}` inside a hidden `<span>` element, and a `copyPrompt()` JavaScript function reads `.textContent` to copy the prompt to clipboard. The file has 7 lines of YAML frontmatter (lines 1-7) followed by the prompt body (lines 8-225). The frontmatter must be preserved exactly. The entire body (lines 8-225) must be replaced with the new prompt body provided in the "New Prompt Body" section above.
+
+**Files**:
+- `apps/landing/content/ai-strategy-prompt.en.md` — modify
+
+**Steps**:
+
+1. Read the file at `apps/landing/content/ai-strategy-prompt.en.md`.
+
+2. The file starts with this YAML frontmatter (lines 1-7) which must remain unchanged:
+```yaml
+---
+title: "AI Strategy Assessment Prompt"
+draft: false
+_build:
+  render: never
+  list: never
+---
+```
+
+3. Replace everything after the frontmatter closing `---` (line 7) with the exact "New Prompt Body" text provided in the plan's "New Prompt Body" section above. This is a complete body replacement — do not try to merge or patch.
+
+4. Verify these strings are present in the final file (confirming all 13 feedback items were applied):
+   - `"Never show the user the level definitions before scoring"` (feedback #3)
+   - `"Introduce the assessment in 2-3 sentences total"` (feedback #4)
+   - `"ask for the user's name (or company name) and confirm today's date"` (feedback #1)
+   - `"Ask 2-3 questions about the user's current situation"` (feedback #2)
+   - `"Dialectical Questioning Strategy"` appears BEFORE `"How to Conduct the Assessment"` (feedback #5)
+   - `"Naive signals:"` and `"Skeptical signals:"` (feedback #5 trigger phrases)
+   - `"Use a score card grid layout by default"` (feedback #6)
+   - The string `"whole number 1-4"` does NOT appear twice (feedback #7 — redundancy removed)
+   - `"If a user's answer is too vague to score"` (feedback #8)
+   - `"Pad dimension names and level labels to equal width"` (feedback #9)
+   - `"These are illustrative"` (feedback #10)
+   - `"in my experience"` in the peer comparison instruction (feedback #11)
+   - `"Aim for 15-20 total messages before synthesis"` (feedback #13)
+
+**Verification**: Run from the repo root:
+```bash
+cd apps/landing && hugo --quiet 2>&1; echo "EXIT:$?"
+```
+Hugo build succeeding (exit 0) confirms the markdown is valid and the headless content file is parseable.
+
+**Rollback**:
+- `git checkout -- apps/landing/content/ai-strategy-prompt.en.md`
+
+---
+
+### WU-2: Update Outline Document with Rewritten Prompt
+
+**Dependencies**: none
+
+**Context**: The Outline document "AI Strategy Assessment Prompt" (ID: `216ffbe4-11e3-4515-8249-d942973aec98`) is the documentation copy that must stay in sync with the live prompt file. The document has an intro paragraph ("Copy and paste the prompt below into your AI tool...") followed by a `---` separator, then the prompt body. The intro paragraph and separator must be preserved exactly. Only the prompt body (everything after the `---` separator) is replaced.
+
+**Files**:
+- Outline document `216ffbe4-11e3-4515-8249-d942973aec98` — update
+
+**Steps**:
+
+1. Read the current document via `mcp-outline_read_document` (ID: `216ffbe4-11e3-4515-8249-d942973aec98`).
+
+2. Preserve the intro paragraph and `---` separator. The intro is:
+```
+Copy and paste the prompt below into your AI tool (Claude, ChatGPT, Gemini, or any other). It will guide you through a self-assessment of your company's AI strategy across five dimensions, score you on each, and give you a personalized snapshot with next steps.
+
+
+---
+```
+
+3. Replace everything after the `---` separator with the exact "New Prompt Body" text from the plan's "New Prompt Body" section. Combine the preserved intro + separator + new body into the full document text.
+
+4. Update the document via `mcp-outline_update_document` (ID: `216ffbe4-11e3-4515-8249-d942973aec98`) with the full revised content.
+
+5. Verify by re-reading the document and confirming:
+   - The intro paragraph (before `---`) is preserved unchanged
+   - `"Never show the user the level definitions before scoring"` is present
+   - `"Dialectical Questioning Strategy"` appears BEFORE `"How to Conduct the Assessment"`
+   - `"Naive signals:"` is present
+   - `"Aim for 15-20 total messages before synthesis"` is present
+   - The last line contains `"listing the five dimensions in one line"`
+
+**Verification**: Re-read the document via `mcp-outline_read_document` and confirm the intro is intact and key strings from the new body are present.
+
+**Rollback**:
+- Re-update the Outline document with its previous content (the full export captured in conversation context)
+
+---
+
+## Execution Plan
+
+### Phase 1 — Parallel (no dependencies)
+
+- WU-1: Rewrite Prompt Content File
+- WU-2: Update Outline Document with Rewritten Prompt
+
+*Both units touch completely different systems (local file vs Outline API). They run simultaneously.*
+
+## Recovery Strategy
+
+- **Automatic**: Each implementor rolls back and retries once on failure.
+- **WU-1 failure**: `git checkout -- apps/landing/content/ai-strategy-prompt.en.md` restores the file.
+- **WU-2 failure**: Re-update Outline with the previous content (full export captured in this conversation).
+- **Independent failures**: WU-1 and WU-2 are fully independent. If one fails, the other still executes.
+- **Global rollback**: `git checkout -- apps/landing/content/ai-strategy-prompt.en.md` for local file; re-update Outline document with saved previous version.
