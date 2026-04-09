@@ -371,6 +371,148 @@
     color: #000;
     border-color: transparent;
   }
+
+  /* --- Result step --- */
+  .step-result { display: none; }
+  .step-result.active { display: block; }
+
+  .result-header {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .result-subtitle {
+    font-size: 13px;
+    color: var(--secondary);
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+
+  .axis-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 18px 16px;
+    margin-bottom: 12px;
+  }
+
+  .axis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .axis-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .axis-score {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .axis-tier {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .tier-dependent { background: rgba(239,68,68,0.15); color: #f87171; }
+  .tier-transitional { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .tier-sovereign { background: rgba(16,185,129,0.15); color: #10b981; }
+
+  .tier-vulnerable { background: rgba(239,68,68,0.15); color: #f87171; }
+  .tier-managing { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .tier-optimized { background: rgba(16,185,129,0.15); color: #10b981; }
+
+  .tier-unprepared { background: rgba(239,68,68,0.15); color: #f87171; }
+  .tier-exploring { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .tier-strategic { background: rgba(16,185,129,0.15); color: #10b981; }
+
+  .axis-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .axis-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+
+  .bar-red { background: #f87171; }
+  .bar-yellow { background: #fbbf24; }
+  .bar-green { background: #10b981; }
+
+  .axis-diagnostic {
+    font-size: 14px;
+    color: var(--secondary);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .axis-next-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .axis-next-steps li {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    padding: 4px 0 4px 18px;
+    position: relative;
+  }
+
+  .axis-next-steps li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  .result-cta {
+    margin-top: 24px;
+    padding: 18px 20px;
+    background: rgba(16,185,129,0.12);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .result-cta:hover {
+    border-color: rgba(16,185,129,0.6);
+    background: rgba(16,185,129,0.18);
+  }
+
+  .result-cta-label { font-size: 15px; font-weight: 600; color: var(--accent); }
+  .result-cta-sub { font-size: 12px; color: var(--secondary); margin-top: 2px; }
+
+  .result-disclaimer {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.5;
+    margin-top: 20px;
+    text-align: center;
+  }
 </style>
 
 <div class="page">
@@ -419,15 +561,32 @@
     </div>
     {{ end }}
 
+    <div class="step-result" id="step-result">
+      <div class="result-header">Your raus.cloud snapshot</div>
+      <div class="result-subtitle">Based on your self-reported answers. A proper audit looks at your actual infra, IaC, bills, and data flows.</div>
+
+      <div id="result-axes"></div>
+
+      <a class="result-cta" href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener">
+        <div class="result-cta-label">Want a real audit? Book a free 15-min call →</div>
+        <div class="result-cta-sub">We'll look at your actual infrastructure, not just your answers.</div>
+      </a>
+
+      <div class="result-disclaimer">This snapshot is based on your self-reported answers and reflects positioning, not an actual infrastructure audit.</div>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <button class="btn-nav btn-next" id="btn-result-continue" style="display: inline-flex; width: auto; padding: 14px 28px;">Answer 3 more questions →</button>
+      </div>
+    </div>
+
     <div class="step-success" id="step-success">
       <div class="success-icon">✅</div>
-      <div class="success-title">Thanks for sharing!</div>
+      <div class="success-title">Snapshot saved!</div>
       <div class="success-body">
-        We'll review your answers and reach out if there's a clear fit.<br><br>
+        We'll send your detailed report if you left your email.<br><br>
         Want to discuss your infrastructure right now? Book a free 15-minute call.
       </div>
       
-      <!-- Primary CTA: Book a Call -->
       <a class="success-cta" href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" style="margin-bottom: 12px;">
         <div class="success-cta-icon">📅</div>
         <div>
@@ -437,7 +596,6 @@
         <div class="success-cta-arrow">→</div>
       </a>
       
-      <!-- Secondary CTA: Explore Site -->
       <a class="success-cta" href="{{ .Site.LanguagePrefix }}/" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
         <div class="success-cta-icon" style="background: rgba(255,255,255,0.1);">🏠</div>
         <div>
@@ -481,6 +639,259 @@
   const LANGUAGE = "{{ .Site.Language.Lang }}";
   const REFERRER = document.referrer || '';
   const BACK_URL = "{{ .Params.back_url | default (printf "%s/" .Site.LanguagePrefix) }}";
+
+  // --- Session ID ---
+  const SESSION_KEY = STORAGE_KEY + '_sid';
+  function getSessionId() {
+    try {
+      var sid = localStorage.getItem(SESSION_KEY);
+      if (sid) return sid;
+    } catch (err) {}
+    var sid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0;
+      var v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+    try { localStorage.setItem(SESSION_KEY, sid); } catch (err) {}
+    return sid;
+  }
+  const SESSION_ID = getSessionId();
+
+  // --- Scoring constants ---
+  var SCORING_STEP = 6; // Result appears after step 6
+
+  // --- Scoring function ---
+  function computeScores() {
+    var q1 = getStepValue(1);   // cloud setup
+    var q3 = getStepValue(2);   // pain points (checkbox array)
+    var q4 = getStepValue(3);   // migration feasibility
+    var qCost = getStepValue(4); // cost visibility
+    var qAiAdopt = getStepValue(5); // AI adoption
+    var qAiCouple = getStepValue(6); // AI coupling
+
+    // --- Sovereignty (0-100) ---
+    var sovereignty = 50; // baseline
+    // Q1: cloud provider
+    var providerScores = { 'single-hyperscaler': -30, 'multi-cloud': -10, 'european-provider': 20, 'hybrid': 10, 'on-premise': 15 };
+    sovereignty += providerScores[q1] || 0;
+    // Q3: pain points
+    if (q3 && q3.indexOf('vendor-lock') !== -1) sovereignty -= 20;
+    if (q3 && q3.indexOf('compliance') !== -1) sovereignty -= 10;
+    // Q4: migration feasibility
+    var migrationScores = { 'yes-agnostic': 25, 'painful-possible': 5, 'practically-impossible': -25, 'never-thought': -15 };
+    sovereignty += migrationScores[q4] || 0;
+    // AI coupling: strong sovereignty signal
+    var aiCoupleScores = { 'no-dependency': 10, 'moderate': -5, 'deep': -20, 'critical': -30 };
+    sovereignty += aiCoupleScores[qAiCouple] || 0;
+    sovereignty = Math.max(0, Math.min(100, sovereignty));
+
+    // --- Cost Resilience (0-100) ---
+    var costResilience = 50;
+    // Q3: pain points
+    if (q3 && q3.indexOf('costs') !== -1) costResilience -= 20;
+    if (q3 && q3.indexOf('fragile-infra') !== -1) costResilience -= 15;
+    // Q4: migration optionality = cost leverage
+    costResilience += migrationScores[q4] || 0;
+    // Cost visibility
+    var costVisScores = { 'clear': 20, 'rough-idea': 0, 'surprises': -20, 'no-tracking': -30 };
+    costResilience += costVisScores[qCost] || 0;
+    costResilience = Math.max(0, Math.min(100, costResilience));
+
+    // --- AI-Readiness (0-100) ---
+    var aiReadiness = 50;
+    // Q1: EU provider bonus (data residency for EU AI Act)
+    if (q1 === 'european-provider') aiReadiness += 5;
+    // Q3: pain points
+    if (q3 && q3.indexOf('ai-adoption') !== -1) aiReadiness -= 15;
+    if (q3 && q3.indexOf('no-observability') !== -1) aiReadiness -= 10;
+    // AI adoption level
+    var aiAdoptScores = { 'not-using': -25, 'individual': -10, 'team-standard': 10, 'ai-first': 15 };
+    aiReadiness += aiAdoptScores[qAiAdopt] || 0;
+    // AI coupling (infrastructure dimension)
+    var aiCoupleReadiness = { 'no-dependency': 15, 'moderate': 0, 'deep': -15, 'critical': -25 };
+    aiReadiness += aiCoupleReadiness[qAiCouple] || 0;
+    aiReadiness = Math.max(0, Math.min(100, aiReadiness));
+
+    return {
+      sovereignty: sovereignty,
+      costResilience: costResilience,
+      aiReadiness: aiReadiness,
+    };
+  }
+
+  // --- Tier labels ---
+  function getTier(score, axis) {
+    var tiers = {
+      sovereignty: [
+        { max: 33, label: 'Dependent', css: 'tier-dependent', bar: 'bar-red' },
+        { max: 66, label: 'Transitional', css: 'tier-transitional', bar: 'bar-yellow' },
+        { max: 100, label: 'Sovereign', css: 'tier-sovereign', bar: 'bar-green' },
+      ],
+      costResilience: [
+        { max: 33, label: 'Vulnerable', css: 'tier-vulnerable', bar: 'bar-red' },
+        { max: 66, label: 'Managing', css: 'tier-managing', bar: 'bar-yellow' },
+        { max: 100, label: 'Optimized', css: 'tier-optimized', bar: 'bar-green' },
+      ],
+      aiReadiness: [
+        { max: 33, label: 'Unprepared', css: 'tier-unprepared', bar: 'bar-red' },
+        { max: 66, label: 'Exploring', css: 'tier-exploring', bar: 'bar-yellow' },
+        { max: 100, label: 'Strategic', css: 'tier-strategic', bar: 'bar-green' },
+      ],
+    };
+    var list = tiers[axis] || [];
+    for (var i = 0; i < list.length; i++) {
+      if (score <= list[i].max) return list[i];
+    }
+    return list[list.length - 1];
+  }
+
+  // --- Diagnostic templates ---
+  var DIAGNOSTICS = {
+    sovereignty: {
+      Dependent: {
+        text: "You're running on a single US hyperscaler and a migration would be difficult or impossible. That's the textbook lock-in position. Sovereignty decisions are being made for you, not by you.",
+        steps: [
+          "Pick one non-critical service and deploy it on a European provider in parallel — not to migrate, just to prove you could.",
+          "Get your IaC coverage above 80%. Anything in someone's head is a sovereignty risk disguised as a bus-factor risk.",
+          "Evaluate your AI provider dependencies — they may be creating the same lock-in pattern.",
+        ],
+      },
+      Transitional: {
+        text: "You have some optionality but it's incomplete. You could leave, but it would hurt. The key question is whether you're building toward more independence or slowly drifting deeper in.",
+        steps: [
+          "Document your provider-specific dependencies — you can't reduce what you can't name.",
+          "Add a European provider as a secondary for at least one workload.",
+          "Create a migration playbook even if you never use it — the exercise itself reveals risks.",
+        ],
+      },
+      Sovereign: {
+        text: "You're in a strong position. You can choose where your data lives and who processes it. The challenge now is maintaining this as you grow and adopt AI.",
+        steps: [
+          "Formalize your sovereignty requirements into a policy document.",
+          "Evaluate AI providers through the same lens — EU data residency, portability, exit strategy.",
+          "Share your approach with your customers — sovereignty is a competitive advantage.",
+        ],
+      },
+    },
+    costResilience: {
+      Vulnerable: {
+        text: "Costs are growing faster than revenue and you lack the visibility to optimize. The real problem isn't the cost — it's the inability to experiment with alternatives. You can't negotiate with a provider you can't credibly leave.",
+        steps: [
+          "Implement cost dashboards this month. You can't fix what you can't see.",
+          "Identify your top 3 cost drivers and evaluate alternatives for each.",
+          "Tag all cloud resources by team/project — accountability drives optimization.",
+        ],
+      },
+      Managing: {
+        text: "You have some cost awareness but gaps remain. Surprise bills and opaque pricing are signs that your cost model is fragile, not resilient.",
+        steps: [
+          "Set up automated cost anomaly alerts — catch surprises before they become bills.",
+          "Benchmark your cloud spend against equivalent self-hosted infrastructure.",
+          "Negotiate committed-use discounts only after proving you could run elsewhere.",
+        ],
+      },
+      Optimized: {
+        text: "You have clear visibility into costs and the leverage to optimize. The question is whether you're using that position proactively or reactively.",
+        steps: [
+          "Review your cost structure quarterly — cloud pricing changes, your usage changes.",
+          "Evaluate reserved capacity vs. on-demand for predictable workloads.",
+          "Consider whether self-hosting high-volume workloads could reduce costs further.",
+        ],
+      },
+    },
+    aiReadiness: {
+      Unprepared: {
+        text: "You're not using AI tools yet, or adoption is ad-hoc without coordination. This means no AI lock-in — yet. But falling behind on AI adoption creates a different kind of risk: your competitors are building capabilities you don't have.",
+        steps: [
+          "Start with a single, well-defined AI use case — not a strategy document.",
+          "Choose open-source or EU-hosted models for your first integration to avoid creating lock-in from day one.",
+          "Define a 'what data can go where' policy before adding any AI tool.",
+        ],
+      },
+      Exploring: {
+        text: "You're experimenting with AI but without a framework. This is the danger zone — adoption is happening, but lock-in is being built accidentally. Every direct API integration without an abstraction layer is a future migration cost.",
+        steps: [
+          "Add an abstraction layer (like LiteLLM) between your code and any AI provider — swap models in config, not code.",
+          "Inventory all AI tools in use — you'll likely find more than you think.",
+          "Evaluate EU-hosted alternatives for any workload handling customer data.",
+        ],
+      },
+      Strategic: {
+        text: "You have a deliberate AI strategy with portability built in. The risk now is complacency — AI capabilities evolve fast, and today's strategic position can become tomorrow's legacy.",
+        steps: [
+          "Review your AI provider landscape quarterly — new models and providers emerge constantly.",
+          "Benchmark your AI spend against open-source alternatives for routine tasks.",
+          "Document your AI architecture decisions — future you will thank present you.",
+        ],
+      },
+    },
+  };
+
+  // --- Render result ---
+  function renderResult(scores) {
+    var container = document.getElementById('result-axes');
+    container.innerHTML = '';
+
+    var axes = [
+      { key: 'sovereignty', label: 'Sovereignty', score: scores.sovereignty },
+      { key: 'costResilience', label: 'Cost Resilience', score: scores.costResilience },
+      { key: 'aiReadiness', label: 'AI-Readiness', score: scores.aiReadiness },
+    ];
+
+    axes.forEach(function(axis) {
+      var tier = getTier(axis.score, axis.key);
+      var diag = DIAGNOSTICS[axis.key][tier.label];
+
+      var card = document.createElement('div');
+      card.className = 'axis-card';
+      card.innerHTML =
+        '<div class="axis-header">' +
+          '<span class="axis-name">' + axis.label + '</span>' +
+          '<span class="axis-score">' + axis.score + ' / 100</span>' +
+        '</div>' +
+        '<span class="axis-tier ' + tier.css + '">' + tier.label + '</span>' +
+        '<div class="axis-bar"><div class="axis-bar-fill ' + tier.bar + '" style="width: ' + axis.score + '%"></div></div>' +
+        '<div class="axis-diagnostic">' + diag.text + '</div>' +
+        '<ul class="axis-next-steps">' + diag.steps.map(function(s) { return '<li>' + s + '</li>'; }).join('') + '</ul>';
+
+      container.appendChild(card);
+    });
+  }
+
+  // --- Save partial data to PocketBase after scoring ---
+  function savePartial(scores) {
+    var payload = {
+      source: SOURCE,
+      language: LANGUAGE,
+      referrer: REFERRER,
+      session_id: SESSION_ID,
+      score_sovereignty: scores.sovereignty,
+      score_cost_resilience: scores.costResilience,
+      score_ai_readiness: scores.aiReadiness,
+    };
+
+    // Collect all answered questions so far
+    QUESTIONS.forEach(function(q) {
+      if (q.step > SCORING_STEP) return; // Only scoring questions
+      if (q.type === 'radio') {
+        var el = document.querySelector('input[name="q' + q.step + '"]:checked');
+        payload[q.id] = el ? el.value : '';
+      } else if (q.type === 'checkbox') {
+        var vals = Array.from(
+          document.querySelectorAll('input[name="q' + q.step + '"]:checked')
+        ).map(function(i) { return i.value; });
+        payload[q.id] = JSON.stringify(vals);
+      }
+    });
+
+    fetch(PB_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(function(err) {
+      console.error('Partial save error:', err);
+    });
+  }
 
   let current = 1;
 
@@ -562,13 +973,30 @@
   function showResumeBar(saved) {
     var bar = document.getElementById('resume-bar');
     var text = document.getElementById('resume-bar-text');
-    text.innerHTML = 'You were on <strong>question ' + saved.step + '</strong> of ' + TOTAL + '.';
+    if (saved.step > SCORING_STEP) {
+      text.innerHTML = 'You <strong>completed the scoring questions</strong> and saw your results.';
+    } else {
+      text.innerHTML = 'You were on <strong>question ' + saved.step + '</strong> of ' + SCORING_STEP + '.';
+    }
     bar.classList.add('active');
 
     document.getElementById('resume-continue').onclick = function() {
       bar.classList.remove('active');
       restoreAnswers(saved.answers);
-      showStep(saved.step, false);
+      if (saved.step > SCORING_STEP) {
+        // Show result screen
+        var scores = computeScores();
+        renderResult(scores);
+        document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+        document.getElementById('step-result').classList.add('active');
+        document.getElementById('wizard-nav').style.display = 'none';
+        document.getElementById('progress-fill').style.width = '100%';
+        document.getElementById('step-counter').textContent = '✓ Results';
+        current = saved.step;
+      } else {
+        current = saved.step;
+        showStep(saved.step, false);
+      }
     };
 
     document.getElementById('resume-start-over').onclick = function() {
@@ -656,7 +1084,21 @@
   function showStep(n, persist) {
     if (persist !== false) saveState();
     document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+    document.getElementById('step-result').classList.remove('active');
     document.getElementById('step-success').classList.remove('active');
+
+    // Show result after scoring questions
+    if (n === SCORING_STEP + 1) {
+      var scores = computeScores();
+      renderResult(scores);
+      document.getElementById('step-result').classList.add('active');
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('step-counter').textContent = '✓ Results';
+      document.getElementById('wizard-nav').style.display = 'none';
+      // Save scores + partial data to PocketBase
+      savePartial(scores);
+      return;
+    }
 
     var stepEl = document.getElementById('step-' + n);
     if (stepEl) stepEl.classList.add('active');
@@ -670,6 +1112,9 @@
     btnBack.style.display = n === 1 ? 'none' : '';
     btnNext.textContent = n === TOTAL ? 'Submit →' : 'Continue →';
     btnNext.disabled = false;
+
+    // Show nav bar for question steps
+    document.getElementById('wizard-nav').style.display = '';
 
     document.getElementById('error-msg').textContent = '';
   }
@@ -693,6 +1138,17 @@
       window.location.href = BACK_URL;
       return;
     }
+    // If on first post-result question, go back to result
+    if (current === SCORING_STEP + 1) {
+      var scores = computeScores();
+      renderResult(scores);
+      document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+      document.getElementById('step-result').classList.add('active');
+      document.getElementById('wizard-nav').style.display = 'none';
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('step-counter').textContent = '✓ Results';
+      return;
+    }
     current--;
     showStep(current);
   }
@@ -702,8 +1158,14 @@
     btnNext.disabled = true;
     btnNext.textContent = 'Submitting…';
 
-    var payload = { source: SOURCE, language: LANGUAGE, referrer: REFERRER };
+    var payload = {
+      source: SOURCE,
+      language: LANGUAGE,
+      referrer: REFERRER,
+      session_id: SESSION_ID,
+    };
 
+    // Collect ALL question answers (including post-result qualification questions)
     QUESTIONS.forEach(function(q) {
       if (q.type === 'radio') {
         var el = document.querySelector('input[name="q' + q.step + '"]:checked');
@@ -721,6 +1183,12 @@
       }
     });
 
+    // Include computed scores
+    var scores = computeScores();
+    payload.score_sovereignty = scores.sovereignty;
+    payload.score_cost_resilience = scores.costResilience;
+    payload.score_ai_readiness = scores.aiReadiness;
+
     fetch(PB_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -732,6 +1200,7 @@
         });
       }
       document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
+      document.getElementById('step-result').classList.remove('active');
       clearState();
       document.getElementById('step-success').classList.add('active');
       document.getElementById('wizard-nav').style.display = 'none';
@@ -749,12 +1218,16 @@
   document.getElementById('btn-next').addEventListener('click', nextStep);
   document.getElementById('btn-back').addEventListener('click', prevStep);
 
+  document.getElementById('btn-result-continue').addEventListener('click', function() {
+    current = SCORING_STEP + 1; // Go to first post-result question
+    showStep(current);
+  });
+
   var saved = getSavedState();
   if (saved) {
     current = saved.step;
     restoreAnswers(saved.answers);
     showResumeBar(saved);
-    showStep(saved.step, false);
   } else {
     showStep(1, false);
   }
