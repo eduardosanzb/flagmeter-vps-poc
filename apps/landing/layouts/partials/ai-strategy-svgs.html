@@ -1,0 +1,221 @@
+{{ $id := .svg_id }}
+
+{{ if eq $id "three-scales" }}
+<svg viewBox="0 0 800 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Lane 1: Individual -->
+  <rect x="20" y="20" width="760" height="110" rx="10" fill="#1e293b"/>
+  <text x="32" y="80" font-family="Space Grotesk, Inter, sans-serif" font-size="14" font-weight="bold" fill="white">Individual</text>
+  <!-- Box 1: Dopamine loops -->
+  <rect x="90" y="42" width="170" height="65" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+  <text x="175" y="70" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Dopamine loops</text>
+  <text x="175" y="84" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Subsidized adoption</text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="75" x2="308" y2="75" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="308,70 318,75 308,80" fill="#6b7280"/>
+  <!-- Box 2: Cognitive dependency -->
+  <rect x="310" y="42" width="170" height="65" rx="8" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="395" y="70" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Cognitive dependency</text>
+  <text x="395" y="84" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Dependency</text>
+  <!-- Arrow 2→3 -->
+  <line x1="480" y1="75" x2="528" y2="75" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="528,70 538,75 528,80" fill="#6b7280"/>
+  <!-- Box 3: Burnout -->
+  <rect x="530" y="42" width="170" height="65" rx="8" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="615" y="70" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Burnout</text>
+  <text x="615" y="84" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Correction</text>
+
+  <!-- Lane 2: Organizational -->
+  <rect x="20" y="150" width="760" height="110" rx="10" fill="#1e293b"/>
+  <text x="32" y="210" font-family="Space Grotesk, Inter, sans-serif" font-size="14" font-weight="bold" fill="white">Organizational</text>
+  <!-- Box 1: Free/cheap tools -->
+  <rect x="90" y="172" width="170" height="65" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+  <text x="175" y="200" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Free/cheap tools</text>
+  <text x="175" y="214" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Subsidized adoption</text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="205" x2="308" y2="205" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="308,200 318,205 308,210" fill="#6b7280"/>
+  <!-- Box 2: Vendor coupling -->
+  <rect x="310" y="172" width="170" height="65" rx="8" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="395" y="200" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Vendor coupling</text>
+  <text x="395" y="214" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Dependency</text>
+  <!-- Arrow 2→3 -->
+  <line x1="480" y1="205" x2="528" y2="205" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="528,200 538,205 528,210" fill="#6b7280"/>
+  <!-- Box 3: No leverage -->
+  <rect x="530" y="172" width="170" height="65" rx="8" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="615" y="200" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">No leverage</text>
+  <text x="615" y="214" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Correction</text>
+
+  <!-- Lane 3: Economic -->
+  <rect x="20" y="280" width="760" height="110" rx="10" fill="#1e293b"/>
+  <text x="32" y="340" font-family="Space Grotesk, Inter, sans-serif" font-size="14" font-weight="bold" fill="white">Economic</text>
+  <!-- Box 1: Below-cost pricing -->
+  <rect x="90" y="302" width="170" height="65" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+  <text x="175" y="330" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Below-cost pricing</text>
+  <text x="175" y="344" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Subsidized adoption</text>
+  <!-- Arrow 1→2 -->
+  <line x1="260" y1="335" x2="308" y2="335" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="308,330 318,335 308,340" fill="#6b7280"/>
+  <!-- Box 2: Fake demand -->
+  <rect x="310" y="302" width="170" height="65" rx="8" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="395" y="330" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Fake demand</text>
+  <text x="395" y="344" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Dependency</text>
+  <!-- Arrow 2→3 -->
+  <line x1="480" y1="335" x2="528" y2="335" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="528,330 538,335 528,340" fill="#6b7280"/>
+  <!-- Box 3: ARM reset -->
+  <rect x="530" y="302" width="170" height="65" rx="8" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="615" y="330" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle">ARM reset</text>
+  <text x="615" y="344" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Correction</text>
+
+  <!-- Right side vertical bracket -->
+  <line x1="760" y1="20" x2="760" y2="390" stroke="#10b981" stroke-width="2"/>
+  <text x="790" y="205" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="#10b981" text-anchor="middle" transform="rotate(-90, 790, 205)">Same pattern</text>
+</svg>
+
+{{ else if eq $id "maturity-staircase-governance" }}
+<svg viewBox="0 0 800 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Baseline -->
+  <line x1="20" y1="280" x2="785" y2="280" stroke="#374151" stroke-width="1"/>
+  <!-- Step L1: Chaos -->
+  <rect x="20" y="220" width="175" height="60" rx="6" fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="107" y="238" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Chaos</text>
+  <text x="107" y="254" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">No policy</text>
+  <!-- Step L2: Mandate -->
+  <rect x="210" y="160" width="175" height="120" rx="6" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="297" y="178" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Mandate</text>
+  <text x="297" y="194" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Top-down, no framework</text>
+  <!-- Step L3: Governed -->
+  <rect x="400" y="95" width="175" height="185" rx="6" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="487" y="113" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Governed</text>
+  <text x="487" y="129" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Guardrails + choice</text>
+  <!-- Step L4: Adaptive -->
+  <rect x="590" y="25" width="175" height="255" rx="6" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="677" y="43" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Adaptive</text>
+  <text x="677" y="59" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Living framework</text>
+</svg>
+
+{{ else if eq $id "maturity-staircase-vendor" }}
+<svg viewBox="0 0 800 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Baseline -->
+  <line x1="20" y1="280" x2="785" y2="280" stroke="#374151" stroke-width="1"/>
+  <!-- Step L1: Coupled -->
+  <rect x="20" y="220" width="175" height="60" rx="6" fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="107" y="238" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Coupled</text>
+  <text x="107" y="254" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Direct API, no exit</text>
+  <!-- Step L2: Standardized -->
+  <rect x="210" y="160" width="175" height="120" rx="6" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="297" y="178" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Standardized</text>
+  <text x="297" y="194" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">One provider, aware</text>
+  <!-- Step L3: Abstracted -->
+  <rect x="400" y="95" width="175" height="185" rx="6" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="487" y="113" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Abstracted</text>
+  <text x="487" y="129" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Abstraction layer</text>
+  <!-- Step L4: Portable -->
+  <rect x="590" y="25" width="175" height="255" rx="6" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="677" y="43" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Portable</text>
+  <text x="677" y="59" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Switch in hours</text>
+</svg>
+
+{{ else if eq $id "maturity-staircase-sovereignty" }}
+<svg viewBox="0 0 800 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Baseline -->
+  <line x1="20" y1="280" x2="785" y2="280" stroke="#374151" stroke-width="1"/>
+  <!-- Step L1: Exposed -->
+  <rect x="20" y="220" width="175" height="60" rx="6" fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="107" y="238" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Exposed</text>
+  <text x="107" y="254" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Data goes anywhere</text>
+  <!-- Step L2: Aware -->
+  <rect x="210" y="160" width="175" height="120" rx="6" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="297" y="178" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Aware</text>
+  <text x="297" y="194" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Informal rules</text>
+  <!-- Step L3: Classified -->
+  <rect x="400" y="95" width="175" height="185" rx="6" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="487" y="113" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Classified</text>
+  <text x="487" y="129" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Classified + routed</text>
+  <!-- Step L4: Sovereign -->
+  <rect x="590" y="25" width="175" height="255" rx="6" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="677" y="43" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Sovereign</text>
+  <text x="677" y="59" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">EU by default</text>
+</svg>
+
+{{ else if eq $id "maturity-staircase-cost" }}
+<svg viewBox="0 0 800 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Baseline -->
+  <line x1="20" y1="280" x2="785" y2="280" stroke="#374151" stroke-width="1"/>
+  <!-- Step L1: Blind -->
+  <rect x="20" y="220" width="175" height="60" rx="6" fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="107" y="238" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Blind</text>
+  <text x="107" y="254" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">No tracking</text>
+  <!-- Step L2: Tracking -->
+  <rect x="210" y="160" width="175" height="120" rx="6" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="297" y="178" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Tracking</text>
+  <text x="297" y="194" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Some visibility</text>
+  <!-- Step L3: Measured -->
+  <rect x="400" y="95" width="175" height="185" rx="6" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="487" y="113" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Measured</text>
+  <text x="487" y="129" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Full cost per engineer</text>
+  <!-- Step L4: Optimized -->
+  <rect x="590" y="25" width="175" height="255" rx="6" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="677" y="43" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Optimized</text>
+  <text x="677" y="59" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Resilient to 5x</text>
+</svg>
+
+{{ else if eq $id "maturity-staircase-health" }}
+<svg viewBox="0 0 800 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Baseline -->
+  <line x1="20" y1="280" x2="785" y2="280" stroke="#374151" stroke-width="1"/>
+  <!-- Step L1: Unmanaged -->
+  <rect x="20" y="220" width="175" height="60" rx="6" fill="#ef4444" fill-opacity="0.25" stroke="#ef4444" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="107" y="238" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Unmanaged</text>
+  <text x="107" y="254" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Conflict, no measurement</text>
+  <!-- Step L2: Measured -->
+  <rect x="210" y="160" width="175" height="120" rx="6" fill="#f59e0b" fill-opacity="0.25" stroke="#f59e0b" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="297" y="178" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Measured</text>
+  <text x="297" y="194" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Some tracking</text>
+  <!-- Step L3: Balanced -->
+  <rect x="400" y="95" width="175" height="185" rx="6" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="487" y="113" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Balanced</text>
+  <text x="487" y="129" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Both styles supported</text>
+  <!-- Step L4: Sustainable -->
+  <rect x="590" y="25" width="175" height="255" rx="6" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-opacity="0.8" stroke-width="1.5"/>
+  <text x="677" y="43" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Sustainable</text>
+  <text x="677" y="59" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Intentional, not compulsive</text>
+</svg>
+
+{{ else if eq $id "arm-reset-timeline" }}
+<svg viewBox="0 0 900 220" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main timeline line -->
+  <line x1="60" y1="115" x2="840" y2="115" stroke="#374151" stroke-width="2"/>
+  <!-- Danger zone overlay -->
+  <line x1="680" y1="115" x2="840" y2="115" stroke="#ef4444" stroke-width="2.5"/>
+  <!-- Arrow tip -->
+  <polygon points="855,108 870,115 855,122" fill="#ef4444"/>
+
+  <!-- Marker 1: x=160 -->
+  <circle cx="160" cy="115" r="8" fill="#10b981"/>
+  <text x="160" y="95" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2024–2025</text>
+  <text x="160" y="80" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Teaser rates</text>
+  <text x="160" y="135" font-family="Inter, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">$5K burn on $200 plans</text>
+
+  <!-- Marker 2: x=360 -->
+  <circle cx="360" cy="115" r="8" fill="#f59e0b"/>
+  <text x="360" y="95" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">June 2025</text>
+  <text x="360" y="80" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Priority tiers</text>
+  <text x="360" y="135" font-family="Inter, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">Cursor forced to reprice</text>
+
+  <!-- Marker 3: x=560 -->
+  <circle cx="560" cy="115" r="8" fill="#f97316"/>
+  <text x="560" y="95" font-family="Space Grotesk, Inter, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2026</text>
+  <text x="560" y="80" font-family="Inter, sans-serif" font-size="10" fill="#9ca3af" text-anchor="middle">Rate limits tighten</text>
+  <text x="560" y="135" font-family="Inter, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">600→20 deep research queries</text>
+
+  <!-- Marker 4: x=760 -->
+  <circle cx="760" cy="115" r="10" fill="#ef4444"/>
+  <text x="760" y="95" font-family="Space Grotesk, Inter, sans-serif" font-size="13" font-weight="bold" fill="#ef4444" text-anchor="middle">Coming</text>
+  <text x="760" y="80" font-family="Inter, sans-serif" font-size="11" font-weight="bold" fill="#ef4444" text-anchor="middle">The ARM reset</text>
+  <text x="760" y="135" font-family="Inter, sans-serif" font-size="10" font-weight="bold" fill="#ef4444" text-anchor="middle">3–5x for dependent companies</text>
+  <text x="760" y="150" font-family="Inter, sans-serif" font-size="9" fill="#6b7280" text-anchor="middle">No escape without abstraction</text>
+</svg>
+
+{{ end }}
