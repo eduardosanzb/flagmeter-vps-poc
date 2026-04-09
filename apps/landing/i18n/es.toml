@@ -71,3 +71,6 @@ other = "← Volver a los Casos de Estudio"
 
 [navigation.assessment]
 other = "Assessment Gratuito"
+
+[navigation.aiStrategy]
+other = "Estrategia de IA"

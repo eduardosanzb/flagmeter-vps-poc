@@ -20,7 +20,7 @@ slides:
   - number: 2
     type: one-thing
     statement: "AI vendor dependency is the new cloud vendor lock-in. And it's worse."
-    tagline: "When AWS raises prices, you migrate your Terraform. When Anthropic raises prices, you can't migrate your prompts."
+    tagline: "When AWS raises prices, you migrate your Terraform. When Anthropic raises prices, you can't migrate your prompts — or your team's mental models. You don't have engineers anymore. You have Claude operators."
 
   - number: 3
     type: two-col
@@ -40,7 +40,7 @@ slides:
       items:
         - '"You need OpenAI"'
         - "Direct API integration"
-        - "Can't leave without rewriting"
+        - "Can't leave: code and team cognition both coupled"
         - "US jurisdiction (CLOUD Act)"
         - "€5k/month API bill that will 3-5x"
 
@@ -59,19 +59,24 @@ slides:
     items:
       - icon: "users"
         heading: "Adoption Governance"
-        body: "Who decides which AI tools the company uses? Levels: Ad hoc → Centralised → Governed → Strategic"
+        description: "Who decides which AI tools the company uses?"
+        levels: "Ad hoc → Centralised → Governed → Strategic"
       - icon: "chain"
         heading: "Vendor Dependency"
-        body: "Are you coupled to one AI provider the same way you were coupled to AWS? Levels: Locked-in → Aware → Multi-vendor → Portable"
+        description: "Are you coupled to one AI provider the same way you were coupled to AWS?"
+        levels: "Locked-in → Aware → Multi-vendor → Portable"
       - icon: "shield"
         heading: "Data Sovereignty"
-        body: "What data flows through AI providers? Are you GDPR/EU AI Act compliant? Levels: Exposed → Monitored → Controlled → Sovereign"
+        description: "What data flows through AI providers? Are you GDPR/EU AI Act compliant?"
+        levels: "Exposed → Monitored → Controlled → Sovereign"
       - icon: "banknote"
         heading: "Cost Visibility"
-        body: "Do you know what you're spending on AI? Are you building on subsidized pricing? Levels: Invisible → Tracked → Optimised → Predictable"
+        description: "Do you know what you're spending on AI? Are you building on subsidized pricing?"
+        levels: "Invisible → Tracked → Optimised → Predictable"
       - icon: "heart"
         heading: "Team Health"
-        body: "Is AI making your team more productive or more burned out? Levels: Overwhelmed → Coping → Balanced → Thriving"
+        description: "Is AI making your team more productive or more burned out?"
+        levels: "Overwhelmed → Coping → Balanced → Thriving"
 
   - number: 6
     type: custom-svg
@@ -109,13 +114,24 @@ slides:
     subtitle: "Is AI making your team more productive or more burned out?"
 
   - number: 11
+    type: context
+    label: "The Risk"
+    title: "THE ARM RESET"
+    statements:
+      - "2006: AWS launches. Compute is cheap — subsidized by Amazon's retail margins. Everyone builds on it."
+      - "2018: AWS Graviton ships. ARM-based chips, 40% cheaper than x86. Companies that optimized deepest for Intel paid the heaviest migration tax."
+      - "The lesson: whoever subsidizes your infrastructure owns your switching cost."
+      - "2024: OpenAI, Anthropic, and Google are burning billions to make AI cheap. You're being optimized into the same corner."
+    tagline: "The subsidy always ends. The question is how coupled you are when it does."
+
+  - number: 12
     type: custom-svg
     svg_id: "arm-reset-timeline"
     label: "The Risk"
     title: "THE ARM RESET IS COMING"
     subtitle: "AI pricing mirrors the 2008 subprime mortgage crisis. Subsidized rates will end."
 
-  - number: 12
+  - number: 13
     type: cta
     label: "Next Step"
     title: "ASSESS YOURSELF."
