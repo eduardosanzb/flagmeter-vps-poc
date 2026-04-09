@@ -659,6 +659,7 @@
 
   // --- Scoring constants ---
   var SCORING_STEP = 6; // Result appears after step 6
+  var resultShown = false;
 
   // --- Scoring function ---
   function computeScores() {
@@ -992,6 +993,7 @@
         document.getElementById('wizard-nav').style.display = 'none';
         document.getElementById('progress-fill').style.width = '100%';
         document.getElementById('step-counter').textContent = '✓ Results';
+        resultShown = true;
         current = saved.step;
       } else {
         current = saved.step;
@@ -1003,6 +1005,7 @@
       clearState();
       bar.classList.remove('active');
       current = 1;
+      resultShown = false;
       document.querySelectorAll('.option').forEach(function(o) { o.classList.remove('selected'); });
       document.querySelectorAll('input').forEach(function(i) {
         if (i.type === 'checkbox' || i.type === 'radio') i.checked = false;
@@ -1088,7 +1091,7 @@
     document.getElementById('step-success').classList.remove('active');
 
     // Show result after scoring questions
-    if (n === SCORING_STEP + 1) {
+    if (n === SCORING_STEP + 1 && !resultShown) {
       var scores = computeScores();
       renderResult(scores);
       document.getElementById('step-result').classList.add('active');
@@ -1097,6 +1100,7 @@
       document.getElementById('wizard-nav').style.display = 'none';
       // Save scores + partial data to PocketBase
       savePartial(scores);
+      resultShown = true;
       return;
     }
 
@@ -1139,7 +1143,7 @@
       return;
     }
     // If on first post-result question, go back to result
-    if (current === SCORING_STEP + 1) {
+    if (current === SCORING_STEP + 1 && resultShown) {
       var scores = computeScores();
       renderResult(scores);
       document.querySelectorAll('.step').forEach(function(el) { el.classList.remove('active'); });
