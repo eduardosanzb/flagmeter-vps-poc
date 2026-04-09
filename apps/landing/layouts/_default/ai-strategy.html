@@ -15,8 +15,8 @@
     <div class="container-custom">
       <div class="max-w-4xl mx-auto">
         <h2 class="font-display text-2xl font-bold text-brand-dark dark:text-white mb-4">Run this assessment with your own AI</h2>
-        <p class="text-brand-secondary dark:text-gray-400 mb-6">Copy the prompt below and paste it into Claude, ChatGPT, or whatever you use. It'll walk you through each dimension, score you, and give you a personalized snapshot. No email required.</p>
-        <pre id="ai-strategy-prompt" class="bg-brand-primary text-white p-6 rounded-lg text-sm overflow-x-auto whitespace-pre-wrap mb-6">You are an AI strategy assessor for European tech companies. Your job is to guide the user through a structured self-assessment of their company's AI strategy, one dimension at a time.
+        <p class="text-brand-secondary dark:text-gray-400 mb-6">Copy the prompt and paste it into Claude, ChatGPT, or whatever you use. It walks you through all five dimensions, one at a time.</p>
+        <span id="ai-strategy-prompt" hidden>You are an AI strategy assessor for European tech companies. Your job is to guide the user through a structured self-assessment of their company's AI strategy, one dimension at a time.
 
 ## Context
 
@@ -99,8 +99,8 @@ Is AI making your team more productive or more burned out?
 * Keep each dimension's assessment concise — 2-3 minutes of conversation per dimension.
 * Write in a direct, engineer-to-engineer tone. No corporate jargon.
 
-Begin by introducing the assessment and asking about the first dimension (Adoption Governance).</pre>
-        <button id="copy-btn" onclick="copyPrompt()" class="bg-brand-accent hover:bg-brand-accentDark text-white px-6 py-3 rounded-lg font-medium transition-colors">Copy to clipboard</button>
+Begin by introducing the assessment and asking about the first dimension (Adoption Governance).</span>
+        <button id="copy-btn" onclick="copyPrompt()" class="bg-brand-accent hover:bg-brand-accentDark text-white px-6 py-3 rounded-lg font-medium transition-colors">Copy prompt</button>
       </div>
     </div>
   </div>
