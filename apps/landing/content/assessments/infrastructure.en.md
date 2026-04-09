@@ -1,6 +1,6 @@
 ---
 title: "Infrastructure Assessment"
-description: "Quick survey for European cloud & tech companies — takes 3 minutes."
+description: "Scored assessment for European cloud & tech companies — takes 2 minutes."
 type: assessment
 url: "/assessment/"
 pocketbase_endpoint: "/pb/api/collections/assessments/records"
@@ -11,7 +11,7 @@ draft: false
 questions:
   - id: q1_cloud_setup
     step: 1
-    section: "Context"
+    section: "Infrastructure"
     type: radio
     question: "What's your primary cloud setup today?"
     hint: ""
@@ -28,26 +28,9 @@ questions:
       - value: on-premise
         label: "Mostly on-premise"
 
-  - id: q2_team_size
-    step: 2
-    section: "Context"
-    type: radio
-    question: "How big is your engineering team?"
-    hint: ""
-    required: true
-    options:
-      - value: "1-5"
-        label: "1–5"
-      - value: "6-20"
-        label: "6–20"
-      - value: "21-50"
-        label: "21–50"
-      - value: "50+"
-        label: "50+"
-
   - id: q3_pain_points
-    step: 3
-    section: "Pain"
+    step: 2
+    section: "Infrastructure"
     type: checkbox
     question: "Which of these keep you up at night?"
     hint: "Pick all that apply"
@@ -69,8 +52,8 @@ questions:
         label: "None of the above"
 
   - id: q4_migration
-    step: 4
-    section: "Pain"
+    step: 3
+    section: "Infrastructure"
     type: radio
     question: "If you had to migrate away from your main cloud provider in 6 months, could you?"
     hint: "This one makes people uncomfortable. That's the point."
@@ -85,64 +68,79 @@ questions:
       - value: never-thought
         label: "Never thought about it"
 
-  - id: q5_audit_history
+  - id: q_cost_visibility
+    step: 4
+    section: "Cost"
+    type: radio
+    question: "How well do you understand your cloud spending?"
+    hint: ""
+    required: true
+    options:
+      - value: clear
+        label: "We have clear dashboards and know exactly where money goes"
+      - value: rough-idea
+        label: "We have a rough idea but some costs are opaque"
+      - value: surprises
+        label: "We get surprised by cloud bills regularly"
+      - value: no-tracking
+        label: "We don't really track cloud costs"
+
+  - id: q_ai_adoption
     step: 5
-    section: "Interest in an audit"
+    section: "AI"
     type: radio
-    question: "Have you ever done a formal infrastructure audit?"
-    hint: "Sovereignty, cost, AI-readiness — any of those."
+    question: "Where is your team with AI tools?"
+    hint: ""
     required: true
     options:
-      - value: yes-regularly
-        label: "Yes, regularly"
-      - value: once-ago
-        label: "Once, a while ago"
-      - value: no-wanted
-        label: "No, but we've wanted to"
-      - value: no-not-radar
-        label: "No, and it's not on our radar"
+      - value: not-using
+        label: "Not using AI tools yet"
+      - value: individual
+        label: "Some engineers use AI tools on their own"
+      - value: team-standard
+        label: "We've standardized on specific tools across the team"
+      - value: ai-first
+        label: "AI is core to how we build — most engineers use agents daily"
 
-  - id: q6_audit_usefulness
+  - id: q_ai_coupling
     step: 6
-    section: "Interest in an audit"
+    section: "AI"
     type: radio
-    question: "If someone gave you a clear report — sovereignty gaps, cost waste, AI-readiness score, prioritised next steps — would that be useful?"
+    question: "How dependent is your company on a single AI provider?"
     hint: ""
     required: true
     options:
-      - value: very-useful
-        label: "Very useful — I'd want that yesterday"
-      - value: interesting
-        label: "Interesting — I'd look at it"
-      - value: maybe-cost
-        label: "Maybe, depends on the cost"
-      - value: not-really
-        label: "Not really"
+      - value: no-dependency
+        label: "We don't rely on AI providers, or we use open-source / self-hosted models"
+      - value: moderate
+        label: "We use an AI provider but could switch with some effort"
+      - value: deep
+        label: "Our engineering workflows depend on a specific AI provider — switching would be a major project"
+      - value: critical
+        label: "Our entire product or team productivity depends on one AI provider — we couldn't operate without them"
 
-  - id: q7_audit_budget
+  - id: q2_team_size
     step: 7
-    section: "Interest in an audit"
+    section: "About you"
     type: radio
-    question: "What would you expect to pay for a one-time infrastructure audit like that?"
+    question: "How big is your engineering team?"
     hint: ""
     required: true
     options:
-      - value: free
-        label: "Nothing — it should be free / a lead magnet"
-      - value: 500-2000
-        label: "€500–€2,000"
-      - value: 2000-5000
-        label: "€2,000–€5,000"
-      - value: 5000-plus
-        label: "€5,000+"
-      - value: no-idea
-        label: "No idea"
+      - value: "1-5"
+        label: "1–5"
+      - value: "6-20"
+        label: "6–20"
+      - value: "21-50"
+        label: "21–50"
+      - value: "50+"
+        label: "50+"
 
   - id: q8_agent_interest
     step: 8
-    section: "Interest in automation"
+    section: "About you"
     type: radio
-    question: "Imagine an agent or CLI that continuously monitors sovereignty compliance, cost drift, and AI-readiness — flagging issues automatically. How interesting is that?"
+    question: "Imagine an agent that continuously monitors sovereignty compliance, cost drift, and AI-readiness — flagging issues automatically. How interesting is that?"
     hint: ""
     required: true
     options:
@@ -157,7 +155,7 @@ questions:
 
   - id: q9_agent_priorities
     step: 9
-    section: "Interest in automation"
+    section: "About you"
     type: checkbox
     max: 2
     question: "For a tool like that, what would matter most?"
@@ -177,9 +175,9 @@ questions:
 
   - id: lead
     step: 10
-    section: "Stay in touch"
+    section: "Your snapshot"
     type: lead
-    question: "Can we follow up with you?"
+    question: "Want the full picture? Leave your email and we'll send your detailed report."
     hint: "All fields optional — even just an email helps."
     required: false
     fields:
