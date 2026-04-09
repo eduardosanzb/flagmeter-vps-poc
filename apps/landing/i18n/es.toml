@@ -74,3 +74,19 @@ other = "Assessment Gratuito"
 
 [navigation.aiStrategy]
 other = "Estrategia de IA"
+
+[aiStrategy]
+[aiStrategy.copyPrompt]
+other = "Copiar prompt"
+
+[aiStrategy.copied]
+other = "¡Copiado!"
+
+[aiStrategy.prev]
+other = "← Anterior"
+
+[aiStrategy.next]
+other = "Siguiente →"
+
+[aiStrategy.keyboardHint]
+other = "Teclas ← → · desliza"

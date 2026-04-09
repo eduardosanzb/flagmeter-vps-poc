@@ -3,6 +3,15 @@ title: "Framework de Estrategia de IA"
 description: "Un framework práctico para empresas tecnológicas europeas para evaluar y construir una estrategia de IA soberana — cinco dimensiones, cuatro niveles de madurez, cero bullshit."
 layout: "ai-strategy"
 draft: false
+heroTagline: "No adoptar IA es un riesgo. Adoptar sin estrategia es un riesgo mayor. Este es el camino intermedio."
+promptCardHeading: "¿Los slides te aburren?"
+promptCardBody: "Copia el prompt y pégalo en Claude, ChatGPT o lo que uses. Te guía por las cinco dimensiones, una a la vez."
+companionHeading: "¿Ya conoces tu posición en infraestructura?"
+companionBody: "Nuestro Infrastructure Assessment te puntúa en Sovereignty, Cost Resilience y AI-Readiness con diagnósticos específicos y accionables. Tarda 2 minutos."
+companionCta: "Hacer el Assessment →"
+ctaHeading: "¿Necesitas ayuda para ejecutar?"
+ctaBody: "Este framework te ayuda a diagnosticar. Si quieres ayuda para construir una estrategia de IA soberana para tu empresa, hablemos."
+ctaButton: "Reservar llamada gratuita de 15 min →"
 slides:
   - number: 1
     type: hero

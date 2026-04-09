@@ -87,3 +87,19 @@ other = "Kostenloses Assessment"
 
 [navigation.aiStrategy]
 other = "KI-Strategie"
+
+[aiStrategy]
+[aiStrategy.copyPrompt]
+other = "Prompt kopieren"
+
+[aiStrategy.copied]
+other = "Kopiert!"
+
+[aiStrategy.prev]
+other = "← Zurück"
+
+[aiStrategy.next]
+other = "Weiter →"
+
+[aiStrategy.keyboardHint]
+other = "← → Tasten · Swipe"

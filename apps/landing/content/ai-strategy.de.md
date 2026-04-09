@@ -3,6 +3,15 @@ title: "KI-Strategie Framework"
 description: "Ein praktisches Framework für europäische Tech-Unternehmen zur Bewertung und Aufbau einer souveränen KI-Strategie — fünf Dimensionen, vier Reifegrade, null Bullshit."
 layout: "ai-strategy"
 draft: false
+heroTagline: "KI nicht zu adopten ist ein Risiko. KI ohne Strategie zu adopten ist ein größeres Risiko. Das ist der mittlere Weg."
+promptCardHeading: "Slides langweilen dich?"
+promptCardBody: "Kopiere den Prompt und füge ihn in Claude, ChatGPT oder was auch immer du nutzt ein. Er führt dich durch alle fünf Dimensionen, eine nach der anderen."
+companionHeading: "Kennst du deine Infrastruktur-Position schon?"
+companionBody: "Unser Infrastructure Assessment bewertet dich über Sovereignty, Cost Resilience und AI-Readiness mit spezifischen, umsetzbaren Diagnosen. Dauert 2 Minuten."
+companionCta: "Assessment starten →"
+ctaHeading: "Brauchst du Hilfe bei der Umsetzung?"
+ctaBody: "Dieses Framework hilft dir bei der Diagnose. Wenn du Hilfe beim Aufbau einer souveränen KI-Strategie für dein Unternehmen brauchst, lass uns reden."
+ctaButton: "Kostenlosen 15-min Call buchen →"
 slides:
   - number: 1
     type: hero

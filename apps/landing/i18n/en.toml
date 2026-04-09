@@ -87,3 +87,19 @@ other = "Free Assessment"
 
 [navigation.aiStrategy]
 other = "AI Strategy"
+
+[aiStrategy]
+[aiStrategy.copyPrompt]
+other = "Copy prompt"
+
+[aiStrategy.copied]
+other = "Copied!"
+
+[aiStrategy.prev]
+other = "← Prev"
+
+[aiStrategy.next]
+other = "Next →"
+
+[aiStrategy.keyboardHint]
+other = "← → keys · swipe"

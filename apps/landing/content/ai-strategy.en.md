@@ -4,6 +4,15 @@ description: "A practical framework for European tech companies to assess and bu
 layout: "ai-strategy"
 url: "/ai-strategy/"
 draft: false
+heroTagline: "Not adopting AI is a risk. Adopting without strategy is a bigger risk. This is the middle path."
+promptCardHeading: "Slides bore you?"
+promptCardBody: "Copy the prompt and paste it into Claude, ChatGPT, or whatever you use. It walks you through all five dimensions, one at a time."
+companionHeading: "Already know your infrastructure position?"
+companionBody: "Our Infrastructure Assessment scores you across Sovereignty, Cost Resilience, and AI-Readiness with specific, actionable diagnostics. Takes 2 minutes."
+companionCta: "Take the Assessment →"
+ctaHeading: "Want help executing?"
+ctaBody: "This framework helps you diagnose. If you want help building a sovereign AI strategy for your company, let's talk."
+ctaButton: "Book a Free 15-min Call →"
 slides:
   - number: 1
     type: hero
