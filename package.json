@@ -9,7 +9,7 @@
     "pnpm": ">=9.0.0"
   },
   "scripts": {
-    "dev": "docker compose -f compose.dev.yml up --build",
+    "dev": "docker compose -f compose.dev.yml up pocketbase landing --build",
     "dev:down": "docker compose -f compose.dev.yml down -v",
     "prod": "docker compose up --build",
     "prod:down": "docker compose down -v",
