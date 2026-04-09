@@ -2,7 +2,7 @@
 
 > **North Star: Fill the pipeline.** Content is strong. Proof exists. The bottleneck is distribution: getting what we've built in front of the people who need it. Everything else is blocked on having prospects to talk to.
 
-**Last updated:** 2026-04-02
+**Last updated:** 2026-04-07
 **GitHub issues:** All raus.cloud issues migrated and closed. BACKLOG.md is now the single source of truth.
 
 ---
@@ -21,7 +21,7 @@
 - **Zero pipeline**: No audits, no pilots, no revenue. Phase 1 commercial validation has not started.
 - **Content not distributed**: Articles are on the site, but the traffic and follow-up are weak.
 - **No intermediate conversion**: Visitors are either ready to book a 15-min call or they bounce.
-- **Article 5 archived**: Database article is fully written and researched, but still in `.archive/`.
+- **Article 5 redefined**: Old archived literature review article is DEAD. New article will be built on hands-on ARM migration POC with Databasus backup system and pgbackrest_auto verified restores.
 
 ### Phase 1 Progress (GitHub Milestone: `raus.cloud Phase 1: Validation`)
 
@@ -31,7 +31,7 @@
 | Commercial (audits/pilots/revenue) | `#75` (audit framework complete) | `#74`, `#76`, `#77`, `#78`, `#79`, `#80`, `#81`, `#83` |
 | Site Conversion | 5 | None |
 | Infrastructure | `#85` | `#84` (Deferred: `#53`, `#64`) |
-| Distribution | 0 | `DIST-1` through `DIST-5` (Scheduled), `#89` |
+| Distribution | `DIST-1`, `DIST-5` | `DIST-2` through `DIST-4`, `#89` |
 
 **Success criteria:** `€15k-30k` revenue, 3 case studies, 1+ referral  
 **Kill trigger:** `<€15k after 5 audits`
@@ -44,11 +44,12 @@
 
 These directly put content in front of the ICP. Eduardo does these manually.
 
-#### DIST-1: CloudFest Learnings LinkedIn Post ✅
+#### DIST-1: CloudFest Learnings LinkedIn Post (Responsible Architecture) ✅
 - **Owner:** Eduardo
-- **Status:** Scheduled for next week
-- **Format:** Personal narrative post about CloudFest: what resonated, what people asked, what felt real
-- **CTA:** Soft promotion to assessment / book a call
+- **Status:** ✅ **Published 2026-04-07**
+- **Format:** Personal narrative post about BCG Platinion background, hyperscaler lock-in as people problem, Responsible Architecture framing
+- **CTA:** DM for infrastructure audits
+- **Link:** LinkedIn personal post published
 
 #### DIST-2: Direct LinkedIn Outreach to ICP CTOs
 - **Owner:** Eduardo
@@ -158,11 +159,12 @@ These directly put content in front of the ICP. Eduardo does these manually.
 - **Approach:** ~~Add print stylesheet to slides layout~~ ✅ Done. Open `/slides/raus-cloud-pitch-v2/` → `Cmd+P` → Save as PDF → upload to LinkedIn as carousel
 - **Status:** Scheduled for next week
 
-#### DIST-5: Submit Article 1 to Hacker News
+#### DIST-5: Submit Article 1 to Hacker News ✅
 - **Title:** "We Spent `€11/month` Testing Docker Swarm So You Don't Have To"
-- **Why Article 1:** Best hook for HN audience (benchmarks, cost comparison, contrarian finding)
-- **Timing:** ✅ Site conversion fixes are now deployed. **Ready to submit.**
-- **Status:** Scheduled for next week
+- **URL:** https://raus.cloud/blog/docker-swarm-test-11-euro-lesson/
+- **Why Article 1:** Best hook for HN audience (benchmarks, cost comparison, contrarian finding: single VPS beat Swarm by 37%)
+- **Status:** ✅ **Submitted 2026-04-07**
+- **Post-submission comment:** Clarified that €11 was Test 4 (failed Swarm upgrade), winner (CAX21) is €7.59
 - **GitHub issue:** `#89`
 
 ---
@@ -205,24 +207,30 @@ Code changes that capture visitors who arrive but are not ready to book a call.
 
 ### P2 - Content Pipeline
 
-#### CONTENT-1: Publish Article 5 (Self-Running Databases)
+#### CONTENT-1: Article 5 - Production PostgreSQL Resilience (from Hands-on POC)
 
-**Status:** 🔄 In Progress
+**Status:** 🔄 **In Progress — targeting next week**
 
-**Current state:** 504-line article in `apps/landing/content/blog/.archive/self-running-databases-production.en.md` plus `.de.md` and `.es.md`. `draft: true`.
+**Problem with old approach:**
+- Archived 504-line article in `apps/landing/content/blog/.archive/self-running-databases-production.en.md` is a literature review, NOT hands-on
+- Do NOT publish this version — it's missing operational depth the author isn't confident about
 
-**Changes needed:**
-1. Move all 3 files from `.archive/` to `apps/landing/content/blog/`
-2. Set `draft: false`
-3. Update `date` to the current publish date
-4. Light editorial pass (links, stale references, formatting)
-5. Add inline CTA + bottom CTA box, consistent with other articles
+**New approach:** Build from real ARM migration experience
+- **POC Architecture:** CAX31 (ARM, 8 vCPU, €14.90/mo) + Hetzner Storage Box BX11 (€3.81/mo) = €18.71/mo total
+- **Tools:** Databasus (web UI backups, PITR), pgbackrest_auto (verified restores)
+- **Migration target:** Outline (30MB PostgreSQL) first, then OpenWebUI
+- **Article focus:** Production PostgreSQL resilience — backups, monitoring, verified restores (NOT migration-focused)
 
-**Research:** Complete. Extensive Hegelian analysis is already in Outline.
+**Steps:**
+1. Provision CAX31 and Storage Box
+2. Set up Coolify + Databasus on CAX31
+3. Configure remote backup for Outline (x86 → ARM)
+4. Run pgbench benchmarks on ARM
+5. Set up pgbackrest_auto for verified restores
+6. Execute Outline migration as pilot
+7. Write article from real experience
 
-**LinkedIn post:** See `DIST-3` Post E above.
-
-**GitHub issue:** `#97`
+**When:** Targeting next week (after landing consulting gigs)
 
 #### CONTENT-2: Article 6 - US Vendor Dependency and EU Sovereignty
 
@@ -246,6 +254,24 @@ Code changes that capture visitors who arrive but are not ready to book a call.
 #### CONTENT-6: Database Articles
 - Publish additional database-focused content
 - **GitHub issue:** `#97`
+
+#### CONTENT-7: FinOps Case Study - Real AWS Cost Breakdown
+
+**Status:** Research complete, pending anonymization for public use
+
+**Context:** Captured infracost output from real AWS infrastructure showing $2,724/month spend with clear waste patterns. This provides the raw data for our €2k Waste Report template and demonstrates the exact problem we solve.
+
+**Key findings:**
+- Production + Staging: $2,724/month
+- Staging parity penalty: ~$576/month waste (managed services running 24/7)
+- Managed service premium: $438/month (SFTP protocol fees alone)
+- RDS trap: $909/month for PostgreSQL
+- Potential repatriation savings: ~$2,500/month (~$30k/year)
+
+**Outline document:** https://notes.eduardosanzb.dev/doc/finops-case-study-real-aws-cost-breakdown-642d4de4-262b-4958-9a31-bcdf559c2515
+
+**Dependencies:** Publish after Article 5 (CONTENT-1)
+**Priority:** P2 (after current content pipeline)
 
 ---
 
@@ -324,12 +350,25 @@ Explicitly parked until Phase 1 commercial metrics are met.
 
 ### P5 - Infrastructure Operations
 
-Platform and tooling improvements to support the consulting service.
+Platform and tooling improvements to support the consulting service. Also serves as reference implementations for client work.
+
+#### INFRA-5: ARM Migration + PostgreSQL Resilience POC ✅ Active
+- **Status:** 🔄 **In Progress — targeting next week**
+- **Purpose:** Build Article 5 from real experience + dogfood the consulting approach
+- **Architecture:** Single CAX31 (ARM, 8 vCPU, €14.90/mo) + Hetzner Storage Box BX11 (100GB, €3.81/mo)
+- **Stack:** Coolify + Databasus + pgbackrest_auto + Prometheus/Grafana
+- **Migration plan:** 
+  1. CAX31 remotely backs up x86 Postgres (Outline)
+  2. Restore becomes new primary
+  3. Switch DNS, decommission x86
+  4. Repeat pattern for OpenWebUI (need to verify database type first)
+- **Cleanup:** Delete campfire container from x86 server
+- **Total cost:** €18.71/mo (vs current CX33 at ~€15/mo)
+- **Output:** Production PostgreSQL backup/restore documentation + Article 5 content
+- **Note:** This is the POC for CONTENT-1 (Article 5). Old archived article is dead.
 
 #### INFRA-1: Migrate to ARM Hetzner Instance
-- **Status:** ⏸️ Deferred (Not MVP)
-- Optimize FlagMeter deployment for ARM architecture
-- **GitHub issue:** `#53`
+- **Status:** ⏸️ Deferred (now being done as part of INFRA-5)
 
 #### INFRA-2: Decouple Database to Coolify DB
 - **Status:** ⏸️ Deferred (Not MVP)
