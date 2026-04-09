@@ -657,6 +657,10 @@
   }
   const SESSION_ID = getSessionId();
 
+  // --- Partial record ID for linking saves ---
+  var PARTIAL_RECORD_ID = null;
+  const RECORD_ID_KEY = STORAGE_KEY + '_record_id';
+
   // --- Scoring constants ---
   var SCORING_STEP = 6; // Result appears after step 6
   var resultShown = false;
@@ -889,6 +893,15 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
+    }).then(function(res) {
+      if (res.ok) {
+        return res.json().then(function(data) {
+          if (data && data.id) {
+            PARTIAL_RECORD_ID = data.id;
+            try { localStorage.setItem(RECORD_ID_KEY, data.id); } catch (err) {}
+          }
+        });
+      }
     }).catch(function(err) {
       console.error('Partial save error:', err);
     });
@@ -940,6 +953,8 @@
 
   function clearState() {
     try { localStorage.removeItem(STORAGE_KEY); } catch (err) {}
+    try { localStorage.removeItem(RECORD_ID_KEY); } catch (err) {}
+    PARTIAL_RECORD_ID = null;
   }
 
   function restoreAnswers(answers) {
@@ -1193,8 +1208,13 @@
     payload.score_cost_resilience = scores.costResilience;
     payload.score_ai_readiness = scores.aiReadiness;
 
-    fetch(PB_ENDPOINT, {
-      method: 'POST',
+    // Determine if we should PATCH existing record or POST new one
+    var usePatch = !!PARTIAL_RECORD_ID;
+    var endpoint = usePatch ? PB_ENDPOINT + '/' + PARTIAL_RECORD_ID : PB_ENDPOINT;
+    var method = usePatch ? 'PATCH' : 'POST';
+
+    fetch(endpoint, {
+      method: method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     }).then(function(res) {
@@ -1226,6 +1246,14 @@
     current = SCORING_STEP + 1; // Go to first post-result question
     showStep(current);
   });
+
+  // Restore partial record ID from localStorage if exists
+  try {
+    var storedRecordId = localStorage.getItem(RECORD_ID_KEY);
+    if (storedRecordId) {
+      PARTIAL_RECORD_ID = storedRecordId;
+    }
+  } catch (err) {}
 
   var saved = getSavedState();
   if (saved) {
