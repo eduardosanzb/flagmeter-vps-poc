@@ -1,112 +1,32 @@
 {{ define "main" }}
 <div class="min-h-screen bg-white dark:bg-gray-900">
 
-  <!-- Hero Section -->
-  <div class="bg-brand-primary text-white py-20">
+  <!-- Hero Section with embedded prompt CTA -->
+  <div class="bg-white dark:bg-brand-primary text-brand-dark dark:text-white py-20">
     <div class="container-custom">
-      <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">AI Strategy Framework</h1>
-      <p class="text-brand-secondary text-lg max-w-3xl mb-4">A practical framework for companies too big to wing it but too lean to hire specialists. Five dimensions, four maturity levels, zero bullshit.</p>
-      <p class="text-brand-accent font-medium max-w-3xl">Not adopting AI is a risk. Adopting without strategy is a bigger risk. This is the middle path.</p>
-    </div>
-  </div>
-
-  <!-- TL;DR / Prompt CTA Box -->
-  <div class="bg-brand-light dark:bg-gray-800 py-16">
-    <div class="container-custom">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="font-display text-2xl font-bold text-brand-dark dark:text-white mb-4">Run this assessment with your own AI</h2>
-        <p class="text-brand-secondary dark:text-gray-400 mb-6">Copy the prompt and paste it into Claude, ChatGPT, or whatever you use. It walks you through all five dimensions, one at a time.</p>
-        <span id="ai-strategy-prompt" hidden>You are an AI strategy assessor for European tech companies. Your job is to guide the user through a structured self-assessment of their company's AI strategy, one dimension at a time.
-
-## Context
-
-Most European tech companies (20-100 people) are in one of two positions: either they've adopted AI tools without any framework (chaos), or they're being pressured by leadership/investors to "have an AI strategy" without knowing what that means. This assessment helps them understand where they actually stand and what to do about it.
-
-The assessment covers five dimensions. For each dimension, there are four maturity levels. You will ask the user 3-5 questions about each dimension, then score them and explain what their position means.
-
-## The Five Dimensions
-
-### 1. Adoption Governance
-
-Who decides which AI tools the company uses? Is there a framework or is it chaos?
-
-* Level 1 (Chaos): No policy. Everyone picks their own tools. No measurement.
-* Level 2 (Mandate): Leadership says "use AI" but provides no framework. Tools proliferate unmanaged.
-* Level 3 (Governed): Clear guardrails (data rules, approved vendors). Engineers choose within them. Usage is measured.
-* Level 4 (Adaptive): Framework evolves with the market. New tools evaluated systematically. Both enthusiasts and resisters supported.
-
-### 2. Vendor Dependency
-
-Are you coupled to one AI provider the same way you were coupled to AWS?
-
-* Level 1 (Coupled): Direct API integration with one provider. No abstraction. Switching = rewrite.
-* Level 2 (Standardized): Using one provider consistently. Some awareness of lock-in but no action.
-* Level 3 (Abstracted): Abstraction layer in place. Can swap providers in config. Open-source evaluated.
-* Level 4 (Portable): Can switch providers in in hours, not months. Self-hosted where it makes sense. No single provider is critical path.
-
-### 3. Data Sovereignty
-
-What data flows through AI providers? Are you GDPR/EU AI Act compliant?
-
-* Level 1 (Exposed): No data classification for AI. Engineers send whatever they want to US providers.
-* Level 2 (Aware): Some awareness of risk. Informal rules but no enforcement.
-* Level 3 (Classified): Clear data routing policy. Customer data → EU/self-hosted. Internal → approved providers. Enforced.
-* Level 4 (Sovereign): All AI data flows mapped and controlled. EU-hosted inference by default. Compliance is continuous.
-
-### 4. Cost Visibility
-
-Do you know what you're spending on AI? Are you building on subsidized pricing?
-
-* Level 1 (Blind): No tracking of AI spend. Costs hidden in general software budget.
-* Level 2 (Tracking): Some visibility into subscriptions. Token/API costs estimated but not precise.
-* Level 3 (Measured): Full cost visibility. Per-engineer, per-tool, per-use-case. ROI evaluated.
-* Level 4 (Optimized): Cost modeled under multiple pricing scenarios. Self-hosted alternatives evaluated. Budget resilient to 3-5x price increases.
-
-### 5. Team Health
-
-Is AI making your team more productive or more burned out?
-
-* Level 1 (Unmanaged): No measurement. AI enthusiasts and resisters in conflict. No burnout awareness.
-* Level 2 (Measured): Some productivity tracking. Tension acknowledged but not addressed.
-* Level 3 (Balanced): Both styles supported. Quality metrics tracked. Burnout signals monitored. Junior skill development prioritized.
-* Level 4 (Sustainable): AI usage is intentional, not compulsive. Team health metrics alongside productivity. Skills grow with AI, not atrophy.
-
-## How to Conduct the Assessment
-
-
-1. Start by briefly explaining what this assessment is and what the five dimensions cover (2-3 sentences each).
-2. Then go through each dimension ONE AT A TIME. For each dimension:
-
-   
-   a. Ask 3-5 questions about the user's current situation in that dimension. Wait for their answers before proceeding.
-   b. Based on their answers, determine their maturity level (1-4) and give it a label.
-   c. Explain what their level means in practical terms — what risks they face and what opportunities they're missing.
-   d. Suggest 2-3 concrete next steps calibrated to their specific level and answers.
-3. After all five dimensions, provide a SYNTHESIS that connects the dots across dimensions. This is the most valuable part. Look for patterns like:
-   * "You've built the same dependency twice" (if they're Coupled on Vendor Dependency AND locked into a single cloud provider)
-   * "Your cost problem is really a visibility problem" (if they're Blind on Cost Visibility but don't realize it)
-   * "Your team health issue is a governance issue in disguise" (if they're Unmanaged on Team Health because there's no framework)
-   * "The subsidized pricing risk makes your vendor dependency more dangerous than you think" (if they're Coupled AND Blind)
-4. End with 3-5 prioritized next steps for the quarter, ordered by impact.
-
-## Important Guidelines
-
-* Be honest but not punitive. Use stage-based language ("you're at Level 1" not "you're failing").
-* Be specific to their answers, not generic. If they say they use Claude for everything, address Claude specifically.
-* Connect the dimensions. The most valuable insight is how the dimensions interact, not each one in isolation.
-* Don't pretend this is a real audit — it's a self-reported snapshot. Acknowledge that honestly.
-* If the user is at Level 4 on something, acknowledge it. Don't manufacture problems.
-* Keep each dimension's assessment concise — 2-3 minutes of conversation per dimension.
-* Write in a direct, engineer-to-engineer tone. No corporate jargon.
-
-Begin by introducing the assessment and asking about the first dimension (Adoption Governance).</span>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: headline + taglines -->
+        <div>
+          <h1 class="font-display text-4xl md:text-5xl font-bold text-brand-dark dark:text-white mb-6">AI Strategy Framework</h1>
+          <p class="text-brand-secondary text-lg max-w-xl mb-4">A practical framework for companies too big to wing it but too lean to hire specialists. Five dimensions, four maturity levels, zero bullshit.</p>
+          <p class="text-brand-accent font-medium max-w-xl">Not adopting AI is a risk. Adopting without strategy is a bigger risk. This is the middle path.</p>
+        </div>
+        <!-- Right: prompt CTA card -->
+        <div class="bg-brand-light dark:bg-gray-900/60 border border-brand-border dark:border-gray-700 rounded-2xl p-8">
+          <h2 class="font-display text-xl font-bold text-brand-dark dark:text-white mb-3">Slides bore you?</h2>
+          <p class="text-brand-secondary dark:text-gray-400 text-sm mb-6">Copy the prompt and paste it into Claude, ChatGPT, or whatever you use. It walks you through all five dimensions, one at a time.</p>
+        {{ $prompt := .Site.GetPage "/ai-strategy-prompt" }}
+        {{ if $prompt }}
+        <span id="ai-strategy-prompt" hidden>{{ $prompt.RawContent }}</span>
+        {{ end }}
         <button id="copy-btn" onclick="copyPrompt()" class="bg-brand-accent hover:bg-brand-accentDark text-white px-6 py-3 rounded-lg font-medium transition-colors">Copy prompt</button>
-      </div>
-    </div>
-  </div>
+        </div><!-- /card -->
+      </div><!-- /grid -->
+    </div><!-- /container-custom -->
+  </div><!-- /hero -->
 
   <!-- Slide Viewer -->
-  <div class="bg-brand-primary py-10">
+  <div class="dark bg-brand-primary py-20">
     <div class="container-custom">
       <div class="relative rounded-2xl border border-gray-800 overflow-hidden flex flex-col" style="height: 640px;">
 
@@ -533,7 +453,8 @@ Begin by introducing the assessment and asking about the first dimension (Adopti
                     </div>
                     <div>
                       <p class="text-white font-semibold mb-1 text-sm">{{ .heading }}</p>
-                      <p class="text-gray-400 text-xs leading-relaxed">{{ .body }}</p>
+                        <p class="text-gray-400 text-xs leading-relaxed">{{ with .description }}{{ . }}{{ else }}{{ .body }}{{ end }}</p>
+                        {{ if .levels }}<p class="text-brand-accent/70 text-xs font-mono mt-1.5">{{ .levels }}</p>{{ end }}
                     </div>
                   </div>
                   {{ end }}
@@ -583,7 +504,10 @@ Begin by introducing the assessment and asking about the first dimension (Adopti
           </div>
           <div class="flex items-center justify-between px-6 py-3 bg-brand-primary">
             <button id="ai-btn-prev" data-ai-prev class="btn btn-secondary text-sm py-1.5 px-4">← Prev</button>
-            <span id="ai-slide-counter" class="text-brand-secondary text-xs font-mono"></span>
+            <div class="text-center">
+              <span id="ai-slide-counter" class="text-brand-secondary text-xs font-mono block"></span>
+              <span class="text-gray-600 text-xs font-mono hidden sm:inline">← → keys · swipe</span>
+            </div>
             <button id="ai-btn-next" data-ai-next class="btn btn-primary text-sm py-1.5 px-4">Next →</button>
           </div>
         </div>
@@ -624,7 +548,7 @@ Begin by introducing the assessment and asking about the first dimension (Adopti
     navigator.clipboard.writeText(text).then(function() {
       var btn = document.getElementById('copy-btn');
       btn.textContent = 'Copied!';
-      setTimeout(function() { btn.textContent = 'Copy to clipboard'; }, 2000);
+      setTimeout(function() { btn.textContent = 'Copy prompt'; }, 2000);
     });
   }
 </script>
