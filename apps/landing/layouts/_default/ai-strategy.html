@@ -1,0 +1,502 @@
+{{ define "main" }}
+<div class="min-h-screen bg-white dark:bg-gray-900">
+
+  <!-- Hero Section -->
+  <div class="bg-brand-primary text-white py-20">
+    <div class="container-custom">
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">AI Strategy Framework</h1>
+      <p class="text-brand-secondary text-lg max-w-3xl mb-4">A practical framework for companies too big to wing it but too lean to hire specialists. Five dimensions, four maturity levels, zero bullshit.</p>
+      <p class="text-brand-accent font-medium max-w-3xl">Not adopting AI is a risk. Adopting without strategy is a bigger risk. This is the middle path.</p>
+    </div>
+  </div>
+
+  <!-- TL;DR / Prompt CTA Box -->
+  <div class="bg-brand-light dark:bg-gray-800 py-16">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-2xl font-bold text-brand-dark dark:text-white mb-4">Run this assessment with your own AI</h2>
+        <p class="text-brand-secondary dark:text-gray-400 mb-6">Copy the prompt below and paste it into Claude, ChatGPT, or whatever you use. It'll walk you through each dimension, score you, and give you a personalized snapshot. No email required.</p>
+        <pre id="ai-strategy-prompt" class="bg-brand-primary text-white p-6 rounded-lg text-sm overflow-x-auto whitespace-pre-wrap mb-6">You are an AI strategy assessor for European tech companies. Your job is to guide the user through a structured self-assessment of their company's AI strategy, one dimension at a time.
+
+## Context
+
+Most European tech companies (20-100 people) are in one of two positions: either they've adopted AI tools without any framework (chaos), or they're being pressured by leadership/investors to "have an AI strategy" without knowing what that means. This assessment helps them understand where they actually stand and what to do about it.
+
+The assessment covers five dimensions. For each dimension, there are four maturity levels. You will ask the user 3-5 questions about each dimension, then score them and explain what their position means.
+
+## The Five Dimensions
+
+### 1. Adoption Governance
+
+Who decides which AI tools the company uses? Is there a framework or is it chaos?
+
+* Level 1 (Chaos): No policy. Everyone picks their own tools. No measurement.
+* Level 2 (Mandate): Leadership says "use AI" but provides no framework. Tools proliferate unmanaged.
+* Level 3 (Governed): Clear guardrails (data rules, approved vendors). Engineers choose within them. Usage is measured.
+* Level 4 (Adaptive): Framework evolves with the market. New tools evaluated systematically. Both enthusiasts and resisters supported.
+
+### 2. Vendor Dependency
+
+Are you coupled to one AI provider the same way you were coupled to AWS?
+
+* Level 1 (Coupled): Direct API integration with one provider. No abstraction. Switching = rewrite.
+* Level 2 (Standardized): Using one provider consistently. Some awareness of lock-in but no action.
+* Level 3 (Abstracted): Abstraction layer in place. Can swap providers in config. Open-source evaluated.
+* Level 4 (Portable): Can switch providers in in hours, not months. Self-hosted where it makes sense. No single provider is critical path.
+
+### 3. Data Sovereignty
+
+What data flows through AI providers? Are you GDPR/EU AI Act compliant?
+
+* Level 1 (Exposed): No data classification for AI. Engineers send whatever they want to US providers.
+* Level 2 (Aware): Some awareness of risk. Informal rules but no enforcement.
+* Level 3 (Classified): Clear data routing policy. Customer data → EU/self-hosted. Internal → approved providers. Enforced.
+* Level 4 (Sovereign): All AI data flows mapped and controlled. EU-hosted inference by default. Compliance is continuous.
+
+### 4. Cost Visibility
+
+Do you know what you're spending on AI? Are you building on subsidized pricing?
+
+* Level 1 (Blind): No tracking of AI spend. Costs hidden in general software budget.
+* Level 2 (Tracking): Some visibility into subscriptions. Token/API costs estimated but not precise.
+* Level 3 (Measured): Full cost visibility. Per-engineer, per-tool, per-use-case. ROI evaluated.
+* Level 4 (Optimized): Cost modeled under multiple pricing scenarios. Self-hosted alternatives evaluated. Budget resilient to 3-5x price increases.
+
+### 5. Team Health
+
+Is AI making your team more productive or more burned out?
+
+* Level 1 (Unmanaged): No measurement. AI enthusiasts and resisters in conflict. No burnout awareness.
+* Level 2 (Measured): Some productivity tracking. Tension acknowledged but not addressed.
+* Level 3 (Balanced): Both styles supported. Quality metrics tracked. Burnout signals monitored. Junior skill development prioritized.
+* Level 4 (Sustainable): AI usage is intentional, not compulsive. Team health metrics alongside productivity. Skills grow with AI, not atrophy.
+
+## How to Conduct the Assessment
+
+
+1. Start by briefly explaining what this assessment is and what the five dimensions cover (2-3 sentences each).
+2. Then go through each dimension ONE AT A TIME. For each dimension:
+
+   
+   a. Ask 3-5 questions about the user's current situation in that dimension. Wait for their answers before proceeding.
+   b. Based on their answers, determine their maturity level (1-4) and give it a label.
+   c. Explain what their level means in practical terms — what risks they face and what opportunities they're missing.
+   d. Suggest 2-3 concrete next steps calibrated to their specific level and answers.
+3. After all five dimensions, provide a SYNTHESIS that connects the dots across dimensions. This is the most valuable part. Look for patterns like:
+   * "You've built the same dependency twice" (if they're Coupled on Vendor Dependency AND locked into a single cloud provider)
+   * "Your cost problem is really a visibility problem" (if they're Blind on Cost Visibility but don't realize it)
+   * "Your team health issue is a governance issue in disguise" (if they're Unmanaged on Team Health because there's no framework)
+   * "The subsidized pricing risk makes your vendor dependency more dangerous than you think" (if they're Coupled AND Blind)
+4. End with 3-5 prioritized next steps for the quarter, ordered by impact.
+
+## Important Guidelines
+
+* Be honest but not punitive. Use stage-based language ("you're at Level 1" not "you're failing").
+* Be specific to their answers, not generic. If they say they use Claude for everything, address Claude specifically.
+* Connect the dimensions. The most valuable insight is how the dimensions interact, not each one in isolation.
+* Don't pretend this is a real audit — it's a self-reported snapshot. Acknowledge that honestly.
+* If the user is at Level 4 on something, acknowledge it. Don't manufacture problems.
+* Keep each dimension's assessment concise — 2-3 minutes of conversation per dimension.
+* Write in a direct, engineer-to-engineer tone. No corporate jargon.
+
+Begin by introducing the assessment and asking about the first dimension (Adoption Governance).</pre>
+        <button id="copy-btn" onclick="copyPrompt()" class="bg-brand-accent hover:bg-brand-accentDark text-white px-6 py-3 rounded-lg font-medium transition-colors">Copy to clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Framework Overview / Core Insight -->
+  <div class="section-dark">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-3xl font-bold text-white mb-6">The Core Insight</h2>
+        <p class="text-gray-300 text-lg leading-relaxed mb-6">AI vendor dependency is the new cloud vendor lock-in, and it's worse. Same pattern — subsidized adoption → dependency → pricing correction — but the dependency is at the knowledge layer, not the infrastructure layer. When AWS raises prices, you can (painfully) migrate your Terraform. When Anthropic raises prices, you can't migrate your prompts, evals, and engineering workflows.</p>
+        <p class="text-gray-400 text-lg leading-relaxed">This framework is opinionated but humble. It's not the final answer — AI is moving too fast for final answers. But it's better than having no framework at all, which is where most companies are.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dimension 1: Adoption Governance (light bg) -->
+  <div class="section-light">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-3xl font-bold text-brand-dark dark:text-white mb-2">1. Adoption Governance</h2>
+        <p class="text-brand-secondary dark:text-gray-400 text-lg mb-8">Who decides which AI tools the company uses?</p>
+
+        <!-- Thesis / Antithesis / Synthesis -->
+        <div class="space-y-4 mb-10">
+          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-50/50 dark:bg-green-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-green-600 dark:text-green-400 mb-1">The mainstream position</p>
+            <p class="text-brand-dark dark:text-gray-300">Give everyone AI tools, mandate adoption, standardize on one platform.</p>
+          </div>
+          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-50/50 dark:bg-red-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">The skeptical position</p>
+            <p class="text-brand-dark dark:text-gray-300">Mandated adoption without framework creates chaos, random tool adoption, 30% actual usage.</p>
+          </div>
+          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-brand-light/50 dark:bg-emerald-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
+            <p class="text-brand-dark dark:text-gray-300">Top-down guardrails, bottom-up adoption. Leadership sets constraints, engineers choose within them.</p>
+          </div>
+        </div>
+
+        <!-- Maturity Levels -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">1</p>
+            <p class="font-semibold text-sm">Chaos</p>
+            <p class="text-xs mt-1 opacity-80">No policy, no measurement</p>
+          </div>
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">2</p>
+            <p class="font-semibold text-sm">Mandate</p>
+            <p class="text-xs mt-1 opacity-80">Top-down, no framework</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">3</p>
+            <p class="font-semibold text-sm">Governed</p>
+            <p class="text-xs mt-1 opacity-80">Guardrails + measurement</p>
+          </div>
+          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">4</p>
+            <p class="font-semibold text-sm">Adaptive</p>
+            <p class="text-xs mt-1 opacity-80">Evolves with the market</p>
+          </div>
+        </div>
+
+        <!-- Diagnostic Questions -->
+        <div class="mb-8">
+          <h3 class="font-display text-lg font-semibold text-brand-dark dark:text-white mb-3">Diagnostic Questions</h3>
+          <ul class="space-y-2 text-brand-secondary dark:text-gray-400">
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Can anyone in your company sign up for any AI tool without approval?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you have a list of approved AI tools and data rules for each?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Is AI usage measured — who uses what, how often, for what?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> When a new AI tool launches, is there a process to evaluate it?</li>
+          </ul>
+        </div>
+
+        <!-- What Good Looks Like -->
+        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-brand-light/30 dark:bg-emerald-900/10 rounded-r-lg">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
+          <p class="text-brand-dark dark:text-gray-300">Your AI framework evolves with the market. New tools are evaluated systematically. Both enthusiasts and resisters are supported. Governance enables adoption rather than blocking it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dimension 2: Vendor Dependency (dark bg) -->
+  <div class="section-dark">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-3xl font-bold text-white mb-2">2. Vendor Dependency</h2>
+        <p class="text-gray-400 text-lg mb-8">Are you coupled to one AI provider the same way you were coupled to AWS?</p>
+
+        <!-- Thesis / Antithesis / Synthesis -->
+        <div class="space-y-4 mb-10">
+          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-green-400 mb-1">The mainstream position</p>
+            <p class="text-gray-300">Use the best model for the job, direct API integration is fine.</p>
+          </div>
+          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">The skeptical position</p>
+            <p class="text-gray-300">Can't switch later — prompts are model-specific, evals are model-specific, pricing is fake.</p>
+          </div>
+          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-emerald-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
+            <p class="text-gray-300">Abstract from day one. LiteLLM or similar. Switch in config, not code.</p>
+          </div>
+        </div>
+
+        <!-- Maturity Levels -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">1</p>
+            <p class="font-semibold text-sm">Coupled</p>
+            <p class="text-xs mt-1 opacity-80">Direct API, no abstraction</p>
+          </div>
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">2</p>
+            <p class="font-semibold text-sm">Standardized</p>
+            <p class="text-xs mt-1 opacity-80">One provider, aware of lock-in</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">3</p>
+            <p class="font-semibold text-sm">Abstracted</p>
+            <p class="text-xs mt-1 opacity-80">Swap in config, not code</p>
+          </div>
+          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">4</p>
+            <p class="font-semibold text-sm">Portable</p>
+            <p class="text-xs mt-1 opacity-80">Switch in hours, not months</p>
+          </div>
+        </div>
+
+        <!-- Diagnostic Questions -->
+        <div class="mb-8">
+          <h3 class="font-display text-lg font-semibold text-white mb-3">Diagnostic Questions</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> If your AI provider doubled prices tomorrow, how long would it take to switch?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are your prompts and evals model-specific or model-agnostic?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you have an abstraction layer between your code and AI providers?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Have you evaluated self-hosted or open-source alternatives?</li>
+          </ul>
+        </div>
+
+        <!-- What Good Looks Like -->
+        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-emerald-900/10 rounded-r-lg">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
+          <p class="text-gray-300">You can switch AI providers in hours, not months. Self-hosted where it makes sense. No single provider is your critical path.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dimension 3: Data Sovereignty (light bg) -->
+  <div class="section-light">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-3xl font-bold text-brand-dark dark:text-white mb-2">3. Data Sovereignty</h2>
+        <p class="text-brand-secondary dark:text-gray-400 text-lg mb-8">What data flows through AI providers?</p>
+
+        <!-- Thesis / Antithesis / Synthesis -->
+        <div class="space-y-4 mb-10">
+          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-50/50 dark:bg-green-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-green-600 dark:text-green-400 mb-1">The mainstream position</p>
+            <p class="text-brand-dark dark:text-gray-300">AI providers have DPAs, compliance team handles it.</p>
+          </div>
+          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-50/50 dark:bg-red-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">The skeptical position</p>
+            <p class="text-brand-dark dark:text-gray-300">Engineers pasting customer data into ChatGPT right now, CLOUD Act, EU AI Act.</p>
+          </div>
+          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-brand-light/50 dark:bg-emerald-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
+            <p class="text-brand-dark dark:text-gray-300">Classify first, route second. One-page "what data can go where" policy.</p>
+          </div>
+        </div>
+
+        <!-- Maturity Levels -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">1</p>
+            <p class="font-semibold text-sm">Exposed</p>
+            <p class="text-xs mt-1 opacity-80">No classification for AI</p>
+          </div>
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">2</p>
+            <p class="font-semibold text-sm">Aware</p>
+            <p class="text-xs mt-1 opacity-80">Informal rules, no enforcement</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">3</p>
+            <p class="font-semibold text-sm">Classified</p>
+            <p class="text-xs mt-1 opacity-80">Data routing policy, enforced</p>
+          </div>
+          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">4</p>
+            <p class="font-semibold text-sm">Sovereign</p>
+            <p class="text-xs mt-1 opacity-80">All flows mapped, EU default</p>
+          </div>
+        </div>
+
+        <!-- Diagnostic Questions -->
+        <div class="mb-8">
+          <h3 class="font-display text-lg font-semibold text-brand-dark dark:text-white mb-3">Diagnostic Questions</h3>
+          <ul class="space-y-2 text-brand-secondary dark:text-gray-400">
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you know which data your engineers send to which AI providers?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Is customer data ever pasted into external AI tools?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you have a "what data can go where" policy?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are you compliant with GDPR and the EU AI Act for AI data flows?</li>
+          </ul>
+        </div>
+
+        <!-- What Good Looks Like -->
+        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-brand-light/30 dark:bg-emerald-900/10 rounded-r-lg">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
+          <p class="text-brand-dark dark:text-gray-300">All AI data flows are mapped and controlled. EU-hosted inference by default. Compliance is continuous, not a one-time checkbox.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dimension 4: Cost Visibility (dark bg) -->
+  <div class="section-dark">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-3xl font-bold text-white mb-2">4. Cost Visibility</h2>
+        <p class="text-gray-400 text-lg mb-8">Do you know what you're spending on AI?</p>
+
+        <!-- Thesis / Antithesis / Synthesis -->
+        <div class="space-y-4 mb-10">
+          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-green-400 mb-1">The mainstream position</p>
+            <p class="text-gray-300">AI tools are cheap, $20/month, ROI is obvious.</p>
+          </div>
+          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-red-400 mb-1">The skeptical position</p>
+            <p class="text-gray-300">Pricing is fake — teaser rates, $5000/month burn on $200 subscriptions, ARM reset coming.</p>
+          </div>
+          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-emerald-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
+            <p class="text-gray-300">Measure before you optimize. Track per-engineer spend. Plan for 3-5x price increases.</p>
+          </div>
+        </div>
+
+        <!-- Maturity Levels -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">1</p>
+            <p class="font-semibold text-sm">Blind</p>
+            <p class="text-xs mt-1 opacity-80">No tracking of AI spend</p>
+          </div>
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">2</p>
+            <p class="font-semibold text-sm">Tracking</p>
+            <p class="text-xs mt-1 opacity-80">Subscriptions visible, not precise</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">3</p>
+            <p class="font-semibold text-sm">Measured</p>
+            <p class="text-xs mt-1 opacity-80">Full visibility, ROI evaluated</p>
+          </div>
+          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">4</p>
+            <p class="font-semibold text-sm">Optimized</p>
+            <p class="text-xs mt-1 opacity-80">Resilient to 3-5x price hikes</p>
+          </div>
+        </div>
+
+        <!-- Diagnostic Questions -->
+        <div class="mb-8">
+          <h3 class="font-display text-lg font-semibold text-white mb-3">Diagnostic Questions</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Can you name your total AI spend last month, broken down by tool?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you know the per-engineer cost of AI tools?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Have you modeled what happens if AI prices increase 3-5x?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are you building on subsidized (teaser) pricing?</li>
+          </ul>
+        </div>
+
+        <!-- What Good Looks Like -->
+        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-emerald-900/10 rounded-r-lg">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
+          <p class="text-gray-300">Cost modeled under multiple pricing scenarios. Self-hosted alternatives evaluated. Budget resilient to 3-5x price increases.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dimension 5: Team Health (light bg) -->
+  <div class="section-light">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-3xl font-bold text-brand-dark dark:text-white mb-2">5. Team Health</h2>
+        <p class="text-brand-secondary dark:text-gray-400 text-lg mb-8">Is AI making your team more productive or more burned out?</p>
+
+        <!-- Thesis / Antithesis / Synthesis -->
+        <div class="space-y-4 mb-10">
+          <div class="border-l-4 border-green-400 pl-6 py-3 bg-green-50/50 dark:bg-green-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-green-600 dark:text-green-400 mb-1">The mainstream position</p>
+            <p class="text-brand-dark dark:text-gray-300">AI makes engineers 10x more productive, resisters are just resistant to change.</p>
+          </div>
+          <div class="border-l-4 border-red-400 pl-6 py-3 bg-red-50/50 dark:bg-red-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">The skeptical position</p>
+            <p class="text-brand-dark dark:text-gray-300">Dracula Effect — agentic coding is draining, skill atrophy, vibe coding debt, team divide.</p>
+          </div>
+          <div class="border-l-4 border-brand-accent pl-6 py-3 bg-brand-light/50 dark:bg-emerald-900/10 rounded-r-lg">
+            <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-1">The practical middle path</p>
+            <p class="text-brand-dark dark:text-gray-300">Productivity is not output volume. Measure what matters. Support both styles. Watch for burnout.</p>
+          </div>
+        </div>
+
+        <!-- Maturity Levels -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">1</p>
+            <p class="font-semibold text-sm">Unmanaged</p>
+            <p class="text-xs mt-1 opacity-80">No measurement, team conflict</p>
+          </div>
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">2</p>
+            <p class="font-semibold text-sm">Measured</p>
+            <p class="text-xs mt-1 opacity-80">Tracking, tension unaddressed</p>
+          </div>
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">3</p>
+            <p class="font-semibold text-sm">Balanced</p>
+            <p class="text-xs mt-1 opacity-80">Both styles, burnout monitored</p>
+          </div>
+          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-800 dark:text-green-300 rounded-lg p-4 text-center">
+            <p class="text-2xl font-bold mb-1">4</p>
+            <p class="font-semibold text-sm">Sustainable</p>
+            <p class="text-xs mt-1 opacity-80">Intentional, skills grow with AI</p>
+          </div>
+        </div>
+
+        <!-- Diagnostic Questions -->
+        <div class="mb-8">
+          <h3 class="font-display text-lg font-semibold text-brand-dark dark:text-white mb-3">Diagnostic Questions</h3>
+          <ul class="space-y-2 text-brand-secondary dark:text-gray-400">
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Is there tension between AI enthusiasts and AI resisters on your team?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Do you track quality metrics alongside output volume?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Are junior engineers developing skills or relying on AI output?</li>
+            <li class="flex gap-2"><span class="text-brand-accent flex-shrink-0">→</span> Have you seen signs of burnout from agentic coding workflows?</li>
+          </ul>
+        </div>
+
+        <!-- What Good Looks Like -->
+        <div class="border-l-4 border-brand-accent pl-6 py-4 bg-brand-light/30 dark:bg-emerald-900/10 rounded-r-lg">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-accent dark:text-emerald-400 mb-2">What good looks like (Level 4)</p>
+          <p class="text-brand-dark dark:text-gray-300">AI usage is intentional, not compulsive. Team health metrics alongside productivity. Skills grow with AI, not atrophy.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Subprime Parallel -->
+  <div class="bg-brand-primary py-20">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto border-l-4 border-brand-accent pl-8 py-6">
+        <h2 class="font-display text-3xl font-bold text-white mb-6">The Subprime Parallel</h2>
+        <p class="text-gray-300 text-lg leading-relaxed mb-6">AI pricing mirrors the 2008 subprime mortgage crisis. Subsidized pricing creates fake demand. Every AI lab is underwater — Anthropic: $5B revenue, $10B compute spend. OpenAI: $4.3B revenue, $8.67B on inference alone. When the subsidy ends, the ARM reset hits.</p>
+        <p class="text-gray-400 text-lg leading-relaxed mb-6">Same pattern at three scales — individual (dopamine loops), organizational (vendor coupling), economic (subprime AI). The correction is coming at all three levels.</p>
+        <p class="text-brand-accent font-medium">This framework helps you build independence before the correction hits.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Companion Assessment Section -->
+  <div class="section-light">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="font-display text-3xl font-bold text-brand-dark dark:text-white mb-4">Already know your infrastructure position?</h2>
+        <p class="text-brand-secondary dark:text-gray-400 text-lg mb-8 max-w-2xl mx-auto">Our Infrastructure Assessment scores you across Sovereignty, Cost Resilience, and AI-Readiness with specific, actionable diagnostics. Takes 2 minutes.</p>
+        <a href="{{ .Site.LanguagePrefix }}/assessment/" class="btn btn-primary inline-flex">Take the Assessment →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="bg-brand-accent py-16">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="font-display text-3xl font-bold text-white mb-4">Want help executing?</h2>
+        <p class="text-white/90 text-lg mb-8 max-w-2xl mx-auto">This framework helps you diagnose. If you want help building a sovereign AI strategy for your company, let's talk.</p>
+        <a href="{{ .Site.Params.calendarLink }}" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-8 py-4 rounded-lg font-medium transition-all duration-300 bg-white text-brand-accent hover:bg-gray-100 hover:shadow-2xl" style="font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.02em;">Book a Free 15-min Call →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Copy to clipboard script -->
+<script>
+  function copyPrompt() {
+    var el = document.getElementById('ai-strategy-prompt');
+    var text = el.textContent || el.innerText;
+    navigator.clipboard.writeText(text).then(function() {
+      var btn = document.getElementById('copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy to clipboard'; }, 2000);
+    });
+  }
+</script>
+{{ end }}
