@@ -1,6 +1,6 @@
 ---
 title: "Assessment de Infraestructura"
-description: "Encuesta rápida para empresas europeas de cloud y tecnología — toma 3 minutos."
+description: "Evaluación con puntuación para empresas europeas de cloud y tecnología — toma 2 minutos."
 type: assessment
 url: "/es/assessment/"
 pocketbase_endpoint: "/pb/api/collections/assessments/records"
@@ -11,7 +11,7 @@ draft: false
 questions:
   - id: q1_cloud_setup
     step: 1
-    section: "Contexto"
+    section: "Infraestructura"
     type: radio
     question: "¿Cuál es tu setup principal de cloud hoy?"
     hint: ""
@@ -28,26 +28,9 @@ questions:
       - value: on-premise
         label: "Principalmente on-premise"
 
-  - id: q2_team_size
-    step: 2
-    section: "Contexto"
-    type: radio
-    question: "¿Qué tan grande es tu equipo de ingeniería?"
-    hint: ""
-    required: true
-    options:
-      - value: "1-5"
-        label: "1–5"
-      - value: "6-20"
-        label: "6–20"
-      - value: "21-50"
-        label: "21–50"
-      - value: "50+"
-        label: "50+"
-
   - id: q3_pain_points
-    step: 3
-    section: "Pain Points"
+    step: 2
+    section: "Infraestructura"
     type: checkbox
     question: "¿Cuáles de estos te quitan el sueño?"
     hint: "Selecciona todos los que apliquen"
@@ -60,7 +43,7 @@ questions:
       - value: vendor-lock
         label: "Dependientes de un solo proveedor cloud de EE.UU. del que no podemos salir fácilmente"
       - value: ai-adoption
-        label: "Queremos adoptar AI pero no sabemos cómo hacerlo de forma segura y asequible"
+        label: "Queremos adoptar IA pero no sabemos cómo hacerlo de forma segura y asequible"
       - value: fragile-infra
         label: "La infrastructure es frágil — demasiado setup manual, poco IaC"
       - value: no-observability
@@ -69,8 +52,8 @@ questions:
         label: "Ninguno de los anteriores"
 
   - id: q4_migration
-    step: 4
-    section: "Pain Points"
+    step: 3
+    section: "Infraestructura"
     type: radio
     question: "Si tuvieras que migrar de tu proveedor cloud principal en 6 meses, ¿podrías?"
     hint: "Esta pregunta incomoda a muchos. Ese es el punto."
@@ -85,64 +68,79 @@ questions:
       - value: never-thought
         label: "Nunca lo había pensado"
 
-  - id: q5_audit_history
+  - id: q_cost_visibility
+    step: 4
+    section: "Costes"
+    type: radio
+    question: "¿Qué tan bien entiendes tu gasto en la nube?"
+    hint: ""
+    required: true
+    options:
+      - value: clear
+        label: "Tenemos dashboards claros y sabemos exactamente a dónde va el dinero"
+      - value: rough-idea
+        label: "Tenemos una idea general pero algunos costes son opacos"
+      - value: surprises
+        label: "Nos sorprenden las facturas de la nube regularmente"
+      - value: no-tracking
+        label: "No realmente rastreamos los costes de la nube"
+
+  - id: q_ai_adoption
     step: 5
-    section: "Interés en un audit"
+    section: "IA"
     type: radio
-    question: "¿Alguna vez han hecho un audit formal de infrastructure?"
-    hint: "Sovereignty, costes, AI-readiness — cualquiera de esos."
+    question: "¿Dónde está tu equipo con las herramientas de IA?"
+    hint: ""
     required: true
     options:
-      - value: yes-regularly
-        label: "Sí, regularmente"
-      - value: once-ago
-        label: "Una vez, hace tiempo"
-      - value: no-wanted
-        label: "No, pero hemos querido hacerlo"
-      - value: no-not-radar
-        label: "No, y no está en nuestro radar"
+      - value: not-using
+        label: "Aún no usamos herramientas de IA"
+      - value: individual
+        label: "Algunos ingenieros usan herramientas de IA por su cuenta"
+      - value: team-standard
+        label: "Hemos estandarizado herramientas específicas en todo el equipo"
+      - value: ai-first
+        label: "La IA es fundamental para cómo construimos — la mayoría de ingenieros usan agentes a diario"
 
-  - id: q6_audit_usefulness
+  - id: q_ai_coupling
     step: 6
-    section: "Interés en un audit"
+    section: "IA"
     type: radio
-    question: "Si alguien te diera un reporte claro — gaps de sovereignty, desperdicio de costes, score de AI-readiness, próximos pasos priorizados — ¿sería útil?"
+    question: "¿Qué tan dependiente es tu empresa de un único proveedor de IA?"
     hint: ""
     required: true
     options:
-      - value: very-useful
-        label: "Muy útil — lo hubiera querido ayer"
-      - value: interesting
-        label: "Interesante — le echaría un vistazo"
-      - value: maybe-cost
-        label: "Quizás, depende del coste"
-      - value: not-really
-        label: "No realmente"
+      - value: no-dependency
+        label: "No dependemos de proveedores de IA, o usamos modelos open-source / self-hosted"
+      - value: moderate
+        label: "Usamos un proveedor de IA pero podríamos cambiar con algo de esfuerzo"
+      - value: deep
+        label: "Nuestros flujos de trabajo de ingeniería dependen de un proveedor de IA específico — cambiar sería un proyecto importante"
+      - value: critical
+        label: "Todo nuestro producto o la productividad del equipo depende de un proveedor de IA — no podríamos operar sin ellos"
 
-  - id: q7_audit_budget
+  - id: q2_team_size
     step: 7
-    section: "Interés en un audit"
+    section: "Sobre ti"
     type: radio
-    question: "¿Cuánto esperarías pagar por un audit de infrastructure único?"
+    question: "¿Qué tan grande es tu equipo de ingeniería?"
     hint: ""
     required: true
     options:
-      - value: free
-        label: "Nada — debería ser gratis / un lead magnet"
-      - value: 500-2000
-        label: "500–2.000 euros"
-      - value: 2000-5000
-        label: "2.000–5.000 euros"
-      - value: 5000-plus
-        label: "5.000+ euros"
-      - value: no-idea
-        label: "Ni idea"
+      - value: "1-5"
+        label: "1–5"
+      - value: "6-20"
+        label: "6–20"
+      - value: "21-50"
+        label: "21–50"
+      - value: "50+"
+        label: "50+"
 
   - id: q8_agent_interest
     step: 8
-    section: "Interés en automatización"
+    section: "Sobre ti"
     type: radio
-    question: "Imagina un agente o CLI que monitorea continuamente sovereignty compliance, cost drift y AI-readiness — flaggeando problemas automáticamente. ¿Qué tan interesante es eso?"
+    question: "Imagina un agente que monitorea continuamente sovereignty compliance, cost drift y IA-readiness — flaggeando problemas automáticamente. ¿Qué tan interesante es eso?"
     hint: ""
     required: true
     options:
@@ -157,7 +155,7 @@ questions:
 
   - id: q9_agent_priorities
     step: 9
-    section: "Interés en automatización"
+    section: "Sobre ti"
     type: checkbox
     max: 2
     question: "Para una herramienta así, ¿qué sería lo más importante?"
@@ -177,9 +175,9 @@ questions:
 
   - id: lead
     step: 10
-    section: "Mantengamos el contacto"
+    section: "Tu instantánea"
     type: lead
-    question: "¿Podemos contactarte?"
+    question: "¿Quieres la imagen completa? Deja tu email y te enviaremos tu informe detallado."
     hint: "Todos los campos son opcionales — incluso solo un email ayuda."
     required: false
     fields:

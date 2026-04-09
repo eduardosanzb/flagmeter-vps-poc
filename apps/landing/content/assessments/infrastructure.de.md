@@ -1,6 +1,6 @@
 ---
 title: "Infrastruktur Assessment"
-description: "Kurze Umfrage für europäische Cloud- & Tech-Unternehmen — dauert 3 Minuten."
+description: "Scored Assessment für europäische Cloud- & Tech-Unternehmen — dauert 2 Minuten."
 type: assessment
 url: "/de/assessment/"
 pocketbase_endpoint: "/pb/api/collections/assessments/records"
@@ -11,7 +11,7 @@ draft: false
 questions:
   - id: q1_cloud_setup
     step: 1
-    section: "Kontext"
+    section: "Infrastruktur"
     type: radio
     question: "Was ist dein primäres Cloud Setup heute?"
     hint: ""
@@ -28,26 +28,9 @@ questions:
       - value: on-premise
         label: "Hauptsächlich On-Premise"
 
-  - id: q2_team_size
-    step: 2
-    section: "Kontext"
-    type: radio
-    question: "Wie groß ist dein Engineering-Team?"
-    hint: ""
-    required: true
-    options:
-      - value: "1-5"
-        label: "1–5"
-      - value: "6-20"
-        label: "6–20"
-      - value: "21-50"
-        label: "21–50"
-      - value: "50+"
-        label: "50+"
-
   - id: q3_pain_points
-    step: 3
-    section: "Pain Points"
+    step: 2
+    section: "Infrastruktur"
     type: checkbox
     question: "Was davon lässt dich nachts nicht schlafen?"
     hint: "Wähle alles aus, was zutrifft"
@@ -60,7 +43,7 @@ questions:
       - value: vendor-lock
         label: "Abhängig von einem einzelnen US-Cloud-Provider, den wir nicht einfach verlassen können"
       - value: ai-adoption
-        label: "Wollen AI einsetzen, aber wissen nicht wie — sicher und bezahlbar"
+        label: "Wollen KI einsetzen, aber wissen nicht wie — sicher und bezahlbar"
       - value: fragile-infra
         label: "Infrastructure ist fragil — zu viel manuelles Setup, zu wenig IaC"
       - value: no-observability
@@ -69,8 +52,8 @@ questions:
         label: "Nichts davon"
 
   - id: q4_migration
-    step: 4
-    section: "Pain Points"
+    step: 3
+    section: "Infrastruktur"
     type: radio
     question: "Wenn du in 6 Monaten von deinem Cloud-Provider weg müsstest — könntest du?"
     hint: "Diese Frage macht viele nervös. Genau darum geht's."
@@ -85,64 +68,79 @@ questions:
       - value: never-thought
         label: "Noch nie drüber nachgedacht"
 
-  - id: q5_audit_history
+  - id: q_cost_visibility
+    step: 4
+    section: "Kosten"
+    type: radio
+    question: "Wie gut verstehst du euer Cloud-Spending?"
+    hint: ""
+    required: true
+    options:
+      - value: clear
+        label: "Wir haben klare Dashboards und wissen genau, wo das Geld hingeht"
+      - value: rough-idea
+        label: "Wir haben eine grobe Vorstellung, aber manche Kosten sind undurchsichtig"
+      - value: surprises
+        label: "Wir werden regelmäßig von Cloud-Rechnungen überrascht"
+      - value: no-tracking
+        label: "Wir tracken Cloud-Kosten nicht wirklich"
+
+  - id: q_ai_adoption
     step: 5
-    section: "Interesse an einem Audit"
+    section: "KI"
     type: radio
-    question: "Habt ihr jemals ein formales Infrastructure Audit gemacht?"
-    hint: "Sovereignty, Kosten, AI-Readiness — irgendwas davon."
+    question: "Wo steht dein Team bei KI-Tools?"
+    hint: ""
     required: true
     options:
-      - value: yes-regularly
-        label: "Ja, regelmäßig"
-      - value: once-ago
-        label: "Einmal, ist aber schon länger her"
-      - value: no-wanted
-        label: "Nein, aber wir wollten schon immer"
-      - value: no-not-radar
-        label: "Nein, und steht auch nicht auf dem Radar"
+      - value: not-using
+        label: "Wir nutzen noch keine KI-Tools"
+      - value: individual
+        label: "Einige Engineers nutzen KI-Tools auf eigene Faust"
+      - value: team-standard
+        label: "Wir haben teamweit bestimmte Tools standardisiert"
+      - value: ai-first
+        label: "KI ist Kern unserer Arbeitsweise — die meisten Engineers nutzen täglich Agents"
 
-  - id: q6_audit_usefulness
+  - id: q_ai_coupling
     step: 6
-    section: "Interesse an einem Audit"
+    section: "KI"
     type: radio
-    question: "Wenn dir jemand einen klaren Report geben würde — Sovereignty-Lücken, Kosten-Verschwendung, AI-Readiness Score, priorisierte nächste Schritte — wäre das nützlich?"
+    question: "Wie abhängig ist euer Unternehmen von einem einzelnen KI-Provider?"
     hint: ""
     required: true
     options:
-      - value: very-useful
-        label: "Sehr nützlich — hätte ich gern schon gestern gehabt"
-      - value: interesting
-        label: "Interessant — würde ich mir anschauen"
-      - value: maybe-cost
-        label: "Vielleicht, kommt auf die Kosten an"
-      - value: not-really
-        label: "Eher nicht"
+      - value: no-dependency
+        label: "Wir sind nicht von KI-Providern abhängig, oder nutzen Open-Source / self-hosted Models"
+      - value: moderate
+        label: "Wir nutzen einen KI-Provider, könnten aber mit etwas Aufwand wechseln"
+      - value: deep
+        label: "Unsere Engineering-Workflows hängen von einem spezifischen KI-Provider ab — Wechsel wäre ein großes Projekt"
+      - value: critical
+        label: "Unser gesamtes Produkt oder die Team-Produktivität hängt von einem KI-Provider ab — ohne den könnten wir nicht operieren"
 
-  - id: q7_audit_budget
+  - id: q2_team_size
     step: 7
-    section: "Interesse an einem Audit"
+    section: "Über dich"
     type: radio
-    question: "Was würdest du für ein einmaliges Infrastructure Audit erwarten zu zahlen?"
+    question: "Wie groß ist dein Engineering-Team?"
     hint: ""
     required: true
     options:
-      - value: free
-        label: "Nichts — sollte kostenlos sein / ein Lead Magnet"
-      - value: 500-2000
-        label: "500–2.000 Euro"
-      - value: 2000-5000
-        label: "2.000–5.000 Euro"
-      - value: 5000-plus
-        label: "5.000+ Euro"
-      - value: no-idea
-        label: "Keine Ahnung"
+      - value: "1-5"
+        label: "1–5"
+      - value: "6-20"
+        label: "6–20"
+      - value: "21-50"
+        label: "21–50"
+      - value: "50+"
+        label: "50+"
 
   - id: q8_agent_interest
     step: 8
-    section: "Interesse an Automatisierung"
+    section: "Über dich"
     type: radio
-    question: "Stell dir einen Agent oder CLI vor, der Sovereignty Compliance, Cost Drift und AI-Readiness kontinuierlich monitort — und Probleme automatisch flaggt. Wie interessant wäre das?"
+    question: "Stell dir einen Agent vor, der kontinuierlich Sovereignty Compliance, Cost Drift und KI-Readiness monitort — und Probleme automatisch flaggt. Wie interessant wäre das?"
     hint: ""
     required: true
     options:
@@ -157,7 +155,7 @@ questions:
 
   - id: q9_agent_priorities
     step: 9
-    section: "Interesse an Automatisierung"
+    section: "Über dich"
     type: checkbox
     max: 2
     question: "Was wäre bei so einem Tool am wichtigsten für dich?"
@@ -177,9 +175,9 @@ questions:
 
   - id: lead
     step: 10
-    section: "In Kontakt bleiben"
+    section: "Dein Snapshot"
     type: lead
-    question: "Können wir uns bei dir melden?"
+    question: "Willst du das volle Bild? Lass deine E-Mail da und wir schicken dir den detaillierten Report."
     hint: "Alle Felder optional — selbst nur eine E-Mail hilft."
     required: false
     fields:
