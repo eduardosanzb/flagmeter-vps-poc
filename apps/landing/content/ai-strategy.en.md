@@ -125,20 +125,20 @@ slides:
   - number: 11
     type: context
     label: "The Risk"
-    title: "THE ARM RESET"
+    title: "THE AI PRICE RESET"
     statements:
-      - "2006: AWS launches. Compute is cheap — subsidized by Amazon's retail margins. Everyone builds on it."
-      - "2018: AWS Graviton ships. ARM-based chips, 40% cheaper than x86. Companies that optimized deepest for Intel paid the heaviest migration tax."
+      - "2006: AWS launches. Compute is artificially cheap — subsidized by Amazon's retail margins. Everyone builds on it."
+      - "2018: AWS raises prices. Companies that coupled deepest to AWS paid the highest switching cost. The cheap compute was the trap, not the feature."
+      - "2024: OpenAI, Anthropic, and Google are burning billions to make AI cheap. Same playbook. Same trap."
       - "The lesson: whoever subsidizes your infrastructure owns your switching cost."
-      - "2024: OpenAI, Anthropic, and Google are burning billions to make AI cheap. You're being optimized into the same corner."
     tagline: "The subsidy always ends. The question is how coupled you are when it does."
 
   - number: 12
     type: custom-svg
     svg_id: "arm-reset-timeline"
     label: "The Risk"
-    title: "THE ARM RESET IS COMING"
-    subtitle: "AI pricing mirrors the 2008 subprime mortgage crisis. Subsidized rates will end."
+    title: "THE AI PRICE RESET IS COMING"
+    subtitle: "AWS did it with compute. AI companies are doing it with intelligence. The subsidy always ends."
 
   - number: 13
     type: cta

@@ -124,20 +124,20 @@ slides:
   - number: 11
     type: context
     label: "El Riesgo"
-    title: "EL RESET ARM"
+    title: "EL RESET DE PRECIOS DE IA"
     statements:
-      - "2006: AWS lanza. El cómputo es barato — subvencionado por los márgenes retail de Amazon. Todo el mundo construye sobre ello."
-      - "2018: AWS Graviton aparece. Chips ARM, 40% más baratos que x86. Las empresas que más habían optimizado para Intel pagaron el mayor coste de migración."
+      - "2006: AWS lanza. El cómputo es artificialmente barato — subvencionado por los márgenes retail de Amazon. Todo el mundo construye sobre ello."
+      - "2018: AWS sube los precios. Las empresas más acopladas a AWS pagaron el mayor coste de cambio. El cómputo barato era la trampa, no la ventaja."
+      - "2024: OpenAI, Anthropic y Google están quemando miles de millones para hacer la IA barata. Mismo playbook. Misma trampa."
       - "La lección: quien subvenciona tu infraestructura, controla tu coste de cambio."
-      - "2024: OpenAI, Anthropic y Google están quemando miles de millones para hacer la IA barata. Te están optimizando hacia el mismo rincón."
     tagline: "La subvención siempre termina. La pregunta es cuán acoplado estás cuando ocurra."
 
   - number: 12
     type: custom-svg
     svg_id: "arm-reset-timeline"
     label: "El Riesgo"
-    title: "EL RESET ARM ESTÁ LLEGANDO"
-    subtitle: "Los precios de IA replican la crisis de hipotecas subprime de 2008. Las tarifas subvencionadas terminarán."
+    title: "EL RESET DE PRECIOS DE IA ESTÁ LLEGANDO"
+    subtitle: "AWS lo hizo con compute. Las empresas de IA lo están haciendo con intelligence. La subvención siempre termina."
 
   - number: 13
     type: cta

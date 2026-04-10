@@ -124,20 +124,20 @@ slides:
   - number: 11
     type: context
     label: "Das Risiko"
-    title: "DER ARM RESET"
+    title: "DER KI-PREIS-RESET"
     statements:
-      - "2006: AWS launcht. Compute ist billig — subventioniert durch Amazons Retail-Margen. Alle bauen darauf."
-      - "2018: AWS Graviton erscheint. ARM-basierte Chips, 40% günstiger als x86. Wer am tiefsten auf Intel optimiert hatte, zahlte die höchste Migrations-Steuer."
+      - "2006: AWS launcht. Compute ist künstlich billig — subventioniert durch Amazons Retail-Margen. Alle bauen darauf."
+      - "2018: AWS erhöht die Preise. Wer am tiefsten auf AWS gekoppelt war, zahlte die höchsten Switching-Kosten. Das billige Compute war die Falle, nicht das Feature."
+      - "2024: OpenAI, Anthropic und Google verbrennen Milliarden, um KI billig zu machen. Gleiches Playbook. Gleiche Falle."
       - "Die Lektion: Wer deine Infrastruktur subventioniert, besitzt deine Switching-Kosten."
-      - "2024: OpenAI, Anthropic und Google verbrennen Milliarden, um KI billig zu machen. Du wirst in dieselbe Ecke optimiert."
     tagline: "Die Subvention endet immer. Die Frage ist, wie coupled du bist, wenn es passiert."
 
   - number: 12
     type: custom-svg
     svg_id: "arm-reset-timeline"
     label: "Das Risiko"
-    title: "DER ARM RESET KOMMT"
-    subtitle: "KI-Preise spiegeln die Subprime-Mortgage-Krise von 2008. Die subventionierten Preise werden enden."
+    title: "DER KI-PREIS-RESET KOMMT"
+    subtitle: "AWS hat's mit Compute gemacht. KI-Firmen machen's mit Intelligence. Die Subvention endet immer."
 
   - number: 13
     type: cta
