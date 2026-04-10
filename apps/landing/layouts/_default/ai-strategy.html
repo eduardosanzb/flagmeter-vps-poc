@@ -28,7 +28,10 @@
   <!-- Slide Viewer -->
   <div class="dark bg-brand-primary py-20">
     <div class="container-custom">
-      <div class="relative rounded-2xl border border-gray-800 overflow-hidden flex flex-col" style="height: 640px;">
+      <div id="ai-slide-viewer" class="slide-viewer relative rounded-2xl border border-gray-800 overflow-hidden flex flex-col">
+        <button id="ai-fullscreen-close" class="slide-fullscreen-close hidden" aria-label="{{ i18n "aiStrategy.exitFullscreen" }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
 
         <!-- Slides area -->
         <div class="flex-1 relative overflow-hidden">
@@ -481,7 +484,7 @@
 
               {{/* ─── CUSTOM-SVG ─── */}}
               {{ else if eq .type "custom-svg" }}
-              <div class="w-full flex flex-col items-center" style="height: 420px;">
+              <div class="slide-svg-container w-full flex flex-col items-center">
                 <div class="mb-3 text-center">
                   <h2 class="text-xl md:text-2xl font-bold text-white font-display mb-1">{{ .title }}</h2>
                   {{ if .subtitle }}<p class="text-brand-secondary text-sm">{{ .subtitle }}</p>{{ end }}
@@ -504,9 +507,12 @@
           </div>
           <div class="flex items-center justify-between px-6 py-3 bg-brand-primary">
             <button id="ai-btn-prev" data-ai-prev class="btn btn-secondary text-sm py-1.5 px-4">{{ i18n "aiStrategy.prev" }}</button>
-            <div class="text-center">
+            <div class="text-center flex items-center gap-2">
               <span id="ai-slide-counter" class="text-brand-secondary text-xs font-mono block"></span>
               <span class="text-gray-600 text-xs font-mono hidden sm:inline">{{ i18n "aiStrategy.keyboardHint" }}</span>
+              <button id="ai-btn-fullscreen" class="slide-fullscreen-btn" aria-label="{{ i18n "aiStrategy.fullscreen" }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+              </button>
             </div>
             <button id="ai-btn-next" data-ai-next class="btn btn-primary text-sm py-1.5 px-4">{{ i18n "aiStrategy.next" }}</button>
           </div>
@@ -587,6 +593,7 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showSlide(current + 1); }
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); showSlide(current - 1); }
+    else if (e.key === 'Escape' && isFullscreen) { e.preventDefault(); toggleFullscreen(); }
   });
 
   var touchStartX = 0;
@@ -597,6 +604,25 @@
   }, { passive: true });
 
   showSlide(1);
+
+  // Fullscreen overlay toggle
+  var viewer = document.getElementById('ai-slide-viewer');
+  var fsBtn = document.getElementById('ai-btn-fullscreen');
+  var fsClose = document.getElementById('ai-fullscreen-close');
+  var isFullscreen = false;
+
+  function toggleFullscreen() {
+    isFullscreen = !isFullscreen;
+    viewer.classList.toggle('slide-viewer-fullscreen', isFullscreen);
+    fsClose.classList.toggle('hidden', !isFullscreen);
+    document.body.style.overflow = isFullscreen ? 'hidden' : '';
+    if (fsBtn) {
+      fsBtn.setAttribute('aria-label', isFullscreen ? '{{ i18n "aiStrategy.exitFullscreen" }}' : '{{ i18n "aiStrategy.fullscreen" }}');
+    }
+  }
+
+  if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
+  if (fsClose) fsClose.addEventListener('click', toggleFullscreen);
 })();
 </script>
 {{ end }}
