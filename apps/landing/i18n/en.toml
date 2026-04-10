@@ -103,3 +103,9 @@ other = "Next →"
 
 [aiStrategy.keyboardHint]
 other = "← → keys · swipe"
+
+[aiStrategy.fullscreen]
+other = "Fullscreen"
+
+[aiStrategy.exitFullscreen]
+other = "Exit fullscreen"

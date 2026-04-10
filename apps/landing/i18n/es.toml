@@ -90,3 +90,9 @@ other = "Siguiente →"
 
 [aiStrategy.keyboardHint]
 other = "Teclas ← → · desliza"
+
+[aiStrategy.fullscreen]
+other = "Pantalla completa"
+
+[aiStrategy.exitFullscreen]
+other = "Salir de pantalla completa"
