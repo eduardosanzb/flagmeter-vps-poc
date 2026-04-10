@@ -534,6 +534,14 @@
       height: calc(100svh - 100px);
       min-height: 400px;
     }
+
+    .slide-viewer .slide {
+      overflow-y: auto;
+      justify-content: flex-start !important;
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   .slide-svg-container {
@@ -554,6 +562,7 @@
     height: 100svh !important;
     border-radius: 0 !important;
     border: none !important;
+    background-color: #0f1419 !important;
   }
 
   .slide-viewer-fullscreen .slide-svg-container {
