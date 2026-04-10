@@ -523,6 +523,84 @@
       @apply font-medium text-emerald-700 dark:text-emerald-300;
     }
   }
+
+  /* ─── Slide viewer responsive + fullscreen ─── */
+  .slide-viewer {
+    height: 640px;
+  }
+
+  @media (max-width: 768px) {
+    .slide-viewer {
+      height: calc(100svh - 100px);
+      min-height: 400px;
+    }
+  }
+
+  .slide-svg-container {
+    height: 420px;
+  }
+
+  @media (max-width: 768px) {
+    .slide-svg-container {
+      height: 280px;
+    }
+  }
+
+  /* Fullscreen overlay mode */
+  .slide-viewer-fullscreen {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 50 !important;
+    height: 100svh !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+
+  .slide-viewer-fullscreen .slide-svg-container {
+    height: calc(100svh - 160px);
+  }
+
+  /* Fullscreen close button */
+  .slide-fullscreen-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 60;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .slide-fullscreen-close:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  /* Fullscreen toggle button in bottom bar */
+  .slide-fullscreen-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.375rem;
+    color: #9ca3af;
+    transition: color 0.2s;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+
+  .slide-fullscreen-btn:hover {
+    color: #10b981;
+  }
 }
 
 /* Navigation link hover effects */
