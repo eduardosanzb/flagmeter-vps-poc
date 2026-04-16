@@ -1002,8 +1002,14 @@
           opt.classList.add('selected');
         }
         document.getElementById('error-msg').textContent = '';
+        saveState();
       });
     });
+  });
+
+  // Save on text input changes (lead step)
+  document.querySelectorAll('.text-input').forEach(function(input) {
+    input.addEventListener('input', function() { saveState(); });
   });
 
   function getQ(step) {
@@ -1198,8 +1204,19 @@
 
   var saved = getSavedState();
   if (saved) {
-    current = saved.step;
     restoreAnswers(saved.answers);
+    current = saved.step;
+    if (saved.step > SCORING_STEP) {
+      var scores = computeScores();
+      renderResult(scores);
+      document.getElementById('step-result').classList.add('active');
+      document.getElementById('wizard-nav').style.display = 'none';
+      document.getElementById('progress-fill').style.width = '100%';
+      document.getElementById('step-counter').textContent = '✓ Results';
+      resultShown = true;
+    } else {
+      showStep(saved.step, false);
+    }
     showResumeBar(saved);
   } else {
     showStep(1, false);
