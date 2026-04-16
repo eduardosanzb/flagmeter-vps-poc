@@ -85,42 +85,8 @@ questions:
       - value: no-tracking
         label: "No realmente rastreamos los costes de la nube"
 
-  - id: q_ai_adoption
-    step: 5
-    section: "IA"
-    type: radio
-    question: "¿Dónde está tu equipo con las herramientas de IA?"
-    hint: ""
-    required: true
-    options:
-      - value: not-using
-        label: "Aún no usamos herramientas de IA"
-      - value: individual
-        label: "Algunos ingenieros usan herramientas de IA por su cuenta"
-      - value: team-standard
-        label: "Hemos estandarizado herramientas específicas en todo el equipo"
-      - value: ai-first
-        label: "La IA es fundamental para cómo construimos — la mayoría de ingenieros usan agentes a diario"
-
-  - id: q_ai_coupling
-    step: 6
-    section: "IA"
-    type: radio
-    question: "¿Qué tan dependiente es tu empresa de un único proveedor de IA?"
-    hint: ""
-    required: true
-    options:
-      - value: no-dependency
-        label: "No dependemos de proveedores de IA, o usamos modelos open-source / self-hosted"
-      - value: moderate
-        label: "Usamos un proveedor de IA pero podríamos cambiar con algo de esfuerzo"
-      - value: deep
-        label: "Nuestros flujos de trabajo de ingeniería dependen de un proveedor de IA específico — cambiar sería un proyecto importante"
-      - value: critical
-        label: "Todo nuestro producto o la productividad del equipo depende de un proveedor de IA — no podríamos operar sin ellos"
-
   - id: q2_team_size
-    step: 7
+    step: 5
     section: "Sobre ti"
     type: radio
     question: "¿Qué tan grande es tu equipo de ingeniería?"
@@ -137,10 +103,10 @@ questions:
         label: "50+"
 
   - id: q8_agent_interest
-    step: 8
+    step: 6
     section: "Sobre ti"
     type: radio
-    question: "Imagina un agente que monitorea continuamente sovereignty compliance, cost drift y IA-readiness — flaggeando problemas automáticamente. ¿Qué tan interesante es eso?"
+    question: "Imagina un agente que monitorea continuamente sovereignty compliance y cost drift — flaggeando problemas automáticamente. ¿Qué tan interesante es eso?"
     hint: ""
     required: true
     options:
@@ -154,7 +120,7 @@ questions:
         label: "No me interesa"
 
   - id: q9_agent_priorities
-    step: 9
+    step: 7
     section: "Sobre ti"
     type: checkbox
     max: 2
@@ -174,7 +140,7 @@ questions:
         label: "Costes claros — pricing predecible, sin sorpresas"
 
   - id: lead
-    step: 10
+    step: 8
     section: "Tu instantánea"
     type: lead
     question: "¿Quieres la imagen completa? Deja tu email y te enviaremos tu informe detallado."

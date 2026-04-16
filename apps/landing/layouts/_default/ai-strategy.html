@@ -15,15 +15,69 @@
         <div class="bg-brand-light dark:bg-gray-900/60 border border-brand-border dark:border-gray-700 rounded-2xl p-8">
           <h2 class="font-display text-xl font-bold text-brand-dark dark:text-white mb-3">{{ .Params.promptCardHeading }}</h2>
           <p class="text-brand-secondary dark:text-gray-400 text-sm mb-6">{{ .Params.promptCardBody }}</p>
-        {{ $prompt := .Site.GetPage "/ai-strategy-prompt" }}
-        {{ if $prompt }}
-        <span id="ai-strategy-prompt" hidden>{{ $prompt.RawContent }}</span>
-        {{ end }}
-        <button id="copy-btn" onclick="copyPrompt()" data-copied="{{ i18n "aiStrategy.copied" }}" class="bg-brand-accent hover:bg-brand-accentDark text-white px-6 py-3 rounded-lg font-medium transition-colors">{{ i18n "aiStrategy.copyPrompt" }}</button>
+        <!-- Platform tabs -->
+        <div class="flex gap-1 mb-4 border-b border-gray-700 pb-0">
+          <button onclick="switchTab('coding-agent')" id="tab-coding-agent" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 border-brand-accent text-brand-accent bg-brand-accent/10 transition-colors">Coding Agent</button>
+          <button onclick="switchTab('notion')" id="tab-notion" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 border-transparent text-gray-400 hover:text-white transition-colors">Notion AI</button>
+          <button onclick="switchTab('claude')" id="tab-claude" class="tab-btn px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 border-transparent text-gray-400 hover:text-white transition-colors">Claude</button>
+        </div>
+        <!-- Hidden prompt content spans -->
+        {{ $codingAgentPrompt := .Site.GetPage "/ai-strategy-prompt-coding-agent" }}
+        {{ $notionPrompt := .Site.GetPage "/ai-strategy-prompt-notion" }}
+        {{ $claudePrompt := .Site.GetPage "/ai-strategy-prompt-claude" }}
+        {{ if $codingAgentPrompt }}<span id="prompt-coding-agent" hidden>{{ $codingAgentPrompt.RawContent }}</span>{{ end }}
+        {{ if $notionPrompt }}<span id="prompt-notion" hidden>{{ $notionPrompt.RawContent }}</span>{{ end }}
+        {{ if $claudePrompt }}<span id="prompt-claude" hidden>{{ $claudePrompt.RawContent }}</span>{{ end }}
+        <!-- Prompt preview -->
+        <div class="relative mb-4 rounded-lg overflow-hidden border border-brand-border dark:border-gray-700">
+          <pre id="prompt-preview" class="font-mono text-xs text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-950 p-4 h-52 overflow-y-auto whitespace-pre-wrap leading-relaxed m-0"></pre>
+          <div class="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white dark:from-gray-950 to-transparent pointer-events-none"></div>
+        </div>
+        <button id="copy-btn" onclick="copyPrompt()" data-copied="{{ i18n "aiStrategy.copied" }}" class="w-full bg-brand-accent hover:bg-brand-accentDark text-white px-6 py-3 rounded-lg font-medium transition-colors">{{ i18n "aiStrategy.copyPrompt" }}</button>
         </div><!-- /card -->
       </div><!-- /grid -->
     </div><!-- /container-custom -->
   </div><!-- /hero -->
+
+  <!-- How it works -->
+  <div class="dark bg-brand-primary border-t border-gray-800 py-16">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="font-display text-2xl font-bold text-white mb-2 text-center">How it works</h2>
+        <p class="text-brand-secondary text-sm text-center mb-10">The agent reads your context first. Then asks questions. No cold starts.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex items-start gap-4 bg-gray-900/50 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center text-brand-accent text-2xl">🔄</div>
+            <div>
+              <p class="text-white font-semibold mb-1 text-sm">Context Sync</p>
+              <p class="text-gray-400 text-xs leading-relaxed">The agent reads your codebase, workspace, or Project Knowledge to understand what you're actually building.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 bg-gray-900/50 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center text-brand-accent text-2xl">🔍</div>
+            <div>
+              <p class="text-white font-semibold mb-1 text-sm">Auto-Discovery</p>
+              <p class="text-gray-400 text-xs leading-relaxed">It searches for AI dependencies, vendor lock-in signals, and data routing patterns — before asking a single question.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 bg-gray-900/50 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center text-brand-accent text-2xl">💬</div>
+            <div>
+              <p class="text-white font-semibold mb-1 text-sm">Dialectical Review</p>
+              <p class="text-gray-400 text-xs leading-relaxed">It presents the raus.cloud framework for each dimension and asks you to confirm its inference — one dimension at a time.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 bg-gray-900/50 border border-gray-800 rounded-2xl p-6 hover:border-brand-accent/30 transition-colors">
+            <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center text-brand-accent text-2xl">📋</div>
+            <div>
+              <p class="text-white font-semibold mb-1 text-sm">Actionable Snapshot</p>
+              <p class="text-gray-400 text-xs leading-relaxed">You get a shareable ASCII report and a 90-day action roadmap. No email required.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Slide Viewer -->
   <div class="dark bg-brand-primary py-20">
@@ -546,11 +600,46 @@
 
 </div>
 
-<!-- Copy to clipboard script -->
+<!-- Copy to clipboard + tab switcher script -->
 <script>
-  function copyPrompt() {
-    var el = document.getElementById('ai-strategy-prompt');
+  var activeTab = 'coding-agent';
+
+  function getPromptText(tab) {
+    var el = document.getElementById('prompt-' + tab);
+    if (!el) return '';
     var text = el.textContent || el.innerText;
+    // Strip YAML frontmatter (--- ... ---)
+    var match = text.match(/^---[\s\S]*?---\n([\s\S]*)$/);
+    return match ? match[1].trim() : text.trim();
+  }
+
+  function updatePreview() {
+    var preview = document.getElementById('prompt-preview');
+    if (!preview) return;
+    preview.textContent = getPromptText(activeTab);
+    preview.scrollTop = 0;
+  }
+
+  function switchTab(tab) {
+    activeTab = tab;
+    var tabs = ['coding-agent', 'notion', 'claude'];
+    tabs.forEach(function(t) {
+      var btn = document.getElementById('tab-' + t);
+      if (!btn) return;
+      if (t === tab) {
+        btn.classList.add('border-brand-accent', 'text-brand-accent', 'bg-brand-accent/10');
+        btn.classList.remove('border-transparent', 'text-gray-400');
+      } else {
+        btn.classList.remove('border-brand-accent', 'text-brand-accent', 'bg-brand-accent/10');
+        btn.classList.add('border-transparent', 'text-gray-400');
+      }
+    });
+    updatePreview();
+  }
+
+  function copyPrompt() {
+    var text = getPromptText(activeTab);
+    if (!text) return;
     var btn = document.getElementById('copy-btn');
     var originalText = btn.textContent;
     var copiedText = btn.dataset.copied || 'Copied!';
@@ -559,6 +648,9 @@
       setTimeout(function() { btn.textContent = originalText; }, 2000);
     });
   }
+
+  // Init preview on load
+  updatePreview();
 </script>
 
 <script>

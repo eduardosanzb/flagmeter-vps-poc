@@ -70,10 +70,10 @@ other = "Reservar Consultoría Gratuita"
 other = "← Volver a los Casos de Estudio"
 
 [navigation.assessment]
-other = "Assessment Gratuito"
+other = "Assessment de Infraestructura"
 
 [navigation.aiStrategy]
-other = "Estrategia de IA"
+other = "Assessment de IA"
 
 [aiStrategy]
 [aiStrategy.copyPrompt]

@@ -85,42 +85,8 @@ questions:
       - value: no-tracking
         label: "We don't really track cloud costs"
 
-  - id: q_ai_adoption
-    step: 5
-    section: "AI"
-    type: radio
-    question: "Where is your team with AI tools?"
-    hint: ""
-    required: true
-    options:
-      - value: not-using
-        label: "Not using AI tools yet"
-      - value: individual
-        label: "Some engineers use AI tools on their own"
-      - value: team-standard
-        label: "We've standardized on specific tools across the team"
-      - value: ai-first
-        label: "AI is core to how we build — most engineers use agents daily"
-
-  - id: q_ai_coupling
-    step: 6
-    section: "AI"
-    type: radio
-    question: "How dependent is your company on a single AI provider?"
-    hint: ""
-    required: true
-    options:
-      - value: no-dependency
-        label: "We don't rely on AI providers, or we use open-source / self-hosted models"
-      - value: moderate
-        label: "We use an AI provider but could switch with some effort"
-      - value: deep
-        label: "Our engineering workflows depend on a specific AI provider — switching would be a major project"
-      - value: critical
-        label: "Our entire product or team productivity depends on one AI provider — we couldn't operate without them"
-
   - id: q2_team_size
-    step: 7
+    step: 5
     section: "About you"
     type: radio
     question: "How big is your engineering team?"
@@ -137,10 +103,10 @@ questions:
         label: "50+"
 
   - id: q8_agent_interest
-    step: 8
+    step: 6
     section: "About you"
     type: radio
-    question: "Imagine an agent that continuously monitors sovereignty compliance, cost drift, and AI-readiness — flagging issues automatically. How interesting is that?"
+    question: "Imagine an agent that continuously monitors sovereignty compliance and cost drift — flagging issues automatically. How interesting is that?"
     hint: ""
     required: true
     options:
@@ -154,7 +120,7 @@ questions:
         label: "Not interested"
 
   - id: q9_agent_priorities
-    step: 9
+    step: 7
     section: "About you"
     type: checkbox
     max: 2
@@ -174,7 +140,7 @@ questions:
         label: "Clear cost — predictable pricing, no surprises"
 
   - id: lead
-    step: 10
+    step: 8
     section: "Your snapshot"
     type: lead
     question: "Want the full picture? Leave your email and we'll send your detailed report."

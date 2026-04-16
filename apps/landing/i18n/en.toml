@@ -83,10 +83,10 @@ other = "Book Free Consultation"
 other = "← Back to Case Studies"
 
 [navigation.assessment]
-other = "Free Assessment"
+other = "Infra Assessment"
 
 [navigation.aiStrategy]
-other = "AI Strategy"
+other = "AI Assessment"
 
 [aiStrategy]
 [aiStrategy.copyPrompt]

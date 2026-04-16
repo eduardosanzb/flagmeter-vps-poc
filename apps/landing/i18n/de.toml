@@ -83,10 +83,10 @@ other = "Kostenlose Beratung buchen"
 other = "← Zurück zu den Fallstudien"
 
 [navigation.assessment]
-other = "Kostenloses Assessment"
+other = "Infra-Assessment"
 
 [navigation.aiStrategy]
-other = "KI-Strategie"
+other = "KI-Assessment"
 
 [aiStrategy]
 [aiStrategy.copyPrompt]

@@ -41,14 +41,5 @@ services:
       retries: 3
       start_period: 15s
 
-
-resources:
-  landing:
-    memory: 64M       # Static nginx site
-    cpu: 0.05         # Minimal resources
-  pocketbase:
-    memory: 128M      # PocketBase Go binary + SQLite
-    cpu: 0.05         # Minimal CPU for survey workload
-
 volumes:
   pocketbase_data:

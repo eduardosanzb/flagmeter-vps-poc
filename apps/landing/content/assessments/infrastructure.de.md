@@ -85,42 +85,8 @@ questions:
       - value: no-tracking
         label: "Wir tracken Cloud-Kosten nicht wirklich"
 
-  - id: q_ai_adoption
-    step: 5
-    section: "KI"
-    type: radio
-    question: "Wo steht dein Team bei KI-Tools?"
-    hint: ""
-    required: true
-    options:
-      - value: not-using
-        label: "Wir nutzen noch keine KI-Tools"
-      - value: individual
-        label: "Einige Engineers nutzen KI-Tools auf eigene Faust"
-      - value: team-standard
-        label: "Wir haben teamweit bestimmte Tools standardisiert"
-      - value: ai-first
-        label: "KI ist Kern unserer Arbeitsweise — die meisten Engineers nutzen täglich Agents"
-
-  - id: q_ai_coupling
-    step: 6
-    section: "KI"
-    type: radio
-    question: "Wie abhängig ist euer Unternehmen von einem einzelnen KI-Provider?"
-    hint: ""
-    required: true
-    options:
-      - value: no-dependency
-        label: "Wir sind nicht von KI-Providern abhängig, oder nutzen Open-Source / self-hosted Models"
-      - value: moderate
-        label: "Wir nutzen einen KI-Provider, könnten aber mit etwas Aufwand wechseln"
-      - value: deep
-        label: "Unsere Engineering-Workflows hängen von einem spezifischen KI-Provider ab — Wechsel wäre ein großes Projekt"
-      - value: critical
-        label: "Unser gesamtes Produkt oder die Team-Produktivität hängt von einem KI-Provider ab — ohne den könnten wir nicht operieren"
-
   - id: q2_team_size
-    step: 7
+    step: 5
     section: "Über dich"
     type: radio
     question: "Wie groß ist dein Engineering-Team?"
@@ -137,10 +103,10 @@ questions:
         label: "50+"
 
   - id: q8_agent_interest
-    step: 8
+    step: 6
     section: "Über dich"
     type: radio
-    question: "Stell dir einen Agent vor, der kontinuierlich Sovereignty Compliance, Cost Drift und KI-Readiness monitort — und Probleme automatisch flaggt. Wie interessant wäre das?"
+    question: "Stell dir einen Agent vor, der kontinuierlich Sovereignty Compliance und Cost Drift monitort — und Probleme automatisch flaggt. Wie interessant wäre das?"
     hint: ""
     required: true
     options:
@@ -154,7 +120,7 @@ questions:
         label: "Nicht interessiert"
 
   - id: q9_agent_priorities
-    step: 9
+    step: 7
     section: "Über dich"
     type: checkbox
     max: 2
@@ -174,7 +140,7 @@ questions:
         label: "Klare Kosten — Predictable Pricing, keine Überraschungen"
 
   - id: lead
-    step: 10
+    step: 8
     section: "Dein Snapshot"
     type: lead
     question: "Willst du das volle Bild? Lass deine E-Mail da und wir schicken dir den detaillierten Report."
