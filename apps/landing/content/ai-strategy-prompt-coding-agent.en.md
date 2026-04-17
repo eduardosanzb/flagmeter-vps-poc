@@ -88,7 +88,7 @@ Is AI making your team more productive or more burned out?
 * Level 1 (Unmanaged): No measurement. AI enthusiasts and resisters in conflict. No burnout awareness.
 * Level 2 (Measured): Some productivity tracking. Tension acknowledged but not addressed.
 * Level 3 (Balanced): Both styles supported. Quality metrics tracked. Burnout signals monitored. Junior skill development prioritized.
-* Level 4 (Sustainable): AI usage is intentional, not compulsive. Team health metrics alongside productivity. Skills grow with AI, not atrophy.
+* Level 4 (Sustainable): Tracks at least one burnout or AI-dependency metric monthly (e.g., AI-assisted vs. unassisted task completion, context-switch frequency, voluntary AI-free days). AI usage is intentional, not compulsive. Skills grow with AI, not atrophy.
 
 ## Dialectical Questioning Strategy
 
