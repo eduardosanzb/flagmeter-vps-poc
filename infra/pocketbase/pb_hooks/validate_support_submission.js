@@ -27,7 +27,8 @@ onRecordCreateRequest((e) => {
       .slice(0, 10000);
   }
 
-  // Set admin defaults
+  // Set defaults
+  if (data.allow_follow_up === undefined) data.allow_follow_up = false;
   if (!data.status) data.status = 'to-review';
   if (!data.priority) data.priority = 'medium';
 

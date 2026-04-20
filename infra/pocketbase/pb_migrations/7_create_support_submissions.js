@@ -19,7 +19,7 @@ migrate(
         { name: "kind",              type: "select", required: true,  maxSelect: 1, values: ["feedback", "bug_report", "support_request"] },
         { name: "summary",           type: "text",   required: true,  max: 500 },
         { name: "message",           type: "text",   required: true },
-        { name: "allow_follow_up",   type: "bool",   required: true },
+        { name: "allow_follow_up",   type: "bool",   required: false },
         { name: "source",            type: "text",   required: true,  max: 100 },
         { name: "source_surface",    type: "text",   required: false, max: 200 },
         { name: "app_version",       type: "text",   required: false, max: 100 },
