@@ -1,7 +1,15 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate(
-  // UP — create the escribano_licenses collection
+  // UP — create the escribano_licenses collection (idempotent)
   (app) => {
+    // Skip if collection already exists (e.g. re-deploy, migration already applied)
+    try {
+      app.findCollectionByNameOrId("escribano_licenses");
+      return;
+    } catch (e) {
+      // doesn't exist, proceed to create
+    }
+
     const collection = new Collection({
       name: "escribano_licenses",
       type: "base",
