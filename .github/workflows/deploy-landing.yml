@@ -1,0 +1,42 @@
+name: Deploy Landing to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/landing/**'
+      - '.github/workflows/deploy-landing.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.145.0'
+          extended: true
+
+      - name: Build Hugo site
+        run: hugo --source apps/landing --destination apps/landing/public
+
+      # Pages project/domain lifecycle note:
+      # The Cloudflare Pages project/domain are managed by OpenTofu in the
+      # eduardosanzb/eduardosanzb infra repository and created there.
+      # This workflow only deploys site content for that existing project.
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/landing/public --project-name=raus-cloud
