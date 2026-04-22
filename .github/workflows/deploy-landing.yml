@@ -21,15 +21,26 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: apps/landing/package-lock.json
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.145.0'
           extended: true
 
-      - name: Build Hugo site
-        run: hugo --source apps/landing --destination apps/landing/public
+      - name: Install landing dependencies
+        working-directory: apps/landing
+        run: npm ci
 
+      - name: Build landing site
+        working-directory: apps/landing
+        run: npm run build
       # Pages project/domain lifecycle note:
       # The Cloudflare Pages project/domain are managed by OpenTofu in the
       # eduardosanzb/eduardosanzb infra repository and created there.
