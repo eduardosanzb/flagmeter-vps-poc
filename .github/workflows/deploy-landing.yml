@@ -38,7 +38,7 @@ jobs:
 
       - name: Build landing site
         working-directory: apps/landing
-        run: npm run build
+        run: npx tailwindcss -i ./assets/css/main.css -o ./assets/css/style.css --minify && hugo --minify
       # Pages project/domain lifecycle note:
       # The Cloudflare Pages project/domain are managed by OpenTofu in the
       # eduardosanzb/eduardosanzb infra repository and created there.
